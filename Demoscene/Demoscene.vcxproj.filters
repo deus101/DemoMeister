@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{41af6f82-7fcc-498f-b98a-471001714d51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{68099e17-d1a8-4f86-a20b-8bbbb2969d44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="actors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="composite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="materials.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pyramid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="world.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="actors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="composite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="materials.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pyramid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sync.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec_inline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="world.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\fragment - Copy (4).glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\geometry.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertex - Copy (5).glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Mesh\38p.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\38ps.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\bench.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\corridor.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\corridor_Scene.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\corridor_Scene_Scene.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\cube_texture.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\cube_texture2.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\ground.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\hex.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\p38.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mesh\p38.obj.bac">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Mesh\38p.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\38ps.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\bench.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\cor.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\cornomtl.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\cornor.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\corridor.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\corridor_Scene.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\corridor_Scene_Scene.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\cube.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\cube_texture.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\cube_texture2.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\dodecahedron - Copy.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\dodecahedron.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\ds.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\ground.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\hex.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\hexagon.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\humanoid_tri.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\p38.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\PLANE.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\plane2.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\plane3.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\planeexp1.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\planehqnorm.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\planenormals.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\pyramid.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\sd.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\tea.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\tea2.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\teapot.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\world1.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\world2.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Mesh\world3.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="bf.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Mesh\p38.obj.bac.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
