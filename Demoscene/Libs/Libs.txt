@@ -1,0 +1,21 @@
+Bass and GnuRocket libs goes here 
+
+bass.dll
+bass.lib
+libbass.so - linux
+
+x64:
+
+bass.dll
+bass.lib
+libbass.so - linux
+
+
+https://github.com/kusma/rocket
+
+http://www.un4seen.com/bass.html
+
+GLload
+freeglut
+and boost are external
+http://glsdk.sourceforge.net/docs/html/index.html
