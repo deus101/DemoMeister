@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODE_HPP
+#define NODE_HPP
+
 class node
 {
 public:
@@ -6,3 +8,4 @@ public:
 	virtual ~node();
 };
 
+#endif
