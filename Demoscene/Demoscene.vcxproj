@@ -185,6 +185,7 @@
     <ClCompile Include="math3d.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="node.cpp" />
     <ClCompile Include="pyramid.cpp" />
     <ClCompile Include="shaders.cpp" />
     <ClCompile Include="world.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="math3d.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="pyramid.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="shaders.h" />
