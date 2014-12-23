@@ -28,8 +28,9 @@ struct buffer_Group
 	GLuint vbo;
 	vector<unsigned short> IBO;
 
-
-	VEC3 amb;
+	//been to long...
+	//VEC3 amb;
+	GLfloat amb[4];
 	VEC3 dif;
 	VEC3 spec;
 	VEC3 emi;

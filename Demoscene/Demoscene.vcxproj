@@ -203,6 +203,7 @@
     <ClInclude Include="model.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="pyramid.h" />
+    <ClInclude Include="rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="shaders.h" />
     <ClInclude Include="sync.h" />

@@ -64,7 +64,7 @@ model::model(GLfloat x, GLfloat y, GLfloat z, bool move, string obj, string mtl,
 			}
 
 		}
-		/*
+		
 		for(unsigned int j = 0; j < palette.m_Materials.size(); j++)
 		{
 		cout << "mats :" << j << endl;
@@ -78,12 +78,12 @@ model::model(GLfloat x, GLfloat y, GLfloat z, bool move, string obj, string mtl,
 
 		}
 
-		MG.amb = palette.m_Materials[ meshy.m_Groups[u].matid ].amb;
-		MG.dif = palette.m_Materials[ meshy.m_Groups[u].matid ].diff;
-		MG.emi = palette.m_Materials[ meshy.m_Groups[u].matid ].emmi;
-		MG.spec = palette.m_Materials[ meshy.m_Groups[u].matid].shiny
-		*/
-		//cout << "groups :" << u << endl;
+		//MG.amb = palette.m_Materials[ meshy.m_Groups[u].matid ].amb;
+		//MG.dif = palette.m_Materials[ meshy.m_Groups[u].matid ].diff;
+		//MG.emi = palette.m_Materials[ meshy.m_Groups[u].matid ].emmi;
+		//MG.spec = palette.m_Materials[ meshy.m_Groups[u].matid].shiny
+		
+		//cout << "group color is :" << u << endl;
 		//meshy.m_Pos.
 
 
@@ -142,7 +142,6 @@ model::model(GLfloat x, GLfloat y, GLfloat z, bool move, string obj, string mtl,
 
 
 
-
 		gl::GenBuffers(1, &Sort_Groups[j].vbo);
 		gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
 		gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned short), &Sort_Groups[j].IBO[0], gl::STATIC_DRAW);
@@ -180,6 +179,15 @@ void model::draw()
 	{
 		//cout << "In Model found uniform for Model Matrix" << endl;
 		gl::UniformMatrix4fv(ModelLoc, 1, gl::TRUE_, this->Model);
+		//"this" i rendrenren henter model matrisen
+	}
+
+	GLint AmbLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Ambiance");
+	if (ModelLoc != -1)
+	{
+		//cout << "In Model found uniform for Model Matrix" << endl;
+		//gl::UniformMatrix4fv(AmbLoc, 1, gl::TRUE_, this->  );
+		//"this" i rendrenren henter model matrisen
 	}
 
 
@@ -191,6 +199,10 @@ void model::draw()
 
 
 		gl::BindVertexArray(Sort_Groups[i].vao);
+
+		gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].amb);
+
+		
 		gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
 		//cout << "nr indices for: " << i << " is " << Sort_Groups[i].IBO.size() << endl;
 		//VSGLInfoLib::getBufferInfo(gl::GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[i].vbo);

@@ -25,7 +25,12 @@ namespace sg {
 
 
 
+//ubrukelig?
+//Kansje jeg kan bruke den til noe annet men kompositt slik kan ikke brukes i en scanegraph 
+//fordi data og noder bør holdes seperat.
 
+
+//OOOOR! I can  use the actors system as leafnodes.
 
 		class composite : public actors
 		{
