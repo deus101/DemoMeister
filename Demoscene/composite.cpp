@@ -36,6 +36,8 @@ namespace sg {
 			case 002:
 				herd.push_back(actorsPtr(new cube(x, y, z, false)));
 				break;
+			case 003:
+				herd.push_back(actorsPtr(new composite()));
 			default:
 				cout << "Error no such object: " << typeID << endl;
 			}
@@ -84,8 +86,16 @@ namespace sg {
 				cout << "actor nr: " << i << " is model" << endl;
 				*/
 
+				if (typeid(*herd[i].get()) == typeid(camera))
+				{
+					//herd[i]->Translate(0.0f, 0.0f, 0.001f);
+					//herd[i]->f
+					herd[i]->Rotate(1.0f, 0.0f, 1.0f, 0.0f);
+				}
 
-
+				if (typeid(*herd[i].get()) == typeid(model))
+				herd[i]->Rotate(1.0f, 0.0f, 1.0f, 0.0f);
+				//herd[i]->Translate(0.0f, 0.0f, 0.05f);
 				//if(draw)
 				herd[i]->draw();
 			}
