@@ -182,7 +182,11 @@ void model::draw()
 		//"this" i rendrenren henter model matrisen
 	}
 
-	GLint AmbLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Ambiance");
+	GLint DifLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Diffuse");
+	GLint AmbLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Ambiant");
+	GLint SpecLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Specular");
+	GLint ShiLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Shininess");
+
 	if (ModelLoc != -1)
 	{
 		//cout << "In Model found uniform for Model Matrix" << endl;
@@ -200,8 +204,10 @@ void model::draw()
 
 		gl::BindVertexArray(Sort_Groups[i].vao);
 
+		gl::Uniform4fv(DifLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].diff);
 		gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].amb);
-
+		gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].spec);
+		gl::Uniform1f(ShiLoc, this->palette.m_Materials[meshy.m_Groups[i].matid].shiny);
 		
 		gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
 		//cout << "nr indices for: " << i << " is " << Sort_Groups[i].IBO.size() << endl;

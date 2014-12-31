@@ -65,7 +65,7 @@ namespace sg {
 
 		void camera::draw()
 		{
-
+			//m3dMatrixMultiply44(View, View, Model);
 			//this->SetView();
 			this->SetProjection();
 			gl::UseProgram(o_progs.ShaderObject);
@@ -101,6 +101,7 @@ namespace sg {
 			m3dLoadIdentity44(View);
 			//m3dLoadIdentity44(ViewInv);
 			VEC3 x, y, z;
+			//faen er du for en? Lys? Look?
 			VEC3 L(0.0, 4.0, -2.0);
 
 

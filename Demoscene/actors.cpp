@@ -62,7 +62,6 @@ namespace sg {
 			m3dMatrixMultiply44(Model, Model, temp);
 
 
-
 			std::cout << "Model Matrix: " << std::endl;
 			std::cout << Model[0] << "  " << Model[4] << "  " << Model[8] << "  " << Model[12] << std::endl;
 			std::cout << Model[1] << "  " << Model[5] << "  " << Model[9] << "  " << Model[13] << std::endl;
@@ -74,19 +73,27 @@ namespace sg {
 
 
 		}
-		void Translate(GLfloat)
+		void  actors::Translate(GLfloat x, GLfloat y, GLfloat z)
 		{
-
-
-
+			// need some if transformed shit for this
+			Model[3] += x;
+			Model[7] += y;
+			Model[11] += z;
+			
+			//M3DMatrix44f Translate;
+		//	m3dTranslationMatrix44(Translate, x, y, z);
 
 		}
 
 
-		void Rotate()
+		void  actors::Rotate(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z)
 		{
 
+			M3DMatrix44f Rotate;
+			
+			m3dRotationMatrix44(Rotate, m3dDegToRad(degrees), x, y, z);
 
+			m3dMatrixMultiply44(Model, Model, Rotate);
 
 
 		}

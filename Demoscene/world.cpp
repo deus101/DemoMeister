@@ -302,10 +302,14 @@ void world::AfterInit()
 	o_progs.CompileProgram();
 
 
-	stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
+	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/buddha.obj", "Mesh/buddha.mtl", 0.0f, 0.0f, 0.0f);
+	stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 0.0f, 0.0f, 0.0f);
 	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/hex.obj", "Mesh/hex.mtl", 0.0f, 10.0f, 0.0f);
+	
+	
+	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, 4.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, -10.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, 6.0f);
