@@ -48,7 +48,8 @@ namespace sg {
 
 			void SetModel();
 			void Transform();
-			void Rotate();
+			void Translate( GLfloat x, GLfloat y, GLfloat z);
+			void Rotate(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z);
 			void Scale();
 
 
@@ -56,6 +57,7 @@ namespace sg {
 			{}
 		protected:
 			M3DMatrix44f Model;
+			//M3DMatrix44f Rotate;
 
 		};
 
