@@ -178,6 +178,9 @@
     <None Include="Mesh\p38.obj.bac">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="bf.ogg">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

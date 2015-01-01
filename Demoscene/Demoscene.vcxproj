@@ -221,6 +221,7 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bf.ogg" />
     <None Include="Mesh\38p.mtl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

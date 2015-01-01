@@ -338,7 +338,7 @@ void world::AfterInit()
 
 	if (!BASS_Init(-1, 44100, 0, 0, 0))
 		cout << "failed to init bass" << endl;
-	stream = BASS_StreamCreateFile(false, "bf.mp3", 0, 0,
+	stream = BASS_StreamCreateFile(false, "bf.ogg", 0, 0,
 		BASS_STREAM_PRESCAN);
 	if (!stream)
 		cout << "failed to open tune" << endl;
