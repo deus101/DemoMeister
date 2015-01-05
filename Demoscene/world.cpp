@@ -299,6 +299,8 @@ void world::AfterInit()
 	gl::Enable(gl::DEPTH_TEST);
 	gl::DepthFunc(gl::LESS);
 
+
+	//varius shaders in here
 	o_progs.CompileProgram();
 
 

@@ -73,6 +73,8 @@ namespace NS_VEC
 
 	};
 */
+
+
 		
 		const VEC3 cross(const VEC3& v1, const VEC3& v2);
 

@@ -171,6 +171,12 @@ model::model(GLfloat x, GLfloat y, GLfloat z, bool move, string obj, string mtl,
 //RENDER QUE! NUH!
 void model::draw()
 {
+	//transform node og  drawable
+	if (this->DirtyMat == true)
+	{
+
+		this->Transform();
+	}
 	//gl::BindVertexArray(vao_model);
 	//kunne dette kalles for identites matrisa....sortof
 	gl::UseProgram(o_progs.ShaderObject);

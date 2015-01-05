@@ -88,13 +88,21 @@ namespace sg {
 
 				if (typeid(*herd[i].get()) == typeid(camera))
 				{
-					//herd[i]->Translate(0.0f, 0.0f, 0.001f);
+					//herd[i]->TranslateLocal(0.05f, 0.0f, -0.05f);
 					//herd[i]->f
-					herd[i]->Rotate(1.0f, 0.0f, 1.0f, 0.0f);
+					//herd[i]->RotateLocal(1.0f, 0.0f, 1.0f, 0.0f);
+					//herd[i]->SetModel();
+
+					//for lookat må man inverse
 				}
 
 				if (typeid(*herd[i].get()) == typeid(model))
-				herd[i]->Rotate(1.0f, 0.0f, 1.0f, 0.0f);
+				{ 
+				herd[i]->RotateLocal(0.2f, 0.0f, 1.0f, 0.0f);
+				herd[i]->RotateLocal(0.2f, 0.0f, 0.0f, 1.0f);
+				//herd[i]->TranslateLocal(0.0f, 0.0f, -0.05f);
+
+				}
 				//herd[i]->Translate(0.0f, 0.0f, 0.05f);
 				//if(draw)
 				herd[i]->draw();

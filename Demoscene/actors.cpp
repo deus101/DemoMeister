@@ -23,6 +23,10 @@ namespace sg {
 			v = VEC3(0.0f, 0.0f, 0.0f);
             a = VEC3(0.0f, 0.0f, 0.0f);
 
+			rotation = VEC3(0.0f, 0.0f, 0.0f);
+			scale = 1.0f;
+			bool DirtyMat = true;
+
 			mvm = false;
 			this->SetModel();
 
@@ -38,6 +42,9 @@ namespace sg {
 
 			v = VEC3(0.0f, 0.0f, 0.0f);
 			a = VEC3(0.0f, 0.0f, 0.0f);
+			rotation = VEC3(0.0f, 0.0f, 0.0f);
+			scale = 1.0f;
+			bool DirtyMat = true;
 			mvm = move;
 
 			this->SetModel();
@@ -73,34 +80,72 @@ namespace sg {
 
 
 		}
-		void  actors::Translate(GLfloat x, GLfloat y, GLfloat z)
+
+		void actors::Transform()
+		{
+			
+			M3DMatrix44f m_scale;
+			m3dScaleMatrix44(m_scale, scale, scale, scale);
+				m3dMatrixMultiply44(Model, Model, m_scale);
+				//quite horrible
+				M3DMatrix44f m_rotX;
+				M3DMatrix44f m_rotY;
+				M3DMatrix44f m_rotZ;
+				m3dRotationMatrix44(m_rotX, m3dDegToRad(rotation.X), 1.0f, 0.0f, 0.0f);
+				m3dRotationMatrix44(m_rotY, m3dDegToRad(rotation.Y), 0.0f, 1.0f, 0.0f);
+				m3dRotationMatrix44(m_rotZ, m3dDegToRad(rotation.Z), 0.0f, 0.0f, 1.0f);
+
+				m3dMatrixMultiply44(Model, Model, m_rotX);
+				m3dMatrixMultiply44(Model, Model, m_rotY);
+				m3dMatrixMultiply44(Model, Model, m_rotZ);
+
+				M3DMatrix44f m_tran;
+				m3dTranslationMatrix44(m_tran, pos.X, pos.Y, pos.Z);
+				m3dMatrixMultiply44(Model, Model, m_tran);
+
+		}
+
+		void  actors::TranslateLocal(GLfloat x, GLfloat y, GLfloat z)
 		{
 			// need some if transformed shit for this
-			Model[3] += x;
-			Model[7] += y;
-			Model[11] += z;
+			pos.X += x;//12 13 abd 14 stupid!
+			pos.Y += y;
+			pos.Z += z;
 			
+
+
+			DirtyMat = true;
 			//M3DMatrix44f Translate;
 		//	m3dTranslationMatrix44(Translate, x, y, z);
 
 		}
 
 
-		void  actors::Rotate(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z)
+		void  actors::RotateLocal(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z)
 		{
 
+
+			rotation.X += degrees * x;
+			rotation.Y += degrees * y;
+			rotation.Z += degrees * z;
+
+
+			DirtyMat = true;
+			/*
 			M3DMatrix44f Rotate;
 			
 			m3dRotationMatrix44(Rotate, m3dDegToRad(degrees), x, y, z);
 
 			m3dMatrixMultiply44(Model, Model, Rotate);
-
+			*/
 
 		}
-		void Scale()
+		void actors::ScaleLocal(float W)
 		{
+			
 
-
+			scale += W;
+			DirtyMat = true;
 
 
 		}

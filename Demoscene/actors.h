@@ -39,8 +39,7 @@ namespace sg {
 			//M3DMatrix44f Model;
 
 			//forward
-			//rotation
-			//scale
+
 			bool mvm;
 
 			actors();
@@ -48,15 +47,19 @@ namespace sg {
 
 			void SetModel();
 			void Transform();
-			void Translate( GLfloat x, GLfloat y, GLfloat z);
-			void Rotate(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z);
-			void Scale();
+			void TranslateLocal( GLfloat x, GLfloat y, GLfloat z);
+			void RotateLocal(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z);
+			void ScaleLocal(float W);
 
 
 			virtual void draw()
 			{}
 		protected:
 			M3DMatrix44f Model;
+			VEC3 rotation;
+			float scale;
+			bool DirtyMat;
+
 			//M3DMatrix44f Rotate;
 
 		};

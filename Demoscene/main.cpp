@@ -1,6 +1,6 @@
 #include "world.h"
 
-
+//world as a scene object and going through a sceneloader?
 world o_World;
 
 
