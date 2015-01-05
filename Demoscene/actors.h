@@ -7,11 +7,12 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
 #include <map>
-
+#include <glm.hpp>
 
 //using namespace std;
 //using namespace gl;
 using namespace NS_VEC;
+
 
 namespace sg {
 	namespace noder {
@@ -55,6 +56,7 @@ namespace sg {
 			virtual void draw()
 			{}
 		protected:
+			
 			M3DMatrix44f Model;
 			VEC3 rotation;
 			float scale;

@@ -67,8 +67,8 @@ namespace sg {
 		{
 			//m3dMatrixMultiply44(View, View, Model);
 			//
-			this->Transform();
-			this->SetView();
+			//this->Transform();
+			//this->SetView();
 			this->SetProjection();
 			gl::UseProgram(o_progs.ShaderObject);
 			GLint viewloc = gl::GetUniformLocation(o_progs.ShaderObject, "MV");

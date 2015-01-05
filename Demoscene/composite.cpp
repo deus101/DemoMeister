@@ -98,8 +98,8 @@ namespace sg {
 
 				if (typeid(*herd[i].get()) == typeid(model))
 				{ 
-				herd[i]->RotateLocal(0.2f, 0.0f, 1.0f, 0.0f);
-				herd[i]->RotateLocal(0.2f, 0.0f, 0.0f, 1.0f);
+				//herd[i]->RotateLocal(1.0f, 0.0f, 1.0f, 0.0f);
+				//herd[i]->RotateLocal(1.0f, 1.0f, 0.0f, 0.0f);
 				//herd[i]->TranslateLocal(0.0f, 0.0f, -0.05f);
 
 				}
@@ -147,7 +147,12 @@ namespace sg {
 
 			//sync_device *rocket = sync_create_device("sync");
 
-
+			herd[1]->RotateLocal(-25.0f, 1.0f, 0.0f, 0.0f);
+			herd[1]->RotateLocal(15.0f, 0.0f, 1.0f, 0.0f);
+			herd[1]->RotateLocal(-15.0f, 0.0f, 0.0f, 1.0f);
+			herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
+			herd[2]->ScaleLocal(3.0f);
+			herd[2]->RotateLocal(90.0f, 1.0f, 0.0f, 0.0f);
 			//Peek_C_L_X = sync_get_track( rocket, "Look.X");
 			//Peek_C_L_Y = sync_get_track( rocket, "Look.Y");
 			//Peek_C_L_Z = sync_get_track( rocket, "Look.Z");

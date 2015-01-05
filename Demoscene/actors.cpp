@@ -85,12 +85,17 @@ namespace sg {
 		{
 			
 			M3DMatrix44f m_scale;
+			m3dLoadIdentity44(m_scale);
 			m3dScaleMatrix44(m_scale, scale, scale, scale);
 				m3dMatrixMultiply44(Model, Model, m_scale);
 				//quite horrible
 				M3DMatrix44f m_rotX;
 				M3DMatrix44f m_rotY;
 				M3DMatrix44f m_rotZ;
+				m3dLoadIdentity44(m_rotX);
+				m3dLoadIdentity44(m_rotY);
+				m3dLoadIdentity44(m_rotZ);
+
 				m3dRotationMatrix44(m_rotX, m3dDegToRad(rotation.X), 1.0f, 0.0f, 0.0f);
 				m3dRotationMatrix44(m_rotY, m3dDegToRad(rotation.Y), 0.0f, 1.0f, 0.0f);
 				m3dRotationMatrix44(m_rotZ, m3dDegToRad(rotation.Z), 0.0f, 0.0f, 1.0f);
@@ -99,18 +104,24 @@ namespace sg {
 				m3dMatrixMultiply44(Model, Model, m_rotY);
 				m3dMatrixMultiply44(Model, Model, m_rotZ);
 
-				M3DMatrix44f m_tran;
-				m3dTranslationMatrix44(m_tran, pos.X, pos.Y, pos.Z);
-				m3dMatrixMultiply44(Model, Model, m_tran);
+				//M3DMatrix44f m_tran;
+				//m3dLoadIdentity44(m_tran);
+
+				//m3dTranslationMatrix44(m_tran, pos.X, pos.Y, pos.Z);
+				Model[3] = pos.X;
+				Model[7] = pos.Y;
+				Model[11] = pos.Z;				//m3dMatrixMultiply44(Model, Model, m_tran);
+				
+				DirtyMat = false;
 
 		}
 
 		void  actors::TranslateLocal(GLfloat x, GLfloat y, GLfloat z)
 		{
 			// need some if transformed shit for this
-			pos.X += x;//12 13 abd 14 stupid!
-			pos.Y += y;
-			pos.Z += z;
+			this->pos.X += x;//12 13 abd 14 stupid!
+			this->pos.Y += y;
+			this->pos.Z += z;
 			
 
 
@@ -123,11 +134,11 @@ namespace sg {
 
 		void  actors::RotateLocal(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z)
 		{
+			
 
-
-			rotation.X += degrees * x;
-			rotation.Y += degrees * y;
-			rotation.Z += degrees * z;
+			this->rotation.X = degrees * x;
+			this->rotation.Y = degrees * y;
+			this->rotation.Z = degrees * z;
 
 
 			DirtyMat = true;
@@ -144,7 +155,7 @@ namespace sg {
 		{
 			
 
-			scale += W;
+			this->scale += W;
 			DirtyMat = true;
 
 
