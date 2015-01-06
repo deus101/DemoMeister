@@ -57,23 +57,47 @@ namespace NS_VEC
 		void NormIt (void);
 
 	};
-/*
+	//ikke glem homogeniser funksjonen
 	class VEC4
 	{
 	public:
 		GLfloat X;
 		GLfloat Y;
 		GLfloat Z;
-		GLfloat A;
+		GLfloat W;
 
 	public:
 		VEC4(){}
-		VEC4(float x, float y, float z, float a);
+		VEC4(float x, float y, float z, float w);
 
+		const VEC4 operator- (void) const;
+		const VEC4& operator+= (const VEC4& cc);
+		const VEC4& operator-= (const VEC4& cc);
+		const VEC4& operator*= (float f);
+		const VEC4& operator/= (float f);
+
+		float CalcLength(void) const;
+
+		void NormIt(void);
 
 	};
-*/
 
+	class QUAT
+	{
+	public:
+		GLfloat W;
+		GLfloat X;
+		GLfloat Y;
+		GLfloat Z;
+
+		QUAT(){}
+		//QUAT(float w, VEC3 n);
+		QUAT(float w, float x, float y, float z);
+
+		const QUAT Inverse(void) const;
+		const QUAT operator*(const QUAT& q) const;
+		const VEC3 operator*(const VEC3& v) const;
+	};
 
 		
 		const VEC3 cross(const VEC3& v1, const VEC3& v2);

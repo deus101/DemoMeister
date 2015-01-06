@@ -135,7 +135,7 @@ namespace sg {
 		void  actors::RotateLocal(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z)
 		{
 			
-
+			//rotation.NormIt();
 			this->rotation.X = degrees * x;
 			this->rotation.Y = degrees * y;
 			this->rotation.Z = degrees * z;
