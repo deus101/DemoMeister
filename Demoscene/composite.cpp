@@ -1,6 +1,7 @@
 #include "composite.h"
 #include "sync.h"
 #include <typeinfo>
+#include <iostream>
 
 namespace sg {
 	namespace noder {
@@ -50,8 +51,17 @@ namespace sg {
 		}
 
 
+		//int test = 4;
 
+			string tt = "5";
 
+			int test = atoi(&tt.c_str);
+			
+		//int i =	_cast<&int>(tt);
+			//convert(string)test;
+
+		//Glfloat Test(3, 3, 3);
+	
 
 		void composite::Magic(bool draw)
 		{
@@ -142,6 +152,8 @@ namespace sg {
 			second = 0;
 
 		}
+
+		
 
 		void composite::SortTracks()
 		{
