@@ -128,7 +128,8 @@ void Shader_Progs::CompileProgram()
 
 	gl::AttachShader(ShaderObject, FragmentShader);
 	/*
-	gl::ProgramParameteri(ShaderObject,gl::GL_GEOMETRY_INPUT_TYPE,gl::GL_TRIANGLES);
+	gl::ProgramParameteri(ShaderObject,gl::GL_GEOMETRY_INPUT_
+	,gl::GL_TRIANGLES);
 	gl::ProgramParameteri(ShaderObject,gl::GL_GEOMETRY_OUTPUT_TYPE,gl::GL_TRIANGLE_STRIP);
 	int temp;
 

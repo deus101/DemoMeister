@@ -19,7 +19,7 @@ namespace NS_VEC
 		VEC3(){}
 		VEC3(float x, float y, float z);
 	
-		
+		float CalcLengthSqr(void) const;
 		float CalcLength (void) const;
 		
 		void NormIt (void);
@@ -52,7 +52,9 @@ namespace NS_VEC
 		const VEC2& operator*= (float f);
 		const VEC2& operator/= (float f);
 		
+		
 		float CalcLength (void) const;
+
 		
 		void NormIt (void);
 
@@ -95,8 +97,14 @@ namespace NS_VEC
 		QUAT(float w, float x, float y, float z);
 
 		const QUAT Inverse(void) const;
-		const QUAT operator*(const QUAT& q) const;
 		const VEC3 operator*(const VEC3& v) const;
+		const QUAT operator*(const QUAT& q) const;
+		const QUAT operator^(float t) const;
+		const QUAT Slerp(const QUAT& r, float t) const;
+
+
+		void TAA(VEC3& vAxis, float& fAngle) const;
+
 	};
 
 		

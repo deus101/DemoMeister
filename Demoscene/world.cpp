@@ -308,7 +308,7 @@ void world::AfterInit()
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/buddha.obj", "Mesh/buddha.mtl", 0.0f, 0.0f, 0.0f);
 	stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 0.0f, 1.0f, 0.0f);
-	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/hex.obj", "Mesh/hex.mtl", 0.0f, -3.0f, 0.0f);
+	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/hex.obj", "Mesh/hex.mtl", 0.0f, -3.0f, 0.0f);
 	
 
 	stuff.SortTracks();
@@ -365,6 +365,16 @@ void world::AfterInit()
 	cout << vecrot3.X << endl;
 	cout << vecrot3.Y << endl;
 	cout << vecrot3.Z << endl;
+
+	cout << "Test of To Axis Angle using MULTIPLIED or initial quaternion" << endl;
+	VEC3 axisT;
+	float angleT;
+	quaternion.TAA(axisT, angleT);
+	
+	cout << "axis is :" << axisT.X << "." << axisT.Y << "." << axisT.Z << endl;
+	cout << "Angle is :" << angleT << endl;
+	//IT WORKS!!!!!!!!!!
+
 	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, 4.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, -10.0f);

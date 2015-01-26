@@ -8,6 +8,9 @@ namespace sg {
 
 		float gravity = 9.8f;
 
+		QUAT qStart(90, 0, 1, 0);
+		QUAT qEnd = QUAT(90, 0, 0, 1) * QUAT(90, 0, 0, 1);
+
         //typedef boost::shared_ptr< actors > actorsPtr;
 
         Nodes herd;
@@ -53,9 +56,9 @@ namespace sg {
 
 		//int test = 4;
 
-			string tt = "5";
+//			string tt = "5";
 
-			int test = atoi(&tt.c_str);
+	//		int test = atoi(&tt.c_str);
 			
 		//int i =	_cast<&int>(tt);
 			//convert(string)test;
@@ -79,6 +82,8 @@ namespace sg {
 
 			for (unsigned int i = 0; i < herd.size(); i++)
 			{
+				//QUAT qStart(90, 0, 1, 0);
+				//QUAT qEnd = QUAT(90, 0, 0, 1) * QUAT(90, 0, 0, 1);
 
 
 				//Animation handler, but how to handle transofrmation data and calls?
@@ -109,9 +114,13 @@ namespace sg {
 				if (typeid(*herd[i].get()) == typeid(model))
 				{ 
 					//er ikke dette alt jeg trenger til gnu rocket?
-					herd[i]->RotateLocal(10.0f * clock.elapsed(), 0.0f, 1.0f, 0.0f);
+					VEC3 axRot;
+					float axDeg;
+					qStart.Slerp(qEnd, second).TAA(axRot, axDeg);
+					//herd[i]->RotateLocal(qSl.W,qStart.X, qStart.Y, qStart.Z);
+					herd[i]->RotateLocal(axDeg, axRot.X, axRot.Y, axRot.Z);
 				//herd[i]->RotateLocal(1.0f, 1.0f, 0.0f, 0.0f);
-					herd[i]->TranslateLocal(0.0f, 0.0f, 2.0f * clock.elapsed());
+					//herd[i]->TranslateLocal(0.0f, 0.0f, 2.0f * clock.elapsed());
 
 				}
 				//herd[i]->Translate(0.0f, 0.0f, 0.05f);
@@ -160,10 +169,10 @@ namespace sg {
 
 			//sync_device *rocket = sync_create_device("sync");
 			//er blir det ikke noe start posisjon
-			herd[1]->RotateLocal(-25.0f, 1.0f, 0.0f, 0.0f);
-			herd[1]->RotateLocal(15.0f, 0.0f, 1.0f, 0.0f);
-			herd[1]->RotateLocal(-15.0f, 0.0f, 0.0f, 1.0f);
-			herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
+			//herd[1]->RotateLocal(-25.0f, 1.0f, 0.0f, 0.0f);
+			//herd[1]->RotateLocal(15.0f, 0.0f, 1.0f, 0.0f);
+			//herd[1]->RotateLocal(-15.0f, 0.0f, 0.0f, 1.0f);
+			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
 			//herd[2]->ScaleLocal(3.0f);
 			//herd[2]->RotateLocal(90.0f, 1.0f, 0.0f, 0.0f);
 			//Peek_C_L_X = sync_get_track( rocket, "Look.X");

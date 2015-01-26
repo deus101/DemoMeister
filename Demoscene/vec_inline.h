@@ -16,7 +16,7 @@ namespace NS_VEC
 
 	//just convert to radians be fore putting in the arguments
 	inline QUAT::QUAT(float w, float x, float y, float z) {
-		
+		//nevermind did it here
 		w = w / 360 * (float)M_PI * 2;
 
 		W = cos(w/2);
@@ -79,8 +79,49 @@ namespace NS_VEC
 		return ret;
 
 	}
+	inline const QUAT QUAT::operator^(float t) const
+	{
+
+		//getting a normalized vector and multiply the angle by t
+		float a;
+		VEC3 n;
+
+		TAA(n, a);
+
+		float at = a*t;
+		//returning the transformed/exponatiated QUATERNION
+		return QUAT(at, n.X, n.Y, n.Z);
+
+	}
+
+	inline void QUAT::TAA(VEC3& vAxis, float& fAngle) const
+	{
+		
+		VEC3 V(X, Y, Z);
+
+		if (V.CalcLengthSqr() < 0.0001f)
+			vAxis = VEC3(1, 0, 0);
+		else
+			vAxis = (V /= V.CalcLength());
+		//No assert so make sure this works
+
+		//fabs(vAxis.CalcLengthSqr() -1) < 0.000001f;
+
+		fAngle = acos(W) * 2;
+
+	
+		fAngle *= 360 / ((float)M_PI * 2);
+
+	}
+
+	inline const QUAT QUAT::Slerp(const QUAT& other, float t) const
+	{
+		const QUAT& q = *this;
+		QUAT r = other;
+		return ((r * q.Inverse()) ^ t) *q;
 
 
+	}
 
 	inline const VEC4 VEC4::operator- (void) const
 	{// men  skal egentlig skalaren være negativ her?
@@ -292,6 +333,13 @@ namespace NS_VEC
 	{
 		return (sqrtf(X * X + Y * Y + Z * Z + W * W));
 	}
+
+	inline float VEC3::CalcLengthSqr(void) const
+	{
+		return (X * X + Y * Y + Z * Z);
+	}
+
+	
 	inline float VEC3::CalcLength(void) const
 	{
 		return (sqrtf ( X * X + Y * Y + Z * Z ));

@@ -50,6 +50,7 @@ namespace sg {
 			void Transform();
 			void TranslateLocal( GLfloat x, GLfloat y, GLfloat z);
 			void RotateLocal(GLfloat degrees, GLfloat x, GLfloat y, GLfloat z);
+			//void RotateLocal(const QUAT& qRot);
 			void ScaleLocal(float W);
 
 

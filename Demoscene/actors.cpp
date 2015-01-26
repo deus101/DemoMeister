@@ -3,8 +3,8 @@
 //extern Shader_Progs o_progs;
 
 
-
-//typedef boost::shared_ptr< actors > node;
+//fuck did i do here?
+//def boost::shared_ptr< actors > node;
 //typedef boost::shared_ptr< const actors >  actorsPtr;
 //vector < actorsPtr > herd;
 //fuck that shit
