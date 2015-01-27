@@ -8,13 +8,13 @@ namespace sg {
 
 		float gravity = 9.8f;
 
-		QUAT qStart(90, 0, 1, 0);
-		QUAT qEnd = QUAT(90, 0, 0, 1) * QUAT(90, 0, 0, 1);
+		QUAT qStart = QUAT(-30, 0, 1, 0) * QUAT(-45, 1, 0, 0);
+		QUAT qEnd = QUAT(-40, 0, 0, 1) * QUAT(45, 1, 0, 0);
 
         //typedef boost::shared_ptr< actors > actorsPtr;
 
         Nodes herd;
-		int counter;
+		float counter;
 		double second;
 
 		const struct sync_track * Peek_C_L_X, *Peek_C_L_Y, *Peek_C_L_Z;
@@ -70,11 +70,13 @@ namespace sg {
 		{
 
 			//found out the timer started way to early.
-			if (counter == -1)
+			if (counter == -1.0f)
+			{
+				counter = 0.0f;
 				clock.restart();
+			}
 
-
-			counter++;
+			//counter = counter + 0.01f;
 
 
 
@@ -114,11 +116,14 @@ namespace sg {
 				if (typeid(*herd[i].get()) == typeid(model))
 				{ 
 					//er ikke dette alt jeg trenger til gnu rocket?
-					VEC3 axRot;
-					float axDeg;
-					qStart.Slerp(qEnd, second).TAA(axRot, axDeg);
-					//herd[i]->RotateLocal(qSl.W,qStart.X, qStart.Y, qStart.Z);
-					herd[i]->RotateLocal(axDeg, axRot.X, axRot.Y, axRot.Z);
+					//if (counter < 1.0f)
+					//{
+					//	VEC3 axRot;
+					//	float axDeg;
+					//	qStart.Slerp(qEnd, counter).TAA(axRot, axDeg);
+					//	//herd[i]->RotateLocal(qSl.W,qStart.X, qStart.Y, qStart.Z);
+					//	herd[i]->RotateLocal(axDeg, axRot.X, axRot.Y, axRot.Z);
+					//}
 				//herd[i]->RotateLocal(1.0f, 1.0f, 0.0f, 0.0f);
 					//herd[i]->TranslateLocal(0.0f, 0.0f, 2.0f * clock.elapsed());
 
@@ -132,19 +137,19 @@ namespace sg {
 
 			second = second + (clock.elapsed());
 
+			//cout << "FPS: " << counter << endl;
+
+			//if (second >= 1.0)
+			//{
+
+			//	//cout << "FPS: " << counter << endl;
+			//	counter = 0;
+			//	second = 0;
+
+			//}
 
 
-			if (second >= 1.0)
-			{
-
-				//cout << "FPS: " << counter << endl;
-				counter = 0;
-				second = 0;
-
-			}
-
-
-			clock.restart();
+			//clock.restart();
 		}
 
 		void composite::DrawAll(){
@@ -156,8 +161,9 @@ namespace sg {
 
 		void composite::StartTimer()
 		{
+			//clock.
 			clock = Timer();
-			counter = -1;
+			counter = -1.0f;
 			second = 0;
 
 		}
@@ -169,6 +175,30 @@ namespace sg {
 
 			//sync_device *rocket = sync_create_device("sync");
 			//er blir det ikke noe start posisjon
+			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
+			VEC3 axRot;
+			float axDeg;
+			qStart.Slerp(qEnd, 0.0f).TAA(axRot, axDeg);
+			herd[1]->RotateLocal(axDeg, axRot.X, axRot.Y, axRot.Z);
+			VEC3 axRot2;
+			float axDeg2;
+			qStart.Slerp(qEnd, 0.7f).TAA(axRot2, axDeg2);
+			herd[2]->RotateLocal(axDeg2, axRot2.X, axRot2.Y, axRot2.Z);
+			VEC3 axRot3;
+			float axDeg3;
+			qStart.Slerp(qEnd, 1.0).TAA(axRot3, axDeg3);
+			herd[3]->RotateLocal(axDeg3, axRot3.X, axRot3.Y, axRot3.Z);
+			
+			/*
+			VEC3 axRot4;
+			float axDeg4;
+			qStart.Slerp(qEnd, 20.0).TAA(axRot4, axDeg4);
+			herd[4]->RotateLocal(axDeg4, axRot4.X, axRot4.Y, axRot4.Z);
+			VEC3 axRot5;
+			float axDeg5;
+			qStart.Slerp(qEnd, 30.0f).TAA(axRot5, axDeg5);
+			herd[5]->RotateLocal(axDeg5, axRot5.X, axRot5.Y, axRot5.Z);
+			*/
 			//herd[1]->RotateLocal(-25.0f, 1.0f, 0.0f, 0.0f);
 			//herd[1]->RotateLocal(15.0f, 0.0f, 1.0f, 0.0f);
 			//herd[1]->RotateLocal(-15.0f, 0.0f, 0.0f, 1.0f);

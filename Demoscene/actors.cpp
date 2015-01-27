@@ -89,20 +89,16 @@ namespace sg {
 			m3dScaleMatrix44(m_scale, scale, scale, scale);
 				m3dMatrixMultiply44(Model, Model, m_scale);
 				//quite horrible
-				M3DMatrix44f m_rotX;
-				M3DMatrix44f m_rotY;
-				M3DMatrix44f m_rotZ;
-				m3dLoadIdentity44(m_rotX);
-				m3dLoadIdentity44(m_rotY);
-				m3dLoadIdentity44(m_rotZ);
+				//using quaternions now
+				M3DMatrix44f m_rot;
+			
+				m3dLoadIdentity44(m_rot);
 
-				m3dRotationMatrix44(m_rotX, m3dDegToRad(rotation.X), 1.0f, 0.0f, 0.0f);
-				m3dRotationMatrix44(m_rotY, m3dDegToRad(rotation.Y), 0.0f, 1.0f, 0.0f);
-				m3dRotationMatrix44(m_rotZ, m3dDegToRad(rotation.Z), 0.0f, 0.0f, 1.0f);
+				//m3dRotationMatrix33()
+				m3dRotationMatrix44(m_rot, m3dDegToRad(degree), rotation.X, rotation.Y, rotation.Z);
 
-				m3dMatrixMultiply44(Model, Model, m_rotX);
-				m3dMatrixMultiply44(Model, Model, m_rotY);
-				m3dMatrixMultiply44(Model, Model, m_rotZ);
+			
+				m3dMatrixMultiply44(Model, Model, m_rot);
 
 				//M3DMatrix44f m_tran;
 				//m3dLoadIdentity44(m_tran);
@@ -136,15 +132,36 @@ namespace sg {
 		{
 			
 			//rotation.NormIt();
-			this->rotation.X = degrees * x;
-			this->rotation.Y = degrees * y;
-			this->rotation.Z = degrees * z;
-
+			this->rotation.X =  x;
+			this->rotation.Y =  y;
+			this->rotation.Z =  z;
+			this->degree = degrees;
 
 			DirtyMat = true;
 			/*
 			M3DMatrix44f Rotate;
 			
+			m3dRotationMatrix44(Rotate, m3dDegToRad(degrees), x, y, z);
+
+			m3dMatrixMultiply44(Model, Model, Rotate);
+			*/
+
+		}
+
+		void  actors::RotateLocal(const QUAT& qRot)
+		{
+			VEC3 axRot;
+			float axDeg;
+			qRot.TAA(axRot, axDeg);
+			this->rotation.X = axRot.X;
+			this->rotation.Y = axRot.Y;
+			this->rotation.Z = axRot.Z;
+			this->degree = axDeg;
+
+			DirtyMat = true;
+			/*
+			M3DMatrix44f Rotate;
+
 			m3dRotationMatrix44(Rotate, m3dDegToRad(degrees), x, y, z);
 
 			m3dMatrixMultiply44(Model, Model, Rotate);
