@@ -13,7 +13,7 @@
 #include "model.h"
 #include "camera.h"
 
-//#include <sync.h>
+#include "sync.h"
 
 
 
@@ -40,6 +40,8 @@ namespace sg {
 		public:
 
 			composite(void);
+			
+			sync_device *rocket;
 
 			//void AddActor(GLfloat, GLfloat, GLfloat);
 

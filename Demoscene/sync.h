@@ -1,4 +1,4 @@
-/* Copyright (C) 2010 Erik Faye-Lund and Egbert Teeselink
+/* Copyright (C) 2010 Contributors
  * For conditions of distribution and use, see copyright notice in COPYING
  */
 
@@ -8,6 +8,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <stddef.h>
 
 struct sync_device;
 struct sync_track;
@@ -21,14 +23,21 @@ struct sync_cb {
 	void (*set_row)(void *, int);
 	int (*is_playing)(void *);
 };
-void sync_set_callbacks(struct sync_device *, struct sync_cb *, void *);
 #define SYNC_DEFAULT_PORT 1338
 int sync_connect(struct sync_device *, const char *, unsigned short);
-int sync_update(struct sync_device *, int);
-#endif /* !defined(SYNC_PLAYER) */
+int sync_update(struct sync_device *, int, struct sync_cb *, void *);
+void sync_save_tracks(const struct sync_device *);
+#else /* defined(SYNC_PLAYER) */
+struct sync_io_cb {
+	void *(*open)(const char *filename, const char *mode);
+	size_t (*read)(void *ptr, size_t size, size_t nitems, void *stream);
+	int (*close)(void *stream);
+};
+void sync_set_io_cb(struct sync_device *d, struct sync_io_cb *cb);
+#endif /* defined(SYNC_PLAYER) */
 
 const struct sync_track *sync_get_track(struct sync_device *, const char *);
-float sync_get_val(const struct sync_track *, double);
+double sync_get_val(const struct sync_track *, double);
 
 #ifdef __cplusplus
 }

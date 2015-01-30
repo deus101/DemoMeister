@@ -18,7 +18,7 @@ namespace sg {
 		double second;
 
 		const struct sync_track * Peek_C_L_X, *Peek_C_L_Y, *Peek_C_L_Z;
-		const struct sync_track * From_C_P_X, *Peek_C_P_Y, *Peek_C_P_Z;
+		const struct sync_track * From_C_P_X, *From_C_P_Y, *From_C_P_Z;
 
 
 		composite::composite() : actors()
@@ -115,6 +115,10 @@ namespace sg {
 
 				if (typeid(*herd[i].get()) == typeid(model))
 				{ 
+
+					herd[i]->RotateLocal(float(sync_get_val(Peek_C_L_Y, clock.elapsed())), 0, 1, 0 );
+
+
 					//er ikke dette alt jeg trenger til gnu rocket?
 					//if (counter < 1.0f)
 					//{
@@ -148,7 +152,7 @@ namespace sg {
 
 			//}
 
-
+			clock.elapsed();
 			//clock.restart();
 		}
 
@@ -173,9 +177,11 @@ namespace sg {
 		void composite::SortTracks()
 		{
 
-			//sync_device *rocket = sync_create_device("sync");
+			rocket = sync_create_device("sync");
 			//er blir det ikke noe start posisjon
 			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
+			
+			/*
 			VEC3 axRot;
 			float axDeg;
 			qStart.Slerp(qEnd, 0.0f).TAA(axRot, axDeg);
@@ -188,7 +194,7 @@ namespace sg {
 			float axDeg3;
 			qStart.Slerp(qEnd, 1.0).TAA(axRot3, axDeg3);
 			herd[3]->RotateLocal(axDeg3, axRot3.X, axRot3.Y, axRot3.Z);
-			
+			*/
 			/*
 			VEC3 axRot4;
 			float axDeg4;
@@ -205,11 +211,14 @@ namespace sg {
 			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
 			//herd[2]->ScaleLocal(3.0f);
 			//herd[2]->RotateLocal(90.0f, 1.0f, 0.0f, 0.0f);
-			//Peek_C_L_X = sync_get_track( rocket, "Look.X");
-			//Peek_C_L_Y = sync_get_track( rocket, "Look.Y");
-			//Peek_C_L_Z = sync_get_track( rocket, "Look.Z");
+			Peek_C_L_X = sync_get_track( rocket, "Look.X");
+			Peek_C_L_Y = sync_get_track( rocket, "Look.Y");
+			Peek_C_L_Z = sync_get_track( rocket, "Look.Z");
 
-			//From_C_L_Z = sync_get_tracker(r
+			From_C_P_X = sync_get_track(rocket, "Pos.X");
+			From_C_P_Y = sync_get_track(rocket, "Pos.Y");
+			From_C_P_Z = sync_get_track(rocket, "Pos.Z");
+			
 
 
 		}
