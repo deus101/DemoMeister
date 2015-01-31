@@ -1,12 +1,11 @@
-#include "camera.h"
-#include "shaders.h"
+//#include "camera.h"
+//#include "shaders.h"
 #define DegToRad 0.01745329f
 extern Shader_Progs o_progs;
 
-namespace sg {
-	namespace noder {
 
-		camera::camera() : actors()
+
+		camera::camera() : node()
 		{
 
 			this->SetProjection();
@@ -99,7 +98,7 @@ namespace sg {
 		//SHIT!!!
 		void camera::LookAt()
 		{
-
+			
 			m3dLoadIdentity44(View);
 			//m3dLoadIdentity44(ViewInv);
 			VEC3 x, y, z;
@@ -266,6 +265,6 @@ namespace sg {
 			View[9] = -(View[9]);
 
 
-		}
-	}
+	
+	
 }

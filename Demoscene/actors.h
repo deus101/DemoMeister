@@ -3,11 +3,12 @@
 #include <iostream>
 #include "vec.h"
 #include "math3d.h"
+#include "node.h"
 //#include "world.h"
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
 #include <map>
-#include <glm.hpp>
+
 
 //using namespace std;
 //using namespace gl;
@@ -17,13 +18,14 @@ using namespace NS_VEC;
 namespace sg {
 	namespace noder {
 
+		/*
 		typedef boost::shared_ptr< class actors > actorsPtr;
 		typedef boost::shared_ptr< const class actors > node;
 		typedef boost::weak_ptr< class actors > svakRef;
         //parent???
 		typedef std::deque< actorsPtr > Nodes;
 		typedef std::map< unsigned int, svakRef> NodeKart;
-
+		*/
 
 
 		class actors
@@ -59,8 +61,8 @@ namespace sg {
 		protected:
 			
 			M3DMatrix44f Model;
-			VEC3 rotation;
-			float degree;
+			VEC3 position;
+			QUAT rotation;
 			float scale;
 			bool DirtyMat;
 

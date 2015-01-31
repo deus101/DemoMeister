@@ -454,6 +454,37 @@ void m3dRotationMatrix44(M3DMatrix44d m, double angle, double x, double y, doubl
     #undef M
   }
 
+
+void m3dRotationMatrix44(M3DMatrix44f m, const NS_VEC::QUAT qRot)
+{
+
+	
+
+#define M(col,row)  m[col*4+row]
+
+
+	M(0, 0) = 1 - 2 * qRot.Y * qRot.Y - 2 * qRot.Z * qRot.Z;
+	M(0, 1) = 2 * qRot.X * qRot.Y + 2 * qRot.W * qRot.Z;
+	M(0, 2) = 2 * qRot.X * qRot.Z - 2 * qRot.W * qRot.Y;
+	M(0, 3) = 0.0;
+
+	M(1, 0) = 2 * qRot.X * qRot.Y - 2 * qRot.W * qRot.Z;
+	M(1, 1) = 1 - 2 * qRot.X * qRot.X - 2 * qRot.Z * qRot.Z;
+	M(1, 2) = 2 * qRot.Y * qRot.Z + 2 * qRot.W * qRot.X;
+	M(1, 3) = 0.0;
+
+	M(2, 0) = 2 * qRot.X * qRot.Z + 2 * qRot.W * qRot.Y;
+	M(2, 1) = 2 * qRot.Y * qRot.Z - 2 * qRot.W * qRot.X;
+	M(2, 2) = 1 - 2 * qRot.X * qRot.X - 2 * qRot.Y * qRot.Y;
+	M(2, 3) = 0.0;
+
+	M(3, 0) = 0.0;
+	M(3, 1) = 0.0;
+	M(3, 2) = 0.0;
+	M(3, 3) = 1.0;
+
+#undef M
+}
 ////////////////////////////////////////////////////////////////////////////
 /// This function is not exported by library, just for this modules use only
 // 3x3 determinant

@@ -95,7 +95,7 @@ namespace NS_VEC
 		QUAT(){}
 		//QUAT(float w, VEC3 n);
 		QUAT(float w, float x, float y, float z);
-
+		QUAT( float x, float y, float z);
 		const QUAT Inverse(void) const;
 		const VEC3 operator*(const VEC3& v) const;
 		const QUAT operator*(const QUAT& q) const;

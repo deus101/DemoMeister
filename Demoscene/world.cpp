@@ -447,7 +447,6 @@ void world::AfterInit()
 
 
 
-
 }
 void world::InitLights()
 {

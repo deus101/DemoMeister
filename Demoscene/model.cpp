@@ -184,7 +184,7 @@ void model::draw()
 	if (ModelLoc != -1)
 	{
 		//cout << "In Model found uniform for Model Matrix" << endl;
-		gl::UniformMatrix4fv(ModelLoc, 1, gl::TRUE_, this->Model);
+		gl::UniformMatrix4fv(ModelLoc, 1, gl::FALSE_, this->Model);
 		//"this" i rendrenren henter model matrisen
 	}
 

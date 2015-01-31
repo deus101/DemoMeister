@@ -43,6 +43,7 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF S
 
 #include <math.h>
 #include <string.h>	// Memcpy lives here on most systems
+#include "vec.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Data structures and containers
@@ -510,6 +511,8 @@ void m3dRotationMatrix33(M3DMatrix33f m, float angle, float x, float y, float z)
 void m3dRotationMatrix33(M3DMatrix33d m, double angle, double x, double y, double z);
 void m3dRotationMatrix44(M3DMatrix44f m, float angle, float x, float y, float z);
 void m3dRotationMatrix44(M3DMatrix44d m, double angle, double x, double y, double z);
+//my shiyt
+void m3dRotationMatrix44(M3DMatrix44f m, const NS_VEC::QUAT qRot);
 
 // Create a Translation matrix. Only 4x4 matrices have translation components
 inline void m3dTranslationMatrix44(M3DMatrix44f m, float x, float y, float z)

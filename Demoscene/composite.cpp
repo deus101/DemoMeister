@@ -28,7 +28,7 @@ namespace sg {
 
 		}
 
-
+		
 
 		void composite::AddActor(int typeID, GLfloat x, GLfloat y, GLfloat z)
 		{
@@ -68,7 +68,7 @@ namespace sg {
 
 		void composite::Magic(bool draw)
 		{
-
+			
 			//found out the timer started way to early.
 			if (counter == -1.0f)
 			{
@@ -79,7 +79,7 @@ namespace sg {
 			//counter = counter + 0.01f;
 
 
-
+			
 
 
 			for (unsigned int i = 0; i < herd.size(); i++)
@@ -105,9 +105,9 @@ namespace sg {
 
 				if (typeid(*herd[i].get()) == typeid(camera))
 				{
-					//herd[i]->TranslateLocal(0.05f, 0.0f, -0.05f);
+					//herd[i]->TranslateLocal(1.0f * second, 5.0f, 15.0f + (-0.05f * 10 * second));
 					//herd[i]->f
-					//herd[i]->RotateLocal(1.0f, 0.0f, 1.0f, 0.0f);
+					herd[i]->RotateLocal(30.0f  * second , 1.0f, 0.0f, 0.0f);
 					//herd[i]->SetModel();
 
 					//for lookat må man inverse
@@ -115,14 +115,16 @@ namespace sg {
 
 				if (typeid(*herd[i].get()) == typeid(model))
 				{ 
+					
+					//herd[i]->RotateLocal(float(sync_get_val(Peek_C_L_Y,second )), 0, 1, 0 );
+					//herd[i]->RotateLocal(qStart.Slerp(qEnd, second));
 
-					herd[i]->RotateLocal(float(sync_get_val(Peek_C_L_Y, clock.elapsed())), 0, 1, 0 );
-
-
+					herd[i]->RotateLocal(90 * second, 0.0f, 1.0f, 0.0f);
+					//herd[i]->TranslateLocal(0.0f, 0.0f, -second );
 					//er ikke dette alt jeg trenger til gnu rocket?
 					//if (counter < 1.0f)
 					//{
-					//	VEC3 axRot;
+					//	VEC3 axRot;sy
 					//	float axDeg;
 					//	qStart.Slerp(qEnd, counter).TAA(axRot, axDeg);
 					//	//herd[i]->RotateLocal(qSl.W,qStart.X, qStart.Y, qStart.Z);
@@ -137,23 +139,23 @@ namespace sg {
 				herd[i]->draw();
 			}
 
-
+			
 
 			second = second + (clock.elapsed());
 
 			//cout << "FPS: " << counter << endl;
 
-			//if (second >= 1.0)
-			//{
+			if (second >= 10.0)
+			{
 
-			//	//cout << "FPS: " << counter << endl;
-			//	counter = 0;
-			//	second = 0;
+				//cout << "FPS: " << counter << endl;
+				counter = 0;
+				second = 0;
 
-			//}
+			}
 
-			clock.elapsed();
-			//clock.restart();
+			//clock.elapsed();
+			clock.restart();
 		}
 
 		void composite::DrawAll(){
@@ -180,6 +182,12 @@ namespace sg {
 			rocket = sync_create_device("sync");
 			//er blir det ikke noe start posisjon
 			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
+			
+
+		
+			//herd[1]->RotateLocal(qStart.Slerp(qEnd, 0.01f));
+			//herd[1]->TranslateLocal(-10.0f, 30.0f, 0.0f);
+			//herd[1]->RotateLocal( QUAT(90,0,1,0) );
 			
 			/*
 			VEC3 axRot;

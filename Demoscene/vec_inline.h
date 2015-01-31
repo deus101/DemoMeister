@@ -19,10 +19,15 @@ namespace NS_VEC
 		//nevermind did it here
 		w = w / 360 * (float)M_PI * 2;
 
-		W = cos(w/2);
-		X = x*sin(w/2);
-		Y = y*sin(w/2);
-		Z = z*sin(w/2);
+		W = cos(w / 2);
+		X = x*sin(w / 2);
+		Y = y*sin(w / 2);
+		Z = z*sin(w / 2);
+	}
+
+	inline QUAT::QUAT( float x, float y, float z) {
+		(*this) = QUAT(x, 1.0f, 0.0f, 0.0f) * QUAT(y, 0.0f, 1.0f, 0.0f) * QUAT(z, 0.0f, 0.0f, 1.0f);
+
 
 	}
 

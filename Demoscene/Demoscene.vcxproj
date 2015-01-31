@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actors.h" />
+    <ClInclude Include="assetNode.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="circle.h" />
@@ -201,13 +202,16 @@
     <ClInclude Include="math3d.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="modelNode.h" />
     <ClInclude Include="node.h" />
+    <ClInclude Include="objTransform.h" />
     <ClInclude Include="pyramid.h" />
     <ClInclude Include="rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="shaders.h" />
     <ClInclude Include="sync.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="transform.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="vec_inline.h" />
     <ClInclude Include="world.h" />

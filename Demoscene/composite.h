@@ -17,7 +17,8 @@
 
 
 
-//#include <bass.h>
+#include "bass.h"
+
 
 using namespace std;
 namespace sg {
@@ -41,6 +42,7 @@ namespace sg {
 
 			composite(void);
 			
+			double *row;
 			sync_device *rocket;
 
 			//void AddActor(GLfloat, GLfloat, GLfloat);
