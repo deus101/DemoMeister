@@ -5,7 +5,7 @@
 extern Shader_Progs o_progs;
 
 
-model::model() : actors()
+model::model() 
 {
 
 }
@@ -13,9 +13,8 @@ model::model() : actors()
 
 
 
-model::model(GLfloat x, GLfloat y, GLfloat z, bool move, string obj, string mtl, VEC3 col) : actors(x, y, z, move)
+model::model( string obj, string mtl) 
 {
-
 
 	LoadMesh(obj.c_str(), meshy);
 	LoadMats(mtl.c_str(), palette);
@@ -161,61 +160,15 @@ model::model(GLfloat x, GLfloat y, GLfloat z, bool move, string obj, string mtl,
 
 
 	cout << "loading done" << endl;
-	color = col;
-
+	
 	//this->BufferLog();
 
 }
 
 //FEIL FEIL FEIL
 //RENDER QUE! NUH!
-void model::draw()
-{
-	//transform node og  drawable
-	if (this->DirtyMat == true)
-	{
-
-		this->Transform();
-	}
-	//gl::BindVertexArray(vao_model);
-	//kunne dette kalles for identites matrisa....sortof
-	gl::UseProgram(o_progs.ShaderObject);
-	GLint ModelLoc = gl::GetUniformLocation(o_progs.ShaderObject, "M");
-	if (ModelLoc != -1)
-	{
-		//cout << "In Model found uniform for Model Matrix" << endl;
-		gl::UniformMatrix4fv(ModelLoc, 1, gl::FALSE_, this->Model);
-		//"this" i rendrenren henter model matrisen
-	}
-
-	GLint DifLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Diffuse");
-	GLint AmbLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Ambiant");
-	GLint SpecLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Specular");
-	GLint ShiLoc = gl::GetUniformLocation(o_progs.ShaderObject, "Shininess");
-
-	if (ModelLoc != -1)
-	{
-		//cout << "In Model found uniform for Model Matrix" << endl;
-		//gl::UniformMatrix4fv(AmbLoc, 1, gl::TRUE_, this->  );
-		//"this" i rendrenren henter model matrisen
-	}
 
 
-
-	//gl::PolygonMode(gl::GL_FRONT_AND_BACK, gl::GL_FILL);
-
-	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
-	{
-
-
-		gl::BindVertexArray(Sort_Groups[i].vao);
-
-		gl::Uniform4fv(DifLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].diff);
-		gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].amb);
-		gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)this->palette.m_Materials[meshy.m_Groups[i].matid].spec);
-		gl::Uniform1f(ShiLoc, this->palette.m_Materials[meshy.m_Groups[i].matid].shiny);
-		
-		gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
 		//cout << "nr indices for: " << i << " is " << Sort_Groups[i].IBO.size() << endl;
 		//VSGLInfoLib::getBufferInfo(gl::GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[i].vbo);
 		//VSGLInfoLib::getCurrentBufferInfo();
@@ -223,7 +176,7 @@ void model::draw()
 		//VSGLInfoLib::getBufferInfo(gl::
 
 
-	}
+	
 
 	//VSGLInfoLib::getProgramInfo(o_progs.ShaderObject);
 	//VSGLInfoLib::getUniformsInfo(o_progs.ShaderObject);
@@ -257,8 +210,6 @@ void model::draw()
 
 
 
-
-}
 
 
 void model::BufferLog()

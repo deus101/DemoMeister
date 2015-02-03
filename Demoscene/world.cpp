@@ -2,7 +2,7 @@
 #include "world.h"
 //#include "vsGLInfoLib.h"
 #define DegToRad 0.01745329f
-
+//blir scene laoders
 GLfloat turn = 0.0;
 GLuint VertexArrayID;
 Shader_Progs o_progs;
@@ -72,7 +72,7 @@ world::world()
 
 
 	//camera.RotateLocalZ( -15.0f * DegToRad );
-	stuff = composite();
+	//stuff = composite();
 
 	//Shader_Progs o_progs = Shader_Progs();
 
@@ -105,7 +105,7 @@ world::world()
 
 
 
-	stuff.StartTimer();
+	//stuff.StartTimer();
 
 }
 
@@ -302,6 +302,13 @@ void world::AfterInit()
 
 	//varius shaders in here
 	o_progs.CompileProgram();
+	sg::noder::camera test2 = sg::noder::camera("hoo");
+	
+	sg::noder::objTransform test =  objTransform("test");
+	test.addChild((sg::noder::nodePtr)&test2);
+
+	test.findChild("hoo");
+
 
 
 	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
@@ -412,7 +419,7 @@ void world::AfterInit()
 	if (!stream)
 		cout << "failed to open tune" << endl;
 
-	sync_device *pRocket = stuff.rocket;
+	//sync_device *pRocket = stuff.rocket;
 
 	//rocket 
 
@@ -420,12 +427,16 @@ void world::AfterInit()
 	//if (!(::rocket))
 	//	cout << "out of memory?" << endl;
 
-#ifndef SYNC_PLAYER
-	(sync_connect(stuff.rocket, "localhost", SYNC_DEFAULT_PORT));
-	//	cout << "failed to connect to host" << endl;
-#endif
+
+
+//#ifndef SYNC_PLAYER
+//	(sync_connect(stuff.rocket, "localhost", SYNC_DEFAULT_PORT));
+//	//	cout << "failed to connect to host" << endl;
+//#endif
 	
 	stuff.SortTracks();
+
+
 	/* get tracks */
 	//clear_r = sync_get_track(rocket, "clar.r");
 	//clear_g = sync_get_track(rocket, "clear.g");
@@ -520,7 +531,7 @@ void world::RenderScene()
 
 
 
-	stuff.Magic(true);
+	
 	//stuff.DrawAll();
 
 	//gl::UseProgram(0);

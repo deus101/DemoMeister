@@ -7,7 +7,7 @@
 #include <deque> 
 #include <map>
 //#include "world.h"
-#include "actors.h"
+
 #include "mesh.h"
 #include "materials.h"
 
@@ -16,7 +16,8 @@ using namespace NS_MAT;
 using namespace sg;
 using namespace noder;
 
-
+//AHAAA! JEG KAN GENERE FRA GRUPPENE BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
+//Alt ligger på på plass! og model noden trenger jo bare å kjøre addchildren eller gi den til faren
 
 struct buffer_Group
 {
@@ -51,7 +52,7 @@ struct PackedVertex{
 
 
 
-class model : public actors
+class model 
 {
 public:
 	vector<VEC3> Sort_Pos;
@@ -73,11 +74,11 @@ public:
 	//should be grouped per face..so array....
 	GLuint vbo_indices;
 	model();
-	model(GLfloat, GLfloat, GLfloat, bool, string, string, VEC3);
+	model( string, string);
 
 public:
 
-	virtual void draw();
+	//virtual void draw();
 
 public:
 

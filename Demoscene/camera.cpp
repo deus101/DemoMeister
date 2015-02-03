@@ -1,7 +1,7 @@
 //#include "camera.h"
 //#include "shaders.h"
 #define DegToRad 0.01745329f
-extern Shader_Progs o_progs;
+//extern Shader_Progs o_progs;
 
 
 

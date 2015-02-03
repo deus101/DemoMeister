@@ -6,7 +6,8 @@
 #include "Timer.h"
 #include "boost/shared_ptr.hpp"
 #include <vector>
-#include "actors.h"
+#include "node.h"
+#include "objTransform.h"
 #include "circle.h"
 #include "cube.h"
 #include "pyramid.h"
@@ -20,11 +21,36 @@
 #include "bass.h"
 
 
-using namespace std;
 namespace sg {
 	namespace noder {
 
+		class objectAnim
+		{
+		public:
+			NS_VEC::VEC3   getPos(float time);
+			NS_VEC::QUAT getRot(float time);
+			NS_VEC::VEC3   getScale(float time);
 
+			void setPosKeyFrame(float time, const NS_VEC::VEC3  &pos)
+			{
+				posTrack[time] = pos;
+			}
+
+			void setRotKeyFrame(float time, const NS_VEC::QUAT &rot)
+			{
+				rotTrack[time] = rot;
+			}
+
+			void setScaleKeyFrame(float time, const	NS_VEC::VEC3 &scale)
+			{
+				scaleTrack[time] = scale;
+			}
+
+		private:
+			std::map<float, NS_VEC::VEC3> posTrack;
+			std::map<float, NS_VEC::QUAT> rotTrack;
+			std::map<float, NS_VEC::VEC3> scaleTrack;
+		};
 
 //ubrukelig?
 //Kansje jeg kan bruke den til noe annet men kompositt slik kan ikke brukes i en scanegraph 
@@ -33,20 +59,37 @@ namespace sg {
 
 //OOOOR! I can  use the actors system as leafnodes.
 
-		class composite : public actors
+		class composite : public node
 		{
-
-
-			Timer clock;
+		Timer clock;
 		public:
 
-			composite(void);
+			composite(std::string name) : node(name) {}
 			
-			double *row;
-			sync_device *rocket;
+			virtual NodeType getType() { return NODE_COMPOSER; }
+		
+
+			void anim(float time);
+			//double *row;
+			//sync_device *rocket;
+			//legg se og få brukt referanse noden til denne
+			camera *findCamera(const std::string &name)
+			{
+				return findNodeByType<camera, NODE_CAMERA>(name);
+			}
+
+			nodePtr findNode(const std::string &name)
+			{
+				return findChild(name);
+			}
+
+			void addObjectAnime(objTransform *node, const objectAnim &anim)
+			{
+				animTracks[node] = anim;
+			}
 
 			//void AddActor(GLfloat, GLfloat, GLfloat);
-
+			
 			void AddActor(int, GLfloat, GLfloat, GLfloat);
 			void AddActor(VEC3, string, string, GLfloat, GLfloat, GLfloat);
 			void Magic(bool);
@@ -55,6 +98,21 @@ namespace sg {
 			void SortTracks();
 
 
+
+		private:
+			std::map<objTransform*, objectAnim> animTracks;
+
+			template <typename T, NodeType t>
+			T *findNodeByType(const std::string &name)
+			{
+				// find node
+				node *oNode = findChild(name);
+				if (NULL == oNode) return NULL;
+
+				// type check
+				if (oNode->getType() != t) return NULL;
+				return reinterpret_cast<T*>(oNode);
+			};
 
 		};
 

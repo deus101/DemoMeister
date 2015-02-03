@@ -176,7 +176,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="actors.cpp" />
-    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="buffers.cpp" />
+    <ClCompile Include="camera.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="composite.cpp" />
     <ClCompile Include="cube.cpp" />
@@ -187,6 +190,8 @@
     <ClCompile Include="model.cpp" />
     <ClCompile Include="node.cpp" />
     <ClCompile Include="pyramid.cpp" />
+    <ClCompile Include="renderPacket.cpp" />
+    <ClCompile Include="rendrer.cpp" />
     <ClCompile Include="shaders.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -194,6 +199,7 @@
     <ClInclude Include="actors.h" />
     <ClInclude Include="assetNode.h" />
     <ClInclude Include="bass.h" />
+    <ClInclude Include="buffers.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="circle.h" />
     <ClInclude Include="composite.h" />
@@ -206,10 +212,12 @@
     <ClInclude Include="node.h" />
     <ClInclude Include="objTransform.h" />
     <ClInclude Include="pyramid.h" />
+    <ClInclude Include="renderPacket.h" />
     <ClInclude Include="rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="shaders.h" />
     <ClInclude Include="sync.h" />
+    <ClInclude Include="targetNode.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="vec.h" />

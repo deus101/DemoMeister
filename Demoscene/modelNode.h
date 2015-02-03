@@ -1,6 +1,7 @@
 #include "assetNode.h"
 #include "shaders.h"
 #include "model.h"
+#include "renderPacket.h"
 
 namespace sg{
 	namespace noder{
@@ -8,10 +9,10 @@ namespace sg{
 		class modelNode : public assetNode
 		{
 		public:
-			modelNode(std::string name, engine::Mesh *mesh, engine::Effect *effect) :
-				DrawableNode(name),
-				mesh(mesh),
-				effect(effect),
+			modelNode(std::string name, model  *mesh, renderPacket *mat) :
+				assetNode(name),
+				Model(mesh),
+				Magic(mat),
 				transparent(false)
 			{}
 
@@ -21,15 +22,17 @@ namespace sg{
 			}
 
 			void draw()
-			{
-				assert(NULL != effect);
-				assert(NULL != mesh);
-				effect->draw(mesh);
+			{	
+				//getAbsoluteTransform
+				assert(NULL != Model);
+				assert(NULL != Magic);
+				//effect->draw(mesh, material, matrix);
 			}
 
 			bool transparent;
-			NS_MESH::MESH *mesh;
-			shade
+
+			model *Model;
+			renderPacket *Magic;
 
 
 

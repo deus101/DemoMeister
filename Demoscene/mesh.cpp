@@ -67,7 +67,7 @@ namespace NS_MESH
 				cout << "Material: " << temp.mat << endl << endl;
 				
 			}
-			else
+			else  //problem
 			if(strcmp (id, "f") == 0)
 			{
 

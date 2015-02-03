@@ -26,7 +26,7 @@ namespace sg {
 
 			enum NodeType
 			{
-				NODE_SCENE,
+				NODE_COMPOSER,
 				NODE_CAMERA,
 				NODE_LIGHT,
 				NODE_TRANSFORM,
