@@ -182,6 +182,7 @@
     </ClCompile>
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="composite.cpp" />
+    <ClCompile Include="context.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="materials.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="circle.h" />
     <ClInclude Include="composite.h" />
+    <ClInclude Include="context.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="materials.h" />
     <ClInclude Include="math3d.h" />

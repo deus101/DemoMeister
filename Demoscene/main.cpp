@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
 	//glutInitWindowPosition (300, 200);
 	glutCreateWindow("Deus's Ex Machine");
 
-
+	
 	glload::LoadFunctions();
 	if (gl::exts::var_ARB_debug_output)
 	{
