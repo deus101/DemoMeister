@@ -115,7 +115,7 @@ void Shader_Progs::CompileProgram()
 		exit(0);
 	}
 
-	
+
 	ShaderObject = gl::CreateProgram();
 
 	cout << "VertexID! : " << VertexShader << endl;

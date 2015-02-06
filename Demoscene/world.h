@@ -4,7 +4,7 @@
 #include <glload/gl_3_3.hpp>
 #include <glload/gl_load.hpp>
 
-#include "actors.h"
+#include "node.h"
 #include "composite.h"
 #include "circle.h"
 #include "shaders.h"
@@ -30,7 +30,7 @@
 #include <gl\freeglut.h>
 
 
-
+#include "gbuffer.h"
 
 #include "bass.h"
 
@@ -48,7 +48,7 @@ class world
 public:
 
 
-
+	
 
 
 	world();

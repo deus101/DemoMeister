@@ -6,6 +6,7 @@ world o_World;
 
 
 
+
 static const float bpm = 150.0f; /* beats per minute */
 static const int rpb = 8; /* rows per beat */
 static const double row_rate = (double(bpm) / 60) * rpb;
@@ -115,6 +116,15 @@ void SetupRC()
 
 	o_World.AfterInit();
 
+	sg::noder::composite test("test");
+
+	model("Mesh/p38.obj", "Mesh/p38.mtl");
+
+	
+
+
+
+	
 
 
 
@@ -140,8 +150,8 @@ int main(int argc, char *argv[])
 	glutInitWindowSize(800, 600);
 	//glutInitWindowPosition (300, 200);
 	glutCreateWindow("Deus's Ex Machine");
-
 	
+
 	glload::LoadFunctions();
 	if (gl::exts::var_ARB_debug_output)
 	{

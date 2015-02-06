@@ -662,6 +662,50 @@ void m3dProjectXYZ(M3DVector3f vPointOut, const M3DMatrix44f mModelView, const M
 	}
 
 
+void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vLookFrom, const M3DVector3f vUp, float roll)
+{
+	M3DVector3f z;
+	m3dSubtractVectors3(z, vLookat, vLookFrom);
+	m3dNormalizeVector3(z);
+
+
+	M3DVector3f x;
+	M3DVector3f y;
+
+	m3dCrossProduct3(x, vUp, z);
+	-z[0];
+	-z[1];
+	-z[2];
+	m3dCrossProduct3(y, x, z);
+	M3DMatrix44f Orientation;
+
+	Orientation[0] = x[0];
+	Orientation[1] = x[1];
+	Orientation[2] = x[2];
+	Orientation[3] = 0.0;
+
+	Orientation[4] = y[0];
+	Orientation[5] = y[1];
+	Orientation[6] = y[2];
+	Orientation[7] = 0.0;
+
+	Orientation[8] = z[0];
+	Orientation[9] = z[1];
+	Orientation[10] = z[2];
+	Orientation[11] = 0.0;
+
+	Orientation[12] = vLookFrom[0];
+	Orientation[13] = vLookFrom[1];
+	Orientation[14] = vLookFrom[2];
+	Orientation[15] = 1;
+
+	M3DMatrix44f rot;
+	m3dLoadIdentity44(rot);
+
+	m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
+	m3dMatrixMultiply44(mat,Orientation, rot);
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////

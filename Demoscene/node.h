@@ -16,7 +16,7 @@ namespace sg {
 		//parent???
 		typedef std::deque< nodePtr > Nodes;
 		typedef std::map< unsigned int, svakRef> NodeKart;
-
+		
 		class node
 			: public boost::enable_shared_from_this<node>
 		{

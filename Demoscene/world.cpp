@@ -7,7 +7,7 @@ GLfloat turn = 0.0;
 GLuint VertexArrayID;
 Shader_Progs o_progs;
 //GLFrame camera;
-composite stuff;
+//composite stuff;
 HSTREAM stream;
 //diffuse light  
 GLfloat dlr = 1.0;
@@ -301,7 +301,10 @@ void world::AfterInit()
 
 
 	//varius shaders in here
-	o_progs.CompileProgram();
+	//o_progs.CompileProgram();
+
+
+
 	sg::noder::camera test2 = sg::noder::camera("hoo");
 	
 	sg::noder::objTransform test =  objTransform("test");
@@ -313,15 +316,15 @@ void world::AfterInit()
 
 	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/buddha.obj", "Mesh/buddha.mtl", 0.0f, 0.0f, 0.0f);
-	stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
+	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", -3.0f, 11.0f, -12.0f);
-	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 1.0f, 1.0f, -7.0f);
+	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 1.0f, 1.0f, -7.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 3.0f, -2.0f, 0.0f);
 
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/hex.obj", "Mesh/hex.mtl", 0.0f, -3.0f, 0.0f);
 	
 
-	stuff.SortTracks();
+	//stuff.SortTracks();
 	QUAT quaternion(90.0f, 0.0f, 1.0f, 0.0f);
 
 	
@@ -487,11 +490,11 @@ void world::RenderScene()
 
 
 
-	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+	//gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
 	//gl::ClearDepth(1.0f);
 
-	gl::UseProgram(o_progs.ShaderObject);
+	//gl::UseProgram(o_progs.ShaderObject);
 
 
 
@@ -544,7 +547,7 @@ void world::RenderScene()
 
 	//VSGLInfoLib::getVAOInfo(VertexArrayID);
 
-	glutSwapBuffers();
+	//glutSwapBuffers();
 	//glutPostRedisplay();
 	//gl::Flush();
 	//gl::

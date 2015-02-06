@@ -4,15 +4,15 @@
 #include "renderPacket.h"
 
 namespace sg{
-	namespace noder{
+	namespace noder{ 
 
 		class modelNode : public assetNode
 		{
 		public:
-			modelNode(std::string name, model  *mesh, renderPacket *mat) :
+			modelNode(std::string name, model  *mesh, renderPacket *tech) :
 				assetNode(name),
 				Model(mesh),
-				Magic(mat),
+				Magic(tech),
 				transparent(false)
 			{}
 
@@ -22,11 +22,12 @@ namespace sg{
 			}
 
 			void draw()
-			{	
-				//getAbsoluteTransform
+			{
+				M3DMatrix44f ABS;
+				getAbsoluteTransform(ABS);
 				assert(NULL != Model);
 				assert(NULL != Magic);
-				//effect->draw(mesh, material, matrix);
+				Magic->Draw(Model, ABS);
 			}
 
 			bool transparent;
@@ -34,7 +35,7 @@ namespace sg{
 			model *Model;
 			renderPacket *Magic;
 
-
+		};
 
 	}
 

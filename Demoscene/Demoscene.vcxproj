@@ -184,6 +184,8 @@
     <ClCompile Include="composite.cpp" />
     <ClCompile Include="context.cpp" />
     <ClCompile Include="cube.cpp" />
+    <ClCompile Include="gbuffer.cpp" />
+    <ClCompile Include="GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="materials.cpp" />
     <ClCompile Include="math3d.cpp" />
@@ -197,7 +199,10 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="actors.h" />
+    <ClInclude Include="actors.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="asset.h" />
     <ClInclude Include="assetNode.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="buffers.h" />
@@ -206,6 +211,9 @@
     <ClInclude Include="composite.h" />
     <ClInclude Include="context.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="gbuffer.h" />
+    <ClInclude Include="GeomPacket.h" />
+    <ClInclude Include="util.h" />
     <ClInclude Include="materials.h" />
     <ClInclude Include="math3d.h" />
     <ClInclude Include="mesh.h" />
@@ -308,9 +316,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
+    <None Include="Shaders\dir_light_pass.fs" />
     <None Include="Shaders\fragment - Copy (4).glsl" />
     <None Include="Shaders\fragment.glsl" />
     <None Include="Shaders\geometry.glsl" />
+    <None Include="Shaders\geometry_pass.fs" />
+    <None Include="Shaders\geometry_pass.vs" />
+    <None Include="Shaders\light_pass.vs" />
+    <None Include="Shaders\null_technique.fs" />
+    <None Include="Shaders\null_technique.vs" />
+    <None Include="Shaders\point_light_pass.fs" />
     <None Include="Shaders\vertex - Copy (5).glsl" />
     <None Include="Shaders\vertex.glsl" />
   </ItemGroup>

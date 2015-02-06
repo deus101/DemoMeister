@@ -562,7 +562,7 @@ float m3dRaySphereTest(const M3DVector3f point, const M3DVector3f ray, const M3D
 void m3dProjectXY( M3DVector2f vPointOut, const M3DMatrix44f mModelView, const M3DMatrix44f mProjection, const int iViewPort[4], const M3DVector3f vPointIn);    
 void m3dProjectXYZ(M3DVector3f vPointOut, const M3DMatrix44f mModelView, const M3DMatrix44f mProjection, const int iViewPort[4], const M3DVector3f vPointIn);
 
-
+void m3dLookAt(M3DMatrix44f mProjection, const M3DVector3f vLookat, const M3DVector3f vLookFrom, const M3DVector3f vUp, float roll);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // This function does a three dimensional Catmull-Rom "spline" interpolation between p1 and p2
 void m3dCatmullRom(M3DVector3f vOut, const M3DVector3f vP0, const M3DVector3f vP1, const M3DVector3f vP2, const M3DVector3f vP3, float t);

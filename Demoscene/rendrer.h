@@ -14,13 +14,12 @@ public:
 	rendrer(sg::noder::composite *_scene, sg::noder::camera *_camera) : scene(_scene), kamera(_camera)
 	{
 
-
+		
 	}
+	
+	void visit(node *Node, M3DMatrix44f world);
+	void draw();
 
-	~rendrer()
-	{
-
-	}
 private:
 	composite *scene;
 	camera *kamera;

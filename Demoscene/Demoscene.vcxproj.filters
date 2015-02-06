@@ -75,6 +75,12 @@
     <ClCompile Include="context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gbuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actors.h">
@@ -161,6 +167,18 @@
     <ClInclude Include="context.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="asset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment - Copy (4).glsl">
@@ -216,6 +234,27 @@
     </None>
     <None Include="bf.ogg">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\geometry_pass.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\geometry_pass.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\dir_light_pass.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\light_pass.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\null_technique.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\null_technique.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\point_light_pass.fs">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
