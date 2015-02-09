@@ -304,14 +304,14 @@ void world::AfterInit()
 	//o_progs.CompileProgram();
 
 
-
+	/*
 	sg::noder::camera test2 = sg::noder::camera("hoo");
 	
 	sg::noder::objTransform test =  objTransform("test");
 	test.addChild((sg::noder::nodePtr)&test2);
 
 	test.findChild("hoo");
-
+	*/
 
 
 	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
@@ -437,7 +437,7 @@ void world::AfterInit()
 //	//	cout << "failed to connect to host" << endl;
 //#endif
 	
-	stuff.SortTracks();
+	//stuff.SortTracks();
 
 
 	/* get tracks */

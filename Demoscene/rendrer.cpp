@@ -13,11 +13,11 @@
 using namespace sg::noder;
 
 
-void rendrer::visit(nodePtr Node, M3DMatrix44f  world)
+void rendrer::visit(node *Node, M3DMatrix44f  world)
 {
 	if (4 == Node->getType())
 	{
-		modelNode mesh = reinterpret_cast<modelNode*>(Node);
+		modelNode *mesh = reinterpret_cast<modelNode*>(&Node);
 		if (NULL != mesh->Magic)
 		{
 			M3DMatrix44f world; 
@@ -36,6 +36,7 @@ void rendrer::visit(nodePtr Node, M3DMatrix44f  world)
 
 void rendrer::draw()
 {
+	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN MATH3D IS SHIT!
 	M3DMatrix44f world;
 	m3dLoadIdentity44(world);
 	visit(scene, world );

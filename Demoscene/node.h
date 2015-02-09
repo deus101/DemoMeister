@@ -3,6 +3,7 @@
 #include "math3d.h"
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
+#include <list>
 #include <map>
 
 
@@ -14,7 +15,9 @@ namespace sg {
 
 		typedef boost::weak_ptr< class node > svakRef;
 		//parent???
-		typedef std::list< nodePtr > Nodes;
+
+	
+		typedef std::list< node* > Nodes;
 		typedef std::map< unsigned int, svakRef> NodeKart;
 		
 		class node
@@ -36,11 +39,11 @@ namespace sg {
 
 			
 
-			void addChild(nodePtr node)
+			void addChild(node* Node)
 			{
 				
-				children.push_back(node);
-				node->setParent(shared_from_this() );
+				children.push_back(Node);
+				Node->setParent(shared_from_this() );
 
 			}
 
@@ -106,8 +109,8 @@ namespace sg {
 			}
 
 
-			typedef std::list<nodePtr>::iterator child_iterator;
-			typedef std::list<nodePtr>::const_iterator child_const_iterator;
+			typedef std::list<node*>::iterator child_iterator;
+			typedef std::list<node *>::const_iterator child_const_iterator;
 			child_iterator beginChildren() { return children.begin(); }
 			child_iterator endChildren() { return children.end(); }
 			child_const_iterator beginChildren() const { return children.begin(); }

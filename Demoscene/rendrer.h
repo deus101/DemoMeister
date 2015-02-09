@@ -16,8 +16,8 @@ public:
 
 		
 	}
-	
-	void visit(nodePtr Node, M3DMatrix44f world);
+	//using nodePtr might be a mistake
+	void visit(node *Node, M3DMatrix44f world);
 	void draw();
 
 private:
