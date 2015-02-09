@@ -14,7 +14,7 @@ namespace sg {
 
 		typedef boost::weak_ptr< class node > svakRef;
 		//parent???
-		typedef std::deque< nodePtr > Nodes;
+		typedef std::list< nodePtr > Nodes;
 		typedef std::map< unsigned int, svakRef> NodeKart;
 		
 		class node
@@ -105,6 +105,13 @@ namespace sg {
 				m3dCopyMatrix44(in, absoluteTransform);
 			}
 
+
+			typedef std::list<nodePtr>::iterator child_iterator;
+			typedef std::list<nodePtr>::const_iterator child_const_iterator;
+			child_iterator beginChildren() { return children.begin(); }
+			child_iterator endChildren() { return children.end(); }
+			child_const_iterator beginChildren() const { return children.begin(); }
+			child_const_iterator endChildren() const { return children.end(); }
 
 				
 			

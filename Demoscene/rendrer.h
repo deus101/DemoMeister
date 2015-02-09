@@ -17,7 +17,7 @@ public:
 		
 	}
 	
-	void visit(node *Node, M3DMatrix44f world);
+	void visit(nodePtr Node, M3DMatrix44f world);
 	void draw();
 
 private:

@@ -13,21 +13,30 @@
 using namespace sg::noder;
 
 
-void rendrer::visit(node *Node, M3DMatrix44f  world)
+void rendrer::visit(nodePtr Node, M3DMatrix44f  world)
 {
 	if (4 == Node->getType())
 	{
-		modelNode *mesh = reinterpret_cast<modelNode*>(Node);
+		modelNode mesh = reinterpret_cast<modelNode*>(Node);
 		if (NULL != mesh->Magic)
 		{
-			mesh->Magic->setMatrices(Node->getAbsoluteTransform(), view, projection);
-			mesh->Magic->commitChanges();
+			M3DMatrix44f world; 
+			Node->getAbsoluteTransform(world);
+
+			mesh->Magic->setMatrices(world , view, projection);
+			//mesh->Magic->commitChanges();
 		}
 		mesh->draw();
 	}
-	for (Node::child_iterator i = node->beginChildren(); i != Node->endChildren(); ++i) visit(*i, world);
+
+	for (node::child_iterator i = Node->beginChildren(); i != Node->endChildren(); ++i)
+		visit(*i, world);
 }
+
+
 void rendrer::draw()
 {
-	visit(scene, M3DMatrix44f world );
+	M3DMatrix44f world;
+	m3dLoadIdentity44(world);
+	visit(scene, world );
 }
