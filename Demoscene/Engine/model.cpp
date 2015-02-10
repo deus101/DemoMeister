@@ -93,7 +93,7 @@ model::model( string obj, string mtl)
 
 	}
 
-
+	//lasting av data til CPU man jeg trenger en funksjon som henter shaderprogram(gjør jeg det?) og laster buffrer
 	gl::UseProgram(o_progs.ShaderObject);
 
 

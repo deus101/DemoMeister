@@ -3,7 +3,7 @@
 #include <typeinfo>
 #include <iostream>
 
-namespace NS_SG{
+using namespace NS_SG;
 
 		
 		
@@ -295,4 +295,4 @@ namespace NS_SG{
 
 		}
 	
-}
+

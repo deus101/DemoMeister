@@ -4,7 +4,7 @@
 #include "../Effect/renderPacket.h"
 
 
-namespace NS_SG{
+namespace NS_SG{m
 
 
 		class modelNode : public assetNode

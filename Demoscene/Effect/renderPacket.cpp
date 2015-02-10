@@ -18,7 +18,7 @@ renderPacket::renderPacket()
 bool renderPacket::Init()
 {
 
-
+	//opprette bufferne her?
 	m_shaderProg = gl::CreateProgram();
 
 	if (m_shaderProg == 0) {

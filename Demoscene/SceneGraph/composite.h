@@ -9,7 +9,10 @@
 #include "node.h"
 #include "objTransform.h"
 
-#include "model.h"
+//Hvorfor trengte jeg denne?
+#include "../Engine/model.h"
+
+
 #include "camera.h"
 
 //#include "sync.h"
