@@ -175,53 +175,53 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="buffers.cpp" />
-    <ClCompile Include="camera.cpp">
+    <ClCompile Include="Rendrer\buffers.cpp" />
+    <ClCompile Include="SceneGraph\camera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="composite.cpp" />
-    <ClCompile Include="context.cpp" />
-    <ClCompile Include="gbuffer.cpp" />
-    <ClCompile Include="GeomPacket.cpp" />
+    <ClCompile Include="SceneGraph\composite.cpp" />
+    <ClCompile Include="Rendrer\context.cpp" />
+    <ClCompile Include="Rendrer\gbuffer.cpp" />
+    <ClCompile Include="Effects\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="materials.cpp" />
-    <ClCompile Include="math3d.cpp" />
-    <ClCompile Include="mesh.cpp" />
-    <ClCompile Include="model.cpp" />
-    <ClCompile Include="node.cpp" />
-    <ClCompile Include="renderPacket.cpp" />
-    <ClCompile Include="rendrer.cpp" />
-    <ClCompile Include="shaders.cpp" />
+    <ClCompile Include="Engine\materials.cpp" />
+    <ClCompile Include="Math\math3d.cpp" />
+    <ClCompile Include="Engine\mesh.cpp" />
+    <ClCompile Include="Engine\model.cpp" />
+    <ClCompile Include="SceneGraph\node.cpp" />
+    <ClCompile Include="Effects\renderPacket.cpp" />
+    <ClCompile Include="Engine\rendrer.cpp" />
+    <ClCompile Include="Engine\shaders.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asset.h" />
-    <ClInclude Include="assetNode.h" />
+    <ClInclude Include="SceneGraph\asset.h" />
+    <ClInclude Include="SceneGraph\assetNode.h" />
     <ClInclude Include="bass.h" />
-    <ClInclude Include="buffers.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="composite.h" />
-    <ClInclude Include="context.h" />
-    <ClInclude Include="gbuffer.h" />
-    <ClInclude Include="GeomPacket.h" />
+    <ClInclude Include="Rendrer\buffers.h" />
+    <ClInclude Include="SceneGraph\camera.h" />
+    <ClInclude Include="SceneGraph\composite.h" />
+    <ClInclude Include="Rendrer\context.h" />
+    <ClInclude Include="Rendrer\gbuffer.h" />
+    <ClInclude Include="Effects\GeomPacket.h" />
     <ClInclude Include="util.h" />
-    <ClInclude Include="materials.h" />
-    <ClInclude Include="math3d.h" />
-    <ClInclude Include="mesh.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="modelNode.h" />
-    <ClInclude Include="node.h" />
-    <ClInclude Include="objTransform.h" />
-    <ClInclude Include="renderPacket.h" />
-    <ClInclude Include="rendrer.h" />
+    <ClInclude Include="Engine\materials.h" />
+    <ClInclude Include="Math\math3d.h" />
+    <ClInclude Include="Engine\mesh.h" />
+    <ClInclude Include="Engine\model.h" />
+    <ClInclude Include="SceneGraph\modelNode.h" />
+    <ClInclude Include="SceneGraph\node.h" />
+    <ClInclude Include="SceneGraph\objTransform.h" />
+    <ClInclude Include="Effects\renderPacket.h" />
+    <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="shaders.h" />
+    <ClInclude Include="Engine\shaders.h" />
     <ClInclude Include="sync.h" />
-    <ClInclude Include="targetNode.h" />
+    <ClInclude Include="SceneGraph\targetNode.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="transform.h" />
-    <ClInclude Include="vec.h" />
-    <ClInclude Include="vec_inline.h" />
+    <ClInclude Include="SceneGraph\transform.h" />
+    <ClInclude Include="Math\vec.h" />
+    <ClInclude Include="Math\vec_inline.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
