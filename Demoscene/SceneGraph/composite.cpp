@@ -1,10 +1,9 @@
 #include "composite.h"
-#include "sync.h"
+//#include "sync.h"
 #include <typeinfo>
 #include <iostream>
 
-namespace sg {
-	namespace noder {
+namespace NS_SG{
 
 		
 		
@@ -295,5 +294,5 @@ namespace sg {
 
 
 		}
-	}
+	
 }

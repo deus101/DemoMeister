@@ -1,10 +1,11 @@
 #include "assetNode.h"
-#include "shaders.h"
-#include "model.h"
-#include "renderPacket.h"
+//#include "shaders.h"
+#include "../Engine/model.h"
+#include "../Effect/renderPacket.h"
 
-namespace sg{
-	namespace noder{ 
+
+namespace NS_SG{
+
 
 		class modelNode : public assetNode
 		{
@@ -37,7 +38,7 @@ namespace sg{
 
 		};
 
-	}
+	
 
 
 

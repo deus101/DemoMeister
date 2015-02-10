@@ -2,10 +2,10 @@
 #define CAMERA_HPP
 
 #include "node.h"
-#include "math3d.h"
+//#include "math3d.h"
 //#include "world.h"
-namespace sg {
-	namespace noder {
+namespace NS_SG{
+
 
 		class camera : public node
 		{
@@ -83,7 +83,7 @@ namespace sg {
 
 		};
 
-	}
+	
 }
 
 

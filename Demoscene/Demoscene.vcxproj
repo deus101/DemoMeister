@@ -182,20 +182,20 @@
     <ClCompile Include="SceneGraph\composite.cpp" />
     <ClCompile Include="Rendrer\context.cpp" />
     <ClCompile Include="Rendrer\gbuffer.cpp" />
-    <ClCompile Include="Effects\GeomPacket.cpp" />
+    <ClCompile Include="Effect\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\materials.cpp" />
     <ClCompile Include="Math\math3d.cpp" />
     <ClCompile Include="Engine\mesh.cpp" />
     <ClCompile Include="Engine\model.cpp" />
     <ClCompile Include="SceneGraph\node.cpp" />
-    <ClCompile Include="Effects\renderPacket.cpp" />
+    <ClCompile Include="Effect\renderPacket.cpp" />
     <ClCompile Include="Engine\rendrer.cpp" />
     <ClCompile Include="Engine\shaders.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SceneGraph\asset.h" />
+    <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="SceneGraph\assetNode.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="Rendrer\buffers.h" />
@@ -203,7 +203,7 @@
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />
     <ClInclude Include="Rendrer\gbuffer.h" />
-    <ClInclude Include="Effects\GeomPacket.h" />
+    <ClInclude Include="Effect\GeomPacket.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Engine\materials.h" />
     <ClInclude Include="Math\math3d.h" />
@@ -212,7 +212,7 @@
     <ClInclude Include="SceneGraph\modelNode.h" />
     <ClInclude Include="SceneGraph\node.h" />
     <ClInclude Include="SceneGraph\objTransform.h" />
-    <ClInclude Include="Effects\renderPacket.h" />
+    <ClInclude Include="Effect\renderPacket.h" />
     <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Engine\shaders.h" />

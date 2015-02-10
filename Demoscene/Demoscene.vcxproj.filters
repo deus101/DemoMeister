@@ -36,12 +36,6 @@
     <ClCompile Include="SceneGraph\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effects\GeomPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects\renderPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Math\math3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,6 +61,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\shaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\GeomPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\renderPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,19 +107,10 @@
     <ClInclude Include="SceneGraph\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SceneGraph\asset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SceneGraph\assetNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneGraph\objTransform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects\GeomPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects\renderPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math\vec.h">
@@ -153,6 +144,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\shaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\asset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\GeomPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\renderPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

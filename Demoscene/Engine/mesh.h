@@ -5,7 +5,7 @@
 #include <deque> 
 #include <string>
 #include <string.h>
-#include "vec.h"
+#include "../Math/vec.h"
 
 
 namespace NS_MESH

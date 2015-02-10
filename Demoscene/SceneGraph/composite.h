@@ -3,7 +3,7 @@
 
 //#include "world.h"
 #include <iostream>
-#include "Timer.h"
+//#include "Timer.h"
 #include "boost/shared_ptr.hpp"
 #include <vector>
 #include "node.h"
@@ -12,15 +12,14 @@
 #include "model.h"
 #include "camera.h"
 
-#include "sync.h"
+//#include "sync.h"
 
 
 
-#include "bass.h"
+//#include "bass.h"
 
 
-namespace sg {
-	namespace noder {
+namespace NS_SG{
 
 		class objectAnim
 		{
@@ -117,7 +116,7 @@ namespace sg {
 
 
 
-	}
+	
 }
 
 

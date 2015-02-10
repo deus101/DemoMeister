@@ -3,9 +3,9 @@
 #include "transform.h"
 #include "vec.h"
 
-namespace sg
+namespace NS_SG
 {
-	namespace noder{
+	
 
 	
 	class targetTransform : public transform
@@ -83,5 +83,5 @@ namespace sg
 	private:
 		node *target;
 	};
-	}
+	
 }

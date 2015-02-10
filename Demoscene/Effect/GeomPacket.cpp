@@ -1,6 +1,6 @@
 #pragma once
 #include "GeomPacket.h"
-#include "util.h"
+#include "../util.h"
 #include <limits.h>
 
 

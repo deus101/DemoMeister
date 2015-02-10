@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
-#include "math3d.h"
+#include "../Math/math3d.h"
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
 #include <list>
 #include <map>
 
 
-namespace sg {
-	namespace noder {
+namespace NS_SG{
+	
 
 		typedef boost::shared_ptr< class node > nodePtr;
 		typedef boost::shared_ptr<const class node> nodeConstPtr;
@@ -125,7 +125,7 @@ namespace sg {
 			svakRef parent;
 			Nodes children;
 		};
-	}
+	
 
 }
 

@@ -1,9 +1,8 @@
 #pragma once
 #include "node.h"
 
-namespace sg{
+namespace NS_SG{
 
-namespace noder{
 	
 		class assetNode : public node
 		{
@@ -14,5 +13,5 @@ namespace noder{
 			virtual bool isTransparent() = 0;
 			virtual void Draw() = 0;
 		};
-	}
+	
 }

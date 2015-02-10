@@ -1,7 +1,9 @@
 #include "renderPacket.h"
-#include "math3d.h"
-#include "util.h"
-#include "asset.h"
+
+#include "../util.h"
+#include "../Engine/asset.h"
+
+//using namespace NS_ENG;
 using namespace NS_VEC;
 
 

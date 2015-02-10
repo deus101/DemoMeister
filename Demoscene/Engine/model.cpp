@@ -2,6 +2,8 @@
 
 #include "shaders.h"
 //#include "vsGLInfoLib.h"
+
+//nei nei nei
 extern Shader_Progs o_progs;
 
 

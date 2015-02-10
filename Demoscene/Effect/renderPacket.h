@@ -2,12 +2,12 @@
 #define RENDERPACKET_HPP
 
 #include <list>
-#include "vec.h"
-#include "mesh.h"
-#include "shaders.h"
-#include "model.h"
-#include "asset.h"
-#include "math3d.h"
+#include "../Math/vec.h"
+//#include "mesh.h"
+//#include "shaders.h"
+#include "../Engine/model.h"
+#include "../Engine/asset.h"
+#include "../Math/math3d.h"
 //#include <glload/gl_3_3.hpp>
 
 

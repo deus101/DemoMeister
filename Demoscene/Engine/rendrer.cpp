@@ -1,16 +1,17 @@
 #include "rendrer.h"
 
-#include "transform.h"
-#include "assetNode.h"
-#include "modelNode.h"
-#include "node.h"
+
+#include "../SceneGraph/node.h"
+#include "../SceneGraph/transform.h"
+#include "../SceneGraph/assetNode.h"
+#include "../SceneGraph/modelNode.h"
 
 
 #include <stack>
 
 
-
-using namespace sg::noder;
+using namespace NS_ENG;
+using namespace NS_SG;
 
 
 void rendrer::visit(node *Node, M3DMatrix44f  world)

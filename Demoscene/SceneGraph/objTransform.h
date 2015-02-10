@@ -3,10 +3,9 @@
 #include "transform.h"
 #include "vec.h"
 
-namespace sg
+namespace NS_SG
 {
-	namespace noder
-	{
+	
 		class objTransform : public transform
 		{
 		public:
@@ -88,5 +87,5 @@ namespace sg
 			M3DMatrix44f matrix;
 			bool            matrix_dirty;
 		};
-	}
+	
 }
