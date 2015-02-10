@@ -13,8 +13,7 @@
 
 using namespace NS_MESH;
 using namespace NS_MAT;
-using namespace sg;
-using namespace noder;
+using namespace sg::noder;
 
 //AHAAA! JEG KAN GENERE FRA GRUPPENE BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
 //Alt ligger på på plass! og model noden trenger jo bare å kjøre addchildren eller gi den til faren

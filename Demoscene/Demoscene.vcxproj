@@ -175,17 +175,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="actors.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="buffers.cpp" />
     <ClCompile Include="camera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="circle.cpp" />
     <ClCompile Include="composite.cpp" />
     <ClCompile Include="context.cpp" />
-    <ClCompile Include="cube.cpp" />
     <ClCompile Include="gbuffer.cpp" />
     <ClCompile Include="GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
@@ -194,25 +189,19 @@
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="node.cpp" />
-    <ClCompile Include="pyramid.cpp" />
     <ClCompile Include="renderPacket.cpp" />
     <ClCompile Include="rendrer.cpp" />
     <ClCompile Include="shaders.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="actors.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="asset.h" />
     <ClInclude Include="assetNode.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="buffers.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="circle.h" />
     <ClInclude Include="composite.h" />
     <ClInclude Include="context.h" />
-    <ClInclude Include="cube.h" />
     <ClInclude Include="gbuffer.h" />
     <ClInclude Include="GeomPacket.h" />
     <ClInclude Include="util.h" />
@@ -223,7 +212,6 @@
     <ClInclude Include="modelNode.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="objTransform.h" />
-    <ClInclude Include="pyramid.h" />
     <ClInclude Include="renderPacket.h" />
     <ClInclude Include="rendrer.h" />
     <ClInclude Include="resource.h" />

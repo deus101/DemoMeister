@@ -21,16 +21,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="actors.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="composite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -46,9 +37,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pyramid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="shaders.cpp">
@@ -83,22 +71,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="actors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="bass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="circle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="composite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="materials.h">
@@ -111,9 +90,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pyramid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="shaders.h">

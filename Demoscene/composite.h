@@ -8,9 +8,7 @@
 #include <vector>
 #include "node.h"
 #include "objTransform.h"
-#include "circle.h"
-#include "cube.h"
-#include "pyramid.h"
+
 #include "model.h"
 #include "camera.h"
 

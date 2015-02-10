@@ -115,11 +115,11 @@ void SetupRC()
 	cout << "Major Version! : " << glload::GetMajorVersion() << endl;
 
 	o_World.AfterInit();
-
+	/*
 	sg::noder::composite test("test");
 
 	model("Mesh/p38.obj", "Mesh/p38.mtl");
-
+	*/
 	
 
 
