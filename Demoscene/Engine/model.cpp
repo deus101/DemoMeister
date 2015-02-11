@@ -15,7 +15,7 @@ model::model()
 
 
 
-model::model( string obj, string mtl) 
+model::model(const context &aContext, string obj, string mtl)
 {
 
 	LoadMesh(obj.c_str(), meshy);

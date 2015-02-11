@@ -11,7 +11,7 @@
 #include "mesh.h"
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
-
+#include "../Render/context.h"
 using namespace NS_MESH;
 using namespace NS_MAT;
 
@@ -74,7 +74,7 @@ namespace NS_ENG{
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
-		model(string, string);
+		model(const context &aContext, string obj, string mtl);
 
 
 	public:
@@ -119,6 +119,6 @@ namespace NS_ENG{
 
 	};
 
-	inline loadBuffer(Model &mModel, )
+	//const void loadBuffer(Model &mModel, renderPacket &mPacket);
 }
 #endif

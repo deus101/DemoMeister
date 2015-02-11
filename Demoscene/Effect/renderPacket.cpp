@@ -21,6 +21,7 @@ bool renderPacket::Init()
 	//opprette bufferne her?
 	m_shaderProg = gl::CreateProgram();
 
+	//m_shaderProg = context.getProgram();
 	if (m_shaderProg == 0) {
 		fprintf(stderr, "Error creating shader program\n");
 		return false;
