@@ -9,7 +9,7 @@ namespace NS_SG{
 		class modelNode : public assetNode
 		{
 		public:
-			modelNode(std::string name, model  *mesh, renderPacket *tech) :
+			modelNode(std::string name,  model  *mesh, renderPacket *tech) :
 				assetNode(name),
 				Model(mesh),
 				Magic(tech),

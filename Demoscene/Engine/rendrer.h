@@ -25,6 +25,8 @@ public:
 private:
 	composite *scene;
 	camera *kamera;
+	std::vector< NS_SG::modelNode*> Visible;
+
 public:
 	M3DMatrix44f view, projection;
 

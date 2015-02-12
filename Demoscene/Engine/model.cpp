@@ -1,12 +1,12 @@
 #include "model.h"
 
-#include "shaders.h"
+//#include "shaders.h"
 //#include "vsGLInfoLib.h"
 
 //nei nei nei
-extern Shader_Progs o_progs;
-
-
+//extern Shader_Progs o_progs;
+using namespace NS_ENG;
+//using namespace NS_REND;
 model::model() 
 {
 
@@ -15,7 +15,7 @@ model::model()
 
 
 
-model::model(const context &aContext, string obj, string mtl)
+model::model(const NS_REND::context &aContext, string obj, string mtl)
 {
 
 	LoadMesh(obj.c_str(), meshy);
@@ -94,8 +94,10 @@ model::model(const context &aContext, string obj, string mtl)
 	}
 
 	//lasting av data til CPU man jeg trenger en funksjon som henter shaderprogram(gjør jeg det?) og laster buffrer
-	gl::UseProgram(o_progs.ShaderObject);
-
+	
+	//Husk å generer programmet før dette
+	//gl::UseProgram(aContext.Program);
+	//KA FAEN TENKTE JEG PÅ!
 
 	cout << "NR groups: " << Sort_Groups.size() << endl;
 	cout << "VBOs   vertex: " << Sort_Pos.size() << " Norms: " << Sort_Norms.size() << " UVs: " << Sort_Uvs.size() << endl;

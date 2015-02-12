@@ -11,7 +11,7 @@
 #include "mesh.h"
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
-#include "../Render/context.h"
+#include "../Rendrer/context.h"
 using namespace NS_MESH;
 using namespace NS_MAT;
 
@@ -74,7 +74,7 @@ namespace NS_ENG{
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
-		model(const context &aContext, string obj, string mtl);
+		model(const NS_REND::context &aContext, string obj, string mtl);
 
 
 	public:

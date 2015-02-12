@@ -5,12 +5,12 @@
 
 //using namespace NS_ENG;
 using namespace NS_VEC;
+using namespace NS_EFF;
 
-
-renderPacket::renderPacket()
+renderPacket::renderPacket(const NS_REND::context &aContext)
 {
  //gi den shaderne
-	m_shaderProg = 0;
+	m_shaderProg = aContext.Program;
 
 
 }
@@ -19,7 +19,7 @@ bool renderPacket::Init()
 {
 
 	//opprette bufferne her?
-	m_shaderProg = gl::CreateProgram();
+	//m_shaderProg = gl::CreateProgram();
 
 	//m_shaderProg = context.getProgram();
 	if (m_shaderProg == 0) {
@@ -29,7 +29,8 @@ bool renderPacket::Init()
 
 }
 
-void renderPacket::Draw(model *o, const M3DMatrix44f mMat)
+//ehm....Jo vent jeg satt den der fordi m_shaderProg var der men nå har jo model klassen den informasjonen.
+void renderPacket::Draw(NS_ENG::model *o, const M3DMatrix44f mMat)
 {
 
 	//gl::BindVertexArray(vao_model);

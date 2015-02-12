@@ -2,21 +2,25 @@
 
 #include "freeglut.h"
 #include "gbuffer.h"
-class context
+
+namespace NS_REND
 {
-public:
+	class context
+	{
+	public:
 
-	GLuint Program;
-	unsigned int Width, Breadth;
+		GLuint Program;
+		unsigned int Width, Breadth;
 
-	context(unsigned int Width, unsigned int Breadth);
-	~context();
+		context(unsigned int Width, unsigned int Breadth);
+		~context();
 
-	void Init();
-	void InitWindow();
-
-
+		void Init();
+		void InitWindow();
 
 
-};
 
+
+	};
+
+}

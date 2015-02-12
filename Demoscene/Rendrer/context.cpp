@@ -1,5 +1,6 @@
 #include "context.h"
 
+using namespace NS_REND;
 
 context::context(unsigned int aWidth, unsigned int aBreadth)
 {
