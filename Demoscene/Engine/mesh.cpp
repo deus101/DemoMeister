@@ -4,10 +4,12 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+using namespace NS_VEC;
 
 namespace NS_MESH
 {
-	using namespace std;
+	
 
 
 

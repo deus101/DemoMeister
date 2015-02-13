@@ -1,12 +1,18 @@
 #include "model.h"
 
+#include <iostream>
 //#include "shaders.h"
 //#include "vsGLInfoLib.h"
 
 //nei nei nei
 //extern Shader_Progs o_progs;
 using namespace NS_ENG;
-//using namespace NS_REND;
+
+using namespace std;
+using namespace NS_MESH;
+using namespace NS_MAT;
+
+
 model::model() 
 {
 

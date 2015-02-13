@@ -191,7 +191,6 @@
     <ClCompile Include="SceneGraph\node.cpp" />
     <ClCompile Include="Effect\renderPacket.cpp" />
     <ClCompile Include="Engine\rendrer.cpp" />
-    <ClCompile Include="Engine\shaders.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +214,6 @@
     <ClInclude Include="Effect\renderPacket.h" />
     <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Engine\shaders.h" />
     <ClInclude Include="sync.h" />
     <ClInclude Include="SceneGraph\targetNode.h" />
     <ClInclude Include="Timer.h" />
@@ -306,6 +304,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
+    <None Include="Mesh\teapot.FBX" />
     <None Include="Shaders\dir_light_pass.fs" />
     <None Include="Shaders\fragment - Copy (4).glsl" />
     <None Include="Shaders\fragment.glsl" />

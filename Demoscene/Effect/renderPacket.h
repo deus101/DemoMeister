@@ -5,7 +5,7 @@
 #include "../Math/vec.h"
 //#include "mesh.h"
 //#include "shaders.h"
-#include "../Engine/model.h"
+//#include "../Engine/model.h"
 #include "../Engine/asset.h"
 #include "../Math/math3d.h"
 #include "../Rendrer/context.h"
@@ -17,9 +17,9 @@ namespace NS_EFF{
 	class renderPacket
 	{
 
-
+		//renderPacket(const NS_REND::context &aContext);
 	public:
-		renderPacket(const NS_REND::context &aContext);
+		renderPacket();
 
 		virtual ~renderPacket();
 
@@ -34,7 +34,9 @@ namespace NS_EFF{
 
 		void Enable();
 
-		void Draw(model *o, const M3DMatrix44f mMat);
+		/*
+		//Og jeg som slet med denne
+		void Draw(NS_ENG::model *o, const M3DMatrix44f mMat);
 
 		void setMatrices(const M3DMatrix44f &mWorld, const M3DMatrix44f&mview, const M3DMatrix44f &proj)
 		{
@@ -94,6 +96,11 @@ namespace NS_EFF{
 		};
 
 
+
+		 //blabla noecommitgreier();
+
+		 Commit blir vel noe I den duren at man har en UBO og oppdaterer den  Fuck it bruk vanlig uniforms fra nå eller bare ikke kjør tegningen herfra hvorfor skal jeg det?
+		*/
 
 	protected:
 

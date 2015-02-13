@@ -3,10 +3,15 @@
 #include <algorithm>
 #include <stdio.h>
 #include <iostream>
+
+using namespace std;
+
+
+
 namespace NS_MAT
 {
 
-	using namespace std;
+	
 
 	void LoadMats( const char *param, MATERIALS& Mats)
 	{
@@ -53,7 +58,7 @@ namespace NS_MAT
 			}
 			if(strcmp (id, "Ke") == 0)
 			{	
-				VEC3 c;
+				NS_VEC::VEC3 c;
 				fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().emmi[0], &Mats.m_Materials.back().emmi[1], &Mats.m_Materials.back().emmi[2]);
 				Mats.m_Materials.back().emmi[3] = 1.0;
 			}

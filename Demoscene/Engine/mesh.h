@@ -10,8 +10,9 @@
 
 namespace NS_MESH
 {
-using namespace std;
-using namespace NS_VEC;
+	//APPAPPAPAPAA 
+//using namespace std;
+//using namespace NS_VEC;
 
 struct s_FaceVertex
 {
@@ -41,7 +42,7 @@ struct s_Face
 	}
 	
 	//VEC3 m_vNor;
-	VEC3 m_vMid;
+	NS_VEC::VEC3 m_vMid;
 	vector< s_FaceVertex > m_Verts;
 	
 };
@@ -69,9 +70,9 @@ struct s_Group
 
 struct MESH
 {
-	deque<VEC3> m_Pos;
-	deque<VEC3> m_Norms;
-	deque<VEC2> m_Uvs;
+	deque<NS_VEC::VEC3> m_Pos;
+	deque<NS_VEC::VEC3> m_Norms;
+	deque<NS_VEC::VEC2> m_Uvs;
 	 
 
 	deque<s_Group> m_Groups;

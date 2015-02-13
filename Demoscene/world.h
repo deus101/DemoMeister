@@ -3,11 +3,11 @@
 
 #include <glload/gl_3_3.hpp>
 #include <glload/gl_load.hpp>
-
-#include "node.h"
-#include "composite.h"
-#include "circle.h"
-#include "shaders.h"
+////
+////#include "node.h"
+////#include "composite.h"
+////#include "circle.h"
+////#include "shaders.h"
 //#include "rigidBody.h"
 
 #include <math.h>
@@ -30,7 +30,7 @@
 #include <gl\freeglut.h>
 
 
-#include "gbuffer.h"
+//#include "gbuffer.h"
 
 #include "bass.h"
 

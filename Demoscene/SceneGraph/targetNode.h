@@ -1,7 +1,7 @@
 #pragma once
 
 #include "transform.h"
-#include "vec.h"
+#include "../Math/vec.h"
 
 namespace NS_SG
 {

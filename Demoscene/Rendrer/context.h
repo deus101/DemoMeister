@@ -1,5 +1,8 @@
 #pragma once
 
+#include <glload/gl_3_3.hpp>
+#include <glload/gl_load.hpp>
+
 #include "freeglut.h"
 #include "gbuffer.h"
 
@@ -10,15 +13,23 @@ namespace NS_REND
 	public:
 
 		GLuint Program;
-		unsigned int Width, Breadth;
+		GBuffer mGBuffer;
 
-		context(unsigned int Width, unsigned int Breadth);
+		context();
 		~context();
 
-		void Init();
-		void InitWindow();
+		void Init(int argc, char** arg, bool aDepth, bool aStencil);
+		bool InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+
+		unsigned int GetPixelWidth() const;
+
+		unsigned int GetPixelHeight() const;
 
 
+	private:
+	
+		unsigned int pWidth, pHeight;
+		bool m_created;
 
 
 	};

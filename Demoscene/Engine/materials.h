@@ -10,8 +10,8 @@
 
 namespace NS_MAT
 {
-using namespace std;
-using namespace NS_VEC;
+//using namespace std;
+//using namespace NS_VEC;
 
 struct s_mat
 {
@@ -20,7 +20,7 @@ struct s_mat
 		name = "           ";
 			shiny = 0.0f;
 	}
-string name;
+std::string name;
 GLfloat amb[4];
 GLfloat diff[4];
 GLfloat spec[4];
@@ -35,7 +35,7 @@ struct MATERIALS
 		m_Materials.clear();
 	}
 
-deque<s_mat> m_Materials;
+std::deque<s_mat> m_Materials;
 
 };
 

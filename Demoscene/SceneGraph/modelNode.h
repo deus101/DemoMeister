@@ -5,11 +5,11 @@
 
 
 namespace NS_SG{
-
+	
 		class modelNode : public assetNode
 		{
 		public:
-			modelNode(std::string name,  model  *mesh, renderPacket *tech) :
+			modelNode(std::string name,  model  *mesh, NS_EFF::renderPacket *tech) :
 				assetNode(name),
 				Model(mesh),
 				Magic(tech),
@@ -27,13 +27,13 @@ namespace NS_SG{
 				getAbsoluteTransform(ABS);
 				assert(NULL != Model);
 				assert(NULL != Magic);
-				Magic->Draw(Model, ABS);
+				//Magic->Draw(Model, ABS);
 			}
 
 			bool transparent;
 
 			model *Model;
-			renderPacket *Magic;
+			NS_EFF::renderPacket *Magic;
 
 		};
 

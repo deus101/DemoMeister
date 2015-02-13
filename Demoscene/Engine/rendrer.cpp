@@ -6,6 +6,7 @@
 #include "../SceneGraph/assetNode.h"
 #include "../SceneGraph/modelNode.h"
 
+
 #include <vector>
 #include <stack>
 
@@ -29,6 +30,11 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		}
 		//mesh->draw();
 		Visible.push_back(mesh);
+
+		//Ide: en drawque item som har Matrisene og informasjonen den trenger, må sorte denne skikkelig uansett. Transformasjons matrisen iallefall.
+
+		//kansje der kan jeg bruke den kompliserte matrise genererings funksjonne
+
 	}
 
 	for (node::child_iterator i = Node->beginChildren(); i != Node->endChildren(); ++i)
@@ -45,10 +51,12 @@ void rendrer::draw()
 	visit(scene, world );
 
 	//sceneloadern bør få en referance til context objektet men hvordan rettferdigjør jeg valg av effekt filen? Utifra en haug med assetnoder
+	//scene->c
+	//mContext->
 	//m_DSGeomPassTech.Enable();
 
 	//m_gbuffer.BindForGeomPass();
-
+	mContext->mGBuffer.BindForGeomPass();
 	// Only the geometry pass updates the depth buffer
 	gl::DepthMask(gl::TRUE_);
 

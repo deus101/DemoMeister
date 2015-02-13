@@ -60,9 +60,6 @@
     <ClCompile Include="Engine\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\shaders.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Effect\GeomPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,9 +138,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\shaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\asset.h">
@@ -232,6 +226,7 @@
     <None Include="Shaders\point_light_pass.fs">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Mesh\teapot.FBX" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

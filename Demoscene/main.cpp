@@ -1,9 +1,9 @@
-#include "world.h"
+//#include "world.h"
 
 //world as a scene object and going through a sceneloader?
-world o_World;
+#include "Rendrer\context.h"
 
-
+NS_REND::context mContext;
 
 
 
@@ -99,7 +99,6 @@ void callRenderScene()
 
 void SetupRC()
 {
-
 	glload::LoadFunctions();
 	/*
 	if(glload::LoadFunctions() == glload::LS_LOAD_FAILED)
@@ -135,29 +134,19 @@ void SetupRC()
 
 
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
 
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitContextVersion(3,3);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
+	mContext.Init(argc, argv, true, false);
 
-#ifdef DEBUG
-	glutInitContextFlags(GLUT_DEBUG);
-#endif
-	glutInitWindowPosition(-1, -1);
-	glutInitWindowSize(800, 600);
-	//glutInitWindowPosition (300, 200);
-	glutCreateWindow("Deus's Ex Machine");
-	
+	//glutInit(&argc, argv);
 
-	glload::LoadFunctions();
-	if (gl::exts::var_ARB_debug_output)
-	{
-		gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
-		//gl::DebugMessageCallbackARB(, (void*)15);
-	}
+	mContext.InitWindow(800, 600, false, "Deus's Ex Machine");
+
+	//glutInitWindowPosition(-1, -1);
+
+
+
 
 	//o_World.WindowID = 
 	//    glutIgnoreKeyRepeat(1);

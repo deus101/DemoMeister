@@ -12,8 +12,8 @@
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
 #include "../Rendrer/context.h"
-using namespace NS_MESH;
-using namespace NS_MAT;
+//using namespace NS_MESH;
+//using namespace NS_MAT;
 
 namespace NS_ENG{
 
@@ -28,22 +28,22 @@ namespace NS_ENG{
 		}
 		GLuint vao;
 		GLuint vbo;
-		vector<unsigned short> IBO;
+		std::vector<unsigned short> IBO;
 
 		//been to long...
 		//VEC3 amb;
 		GLfloat amb[4];
-		VEC3 dif;
-		VEC3 spec;
-		VEC3 emi;
-		VEC3 shiny;
+		NS_VEC::VEC3 dif;
+		NS_VEC::VEC3 spec;
+		NS_VEC::VEC3 emi;
+		NS_VEC::VEC3 shiny;
 
 	};
 
 	struct PackedVertex{
-		VEC3 position;
-		VEC2 uv;
-		VEC3 normal;
+		NS_VEC::VEC3 position;
+		NS_VEC::VEC2 uv;
+		NS_VEC::VEC3 normal;
 		bool operator<(const PackedVertex that) const{
 			return memcmp((void*)this, (void*)&that, sizeof(PackedVertex)) > 0;
 		};
@@ -55,14 +55,14 @@ namespace NS_ENG{
 	class model
 	{
 	public:
-		vector<VEC3> Sort_Pos;
-		vector<VEC3> Sort_Norms;
-		vector<VEC2> Sort_Uvs;
+		std::vector<NS_VEC::VEC3> Sort_Pos;
+		std::vector<NS_VEC::VEC3> Sort_Norms;
+		std::vector<NS_VEC::VEC2> Sort_Uvs;
 
 
 
 
-		vector<buffer_Group> Sort_Groups;
+		std::vector<buffer_Group> Sort_Groups;
 
 
 
@@ -74,7 +74,7 @@ namespace NS_ENG{
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
-		model(const NS_REND::context &aContext, string obj, string mtl);
+		model(const NS_REND::context &aContext, std::string obj, std::string mtl);
 
 
 	public:
@@ -85,9 +85,9 @@ namespace NS_ENG{
 
 
 
-		MESH meshy;
-		MATERIALS palette;
-		VEC3 color;
+		NS_MESH::MESH meshy;
+		NS_MAT::MATERIALS palette;
+		NS_VEC::VEC3 color;
 
 	private:
 		bool getSimilarVertexIndex_fast(

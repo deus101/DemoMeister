@@ -4,6 +4,7 @@
 #include "../SceneGraph/composite.h"
 #include "../SceneGraph/camera.h"
 #include "../Math/math3d.h"
+#include "../Rendrer/context.h"
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
 namespace NS_ENG
@@ -13,7 +14,7 @@ class rendrer
 {
 public:
 
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera) : scene(_scene), kamera(_camera)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_REND::context *_context) : scene(_scene), kamera(_camera), mContext(_context)
 	{
 
 		
@@ -25,6 +26,8 @@ public:
 private:
 	composite *scene;
 	camera *kamera;
+	NS_REND::context *mContext;
+	
 	std::vector< NS_SG::modelNode*> Visible;
 
 public:

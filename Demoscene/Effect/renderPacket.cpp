@@ -7,11 +7,14 @@
 using namespace NS_VEC;
 using namespace NS_EFF;
 
-renderPacket::renderPacket(const NS_REND::context &aContext)
+//dropper dette for øyeblikket
+//renderPacket::renderPacket(const NS_REND::context &aContext)
+renderPacket::renderPacket()
 {
  //gi den shaderne
-	m_shaderProg = aContext.Program;
+	//m_shaderProg = aContext.Program;
 
+	m_shaderProg = 0;
 
 }
 
@@ -19,7 +22,7 @@ bool renderPacket::Init()
 {
 
 	//opprette bufferne her?
-	//m_shaderProg = gl::CreateProgram();
+	m_shaderProg = gl::CreateProgram();
 
 	//m_shaderProg = context.getProgram();
 	if (m_shaderProg == 0) {
@@ -28,8 +31,9 @@ bool renderPacket::Init()
 	}
 
 }
-
+/*
 //ehm....Jo vent jeg satt den der fordi m_shaderProg var der men nå har jo model klassen den informasjonen.
+//faen her skal jo asset være drit I å legge til model, dette er jo Asset som jeg tror model er ment å arve fra.
 void renderPacket::Draw(NS_ENG::model *o, const M3DMatrix44f mMat)
 {
 
@@ -76,6 +80,7 @@ void renderPacket::Draw(NS_ENG::model *o, const M3DMatrix44f mMat)
 
 
 }
+*/
 
 bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 {
@@ -166,8 +171,8 @@ bool renderPacket::Finalize()
 		Sleep(10000);
 		exit(0);
 	}
-	cout << "ShaderObject! : " << m_shaderProg << endl;
-
+	//std::cout << "ShaderObject! : " << m_shaderProg << endl;
+	
 
 }
 
