@@ -77,9 +77,9 @@ namespace NS_ENG{
 		model(const NS_REND::context &aContext, std::string obj, std::string mtl);
 
 
-	public:
 
-		//virtual void draw();
+
+		void Draw();
 
 	public:
 

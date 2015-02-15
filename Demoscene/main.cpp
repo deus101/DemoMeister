@@ -1,5 +1,7 @@
 //#include "world.h"
+#include "bass.h"
 
+#include "sync.h"
 //world as a scene object and going through a sceneloader?
 #include "Rendrer\context.h"
 
@@ -82,7 +84,7 @@ void ChangeSize(int w, int h)
 	//fAspect = (GLfloat)w / (GLfloat)h;
 
 	cout << "Changed Screen size!" << endl;
-
+	std::
 
 	//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
 
@@ -156,7 +158,7 @@ int main(int argc, char** argv)
 
 	SetupRC();
 
-	glutReshapeFunc(ChangeSize);
+	glutReshapeFunc(mContext.ChangeSize);
 	glutDisplayFunc(callRenderScene);
 	glutTimerFunc(33, TimerFunction, 1);
 	//glutIdleFunc(IdleFunc);

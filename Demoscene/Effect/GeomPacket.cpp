@@ -52,9 +52,9 @@ void GeomPacket::SetWVP(const M3DMatrix44f& WVP)
 }
 
 
-void GeomPacket::SetWorldMatrix(const M3DMatrix44f& WorldInverse)
+void GeomPacket::SetWorldMatrix(const M3DMatrix44f& W)
 {
-	gl::UniformMatrix4fv(m_WorldMatrixLocation, 1, gl::TRUE_, WorldInverse);
+	gl::UniformMatrix4fv(m_WorldMatrixLocation, 1, gl::TRUE_, W);
 }
 
 

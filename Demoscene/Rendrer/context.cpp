@@ -81,3 +81,49 @@ bool context::InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, con
 
 	return true;
 }
+
+void context::ChangeSize(unsigned int w, unsigned int h)
+{
+	GLfloat fAspect;
+
+	if (h == 0)
+		h = 1;
+
+	//gl::vie
+	//startskudd for omskriving 
+
+	gl::Viewport(0, 0, (GLsizei)w, (GLsizei)h);
+
+	//fAspect = (GLfloat)w / (GLfloat)h;
+
+	std::cout << "Changed Screen size!" << std::endl;
+	
+
+		//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
+
+
+}
+//mulig en callback classe her med en app classe
+void context::Run()
+{
+
+
+	gl::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	gl::FrontFace(gl::CW);
+	gl::CullFace(gl::BACK);
+	gl::Enable(gl::CULL_FACE);
+
+	if (sDepth) {
+		gl::Enable(gl::DEPTH_TEST);
+	}
+
+	
+	glutMainLoop();
+}
+
+void context::Swap()
+{
+
+	glutSwapBuffers();
+
+}

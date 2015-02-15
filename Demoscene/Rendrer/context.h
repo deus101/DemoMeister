@@ -21,6 +21,11 @@ namespace NS_REND
 		void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		bool InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
+		void ChangeSize(unsigned int w, unsigned int h);
+		void Run();
+
+		void Swap();
+
 		unsigned int GetPixelWidth() const;
 
 		unsigned int GetPixelHeight() const;

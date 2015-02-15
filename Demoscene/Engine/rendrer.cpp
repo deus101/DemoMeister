@@ -17,19 +17,38 @@ using namespace NS_SG;
 
 void rendrer::visit(node *Node, M3DMatrix44f  world)
 {
-	if (4 == Node->getType())
+	if (NS_SG::node::NODE_ASSET == Node->getType())
 	{
+		RendrerItem Tmp;
+		//aabb checks of culling her
 		modelNode *mesh = reinterpret_cast<modelNode*>(&Node);
 		if (NULL != mesh->Magic)
 		{
 			M3DMatrix44f world; 
+			
 			Node->getAbsoluteTransform(world);
+			
+			M3DMatrix44f wv, wvp;
 
-			mesh->Magic->setMatrices(world , view, projection);
+			//assert(NULL != p);
+			M3DMatrix44f world_view_proj, matWVP_inv;
+			m3dMatrixMultiply44(wv, world, view);
+
+
+			m3dMatrixMultiply44(wvp, wv, projection);
+			
+			
+			m3dCopyMatrix44(Tmp.sWVP, wvp);
+			m3dCopyMatrix44(Tmp.sWVP, world);
+			//m3dInvertMatrix44(matWVP_inv, world_view_proj);
+
+			//mesh->Magic->setMatrices(world , view, projection);
 			//mesh->Magic->commitChanges();
 		}
+		Tmp.sNode = mesh;
+
 		//mesh->draw();
-		Visible.push_back(mesh);
+		Visible.push_back(Tmp);
 
 		//Ide: en drawque item som har Matrisene og informasjonen den trenger, må sorte denne skikkelig uansett. Transformasjons matrisen iallefall.
 
@@ -69,10 +88,14 @@ void rendrer::draw()
 	//p.SetPerspectiveProj(m_persProjInfo);
 	//p.Rotate(0.0f, m_scale, 0.0f);
 
-	for (unsigned int i = 0; i < Visible.size(); i++) {
+	for (vIT = Visible.begin(); vIT != Visible.end(); ++vIT) {
 		//p.WorldPos(m_boxPositions[i]);
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
-		Visible.at(i)->draw();
+
+		vIT->sNode->Magic->Enable();
+		vIT->sNode->Magic->SetWVP(vIT->sWVP);
+		vIT->sNode->Magic->SetWorldMatrix(vIT->sTransform);
+
 	}
 
 	// When we get here the depth buffer is already populated and the stencil pass

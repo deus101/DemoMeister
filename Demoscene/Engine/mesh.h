@@ -43,7 +43,7 @@ struct s_Face
 	
 	//VEC3 m_vNor;
 	NS_VEC::VEC3 m_vMid;
-	vector< s_FaceVertex > m_Verts;
+	std::vector< s_FaceVertex > m_Verts;
 	
 };
 
@@ -57,10 +57,10 @@ struct s_Group
 		m_Faces.clear();
 		
 	}
-	string group_name;
-	string mat;
+	std::string group_name;
+	std::string mat;
 	int matid;
-	deque< s_Face > m_Faces;
+	std::deque< s_Face > m_Faces;
 
 
 };
@@ -70,12 +70,12 @@ struct s_Group
 
 struct MESH
 {
-	deque<NS_VEC::VEC3> m_Pos;
-	deque<NS_VEC::VEC3> m_Norms;
-	deque<NS_VEC::VEC2> m_Uvs;
+	std::deque<NS_VEC::VEC3> m_Pos;
+	std::deque<NS_VEC::VEC3> m_Norms;
+	std::deque<NS_VEC::VEC2> m_Uvs;
 	 
 
-	deque<s_Group> m_Groups;
+	std::deque<s_Group> m_Groups;
 	
 
 

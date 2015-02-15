@@ -12,7 +12,7 @@ using namespace std;
 using namespace NS_MESH;
 using namespace NS_MAT;
 
-
+//arve drawable her
 model::model() 
 {
 
@@ -216,7 +216,52 @@ model::model(const NS_REND::context &aContext, string obj, string mtl)
 
 	//unifor for model matrix
 
+void model::Draw()
+{
 
+	//gl::BindVertexArray(vao_model);
+	//Sett opp egne programmer
+	//gl::UseProgram(m_shaderProg);
+	GLint ModelLoc = gl::GetUniformLocation(m_shaderProg, "M");
+	if (ModelLoc != -1)
+	{
+		//cout << "In Model found uniform for Model Matrix" << endl;
+		//gl::UniformMatrix4fv(ModelLoc, 1, gl::FALSE_, this->Model);
+		//"this" i rendrenren henter model matrisen
+	}
+
+	GLint DifLoc = gl::GetUniformLocation(m_shaderProg, "Diffuse");
+	GLint AmbLoc = gl::GetUniformLocation(m_shaderProg, "Ambiant");
+	GLint SpecLoc = gl::GetUniformLocation(m_shaderProg, "Specular");
+	GLint ShiLoc = gl::GetUniformLocation(m_shaderProg, "Shininess");
+
+	if (ModelLoc != -1)
+	{
+		//cout << "In Model found uniform for Model Matrix" << endl;
+		//gl::UniformMatrix4fv(AmbLoc, 1, gl::TRUE_, this->  );
+		//"this" i rendrenren henter model matrisen
+	}
+
+
+
+	//gl::PolygonMode(gl::GL_FRONT_AND_BACK, gl::GL_FILL);
+
+	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
+	{
+
+
+		gl::BindVertexArray(Sort_Groups[i].vao);
+
+		gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
+		gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
+		gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
+		gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
+
+		gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
+	}
+
+
+}
 
 
 

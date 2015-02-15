@@ -149,6 +149,9 @@
     <ClInclude Include="Effect\renderPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Math\matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment - Copy (4).glsl">

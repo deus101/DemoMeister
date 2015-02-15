@@ -10,6 +10,23 @@
 namespace NS_ENG
 { 
 
+
+	struct RendrerItem
+	{
+	/*	RendrerItem()
+		{
+			
+		}
+*/
+		//VEC3 m_vNor;
+		//referanse til objekt referanse burde vært her
+		//burde vært detrte men prøver mer direkt metode først
+		//NS_SG::assetNode *sNode;
+		NS_SG::modelNode *sNode;
+		M3DMatrix44f sTransform;
+		M3DMatrix44f sWVP;
+	};
+
 class rendrer
 {
 public:
@@ -28,7 +45,9 @@ private:
 	camera *kamera;
 	NS_REND::context *mContext;
 	
-	std::vector< NS_SG::modelNode*> Visible;
+	std::list< struct RendrerItem> Visible;
+	std::list< struct RendrerItem>::iterator vIT;
+
 
 public:
 	M3DMatrix44f view, projection;
