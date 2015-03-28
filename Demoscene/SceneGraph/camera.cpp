@@ -13,7 +13,7 @@
 //			cout << Projection[0] << "  " << Projection[4] << "  " << Projection[8] << "  " << Projection[12] << endl;
 //			cout << Projection[1] << "  " << Projection[5] << "  " << Projection[9] << "  " << Projection[13] << endl;
 //			cout << Projection[2] << "  " << Projection[6] << "  " << Projection[10] << "  " << Projection[14] << endl;
-//			cout << Projection[3] << "  " << Projection[7] << "  " << Projection[11] << "  " << Projection[15] << endl;
+//			cout << Projection[3] << "  " <	< Projection[7] << "  " << Projection[11] << "  " << Projection[15] << endl;
 //
 //			this->SetView();
 //			cout << "View Matrix: " << endl;

@@ -22,7 +22,7 @@ namespace NS_ENG
 		//referanse til objekt referanse burde vært her
 		//burde vært detrte men prøver mer direkt metode først
 		//NS_SG::assetNode *sNode;
-		NS_SG::modelNode *sNode;
+		modelNode *sNode;
 		M3DMatrix44f sTransform;
 		M3DMatrix44f sWVP;
 	};

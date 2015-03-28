@@ -12,7 +12,7 @@
 //Hvorfor trengte jeg denne?
 #include "../Engine/model.h"
 
-
+#include "../util.h"
 #include "camera.h"
 
 //#include "sync.h"
@@ -61,7 +61,7 @@ namespace NS_SG{
 
 		class composite : public node
 		{
-		Timer clock;
+		//Timer clock;
 		public:
 
 			composite(std::string name) : node(name) {}
@@ -91,7 +91,7 @@ namespace NS_SG{
 			//void AddActor(GLfloat, GLfloat, GLfloat);
 			
 			void AddActor(int, GLfloat, GLfloat, GLfloat);
-			void AddActor(VEC3, string, string, GLfloat, GLfloat, GLfloat);
+			void AddActor(NS_VEC::VEC3, std::string, std::string, GLfloat, GLfloat, GLfloat);
 			void Magic(bool);
 			void DrawAll();
 			void StartTimer();

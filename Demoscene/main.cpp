@@ -1,4 +1,5 @@
-//#include "world.h"
+#include "world.h"
+#include <iostream>
 #include "bass.h"
 
 #include "sync.h"
@@ -71,20 +72,23 @@ void IdleFunc()
 
 void ChangeSize(int w, int h)
 {
-	GLfloat fAspect;
 
-	if (h == 0)
-		h = 1;
+
+	mContext.ChangeSize(w, h);
+	//GLfloat fAspect;
+
+	//if (h == 0)
+	//	h = 1;
 
 	//gl::vie
 	//startskudd for omskriving 
 
-	gl::Viewport(0, 0, (GLsizei)w, (GLsizei)h);
+	//gl::Viewport(0, 0, (GLsizei)w, (GLsizei)h);
 
 	//fAspect = (GLfloat)w / (GLfloat)h;
 
-	cout << "Changed Screen size!" << endl;
-	std::
+	//cout << "Changed Screen size!" << endl;
+	//std::
 
 	//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
 
@@ -95,7 +99,7 @@ void ChangeSize(int w, int h)
 
 void callRenderScene()
 {
-	o_World.RenderScene();
+	mContext.Run();
 }
 
 
@@ -112,10 +116,10 @@ void SetupRC()
     }|
 	*/
 	//glload::LoadWinFunctions(
-	cout << "Minor version! : " << glload::GetMinorVersion() << endl;
-	cout << "Major Version! : " << glload::GetMajorVersion() << endl;
+	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
+	std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
 
-	o_World.AfterInit();
+	//o_World.AfterInit();
 	/*
 	sg::noder::composite test("test");
 
@@ -158,7 +162,7 @@ int main(int argc, char** argv)
 
 	SetupRC();
 
-	glutReshapeFunc(mContext.ChangeSize);
+	glutReshapeFunc(ChangeSize);
 	glutDisplayFunc(callRenderScene);
 	glutTimerFunc(33, TimerFunction, 1);
 	//glutIdleFunc(IdleFunc);

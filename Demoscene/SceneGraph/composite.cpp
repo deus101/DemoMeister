@@ -10,8 +10,8 @@ using namespace NS_SG;
 		
 		float gravity = 9.8f;
 
-		QUAT qStart = QUAT(-30, 0, 1, 0) * QUAT(-45, 1, 0, 0);
-		QUAT qEnd = QUAT(-40, 0, 0, 1) * QUAT(45, 1, 0, 0);
+		NS_VEC::QUAT qStart = NS_VEC::QUAT(-30, 0, 1, 0) * NS_VEC::QUAT(-45, 1, 0, 0);
+		NS_VEC::QUAT qEnd = NS_VEC::QUAT(-40, 0, 0, 1) * NS_VEC::QUAT(45, 1, 0, 0);
 
         //typedef boost::shared_ptr< actors > actorsPtr;
 
@@ -117,10 +117,10 @@ using namespace NS_SG;
 			case 003:
 				//herd.push_back(actorsPtr(new composite()));
 			default:
-				cout << "Error no such object: " << typeID << endl;
+				std::cout << "Error no such object: " << typeID << std::endl;
 			}
 		}
-		void composite::AddActor(VEC3 co, string filename1, string filename2, GLfloat x, GLfloat y, GLfloat z)
+		void composite::AddActor(NS_VEC::VEC3 co, std::string filename1, std::string filename2, GLfloat x, GLfloat y, GLfloat z)
 		{
 			//herd.push_back(actorsPtr(new model(x, y, z, false, filename1, filename2, co)));
 
@@ -232,9 +232,9 @@ using namespace NS_SG;
 		void composite::StartTimer()
 		{
 			//clock.
-			clock = Timer();
-			counter = -1.0f;
-			second = 0;
+			//clock = Timer();
+			//counter = -1.0f;
+			//second = 0;
 
 		}
 

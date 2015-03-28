@@ -7,7 +7,8 @@
 #endif
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "math/math3d.h"
+#include "math/vec.h"
 
 
 //using namespace std;
