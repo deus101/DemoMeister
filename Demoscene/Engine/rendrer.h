@@ -13,11 +13,11 @@ namespace NS_ENG
 
 	struct RendrerItem
 	{
-	/*	RendrerItem()
+		RendrerItem()
 		{
 			
 		}
-*/
+
 		//VEC3 m_vNor;
 		//referanse til objekt referanse burde vært her
 		//burde vært detrte men prøver mer direkt metode først
