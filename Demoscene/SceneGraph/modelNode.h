@@ -1,3 +1,6 @@
+#ifndef MODELNODE_HPP
+#define MODELNODE_HPP
+
 #include "assetNode.h"
 //#include "shaders.h"
 #include "../Engine/model.h"
@@ -9,7 +12,7 @@ namespace NS_SG{
 		class modelNode : public assetNode
 		{
 		public:
-			modelNode(std::string name,  model  *mesh, NS_EFF::GeomPacket *tech) :
+			modelNode(std::string name,  NS_ENG::model  *mesh, NS_EFF::GeomPacket *tech) :
 				assetNode(name),
 				Model(mesh),
 				Magic(tech),
@@ -32,7 +35,7 @@ namespace NS_SG{
 
 			bool transparent;
 
-			model *Model;
+			NS_ENG::model *Model;
 			NS_EFF::GeomPacket *Magic;
 
 		};
@@ -42,3 +45,5 @@ namespace NS_SG{
 
 
 }
+
+#endif

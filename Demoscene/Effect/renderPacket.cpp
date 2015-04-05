@@ -17,7 +17,10 @@ renderPacket::renderPacket()
 	m_shaderProg = 0;
 
 }
+renderPacket::~renderPacket()
+{
 
+}
 bool renderPacket::Init()
 {
 
@@ -29,6 +32,7 @@ bool renderPacket::Init()
 		fprintf(stderr, "Error creating shader program\n");
 		return false;
 	}
+	return true;
 
 }
 /*

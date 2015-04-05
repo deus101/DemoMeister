@@ -7,11 +7,12 @@
 #endif
 #include <stdlib.h>
 #include <stdio.h>
+#include <cstdlib>
 #include "math/math3d.h"
 #include "math/vec.h"
 
 
-//using namespace std;
+using namespace std;
 
 
 #define OGLDEV_ERROR(Error) OgldevError(__FILE__, __LINE__, Error);

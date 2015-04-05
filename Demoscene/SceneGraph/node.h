@@ -46,18 +46,18 @@ namespace NS_SG{
 				Node->setParent(shared_from_this() );
 
 			}
-
-			void removeChild(nodePtr node)
-			{
-				Nodes::iterator itr = std::find(children.begin(), children.end(), node);
-				if (itr != children.end())
-				{
-					// reset parent
-					(*itr)->setParent(nodePtr());
-					// remove from children
-					children.erase(itr);
-				}
-			}
+			// REMEMMEBERS11!!
+			//void removeChild(nodePtr node)
+			//{
+			//	Nodes::iterator itr = std::find(children.begin(), children.end(), node);
+			//	if (itr != children.end())
+			//	{
+			//		// reset parent
+			//		(*itr)->setParent(nodePtr());
+			//		// remove from children
+			//		children.erase(itr);
+			//	}
+			//}
 
 			void setParent(nodePtr node){ parent = svakRef(node); }
 
@@ -73,7 +73,8 @@ namespace NS_SG{
 
 			nodePtr findChild(const std::string &name)
 			{
-			if (this->name == name) return shared_from_this();
+			if (this->name == name) 
+				return shared_from_this();
 					nodePtr node;
 					Nodes::iterator itr;
 					for (itr = children.begin(); itr != children.end(); ++itr) {
@@ -87,7 +88,13 @@ namespace NS_SG{
 			virtual NodeType getType() = 0;
 
 			//why the fuck dont i just leave the math3dshit behnd? 
-			virtual void getLocalTransform(M3DMatrix44f in) { M3DMatrix44f trans; m3dLoadIdentity44(trans); m3dCopyMatrix44(in, trans); };
+			virtual void getLocalTransform(M3DMatrix44f in) 
+			{ 
+				M3DMatrix44f trans; 
+				m3dLoadIdentity44(trans); 
+				m3dCopyMatrix44(in, trans); 
+			
+			}
 
 			virtual void getAbsoluteTransform(M3DMatrix44f in)
 			{
@@ -121,7 +128,7 @@ namespace NS_SG{
 
 		private:
 			const std::string name;
-
+															
 			svakRef parent;
 			Nodes children;
 		};

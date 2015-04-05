@@ -1,3 +1,6 @@
+#ifndef GEOMPACKET_HPP
+#define GEOMPACKET_HPP
+
 #include "renderPacket.h"
 
 //Jeg tror jeg overforbruker
@@ -21,3 +24,5 @@ namespace NS_EFF{
 		GLuint m_colorTextureUnitLocation;
 	};
 }
+
+#endif

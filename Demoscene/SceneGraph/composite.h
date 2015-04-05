@@ -73,10 +73,15 @@ namespace NS_SG{
 			//double *row;
 			//sync_device *rocket;
 			//legg se og få brukt referanse noden til denne
-			camera *findCamera(const std::string &name)
-			{
-				return findNodeByType<camera, NODE_CAMERA>(name);
-			}
+			
+		////HUSK!!!!!!!	
+		//	camera *findCamera(const std::string &name)
+		//	{
+		//		//reinterpt her?
+		//		nodePtr cam = findNodeByType<camera, NODE_CAMERA>(name);
+		//		//return findNodeByType<camera, NODE_CAMERA>(name);
+		//		return cam;
+		//	}
 
 			nodePtr findNode(const std::string &name)
 			{
@@ -103,15 +108,16 @@ namespace NS_SG{
 			std::map<objTransform*, objectAnim> animTracks;
 
 			template <typename T, NodeType t>
-			T *findNodeByType(const std::string &name)
+			T findNodeByType(const std::string &name)
 			{
 				// find node
-				node *oNode = findChild(name);
+				//node *oNode = findChild(name);
+				nodePtr oNode = findChild(name);
 				if (NULL == oNode) return NULL;
 
 				// type check
 				if (oNode->getType() != t) return NULL;
-				return reinterpret_cast<T*>(oNode);
+				return reinterpret_cast<T>(oNode);
 			};
 
 		};
