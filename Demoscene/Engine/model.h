@@ -75,7 +75,7 @@ namespace NS_ENG{
 		GLuint vbo_indices;
 		model();
 		model(const NS_REND::context &aContext, std::string obj, std::string mtl);
-
+		~model();
 
 
 

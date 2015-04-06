@@ -174,6 +174,11 @@ model::model(const NS_REND::context &aContext, string obj, string mtl)
 	//this->BufferLog();
 
 }
+model::~model()
+{
+
+}
+
 
 //FEIL FEIL FEIL
 //RENDER QUE! NUH!

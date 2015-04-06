@@ -6,6 +6,9 @@
 //world as a scene object and going through a sceneloader?
 #include "Rendrer\context.h"
 #include "Engine\rendrer.h"
+#include "SceneGraph\assetNode.h"
+#include "SceneGraph\modelNode.h"
+
 
 NS_REND::context *mContext;
 NS_ENG::rendrer *mRender;
@@ -176,7 +179,13 @@ int main(int argc, char** argv)
 
 	o_loader->addChild(&kambot);
 
-	NS_ENG::model(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
+	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
+	//NS_SG::modelNode()
+
+	NS_EFF::GeomPacket e_geom();
+
+	//NS_SG::modelNode(...)
+	
 
 	mRender = new NS_ENG::rendrer(o_loader.get(), &kambot, mContext);
 
