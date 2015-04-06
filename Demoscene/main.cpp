@@ -5,8 +5,11 @@
 #include "sync.h"
 //world as a scene object and going through a sceneloader?
 #include "Rendrer\context.h"
+#include "Engine\rendrer.h"
 
-NS_REND::context mContext;
+NS_REND::context *mContext;
+NS_ENG::rendrer *mRender;
+
 
 
 
@@ -74,7 +77,7 @@ void ChangeSize(int w, int h)
 {
 
 
-	mContext.ChangeSize(w, h);
+	mContext->ChangeSize(w, h);
 	//GLfloat fAspect;
 
 	//if (h == 0)
@@ -99,7 +102,8 @@ void ChangeSize(int w, int h)
 
 void callRenderScene()
 {
-	mContext.Run();
+	mContext->Run();
+	mRender->draw();
 }
 
 
@@ -116,8 +120,7 @@ void SetupRC()
     }|
 	*/
 	//glload::LoadWinFunctions(
-	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
-	std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
+
 
 	//o_World.AfterInit();
 	/*
@@ -125,14 +128,15 @@ void SetupRC()
 
 	model("Mesh/p38.obj", "Mesh/p38.mtl");
 	*/
+	//nei faen den er en attributt nå den!
+	
 	
 
-
+	//o_loader
 
 	
 
-
-
+	//test.findChild("hoo");
 }
 
 
@@ -142,12 +146,12 @@ void SetupRC()
 
 int main(int argc, char** argv)
 {
-
-	mContext.Init(argc, argv, true, false);
+	mContext = new NS_REND::context();
+	mContext->Init(argc, argv, true, false);
 
 	//glutInit(&argc, argv);
 
-	mContext.InitWindow(800, 600, false, "Deus's Ex Machine");
+	mContext->InitWindow(800, 600, false, "Deus's Ex Machine");
 
 	//glutInitWindowPosition(-1, -1);
 
@@ -161,7 +165,24 @@ int main(int argc, char** argv)
 	//    glutSpecialUpFunc( callKeyRelease );
 
 	SetupRC();
+	//DO IT! TO IT!
 
+
+
+	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
+
+	NS_SG::camera kambot = NS_SG::camera("kambot");
+	//NS_SG::modelNode plane = NS_SG::modelNode
+
+	o_loader->addChild(&kambot);
+
+	NS_ENG::model(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
+
+	mRender = new NS_ENG::rendrer(o_loader.get(), &kambot, mContext);
+
+
+
+	//STOP DEFINING THE SHIT!
 	glutReshapeFunc(ChangeSize);
 	glutDisplayFunc(callRenderScene);
 	glutTimerFunc(33, TimerFunction, 1);

@@ -23,6 +23,7 @@ namespace NS_ENG
 		//referanse til objekt referanse burde vært her
 		//burde vært detrte men prøver mer direkt metode først
 		//NS_SG::assetNode *sNode;
+		//shared_ptr damnit
 		NS_SG::modelNode *sNode;
 		M3DMatrix44f sTransform;
 		M3DMatrix44f sWVP;
@@ -31,7 +32,7 @@ namespace NS_ENG
 class rendrer
 {
 public:
-
+	//                                should this just be name?  
 	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_REND::context *_context) : scene(_scene), kamera(_camera), mContext(_context)
 	{
 

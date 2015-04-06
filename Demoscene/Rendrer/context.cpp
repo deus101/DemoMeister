@@ -117,8 +117,8 @@ void context::Run()
 		gl::Enable(gl::DEPTH_TEST);
 	}
 
-	
-	glutMainLoop();
+	//what why?
+	//glutMainLoop();
 }
 
 void context::Swap()

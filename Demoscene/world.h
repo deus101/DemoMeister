@@ -37,6 +37,12 @@
 #include "sync.h"
 
 
+#include "SceneGraph\node.h"
+#include "SceneGraph\camera.h"
+#include "SceneGraph\composite.h"
+#include "SceneGraph\modelNode.h"
+
+
 
 
 
@@ -72,6 +78,8 @@ public:
 
 public:
 	int WindowID;
+
+	//NS_SG::composite o_loader;
 	// void keyDown(int key, int x, int y);
 	//
 	// void keyRelease(int key, int x, int y);
