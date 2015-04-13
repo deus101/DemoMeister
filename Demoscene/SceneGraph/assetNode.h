@@ -8,7 +8,7 @@ namespace NS_SG{
 		{
 		public: 
 			assetNode( std::string name) : node(name) { }
-			~assetNode();
+			~assetNode(){}
 			NodeType getType() { return NODE_ASSET; }
 
 			virtual bool isTransparent() = 0;

@@ -1,6 +1,7 @@
 #ifndef RENDERPACKET_HPP
 #define RENDERPACKET_HPP
 
+#include <iostream>
 #include <list>
 #include "../Math/vec.h"
 //#include "mesh.h"

@@ -19,7 +19,7 @@ namespace NS_SG{
 				transparent(false)
 			{}
 
-			~modelNode();
+			~modelNode(){ }
 
 			virtual bool isTransparent()
 			{

@@ -106,7 +106,9 @@ void ChangeSize(int w, int h)
 void callRenderScene()
 {
 	mContext->Run();
+	
 	mRender->draw();
+	mContext->Swap();
 }
 
 
@@ -174,20 +176,44 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
-	NS_SG::camera kambot = NS_SG::camera("kambot");
+	//NS_SG::camera kambot = NS_SG::camera("kambot");
+	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
 	//NS_SG::modelNode plane = NS_SG::modelNode
+	//NS_SG::objTransform tran_kambot = NS_SG::objTransform("tran_kambot");
+	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
 
-	o_loader->addChild(&kambot);
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 5.0f));
+
+	tran_kambot->addChild(kambot.get());
+	//husk
+	//o_loader->addChild(&tran_kambot);
+	o_loader->addChild(tran_kambot.get());
 
 	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
 	//NS_SG::modelNode()
 
-	NS_EFF::GeomPacket e_geom();
+	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
 
-	//NS_SG::modelNode(...)
 	
 
-	mRender = new NS_ENG::rendrer(o_loader.get(), &kambot, mContext);
+
+	std::cout << "Status of effect is: " << e_geom.Init() << std::endl;
+
+	//this should not be started here.
+	e_geom.Enable();
+
+	//NS_SG::modelNode n_fly = NS_SG::modelNode("plane", &fly, &e_geom);
+	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
+	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
+	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
+	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
+
+	tran_fly->addChild(n_fly.get());
+
+	o_loader->addChild(tran_fly.get());
+	
+
+	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), mContext);
 
 
 

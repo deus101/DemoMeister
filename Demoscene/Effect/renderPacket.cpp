@@ -88,7 +88,8 @@ void renderPacket::Draw(NS_ENG::model *o, const M3DMatrix44f mMat)
 
 bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 {
-
+	
+	std::cout << fileName << std::endl;
 	const GLchar *glslStringPtr[1];
 	GLint success;
 

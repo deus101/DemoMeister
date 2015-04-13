@@ -17,17 +17,38 @@ using namespace NS_SG;
 
 void rendrer::visit(node *Node, M3DMatrix44f  world)
 {
+	//std::cout << Node->getName() << std::endl;
+	//std::cout << Node->getType() << std::endl;   showed 0 1 4 4 
 	if (NS_SG::node::NODE_ASSET == Node->getType())
 	{
+		//std::cout << Node->getName() << std::endl;
 		RendrerItem Tmp;
 		//aabb checks of culling her
 		modelNode *mesh = reinterpret_cast<modelNode*>(&Node);
 		if (NULL != mesh->Magic)
 		{
 			M3DMatrix44f world; 
-			
+			//Node->g
 			Node->getAbsoluteTransform(world);
-			
+				std::cout << "[" << world[0] << "] ";
+				std::cout << "[" << world[1] << "] ";
+				std::cout << "[" << world[2] << "] ";
+				std::cout << "[" << world[3] << "] " << endl;
+				std::cout << "[" << world[4] << "] ";
+				std::cout << "[" << world[5] << "] ";
+				std::cout << "[" << world[6] << "] ";
+				std::cout << "[" << world[7] << "] " << endl;
+				std::cout << "[" << world[8] << "] ";
+				std::cout << "[" << world[9] << "] ";
+				std::cout << "[" << world[10] << "] ";
+				std::cout << "[" << world[11] << "] " << endl;
+				std::cout << "[" << world[12] << "] ";
+				std::cout << "[" << world[13] << "] ";
+				std::cout << "[" << world[14] << "] ";
+				std::cout << "[" << world[15] << "] " << endl;
+
+
+
 			M3DMatrix44f wv, wvp;
 
 			//assert(NULL != p);

@@ -48,7 +48,7 @@ GBuffer::~GBuffer()
 		gl::DeleteTextures(1, &m_finalTexture);
 	}
 }
-
+//vent....ikke init men run
 bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 	// Create the FBO

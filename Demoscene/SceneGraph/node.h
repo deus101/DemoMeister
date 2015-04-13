@@ -115,6 +115,11 @@ namespace NS_SG{
 				m3dCopyMatrix44(in, absoluteTransform);
 			}
 
+			virtual std::string getName(void)
+			{
+				return this->name;
+			}
+
 
 			typedef std::list<node*>::iterator child_iterator;
 			typedef std::list<node *>::const_iterator child_const_iterator;

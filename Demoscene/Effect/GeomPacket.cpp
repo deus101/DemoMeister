@@ -48,6 +48,7 @@ bool GeomPacket::Init()
 
 void GeomPacket::SetWVP(const M3DMatrix44f& WVP)
 {
+	
 	gl::UniformMatrix4fv(m_WVPLocation, 1, gl::TRUE_, WVP);
 }
 
