@@ -106,7 +106,8 @@ void GBuffer::BindForGeomPass()
 {
 	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
 
-	GLenum DrawBuffers[] = { gl::COLOR_ATTACHMENT0,
+	GLenum DrawBuffers[] = { 
+		gl::COLOR_ATTACHMENT0,
 		gl::COLOR_ATTACHMENT1,
 		gl::COLOR_ATTACHMENT2 };
 

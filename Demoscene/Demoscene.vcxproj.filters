@@ -66,6 +66,15 @@
     <ClCompile Include="Effect\renderPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Effect\lightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\DirLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PointLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -152,6 +161,15 @@
     <ClInclude Include="Math\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Effect\lightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\DirLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PointLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment - Copy (4).glsl">
@@ -230,6 +248,7 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Mesh\teapot.FBX" />
+    <None Include="Mesh\newP38.mtl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -334,6 +353,10 @@
     <Object Include="Mesh\world3.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="Mesh\newP38.obj" />
+    <Object Include="Mesh\polyhedron.obj" />
+    <Object Include="Mesh\quad.obj" />
+    <Object Include="Mesh\suzanne.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
@@ -349,5 +372,13 @@
     <ResourceCompile Include="Demoscene.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Mesh\texture.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mesh\texture2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

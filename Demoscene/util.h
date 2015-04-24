@@ -14,6 +14,68 @@
 
 using namespace std;
 
+struct BaseLight
+{
+	NS_VEC::VEC3 Color;
+	float AmbientIntensity;
+	float DiffuseIntensity;
+
+	BaseLight()
+	{
+		Color = NS_VEC::VEC3(0.0f, 0.0f, 0.0f);
+		AmbientIntensity = 0.0f;
+		DiffuseIntensity = 0.0f;
+	}
+};
+
+struct DirectionalLight : public BaseLight
+{
+	NS_VEC::VEC3 Direction;
+
+	DirectionalLight()
+	{
+		Direction = NS_VEC::VEC3(0.0f, 0.0f, 0.0f);
+	}
+};
+
+struct PointLight : public BaseLight
+{
+	NS_VEC::VEC3 Position;
+
+	struct
+	{
+		float Constant;
+		float Linear;
+		float Exp;
+	} Attenuation;
+
+	PointLight()
+	{
+		Position = NS_VEC::VEC3(0.0f, 0.0f, 0.0f);
+		Attenuation.Constant = 0.0f;
+		Attenuation.Linear = 0.0f;
+		Attenuation.Exp = 0.0f;
+	}
+};
+
+struct SpotLight : public PointLight
+{
+	NS_VEC::VEC3 Direction;
+	float Cutoff;
+
+	SpotLight()
+	{
+		Direction = NS_VEC::VEC3(0.0f, 0.0f, 0.0f);
+		Cutoff = 0.0f;
+	}
+};
+
+#define COLOR_WHITE Vector3f(1.0f, 1.0f, 1.0f)
+#define COLOR_RED Vector3f(1.0f, 0.0f, 0.0f)
+#define COLOR_GREEN Vector3f(0.0f, 1.0f, 0.0f)
+#define COLOR_CYAN Vector3f(0.0f, 1.0f, 1.0f)
+#define COLOR_BLUE Vector3f(0.0f, 0.0f, 1.0f)
+
 
 #define OGLDEV_ERROR(Error) OgldevError(__FILE__, __LINE__, Error);
 #define OGLDEV_FILE_ERROR(FileError) OgldevFileError(__FILE__, __LINE__, FileError);

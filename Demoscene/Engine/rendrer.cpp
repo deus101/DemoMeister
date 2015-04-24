@@ -29,23 +29,23 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		{
 			M3DMatrix44f world; 
 			//Node->g
-			Node->getAbsoluteTransform(world);
-				std::cout << "[" << world[0] << "] ";
-				std::cout << "[" << world[1] << "] ";
-				std::cout << "[" << world[2] << "] ";
-				std::cout << "[" << world[3] << "] " << endl;
-				std::cout << "[" << world[4] << "] ";
-				std::cout << "[" << world[5] << "] ";
-				std::cout << "[" << world[6] << "] ";
-				std::cout << "[" << world[7] << "] " << endl;
-				std::cout << "[" << world[8] << "] ";
-				std::cout << "[" << world[9] << "] ";
-				std::cout << "[" << world[10] << "] ";
-				std::cout << "[" << world[11] << "] " << endl;
-				std::cout << "[" << world[12] << "] ";
-				std::cout << "[" << world[13] << "] ";
-				std::cout << "[" << world[14] << "] ";
-				std::cout << "[" << world[15] << "] " << endl;
+			//Node->getAbsoluteTransform(world);
+			//	std::cout << "[" << world[0] << "] ";
+			//	std::cout << "[" << world[1] << "] ";
+			//	std::cout << "[" << world[2] << "] ";
+			//	std::cout << "[" << world[3] << "] " << endl;
+			//	std::cout << "[" << world[4] << "] ";
+			//	std::cout << "[" << world[5] << "] ";
+			//	std::cout << "[" << world[6] << "] ";
+			//	std::cout << "[" << world[7] << "] " << endl;
+			//	std::cout << "[" << world[8] << "] ";
+			//	std::cout << "[" << world[9] << "] ";
+			//	std::cout << "[" << world[10] << "] ";
+			//	std::cout << "[" << world[11] << "] " << endl;
+			//	std::cout << "[" << world[12] << "] ";
+			//	std::cout << "[" << world[13] << "] ";
+			//	std::cout << "[" << world[14] << "] ";
+			//	std::cout << "[" << world[15] << "] " << endl;
 
 
 
@@ -118,8 +118,11 @@ void rendrer::draw()
 		vIT->sNode->Magic->SetWorldMatrix(vIT->sTransform);
 
 	}
+	mContext->mGBuffer.BindForLightPass();
+
 
 	// When we get here the depth buffer is already populated and the stencil pass
 	// depends on it, but it does not write to it.
 	gl::DepthMask(gl::FALSE_);
+
 }
