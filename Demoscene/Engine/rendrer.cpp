@@ -29,7 +29,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		{
 			M3DMatrix44f world; 
 			//Node->g
-			//Node->getAbsoluteTransform(world);
+			Node->getAbsoluteTransform(world);
 			//	std::cout << "[" << world[0] << "] ";
 			//	std::cout << "[" << world[1] << "] ";
 			//	std::cout << "[" << world[2] << "] ";
@@ -74,6 +74,12 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		//Ide: en drawque item som har Matrisene og informasjonen den trenger, må sorte denne skikkelig uansett. Transformasjons matrisen iallefall.
 
 		//kansje der kan jeg bruke den kompliserte matrise genererings funksjonne
+
+	}
+
+	if (NS_SG::node::NODE_LIGHT_DIR == Node->getType())
+	{
+		std::cout << "yes there is light" << endl;
 
 	}
 

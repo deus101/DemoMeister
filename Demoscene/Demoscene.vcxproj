@@ -177,6 +177,7 @@
   <ItemGroup>
     <ClCompile Include="Effect\DirLightPacket.cpp" />
     <ClCompile Include="Effect\lightPacket.cpp" />
+    <ClCompile Include="Effect\NullPacket.cpp" />
     <ClCompile Include="Effect\PointLightPacket.cpp" />
     <ClCompile Include="Rendrer\buffers.cpp" />
     <ClCompile Include="SceneGraph\camera.cpp">
@@ -199,6 +200,7 @@
   <ItemGroup>
     <ClInclude Include="Effect\DirLightPacket.h" />
     <ClInclude Include="Effect\lightPacket.h" />
+    <ClInclude Include="Effect\NullPacket.h" />
     <ClInclude Include="Effect\PointLightPacket.h" />
     <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="Math\matrix.h" />
@@ -210,6 +212,9 @@
     <ClInclude Include="Rendrer\context.h" />
     <ClInclude Include="Rendrer\gbuffer.h" />
     <ClInclude Include="Effect\GeomPacket.h" />
+    <ClInclude Include="SceneGraph\dirLightNode.h" />
+    <ClInclude Include="SceneGraph\lightNode.h" />
+    <ClInclude Include="SceneGraph\pointLightNode.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Engine\materials.h" />
     <ClInclude Include="Math\math3d.h" />
@@ -315,26 +320,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\teapot.FBX" />
-    <None Include="Shaders\dir_light_pass.fs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Shaders\fragment - Copy (4).glsl" />
-    <None Include="Shaders\fragment.glsl" />
-    <None Include="Shaders\geometry.glsl" />
-    <None Include="Shaders\geometry_pass.fs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Shaders\geometry_pass.vs" />
-    <None Include="Shaders\light_pass.vs" />
-    <None Include="Shaders\null_technique.fs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Shaders\null_technique.vs" />
-    <None Include="Shaders\point_light_pass.fs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Shaders\vertex - Copy (5).glsl" />
-    <None Include="Shaders\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -451,10 +436,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Object>
-    <Resource Include="Mesh\newP38.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
-    </Resource>
     <Object Include="Mesh\p38.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -497,24 +478,17 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Object>
-    <Object Include="Mesh\polyhedron.obj" />
     <Object Include="Mesh\pyramid.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Object>
-    <Object Include="Mesh\quad.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </Object>
     <Object Include="Mesh\sd.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Object>
-    <Object Include="Mesh\suzanne.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\tea.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

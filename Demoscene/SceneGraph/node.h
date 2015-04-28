@@ -31,7 +31,8 @@ namespace NS_SG{
 			{
 				NODE_COMPOSER,
 				NODE_CAMERA,
-				NODE_LIGHT,
+				NODE_LIGHT_POINT,
+				NODE_LIGHT_DIR,
 				NODE_TRANSFORM,
 				NODE_ASSET,
 				NODE_TARGET,
@@ -46,14 +47,14 @@ namespace NS_SG{
 				Node->setParent(shared_from_this() );
 
 			}
-			// REMEMMEBERS11!!
+			////Husk
 			//void removeChild(nodePtr node)
 			//{
 			//	Nodes::iterator itr = std::find(children.begin(), children.end(), node);
 			//	if (itr != children.end())
 			//	{
 			//		// reset parent
-			//		(*itr)->setParent(nodePtr());
+			//		//(*itr)->setParent(nodePtr());
 			//		// remove from children
 			//		children.erase(itr);
 			//	}

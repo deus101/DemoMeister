@@ -8,6 +8,8 @@
 #include "Engine\rendrer.h"
 #include "SceneGraph\assetNode.h"
 #include "SceneGraph\modelNode.h"
+#include "SceneGraph\dirLightNode.h"
+#include "SceneGraph\pointLightNode.h"
 
 
 NS_REND::context *mContext;
@@ -211,8 +213,18 @@ int main(int argc, char** argv)
 	tran_fly->addChild(n_fly.get());
 
 	o_loader->addChild(tran_fly.get());
-	
 
+
+	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
+
+
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f, 0.0f, 0.0f, 0.3f));
+
+
+
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
+	
+	o_loader->addChild(n_dir_lys.get());
 	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), mContext);
 
 

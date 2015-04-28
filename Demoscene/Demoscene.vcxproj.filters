@@ -75,6 +75,9 @@
     <ClCompile Include="Effect\PointLightPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Effect\NullPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -170,23 +173,20 @@
     <ClInclude Include="Effect\PointLightPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Effect\NullPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\dirLightNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\pointLightNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\lightNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragment - Copy (4).glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\fragment.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\geometry.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\vertex - Copy (5).glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\vertex.glsl">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Mesh\38p.mtl">
       <Filter>Resource Files</Filter>
     </None>
@@ -225,27 +225,6 @@
     </None>
     <None Include="bf.ogg">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Shaders\geometry_pass.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\geometry_pass.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\dir_light_pass.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\light_pass.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\null_technique.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\null_technique.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\point_light_pass.fs">
-      <Filter>Shaders</Filter>
     </None>
     <None Include="Mesh\teapot.FBX" />
     <None Include="Mesh\newP38.mtl" />
@@ -353,10 +332,6 @@
     <Object Include="Mesh\world3.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\newP38.obj" />
-    <Object Include="Mesh\polyhedron.obj" />
-    <Object Include="Mesh\quad.obj" />
-    <Object Include="Mesh\suzanne.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
