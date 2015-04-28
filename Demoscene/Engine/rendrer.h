@@ -29,6 +29,12 @@ namespace NS_ENG
 		M3DMatrix44f sWVP;
 	};
 
+	struct LightItem
+	{
+
+
+	};
+
 class rendrer
 {
 public:
