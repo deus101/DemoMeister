@@ -6,6 +6,8 @@
 #include "../Math/math3d.h"
 #include "../Rendrer/context.h"
 #include "../SceneGraph/modelNode.h"
+#include "../SceneGraph/pointLightNode.h"
+#include "../SceneGraph/dirLightNode.h"
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
 namespace NS_ENG
@@ -29,10 +31,18 @@ namespace NS_ENG
 		M3DMatrix44f sWVP;
 	};
 
-	struct LightItem
+	
+
+	struct PointLightItem
 	{
+		NS_SG::pointLightNode *sNode;
 
 
+	};
+
+	struct DirLightItem
+	{
+		NS_SG::dirLightNode *sNode;
 	};
 
 class rendrer
@@ -55,6 +65,12 @@ private:
 	
 	std::list< struct RendrerItem> Visible;
 	std::list< struct RendrerItem>::iterator vIT;
+
+	std::list< struct PointLightItem> VisiblePoint;
+	std::list< struct PointLightItem>::iterator vPIT;
+
+	std::list< struct DirLightItem> VisibleDir;
+	std::list< struct DirLightItem>::iterator vDIT;
 
 
 public:

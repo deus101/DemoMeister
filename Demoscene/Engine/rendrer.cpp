@@ -77,9 +77,46 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 
 	}
 
-	if (NS_SG::node::NODE_LIGHT_DIR == Node->getType())
+	if (NS_SG::node::NODE_LIGHT_POINT == Node->getType())
 	{
 		std::cout << "yes there is light" << endl;
+		if (NS_SG::node::NODE_ASSET == Node->getType())
+		{
+			//std::cout << Node->getName() << std::endl;
+			PointLightItem Tmp;
+			//aabb checks of culling her
+			pointLightNode *mesh = reinterpret_cast<pointLightNode*>(&Node);
+			if (NULL != mesh->Magic)
+			{
+				M3DMatrix44f world;
+				//Node->g
+				Node->getAbsoluteTransform(world);
+
+
+
+
+				M3DMatrix44f wv, wvp;
+
+				//assert(NULL != p);
+				M3DMatrix44f world_view_proj, matWVP_inv;
+				m3dMatrixMultiply44(wv, world, view);
+
+
+				m3dMatrixMultiply44(wvp, wv, projection);
+
+
+				m3dCopyMatrix44(Tmp.sWVP, wvp);
+				m3dCopyMatrix44(Tmp.sWVP, world);
+				//m3dInvertMatrix44(matWVP_inv, world_view_proj);
+
+				//mesh->Magic->setMatrices(world , view, projection);
+				//mesh->Magic->commitChanges();
+			}
+			Tmp.sNode = mesh;
+
+			//mesh->draw();
+			VisiblePoint.push_back(Tmp);
+		}
 
 	}
 
