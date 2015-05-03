@@ -94,6 +94,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\Libs;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glloadD.lib;freeglutD.lib;bass.lib;librocketd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
@@ -118,6 +119,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\Libs\x64;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

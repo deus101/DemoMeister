@@ -251,20 +251,20 @@ void model::Draw()
 
 	////gl::PolygonMode(gl::GL_FRONT_AND_BACK, gl::GL_FILL);
 
-	//for (unsigned int i = 0; i < Sort_Groups.size(); i++)
-	//{
+	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
+	{
 
 
-	//	gl::BindVertexArray(Sort_Groups[i].vao);
+		gl::BindVertexArray(Sort_Groups[i].vao);
 
-	//	gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
-	//	gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
-	//	gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
-	//	gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
-
-	//	gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
-	//}
-
+		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
+		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
+		//gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
+		//gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
+		gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
+		gl::BindVertexArray(0);
+	}
+	//gl::BindVertexArray(0);
 
 }
 

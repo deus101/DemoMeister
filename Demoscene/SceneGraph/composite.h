@@ -74,14 +74,14 @@ namespace NS_SG{
 			//sync_device *rocket;
 			//legg se og få brukt referanse noden til denne
 			
-		////HUSK!!!!!!!	
-		//	camera *findCamera(const std::string &name)
-		//	{
-		//		//reinterpt her?
-		//		nodePtr cam = findNodeByType<camera, NODE_CAMERA>(name);
-		//		//return findNodeByType<camera, NODE_CAMERA>(name);
-		//		return cam;
-		//	}
+		
+			//nodePtr findCamera(const std::string &name)
+			//{
+			//	//reinterpt her?
+			//	nodePtr cam = findNodeByType<nodePtr, NODE_CAMERA>(name);
+			//	//return findNodeByType<camera, NODE_CAMERA>(name);
+			//	return cam;
+			//}
 
 			nodePtr findNode(const std::string &name)
 			{

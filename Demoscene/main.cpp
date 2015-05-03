@@ -10,8 +10,8 @@
 #include "SceneGraph\modelNode.h"
 #include "SceneGraph\dirLightNode.h"
 #include "SceneGraph\pointLightNode.h"
-
-
+#include "SceneGraph\dirLightNode.h"
+#include "SceneGraph\targetNode.h"
 NS_REND::context *mContext;
 NS_ENG::rendrer *mRender;
 
@@ -117,15 +117,15 @@ void callRenderScene()
 void SetupRC()
 {
 	glload::LoadFunctions();
-	/*
-	if(glload::LoadFunctions() == glload::LS_LOAD_FAILED)
-	{
+	
+	//if(glload::LoadFunctions() == glload::)
+	//{
 
-	glutSwapBuffers();
-	Sleep(2000);
-	exit(0);
-    }|
-	*/
+	//glutSwapBuffers();
+	//Sleep(2000);
+	//exit(0);
+ //   }
+	
 	//glload::LoadWinFunctions(
 
 
@@ -158,7 +158,7 @@ int main(int argc, char** argv)
 
 	//glutInit(&argc, argv);
 
-	mContext->InitWindow(800, 600, false, "Deus's Ex Machine");
+	std::cout << "Result of init windows: " << mContext->InitWindow(800, 600, false, "Deus's Ex Machine") << std::endl;
 
 	//glutInitWindowPosition(-1, -1);
 
@@ -171,7 +171,7 @@ int main(int argc, char** argv)
 	//    glutSpecialFunc( keyBoard );
 	//    glutSpecialUpFunc( callKeyRelease );
 
-	SetupRC();
+	//SetupRC();
 	//DO IT! TO IT!
 
 
@@ -183,26 +183,40 @@ int main(int argc, char** argv)
 	//NS_SG::modelNode plane = NS_SG::modelNode
 	//NS_SG::objTransform tran_kambot = NS_SG::objTransform("tran_kambot");
 	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
+	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
 
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 5.0f));
 
-	tran_kambot->addChild(kambot.get());
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 1.0f, -2.0f));
+
+	target_kambot->addChild(kambot.get());
 	//husk
 	//o_loader->addChild(&tran_kambot);
-	o_loader->addChild(tran_kambot.get());
+
 
 	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
 	//NS_SG::modelNode()
 
 	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
 
+
+	NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
+
+	NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
+
+	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
+	
 	
 
+	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
 
-	std::cout << "Status of effect is: " << e_geom.Init() << std::endl;
+	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
+
+	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
+
+	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
 
 	//this should not be started here.
-	e_geom.Enable();
+	//e_geom.Enable();
 
 	//NS_SG::modelNode n_fly = NS_SG::modelNode("plane", &fly, &e_geom);
 	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
@@ -210,21 +224,42 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
 	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
 
+
+	target_kambot->setTarget(n_fly.get());
+
 	tran_fly->addChild(n_fly.get());
+
+
+	tran_kambot->addChild(target_kambot.get());
+	o_loader->addChild(tran_kambot.get());
 
 	o_loader->addChild(tran_fly.get());
 
 
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
+																													
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f, 0.0f, 0.0f, 0.3f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
+	tran_Point->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
 
-	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f, 0.0f, 0.0f, 0.3f));
+	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
+	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
 
-
-	o_loader->addChild(n_point_lys.get());
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
+	tran_Point->addChild(n_point_lys.get());
+	//tran_Point2->addChild(tran_Point.get());
+	o_loader->addChild(tran_Point.get());
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f, &e_dir));
 	
-	o_loader->addChild(n_dir_lys.get());
+	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
+
+	tran_Dir->setPosition(NS_VEC::VEC3(-10.0f, 5.0f, 0.0f));
+	tran_Dir->setRotation(NS_VEC::QUAT(-45.0f, 90.0f, 0.0f));
+	tran_Dir->addChild(n_dir_lys.get());
+
+	o_loader->addChild(tran_Dir.get());
+	
+
 	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), mContext);
 
 
@@ -233,7 +268,7 @@ int main(int argc, char** argv)
 	glutReshapeFunc(ChangeSize);
 	glutDisplayFunc(callRenderScene);
 	glutTimerFunc(33, TimerFunction, 1);
-	//glutIdleFunc(IdleFunc);
+	glutIdleFunc(IdleFunc);
 	//glutFullScreen();
 	glutMainLoop();
 

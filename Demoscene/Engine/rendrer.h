@@ -8,6 +8,7 @@
 #include "../SceneGraph/modelNode.h"
 #include "../SceneGraph/pointLightNode.h"
 #include "../SceneGraph/dirLightNode.h"
+#include "model.h"
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
 namespace NS_ENG
@@ -36,6 +37,9 @@ namespace NS_ENG
 	struct PointLightItem
 	{
 		NS_SG::pointLightNode *sNode;
+		PointLight sPL;
+		M3DMatrix44f sWVP;
+
 
 
 	};
@@ -43,6 +47,8 @@ namespace NS_ENG
 	struct DirLightItem
 	{
 		NS_SG::dirLightNode *sNode;
+		DirectionalLight sDL;
+		M3DMatrix44f sWVP;
 	};
 
 class rendrer
@@ -51,8 +57,30 @@ public:
 	//                                should this just be name?  
 	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_REND::context *_context) : scene(_scene), kamera(_camera), mContext(_context)
 	{
+		kamera->getProjection(projection);
+		kamera->getParent()->getLocalTransform(view);
+		std::cout << "[" << view[0] << "] ";
+		std::cout << "[" << view[1] << "] ";
+		std::cout << "[" << view[2] << "] ";
+		std::cout << "[" << view[3] << "] " << endl;
+		std::cout << "[" << view[4] << "] ";
+		std::cout << "[" << view[5] << "] ";
+		std::cout << "[" << view[6] << "] ";
+		std::cout << "[" << view[7] << "] " << endl;
+		std::cout << "[" << view[8] << "] ";
+		std::cout << "[" << view[9] << "] ";
+		std::cout << "[" << view[10] << "] ";
+		std::cout << "[" << view[11] << "] " << endl;
+		std::cout << "[" << view[12] << "] ";
+		std::cout << "[" << view[13] << "] ";
+		std::cout << "[" << view[14] << "] ";
+		std::cout << "[" << view[15] << "] " << endl;
 
-		
+		sphere = NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl");
+		quad = NS_ENG::model(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
+
+		//		NS_ENG::model sphere = NS_ENG::model(mContext, std::string("../Mesh/sphere.obj"), std::string("../Mesh/sphere.mtl"));
+
 	}
 	//using nodePtr might be a mistake
 	void visit(NS_SG::node *Node, M3DMatrix44f world);
@@ -64,17 +92,53 @@ private:
 	NS_REND::context *mContext;
 	
 	std::list< struct RendrerItem> Visible;
-	std::list< struct RendrerItem>::iterator vIT;
+	typedef std::list< struct RendrerItem>::iterator vIT;
+	typedef std::list< struct RendrerItem>::const_iterator vITc;
+	vIT beginVisible(){ return Visible.begin(); }
+	vIT endVisible(){ return Visible.end(); }
+	vITc beginVisible() const{ return Visible.begin(); }
+	vITc endVisible()  const { return Visible.end(); }
+
 
 	std::list< struct PointLightItem> VisiblePoint;
-	std::list< struct PointLightItem>::iterator vPIT;
+	typedef std::list< struct PointLightItem>::iterator vPIT;
+	typedef std::list< struct PointLightItem>::const_iterator vPITc;
+	vPIT beginVisiblePoint(){ return VisiblePoint.begin(); }
+	vPIT endVisiblePoint(){ return VisiblePoint.end(); }
+	vPITc beginVisiblePoint() const{ return VisiblePoint.begin(); }
+	vPITc endVisiblePoint()  const { return VisiblePoint.end(); }
+
 
 	std::list< struct DirLightItem> VisibleDir;
-	std::list< struct DirLightItem>::iterator vDIT;
+	typedef std::list< struct DirLightItem>::iterator vDIT;
+	typedef std::list< struct DirLightItem>::const_iterator vDITc;
+	vDIT beginVisibleDir(){ return VisibleDir.begin(); }
+	vDIT endVisibleDir(){ return VisibleDir.end(); }
+	vDITc beginVisibleDir() const{ return VisibleDir.begin(); }
+	vDITc endVisibleDir()  const { return VisibleDir.end(); }
 
+
+	//std::list< struct RendrerItem> Visible;
+	//std::list< struct RendrerItem>::iterator vIT;
+
+	//std::list< struct PointLightItem> VisiblePoint;
+	//std::list< struct PointLightItem>::iterator vPIT;
+
+	//std::list< struct DirLightItem> VisibleDir;
+	//std::list< struct DirLightItem>::iterator vDIT;
+
+
+	//typedef std::list<node*>::iterator child_iterator;
+	//typedef std::list<node *>::const_iterator child_const_iterator;
+	//child_iterator beginChildren() { return children.begin(); }
+	//child_iterator endChildren() { return children.end(); }
+	//child_const_iterator beginChildren() const { return children.begin(); }
+	//child_const_iterator endChildren() const { return children.end(); }
 
 public:
 	M3DMatrix44f view, projection;
+	model sphere;
+	model quad;
 
 };
 }

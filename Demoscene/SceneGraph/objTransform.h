@@ -13,7 +13,7 @@ namespace NS_SG
 				transform(name),
 				position(0, 0, 0),
 				rotation(0, 0, 0),
-				scale(0, 0, 0),
+				scale(1, 1, 1),
 				matrix_dirty(true)
 			{}
 			//should maybe have a failure return here

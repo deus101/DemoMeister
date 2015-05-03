@@ -77,9 +77,9 @@ bool context::InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, con
 	
 	//maybe some checks to see if you really need it?
 	//I should have a sorta enum argumented function that sorts out the different bind draw commands
-	mGBuffer.Init(aWidth, aHeight);
+	return mGBuffer.Init(aWidth, aHeight);
 
-	return true;
+	 
 }
 
 void context::ChangeSize(unsigned int w, unsigned int h)
@@ -98,7 +98,8 @@ void context::ChangeSize(unsigned int w, unsigned int h)
 
 	std::cout << "Changed Screen size!" << std::endl;
 	
-
+	pWidth = w;
+	pHeight = h;
 		//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
 
 
@@ -126,4 +127,14 @@ void context::Swap()
 
 	glutSwapBuffers();
 
+}
+unsigned int context::GetPixelWidth() const
+{
+	return pWidth;
+}
+
+unsigned int context::GetPixelHeight() const
+{
+
+	return pHeight;
 }
