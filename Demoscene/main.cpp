@@ -116,7 +116,7 @@ void callRenderScene()
 
 void SetupRC()
 {
-	glload::LoadFunctions();
+	//glload::LoadFunctions();
 	
 	//if(glload::LoadFunctions() == glload::)
 	//{

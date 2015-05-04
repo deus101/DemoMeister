@@ -27,7 +27,7 @@
 
 
 
-#include <gl\freeglut.h>
+
 
 
 //#include "gbuffer.h"

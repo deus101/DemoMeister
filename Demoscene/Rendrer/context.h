@@ -2,8 +2,8 @@
 
 #include <glload/gl_3_3.hpp>
 #include <glload/gl_load.hpp>
-
-#include "freeglut.h"
+#include <gl\freeglut.h>
+//#include "freeglut.h"
 #include "gbuffer.h"
 
 namespace NS_REND

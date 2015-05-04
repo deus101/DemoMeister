@@ -42,7 +42,7 @@ void context::Init(int argc, char** arg, bool aDepth, bool aStencil)
 	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 
 
-	//not sure if I need this
+	
 	glutInitContextVersion(3, 3);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
 
@@ -68,8 +68,9 @@ bool context::InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, con
 
 	if (gl::exts::var_ARB_debug_output)
 	{
-		gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+		//gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
 		//gl::DebugMessageCallbackARB(, (void*)15);
+
 	}
 
 	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
