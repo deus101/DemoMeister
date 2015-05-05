@@ -17,8 +17,8 @@ namespace NS_SG
 			getAbsoluteTransform(world);
 
 	
-			NS_VEC::VEC3 dir(2.0f, -2.0f, -1.0f);
-			dir.NormIt();
+			NS_VEC::VEC3 dir(0.0f, 0.0f, -1.0f);
+			//dir.NormIt();
 
 			BaseLight s_bl = GetLight();
 			DirectionalLight s_dl;

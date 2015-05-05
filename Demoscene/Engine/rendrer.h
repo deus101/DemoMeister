@@ -57,8 +57,30 @@ public:
 	//                                should this just be name?  
 	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_REND::context *_context) : scene(_scene), kamera(_camera), mContext(_context)
 	{
+		M3DMatrix44f inversLookat;
+		//m3dLoadIdentity44(view);
 		kamera->getProjection(projection);
-		kamera->getParent()->getLocalTransform(view);
+		kamera->getAbsoluteTransform(view);
+		m3dInvertMatrix44(view, view);
+		//kamera->getParent()->getLocalTransform(view);
+		std::cout << "[" << projection[0] << "] ";
+		std::cout << "[" << projection[1] << "] ";
+		std::cout << "[" << projection[2] << "] ";
+		std::cout << "[" << projection[3] << "] " << endl;
+		std::cout << "[" << projection[4] << "] ";
+		std::cout << "[" << projection[5] << "] ";
+		std::cout << "[" << projection[6] << "] ";
+		std::cout << "[" << projection[7] << "] " << endl;
+		std::cout << "[" << projection[8] << "] ";
+		std::cout << "[" << projection[9] << "] ";
+		std::cout << "[" << projection[10] << "] ";
+		std::cout << "[" << projection[11] << "] " << endl;
+		std::cout << "[" << projection[12] << "] ";
+		std::cout << "[" << projection[13] << "] ";
+		std::cout << "[" << projection[14] << "] ";
+		std::cout << "[" << projection[15] << "] " << endl;
+
+
 		std::cout << "[" << view[0] << "] ";
 		std::cout << "[" << view[1] << "] ";
 		std::cout << "[" << view[2] << "] ";
@@ -85,6 +107,8 @@ public:
 	//using nodePtr might be a mistake
 	void visit(NS_SG::node *Node, M3DMatrix44f world);
 	void draw();
+
+	float CalcPointLightBSphere(const PointLight& Light);
 
 private:
 	NS_SG::composite *scene;

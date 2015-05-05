@@ -69,7 +69,7 @@ struct SpotLight : public PointLight
 		Cutoff = 0.0f;
 	}
 };
-
+//float fmax(float a, float b);
 #define COLOR_WHITE Vector3f(1.0f, 1.0f, 1.0f)
 #define COLOR_RED Vector3f(1.0f, 0.0f, 0.0f)
 #define COLOR_GREEN Vector3f(0.0f, 1.0f, 0.0f)
@@ -85,6 +85,19 @@ struct SpotLight : public PointLight
 
 #define INVALID_UNIFORM_LOCATION 0xffffffff
 #define INVALID_OGL_VALUE 0xffffffff
+
+#define COLOR_TEXTURE_UNIT              GL_TEXTURE0
+#define COLOR_TEXTURE_UNIT_INDEX        0
+#define SHADOW_TEXTURE_UNIT             GL_TEXTURE1
+#define SHADOW_TEXTURE_UNIT_INDEX       1
+#define NORMAL_TEXTURE_UNIT             GL_TEXTURE2
+#define NORMAL_TEXTURE_UNIT_INDEX       2
+#define RANDOM_TEXTURE_UNIT             GL_TEXTURE3
+#define RANDOM_TEXTURE_UNIT_INDEX       3
+#define DISPLACEMENT_TEXTURE_UNIT       GL_TEXTURE4
+#define DISPLACEMENT_TEXTURE_UNIT_INDEX 4
+#define MOTION_TEXTURE_UNIT             GL_TEXTURE5
+#define MOTION_TEXTURE_UNIT_INDEX       5
 
 #endif	/* OGLDEV_UTIL_H */
 

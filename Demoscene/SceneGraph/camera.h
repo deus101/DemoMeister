@@ -61,6 +61,7 @@ namespace NS_SG{
 				/* recalculate matrix if needed */
 				if (projection_dirty)
 				{
+					
 					m3dMakePerspectiveMatrix(projection, fov, aspect, znear, zfar);
 					//projection.makeProjection(fov, aspect, znear, zfar);
 					projection_dirty = false;

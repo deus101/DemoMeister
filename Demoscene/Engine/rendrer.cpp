@@ -87,7 +87,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			Node->getAbsoluteTransform(world);
 
 			
-
+			
 
 
 			//std::cout << "Node: " << Node->getName() << " Pos: ";
@@ -101,8 +101,15 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			M3DMatrix44f wv, wvp;
 
 			//assert(NULL != p);
-			M3DMatrix44f world_view_proj, matWVP_inv;
-			m3dMatrixMultiply44(wv, world, view);
+			//M3DMatrix44f world_view_proj, matWVP_inv;
+			M3DMatrix44f w_scale, w_scaled;
+			float f_scale = CalcPointLightBSphere(s_LPL);
+	
+			
+			m3dScaleMatrix44(w_scale, f_scale, f_scale, f_scale);
+
+			m3dMatrixMultiply44(w_scaled, world, w_scale);
+			m3dMatrixMultiply44(wv, w_scaled, view);
 
 			m3dMatrixMultiply44(wvp, wv, projection);
 
@@ -280,6 +287,7 @@ void rendrer::draw()
 		id->sNode->LightMagic->Enable();
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
+		//id->sNode->LightMagic->SetWVP(id->sWVP);
 		gl::Disable(gl::DEPTH_TEST);
 		gl::Enable(gl::BLEND);
 		gl::BlendEquation(gl::FUNC_ADD);
@@ -298,4 +306,20 @@ void rendrer::draw()
 	gl::BlitFramebuffer(0, 0, mContext->GetPixelWidth(), mContext->GetPixelHeight(),
 		0, 0, mContext->GetPixelWidth(), mContext->GetPixelHeight(), gl::COLOR_BUFFER_BIT, gl::LINEAR);
 
+	glutSwapBuffers();
+
+
+
+
+}
+
+float rendrer::CalcPointLightBSphere(const PointLight& Light)
+{
+	float MaxChannel = fmax(fmax(Light.Color.X, Light.Color.X), Light.Color.X);
+
+	float ret = (-Light.Attenuation.Linear + sqrtf(Light.Attenuation.Linear * Light.Attenuation.Linear - 4 * Light.Attenuation.Exp * (Light.Attenuation.Exp - 256 * MaxChannel * Light.DiffuseIntensity)))
+		/
+		2 * Light.Attenuation.Exp;
+
+	return ret;
 }
