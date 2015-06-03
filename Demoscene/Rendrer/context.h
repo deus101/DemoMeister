@@ -2,7 +2,7 @@
 
 #include <glload/gl_3_3.hpp>
 #include <glload/gl_load.hpp>
-#include <gl\freeglut.h>
+#include <gl/freeglut.h>
 //#include "freeglut.h"
 #include "gbuffer.h"
 

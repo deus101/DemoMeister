@@ -68,7 +68,7 @@ bool context::InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, con
 
 	if (gl::exts::var_ARB_debug_output)
 	{
-		//gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+		gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
 		//gl::DebugMessageCallbackARB(, (void*)15);
 
 	}
@@ -111,7 +111,7 @@ void context::Run()
 
 
 	gl::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	gl::FrontFace(gl::CW);
+	gl::FrontFace(gl::CCW);
 	gl::CullFace(gl::BACK);
 	gl::Enable(gl::CULL_FACE);
 

@@ -175,6 +175,14 @@ int main(int argc, char** argv)
 	//DO IT! TO IT!
 
 
+	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
+
+
+	NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
+
+	NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
+
+	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 
 	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
@@ -190,20 +198,13 @@ int main(int argc, char** argv)
 	//husk
 	//o_loader->addChild(&tran_kambot);
 
-
+	e_geom.Enable();
 	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
 
 	//NS_SG::modelNode()
 
-	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
 
-
-	NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
-
-	NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
-
-	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 	
 	
 
@@ -255,8 +256,9 @@ int main(int argc, char** argv)
 	tran_fly->addChild(n_fly.get());
 	target_kambot->setTarget(n_fly.get());
 
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 10.0f));
-
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 2.0f, -10.0f));
+	tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
+	//tran_kambot->setScale(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 	target_kambot->addChild(kambot.get());
 	//tran_kambot.get()
 	tran_kambot->addChild(target_kambot.get());
@@ -270,8 +272,8 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.1f, 0.0f, 0.0f, 0.0f, 0.3f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
-	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
-	//tran_Point->setScale(NS_VEC::VEC3(4.0f, 4.0f, 4.0f));
+	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 4.0f, -2.0f));
+	//tran_Point->setScale(NS_VEC::VEC3(.0f, 4.0f, 4.0f));
 
 	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
 	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
@@ -279,7 +281,7 @@ int main(int argc, char** argv)
 	tran_Point->addChild(n_point_lys.get());
 	//tran_Point2->addChild(tran_Point.get());
 	o_loader->addChild(tran_Point.get());
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.0f, 1.0f, 1.0f), 0.1f, 0.5f, &e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.0f, 1.0f, 1.0f), 1.0f, 1.0f, &e_dir));
 	
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 
@@ -290,8 +292,14 @@ int main(int argc, char** argv)
 
 	o_loader->addChild(tran_Dir.get());
 	
+	e_point.Enable();
+	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	e_null.Enable();
+	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	e_dir.Enable();
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl"));
 
-	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), mContext);
+	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), mContext);
 
 
 

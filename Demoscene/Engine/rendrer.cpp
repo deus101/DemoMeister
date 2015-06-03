@@ -109,7 +109,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dScaleMatrix44(w_scale, f_scale, f_scale, f_scale);
 
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
-			m3dMatrixMultiply44(wv, w_scaled, view);
+			m3dMatrixMultiply44(wv, world, view);
 
 			m3dMatrixMultiply44(wvp, wv, projection);
 
@@ -192,7 +192,9 @@ void rendrer::draw()
 	
 
 	mContext->mGBuffer.StartFrame();
-	//mContext->mGBuffer.BindForGeomPass();
+
+
+	mContext->mGBuffer.BindForGeomPass();
 	// Only the geometry pass updates the depth buffer
 	gl::DepthMask(gl::TRUE_);
 	
@@ -212,7 +214,7 @@ void rendrer::draw()
 		
 		iv->sNode->Magic->Enable();
 		//std::cout << "Inside geom loop2" << std::endl;
-		mContext->mGBuffer.BindForGeomPass();
+
 		//std::cout << "Inside geom loop3" << std::endl;
 		iv->sNode->Magic->SetWVP(iv->sWVP);
 		iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
@@ -248,7 +250,7 @@ void rendrer::draw()
 
 
 		ip->sNode->NullMagic->SetWVP(ip->sWVP);
-		sphere.Draw();
+		sphere_null->Draw();
 		
 		
 		
@@ -274,7 +276,7 @@ void rendrer::draw()
 		ip->sNode->LightMagic->SetWVP(ip->sWVP);
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 
-		sphere.Draw();
+		sphere_light->Draw();
 
 		gl::CullFace(gl::BACK);
 
@@ -287,13 +289,13 @@ void rendrer::draw()
 		id->sNode->LightMagic->Enable();
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
-		//id->sNode->LightMagic->SetWVP(id->sWVP);
+		id->sNode->LightMagic->SetWVP(id->sWVP);
 		gl::Disable(gl::DEPTH_TEST);
 		gl::Enable(gl::BLEND);
 		gl::BlendEquation(gl::FUNC_ADD);
 		gl::BlendFunc(gl::ONE, gl::ONE);
 
-		quad.Draw();
+		quad->Draw();
 		gl::Disable(gl::BLEND);
 
 	

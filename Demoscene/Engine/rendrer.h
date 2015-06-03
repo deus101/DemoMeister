@@ -55,7 +55,7 @@ class rendrer
 {
 public:
 	//                                should this just be name?  
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_REND::context *_context) : scene(_scene), kamera(_camera), mContext(_context)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_REND::context *_context) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), mContext(_context)
 	{
 		M3DMatrix44f inversLookat;
 		//m3dLoadIdentity44(view);
@@ -98,8 +98,7 @@ public:
 		std::cout << "[" << view[14] << "] ";
 		std::cout << "[" << view[15] << "] " << endl;
 
-		sphere = NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl");
-		quad = NS_ENG::model(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
+
 
 		//		NS_ENG::model sphere = NS_ENG::model(mContext, std::string("../Mesh/sphere.obj"), std::string("../Mesh/sphere.mtl"));
 
@@ -114,6 +113,10 @@ private:
 	NS_SG::composite *scene;
 	NS_SG::camera *kamera;
 	NS_REND::context *mContext;
+
+	NS_ENG::model *sphere_light;
+	NS_ENG::model *sphere_null;
+	NS_ENG::model *quad;
 	
 	std::list< struct RendrerItem> Visible;
 	typedef std::list< struct RendrerItem>::iterator vIT;
@@ -161,8 +164,7 @@ private:
 
 public:
 	M3DMatrix44f view, projection;
-	model sphere;
-	model quad;
+
 
 };
 }

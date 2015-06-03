@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NULL_TECHNIQUE_H
-#define	NULL_TECHNIQUE_H
+#ifndef NULL_PACKET_HPP
+#define	NULL_PACKET_HPP
 
 #include "renderPacket.h"
 
