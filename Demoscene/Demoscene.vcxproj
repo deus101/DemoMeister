@@ -68,6 +68,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -85,15 +86,19 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;_LIB;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
       <UseFullPaths>true</UseFullPaths>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\Libs;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glloadD.lib;freeglutD.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glloadD.lib;freeglutD.lib;bass.lib;librocketd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
@@ -109,7 +114,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;_LIB;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -118,6 +123,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\Libs\x64;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,7 +135,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;FREEGLUT_STATIC;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
       <UseFullPaths>true</UseFullPaths>
@@ -140,7 +146,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>.\Libs\;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;librocketd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
@@ -159,7 +165,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;FREEGLUT_STATIC;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
       <UseFullPaths>true</UseFullPaths>
@@ -175,40 +181,63 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="actors.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="circle.cpp" />
-    <ClCompile Include="composite.cpp" />
-    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="Effect\DirLightPacket.cpp" />
+    <ClCompile Include="Effect\lightPacket.cpp" />
+    <ClCompile Include="Effect\NullPacket.cpp" />
+    <ClCompile Include="Effect\PointLightPacket.cpp" />
+    <ClCompile Include="Rendrer\buffers.cpp" />
+    <ClCompile Include="SceneGraph\camera.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="SceneGraph\composite.cpp" />
+    <ClCompile Include="Rendrer\context.cpp" />
+    <ClCompile Include="Rendrer\gbuffer.cpp" />
+    <ClCompile Include="Effect\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="materials.cpp" />
-    <ClCompile Include="math3d.cpp" />
-    <ClCompile Include="mesh.cpp" />
-    <ClCompile Include="model.cpp" />
-    <ClCompile Include="node.cpp" />
-    <ClCompile Include="pyramid.cpp" />
-    <ClCompile Include="shaders.cpp" />
+    <ClCompile Include="Engine\materials.cpp" />
+    <ClCompile Include="Math\math3d.cpp" />
+    <ClCompile Include="Engine\mesh.cpp" />
+    <ClCompile Include="Engine\model.cpp" />
+    <ClCompile Include="SceneGraph\node.cpp" />
+    <ClCompile Include="Effect\renderPacket.cpp" />
+    <ClCompile Include="Engine\rendrer.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="actors.h" />
+    <ClInclude Include="Effect\DirLightPacket.h" />
+    <ClInclude Include="Effect\lightPacket.h" />
+    <ClInclude Include="Effect\NullPacket.h" />
+    <ClInclude Include="Effect\PointLightPacket.h" />
+    <ClInclude Include="Engine\asset.h" />
+    <ClInclude Include="Math\matrix.h" />
+    <ClInclude Include="SceneGraph\assetNode.h" />
     <ClInclude Include="bass.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="circle.h" />
-    <ClInclude Include="composite.h" />
-    <ClInclude Include="cube.h" />
-    <ClInclude Include="materials.h" />
-    <ClInclude Include="math3d.h" />
-    <ClInclude Include="mesh.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="node.h" />
-    <ClInclude Include="pyramid.h" />
+    <ClInclude Include="Rendrer\buffers.h" />
+    <ClInclude Include="SceneGraph\camera.h" />
+    <ClInclude Include="SceneGraph\composite.h" />
+    <ClInclude Include="Rendrer\context.h" />
+    <ClInclude Include="Rendrer\gbuffer.h" />
+    <ClInclude Include="Effect\GeomPacket.h" />
+    <ClInclude Include="SceneGraph\dirLightNode.h" />
+    <ClInclude Include="SceneGraph\lightNode.h" />
+    <ClInclude Include="SceneGraph\pointLightNode.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="Engine\materials.h" />
+    <ClInclude Include="Math\math3d.h" />
+    <ClInclude Include="Engine\mesh.h" />
+    <ClInclude Include="Engine\model.h" />
+    <ClInclude Include="SceneGraph\modelNode.h" />
+    <ClInclude Include="SceneGraph\node.h" />
+    <ClInclude Include="SceneGraph\objTransform.h" />
+    <ClInclude Include="Effect\renderPacket.h" />
+    <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="shaders.h" />
     <ClInclude Include="sync.h" />
+    <ClInclude Include="SceneGraph\targetNode.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="vec.h" />
-    <ClInclude Include="vec_inline.h" />
+    <ClInclude Include="SceneGraph\transform.h" />
+    <ClInclude Include="Math\vec.h" />
+    <ClInclude Include="Math\vec_inline.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +249,8 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bf.ogg" />
+    <None Include="ClassDiagram.cd" />
     <None Include="Mesh\38p.mtl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -280,6 +311,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
+    <None Include="Mesh\newP38.mtl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="Mesh\p38.mtl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -292,11 +326,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="Shaders\fragment - Copy (4).glsl" />
-    <None Include="Shaders\fragment.glsl" />
-    <None Include="Shaders\geometry.glsl" />
-    <None Include="Shaders\vertex - Copy (5).glsl" />
-    <None Include="Shaders\vertex.glsl" />
+    <None Include="Mesh\teapot.FBX" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -514,6 +544,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Demoscene.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Mesh\texture.bmp" />
+    <Image Include="Mesh\texture2.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,13 +1,13 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <glload/gl_3_3.hpp>
-#include <glload/gl_load.hpp>
-
-#include "actors.h"
-#include "composite.h"
-#include "circle.h"
-#include "shaders.h"
+//#include <glload/gl_3_3.hpp>
+//#include <glload/gl_load.hpp>
+////
+////#include "node.h"
+////#include "composite.h"
+////#include "circle.h"
+////#include "shaders.h"
 //#include "rigidBody.h"
 
 #include <math.h>
@@ -27,14 +27,20 @@
 
 
 
-#include <gl\freeglut.h>
 
 
 
-
+//#include "gbuffer.h"
+#include "util.h"
 #include "bass.h"
 
 #include "sync.h"
+
+
+#include "SceneGraph\node.h"
+#include "SceneGraph\camera.h"
+#include "SceneGraph\composite.h"
+#include "SceneGraph\modelNode.h"
 
 
 
@@ -48,7 +54,7 @@ class world
 public:
 
 
-
+	
 
 
 	world();
@@ -72,6 +78,8 @@ public:
 
 public:
 	int WindowID;
+
+	//NS_SG::composite o_loader;
 	// void keyDown(int key, int x, int y);
 	//
 	// void keyRelease(int key, int x, int y);

@@ -1,7 +1,19 @@
 #include "world.h"
+#include <iostream>
+#include "bass.h"
 
-
-world o_World;
+#include "sync.h"
+//world as a scene object and going through a sceneloader?
+#include "Rendrer\context.h"
+#include "Engine\rendrer.h"
+#include "SceneGraph\assetNode.h"
+#include "SceneGraph\modelNode.h"
+#include "SceneGraph\dirLightNode.h"
+#include "SceneGraph\pointLightNode.h"
+#include "SceneGraph\dirLightNode.h"
+#include "SceneGraph\targetNode.h"
+NS_REND::context *mContext = NULL;
+NS_ENG::rendrer *mRender = NULL;
 
 
 
@@ -68,20 +80,23 @@ void IdleFunc()
 
 void ChangeSize(int w, int h)
 {
-	GLfloat fAspect;
 
-	if (h == 0)
-		h = 1;
 
+	mContext->ChangeSize(w, h);
+	//GLfloat fAspect;
+
+	//if (h == 0)
+	//	h = 1;
+	mContext->ResizeBuffer = TRUE;
 	//gl::vie
 	//startskudd for omskriving 
 
-	gl::Viewport(0, 0, (GLsizei)w, (GLsizei)h);
+	//gl::Viewport(0, 0, (GLsizei)w, (GLsizei)h);
 
 	//fAspect = (GLfloat)w / (GLfloat)h;
 
-	cout << "Changed Screen size!" << endl;
-
+	//cout << "Changed Screen size!" << endl;
+	//std::
 
 	//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
 
@@ -92,32 +107,53 @@ void ChangeSize(int w, int h)
 
 void callRenderScene()
 {
-	o_World.RenderScene();
+	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
+	//mContext->Run();
+	if (mContext->GetGBStatus() == TRUE){
+		delete mContext->mGBuffer;
+		mContext->mGBuffer = new GBuffer();
+		mContext->mGBuffer->Init(mContext->GetPixelWidth(), mContext->GetPixelHeight());
+		mContext->ResizeBuffer = FALSE;
+	
+	}
+	//HGLRC runContext = wglGetCurrentContext();
+
+	mRender->draw();
+	wglMakeCurrent(NULL, NULL);
+	//mContext->Swap();
 }
 
 
 void SetupRC()
 {
+	//glload::LoadFunctions();
+	
+	//if(glload::LoadFunctions() == glload::)
+	//{
 
-	glload::LoadFunctions();
-	/*
-	if(glload::LoadFunctions() == glload::LS_LOAD_FAILED)
-	{
-
-	glutSwapBuffers();
-	Sleep(2000);
-	exit(0);
-    }|
-	*/
+	//glutSwapBuffers();
+	//Sleep(2000);
+	//exit(0);
+ //   }
+	
 	//glload::LoadWinFunctions(
-	cout << "Minor version! : " << glload::GetMinorVersion() << endl;
-	cout << "Major Version! : " << glload::GetMajorVersion() << endl;
-
-	o_World.AfterInit();
 
 
+	//o_World.AfterInit();
+	/*
+	sg::noder::composite test("test");
 
+	model("Mesh/p38.obj", "Mesh/p38.mtl");
+	*/
+	//nei faen den er en attributt nå den!
+	
+	
 
+	//o_loader
+
+	
+
+	//test.findChild("hoo");
 }
 
 
@@ -125,29 +161,27 @@ void SetupRC()
 
 
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
+	//NS_REND::context *  
+	mContext = new NS_REND::context();
+	
+	
+	//mContext->Init(argc, argv, true, false);
 
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitContextVersion(3,3);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
+	//glutInit(&argc, argv);
 
-#ifdef DEBUG
-	glutInitContextFlags(GLUT_DEBUG);
-#endif
-	glutInitWindowPosition(-1, -1);
-	glutInitWindowSize(800, 600);
-	//glutInitWindowPosition (300, 200);
-	glutCreateWindow("Deus's Ex Machine");
+	//std::cout << "Result of init windows: " << mContext->InitWindow(1600, 900, false, "Deus's Ex Machine") << std::endl;
+	
+	mContext->Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
+
+	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
+	//mContext->mGBuffer->Init(1600, 900);
+	//glutInitWindowPosition(-1, -1);
 
 
-	glload::LoadFunctions();
-	if (gl::exts::var_ARB_debug_output)
-	{
-		gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
-		//gl::DebugMessageCallbackARB(, (void*)15);
-	}
+
+	//HGLRC initContext = wglGetCurrentContext();
 
 	//o_World.WindowID = 
 	//    glutIgnoreKeyRepeat(1);
@@ -155,14 +189,153 @@ int main(int argc, char *argv[])
 	//    glutSpecialFunc( keyBoard );
 	//    glutSpecialUpFunc( callKeyRelease );
 
-	SetupRC();
+	//SetupRC();
+	//DO IT! TO IT!
 
+
+	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
+
+
+	NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
+
+	NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
+
+	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
+
+	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
+
+	//NS_SG::camera kambot = NS_SG::camera("kambot");
+	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
+	//NS_SG::modelNode plane = NS_SG::modelNode
+	//NS_SG::objTransform tran_kambot = NS_SG::objTransform("tran_kambot");
+	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
+	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
+
+
+
+	//husk
+	//o_loader->addChild(&tran_kambot);
+
+	e_geom.Enable();
+	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
+	//NS_ENG::model fly(*mContext, "Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+	//NS_ENG::model fly(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl");
+	//NS_ENG::model fly(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
+
+	//NS_SG::modelNode()
+
+
+	
+	
+
+	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
+
+	e_geom.Enable();
+	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
+
+
+	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
+
+	e_point.Enable();
+
+	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
+	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	e_point.SetScreenSize(mContext->GetPixelWidth(), mContext->GetPixelHeight());
+	std::cout << "am I shit at static variables? Width: " << mContext->GetPixelWidth() << "Height: " << mContext->GetPixelHeight() << std::endl;
+	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
+
+	e_dir.Enable();
+
+	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
+	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	//e_dir.SetDirectionalLight(m_dirLight);
+	e_dir.SetScreenSize(mContext->GetPixelWidth(), mContext->GetPixelHeight());
+	M3DMatrix44f WVP;
+	m3dLoadIdentity44(WVP);
+	e_dir.SetWVP(WVP);
+
+
+	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
+
+	//this should not be started here.
+	//e_geom.Enable();
+
+	//NS_SG::modelNode n_fly = NS_SG::modelNode("plane", &fly, &e_geom);
+	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
+	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
+	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
+	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	//tran_fly->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	//tran_fly->setScale(NS_VEC::VEC3(5.0f, 5.0f, 5.0f));
+
+
+
+
+	tran_fly->addChild(n_fly.get());
+	//target_kambot->setTarget(n_fly.get());
+
+	tran_kambot->addChild(kambot.get());
+	tran_kambot->setPosition(NS_VEC::VEC3(0.1f, 0.1f, 0.0f));
+	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	//tran_kambot->setScale(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	
+	//tran_kambot.get()
+	//tran_kambot->addChild(target_kambot.get());
+	o_loader->addChild(tran_kambot.get());
+
+	o_loader->addChild(tran_fly.get());
+
+
+	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
+
+
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.1f, 0.0f, 0.0f, 0.0f, 0.3f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
+	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
+	//tran_Point->setScale(NS_VEC::VEC3(4.0f, 4.0f, 4.0f));
+
+	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
+	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
+
+	tran_Point->addChild(n_point_lys.get());
+	//tran_Point2->addChild(tran_Point.get());
+	o_loader->addChild(tran_Point.get());
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.0f, 1.0f, 1.0f), 1.0f, 1.0f, &e_dir));
+	
+	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
+
+	//tran_Dir->setPosition(NS_VEC::VEC3(10.0f, 5.0f, 0.0f));
+	//tran_Dir->setRotation(NS_VEC::QUAT(-45.0f, 90.0f, 0.0f));
+	tran_Dir->addChild(n_dir_lys.get());
+	//tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 7.0f, 0.0f));
+
+	o_loader->addChild(tran_Dir.get());
+	
+	e_point.Enable();
+	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	e_null.Enable();
+	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	e_dir.Enable();
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl"));
+
+	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), mContext);
+
+
+
+	//STOP DEFINING THE SHIT!
 	glutReshapeFunc(ChangeSize);
 	glutDisplayFunc(callRenderScene);
 	glutTimerFunc(33, TimerFunction, 1);
-	//glutIdleFunc(IdleFunc);
+	glutIdleFunc(IdleFunc);
 	//glutFullScreen();
-	glutMainLoop();
+	//glutMainLoop();
+	gl::Finish();
+	//mRender->draw();
+	wglMakeCurrent(nullptr, nullptr);
+	//wglDeleteContext(RendCont);
+	mContext->Run();
 
 
 	return 0;

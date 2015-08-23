@@ -1,13 +1,14 @@
 
 #include "world.h"
+#include <iostream>
 //#include "vsGLInfoLib.h"
 #define DegToRad 0.01745329f
-
+//blir scene laoders
 GLfloat turn = 0.0;
 GLuint VertexArrayID;
-Shader_Progs o_progs;
+//Shader_Progs o_progs;
 //GLFrame camera;
-composite stuff;
+//composite stuff;
 HSTREAM stream;
 //diffuse light  
 GLfloat dlr = 1.0;
@@ -54,10 +55,10 @@ M3DMatrix44f matvec;
 
 
 
-world::world()
+world::world() //public context()
 {
 
-
+	//hmmm
 	WindowID = 0;
 	/*
 	camera.SetOrigin(0.0, 0.0, 0.0);
@@ -72,7 +73,7 @@ world::world()
 
 
 	//camera.RotateLocalZ( -15.0f * DegToRad );
-	stuff = composite();
+	//stuff = composite();
 
 	//Shader_Progs o_progs = Shader_Progs();
 
@@ -105,7 +106,7 @@ world::world()
 
 
 
-	stuff.StartTimer();
+	//stuff.StartTimer();
 
 }
 
@@ -293,19 +294,102 @@ void world::HyperHex()
 
 void world::AfterInit()
 {
-	cout << "JUST THIS ONCE " << endl;
+	std::cout << "JUST THIS ONCE " << std::endl;
 	gl::ClearColor(0.0f, 0.0f, 0.7f, 0.0f);
 
 	gl::Enable(gl::DEPTH_TEST);
 	gl::DepthFunc(gl::LESS);
 
-	o_progs.CompileProgram();
+
+	//varius shaders in here
+	//o_progs.CompileProgram();
 
 
-	stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
+	/*
+	sg::noder::camera test2 = sg::noder::camera("hoo");
+	
+	sg::noder::objTransform test =  objTransform("test");
+	test.addChild((sg::noder::nodePtr)&test2);
+
+	test.findChild("hoo");
+	*/
+
+
+	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/buddha.obj", "Mesh/buddha.mtl", 0.0f, 0.0f, 0.0f);
-	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 0.0f, 0.0f, 0.0f);
-	stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/hex.obj", "Mesh/hex.mtl", 0.0f, 10.0f, 0.0f);
+	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
+	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", -3.0f, 11.0f, -12.0f);
+	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 1.0f, 1.0f, -7.0f);
+	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/p38.obj", "Mesh/p38.mtl", 3.0f, -2.0f, 0.0f);
+
+	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "Mesh/hex.obj", "Mesh/hex.mtl", 0.0f, -3.0f, 0.0f);
+	
+
+	//stuff.SortTracks();
+	//QUAT quaternion(90.0f, 0.0f, 1.0f, 0.0f);
+
+	//
+	//cout << quaternion.W << endl;
+	//cout << quaternion.X << endl;
+	//cout << quaternion.Y << endl;
+	//cout << quaternion.Z << endl;
+
+	//QUAT inverse = quaternion.Inverse();
+
+	//cout << inverse.W << endl;
+	//cout << inverse.X << endl;
+	//cout << inverse.Y << endl;
+	//cout << inverse.Z << endl;
+
+	//QUAT quaternion2(45.0f, 1.0f, 0.0f, 0.0f);
+	//cout << "Multiplication of quaternion  to  quatabove " << endl;
+	//cout << quaternion2.W << endl;
+	//cout << quaternion2.X << endl;
+	//cout << quaternion2.Y << endl;
+	//cout << quaternion2.Z << endl;
+
+	//QUAT multiplied = quaternion2 * quaternion;
+	//cout << "Result but not normalized" << endl;
+	//cout << multiplied.W << endl;
+	//cout << multiplied.X << endl;
+	//cout << multiplied.Y << endl;
+	//cout << multiplied.Z << endl;
+
+	//QUAT multipliedInv = multiplied.Inverse();
+	//cout << "inverse of multiplied" << endl;
+	//cout << multipliedInv.W << endl;
+	//cout << multipliedInv.X << endl;
+	//cout << multipliedInv.Y << endl;
+	//cout << multipliedInv.Z << endl;
+
+	//VEC3 vecrot1 = multiplied * VEC3(1.0f, 0.0f, 0.0f);
+	//cout << "rotated vec" << endl;
+	//cout << vecrot1.X << endl;
+	//cout << vecrot1.Y << endl;
+	//cout << vecrot1.Z << endl;
+
+	//VEC3 vecrot2 = quaternion * VEC3(1.0f, 0.0f, 0.0f);
+	//cout << "rotated vec" << endl;
+	//cout << vecrot2.X << endl;
+	//cout << vecrot2.Y << endl;
+	//cout << vecrot2.Z << endl;
+
+	//VEC3 vecrot3 = quaternion2 * VEC3(0.0f, 0.0f, 1.0f);
+	//cout << "rotated vec" << endl;
+	//cout << vecrot3.X << endl;
+	//cout << vecrot3.Y << endl;
+	//cout << vecrot3.Z << endl;
+
+	//cout << "Test of To Axis Angle using MULTIPLIED or initial quaternion" << endl;
+	//VEC3 axisT;
+	//float angleT;
+	//quaternion.TAA(axisT, angleT);
+	//
+	//cout << "axis is :" << axisT.X << "." << axisT.Y << "." << axisT.Z << endl;
+	//cout << "Angle is :" << angleT << endl;
+	////IT WORKS!!!!!!!!!!
+
+	//stuff.AddActor(001, 0.0f, 5.0f, 15.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, 4.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, -10.0f);
 	//stuff.AddActor(VEC3(0.7f, 0.7f, 0.7f), "corridor.obj", "corridor.mtl", 0.0f, 0.0f, 6.0f);
@@ -333,25 +417,30 @@ void world::AfterInit()
 
 
 	if (!BASS_Init(-1, 44100, 0, 0, 0))
-		cout << "failed to init bass" << endl;
-	stream = BASS_StreamCreateFile(false, "bf.mp3", 0, 0,
+		std::cout << "failed to init bass" << std::endl;
+	stream = BASS_StreamCreateFile(false, "bf.ogg", 0, 0,
 		BASS_STREAM_PRESCAN);
 	if (!stream)
-		cout << "failed to open tune" << endl;
+		std::cout << "failed to open tune" << std::endl;
 
-	// rocket = sync_create_device("sync");
+	//sync_device *pRocket = stuff.rocket;
 
+	//rocket 
 
 
 	//if (!(::rocket))
 	//	cout << "out of memory?" << endl;
 
-#ifndef SYNC_PLAYER
-	//if (sync_connect(::rocket, "localhost", SYNC_DEFAULT_PORT))
-	//	cout << "failed to connect to host" << endl;
-#endif
 
-	stuff.SortTracks();
+
+//#ifndef SYNC_PLAYER
+//	(sync_connect(stuff.rocket, "localhost", SYNC_DEFAULT_PORT));
+//	//	cout << "failed to connect to host" << endl;
+//#endif
+	
+	//stuff.SortTracks();
+
+
 	/* get tracks */
 	//clear_r = sync_get_track(rocket, "clar.r");
 	//clear_g = sync_get_track(rocket, "clear.g");
@@ -362,7 +451,6 @@ void world::AfterInit()
 	/* let's roll! */
 	BASS_Start();
 	BASS_ChannelPlay(stream, false);
-
 
 
 
@@ -403,11 +491,11 @@ void world::RenderScene()
 
 
 
-	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+	//gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
 	//gl::ClearDepth(1.0f);
 
-	gl::UseProgram(o_progs.ShaderObject);
+	//gl::UseProgram(o_progs.ShaderObject);
 
 
 
@@ -447,7 +535,7 @@ void world::RenderScene()
 
 
 
-	stuff.Magic(true);
+	
 	//stuff.DrawAll();
 
 	//gl::UseProgram(0);
@@ -460,7 +548,7 @@ void world::RenderScene()
 
 	//VSGLInfoLib::getVAOInfo(VertexArrayID);
 
-	glutSwapBuffers();
+	//glutSwapBuffers();
 	//glutPostRedisplay();
 	//gl::Flush();
 	//gl::

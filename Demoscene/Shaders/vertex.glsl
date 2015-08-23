@@ -16,17 +16,23 @@ uniform mat4 MV;
 uniform mat4 M;
 
 //mat4 MVP; 
+vec4 LightPos;
 vec4 WorldPos;
 
 out vec4 vertexPos;
 out vec2 TexCoord;
 out vec3 Normal;
-
+out vec4 Eye;
+out vec3 LightDir;
 void main()
 {	
+//ingen lys system enda
+	LightPos = vec4(10.0, 10.0, 10.0, 0.0);
 //Normal matris == inv av MV
-	Normal = normalize(vec3(MV * M * vec4(vertexNormal_modelspace,0.0)));	
+	Normal = normalize(vec3(MV * M * vec4(vertexNormal_modelspace,0.0)));	  
 	TexCoord = vec2(vertexUV);
 	WorldPos = M  * vec4(vertexPosition_modelspace,1.0);
+	Eye = -(MV * WorldPos);
+	LightDir = vec3(LightPos - WorldPos);
 	gl_Position = P * MV  * WorldPos;
 }
