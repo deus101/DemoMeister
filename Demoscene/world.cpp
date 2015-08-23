@@ -55,10 +55,10 @@ M3DMatrix44f matvec;
 
 
 
-world::world()
+world::world() //public context()
 {
 
-
+	//hmmm
 	WindowID = 0;
 	/*
 	camera.SetOrigin(0.0, 0.0, 0.0);

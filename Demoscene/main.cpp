@@ -12,8 +12,8 @@
 #include "SceneGraph\pointLightNode.h"
 #include "SceneGraph\dirLightNode.h"
 #include "SceneGraph\targetNode.h"
-NS_REND::context *mContext;
-NS_ENG::rendrer *mRender;
+NS_REND::context *mContext = NULL;
+NS_ENG::rendrer *mRender = NULL;
 
 
 
@@ -87,7 +87,7 @@ void ChangeSize(int w, int h)
 
 	//if (h == 0)
 	//	h = 1;
-
+	mContext->ResizeBuffer = TRUE;
 	//gl::vie
 	//startskudd for omskriving 
 
@@ -107,9 +107,19 @@ void ChangeSize(int w, int h)
 
 void callRenderScene()
 {
-	mContext->Run();
+	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
+	//mContext->Run();
+	if (mContext->GetGBStatus() == TRUE){
+		delete mContext->mGBuffer;
+		mContext->mGBuffer = new GBuffer();
+		mContext->mGBuffer->Init(mContext->GetPixelWidth(), mContext->GetPixelHeight());
+		mContext->ResizeBuffer = FALSE;
 	
+	}
+	//HGLRC runContext = wglGetCurrentContext();
+
 	mRender->draw();
+	wglMakeCurrent(NULL, NULL);
 	//mContext->Swap();
 }
 
@@ -153,17 +163,25 @@ void SetupRC()
 
 int main(int argc, char** argv)
 {
+	//NS_REND::context *  
 	mContext = new NS_REND::context();
-	mContext->Init(argc, argv, true, false);
+	
+	
+	//mContext->Init(argc, argv, true, false);
 
 	//glutInit(&argc, argv);
 
-	std::cout << "Result of init windows: " << mContext->InitWindow(1920, 1080, false, "Deus's Ex Machine") << std::endl;
+	//std::cout << "Result of init windows: " << mContext->InitWindow(1600, 900, false, "Deus's Ex Machine") << std::endl;
+	
+	mContext->Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
+	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
+	//mContext->mGBuffer->Init(1600, 900);
 	//glutInitWindowPosition(-1, -1);
 
 
 
+	//HGLRC initContext = wglGetCurrentContext();
 
 	//o_World.WindowID = 
 	//    glutIgnoreKeyRepeat(1);
@@ -201,6 +219,8 @@ int main(int argc, char** argv)
 	e_geom.Enable();
 	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+	//NS_ENG::model fly(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl");
+	//NS_ENG::model fly(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
 
 	//NS_SG::modelNode()
 
@@ -222,7 +242,7 @@ int main(int argc, char** argv)
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 	e_point.SetScreenSize(mContext->GetPixelWidth(), mContext->GetPixelHeight());
-
+	std::cout << "am I shit at static variables? Width: " << mContext->GetPixelWidth() << "Height: " << mContext->GetPixelHeight() << std::endl;
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
@@ -246,22 +266,23 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
 	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
-	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
+	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 	//tran_fly->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
-	tran_fly->setScale(NS_VEC::VEC3(5.0f, 5.0f, 5.0f));
+	//tran_fly->setScale(NS_VEC::VEC3(5.0f, 5.0f, 5.0f));
 
 
 
 
 	tran_fly->addChild(n_fly.get());
-	target_kambot->setTarget(n_fly.get());
+	//target_kambot->setTarget(n_fly.get());
 
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 2.0f, -10.0f));
-	tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
+	tran_kambot->addChild(kambot.get());
+	tran_kambot->setPosition(NS_VEC::VEC3(0.1f, 0.1f, 0.0f));
+	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
 	//tran_kambot->setScale(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	target_kambot->addChild(kambot.get());
+	
 	//tran_kambot.get()
-	tran_kambot->addChild(target_kambot.get());
+	//tran_kambot->addChild(target_kambot.get());
 	o_loader->addChild(tran_kambot.get());
 
 	o_loader->addChild(tran_fly.get());
@@ -272,8 +293,8 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.1f, 0.0f, 0.0f, 0.0f, 0.3f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
-	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 4.0f, -2.0f));
-	//tran_Point->setScale(NS_VEC::VEC3(.0f, 4.0f, 4.0f));
+	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
+	//tran_Point->setScale(NS_VEC::VEC3(4.0f, 4.0f, 4.0f));
 
 	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
 	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
@@ -285,7 +306,7 @@ int main(int argc, char** argv)
 	
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 
-	//tran_Dir->setPosition(NS_VEC::VEC3(-10.0f, 5.0f, 0.0f));
+	//tran_Dir->setPosition(NS_VEC::VEC3(10.0f, 5.0f, 0.0f));
 	//tran_Dir->setRotation(NS_VEC::QUAT(-45.0f, 90.0f, 0.0f));
 	tran_Dir->addChild(n_dir_lys.get());
 	//tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 7.0f, 0.0f));
@@ -309,7 +330,12 @@ int main(int argc, char** argv)
 	glutTimerFunc(33, TimerFunction, 1);
 	glutIdleFunc(IdleFunc);
 	//glutFullScreen();
-	glutMainLoop();
+	//glutMainLoop();
+	gl::Finish();
+	//mRender->draw();
+	wglMakeCurrent(nullptr, nullptr);
+	//wglDeleteContext(RendCont);
+	mContext->Run();
 
 
 	return 0;

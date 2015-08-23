@@ -179,6 +179,7 @@ void rendrer::draw()
 {	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
+	//HGLRC renderContext = wglGetCurrentContext();
 
 	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN MATH3D IS SHIT!
 	M3DMatrix44f world;
@@ -191,10 +192,13 @@ void rendrer::draw()
 	//m_DSGeomPassTech.Enable();
 	
 
-	mContext->mGBuffer.StartFrame();
+	mContext->mGBuffer->StartFrame();
+	
+	//NS_REND::mGBuffer->StartFrame();
 
+	mContext->mGBuffer->BindForGeomPass();
 
-	mContext->mGBuffer.BindForGeomPass();
+	//NS_REND::mGBuffer->BindForGeomPass();
 	// Only the geometry pass updates the depth buffer
 	gl::DepthMask(gl::TRUE_);
 	
@@ -225,7 +229,7 @@ void rendrer::draw()
 	// When we get here the depth buffer is already populated and the stencil pass
 	// depends on it, but it does not write to it.
 	gl::DepthMask(gl::FALSE_);
-
+	gl::Enable(gl::STENCIL_TEST);
 
 	NS_VEC::VEC3 EyeWorldPos(view[12], view[13], view[14]);
 
@@ -233,7 +237,8 @@ void rendrer::draw()
 		ip->sNode->NullMagic->Enable();
 
 		// Disable color/depth write and enable stencil
-		mContext->mGBuffer.BindForStencilPass();
+		mContext->mGBuffer->BindForStencilPass();
+		//NS_REND::mGBuffer->BindForStencilPass();
 		gl::Enable(gl::DEPTH_TEST);
 
 		gl::Disable(gl::CULL_FACE);
@@ -256,7 +261,8 @@ void rendrer::draw()
 		
 		
 		
-		mContext->mGBuffer.BindForLightPass();
+		mContext->mGBuffer->BindForLightPass();
+		//NS_REND::mGBuffer->BindForLightPass();
 		//p.WorldPos(m_boxPositions[i]);
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 
@@ -277,7 +283,7 @@ void rendrer::draw()
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 
 		sphere_light->Draw();
-
+		
 		gl::CullFace(gl::BACK);
 
 		gl::Disable(gl::BLEND);
@@ -285,7 +291,11 @@ void rendrer::draw()
 	gl::Disable(gl::STENCIL_TEST);
 
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
-		mContext->mGBuffer.BindForLightPass();
+
+		mContext->mGBuffer->BindForLightPass();
+
+		//NS_REND::mGBuffer->BindForLightPass();
+
 		id->sNode->LightMagic->Enable();
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
@@ -303,12 +313,15 @@ void rendrer::draw()
 	}
 
 	//std::cout << "height: " << mContext->GetPixelHeight() << " width: " << mContext->GetPixelHeight() << std::endl;
-	
-	mContext->mGBuffer.BindForFinalPass();
+	//mContext
+
+	mContext->mGBuffer->BindForFinalPass();
+	//NS_REND::mGBuffer->BindForFinalPass();
 	gl::BlitFramebuffer(0, 0, mContext->GetPixelWidth(), mContext->GetPixelHeight(),
 		0, 0, mContext->GetPixelWidth(), mContext->GetPixelHeight(), gl::COLOR_BUFFER_BIT, gl::LINEAR);
 
-	glutSwapBuffers();
+	mContext->Swap();
+	//glutSwapBuffers();
 
 
 

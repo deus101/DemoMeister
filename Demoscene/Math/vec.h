@@ -2,7 +2,7 @@
 #define VEC_HPP
 
 #include <glload/gl_3_3.hpp>
-#include <glload/gl_load.hpp>
+//#include <glload/gl_load.hpp>
 //husk lerp
 
 namespace NS_VEC

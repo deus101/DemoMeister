@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../util.h"
 #include "gbuffer.h"
 //#include "ogldev_texture.h"
-
 GBuffer::GBuffer()
 {
 	m_fbo = 0;
@@ -51,11 +50,13 @@ GBuffer::~GBuffer()
 //vent....ikke init men run
 bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
+	//GLRC initContext = wglGetCurrentContext();
 	// Create the FBO
 	gl::GenFramebuffers(1, &m_fbo);
 	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
-
+	//gl::_detail::proc_glgent
 	// Create the gbuffer textures
+	gl::Enable(gl::TEXTURE_2D);
 	gl::GenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
 
 	gl::GenTextures(1, &m_depthTexture);
@@ -81,14 +82,14 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::COLOR_ATTACHMENT4, gl::TEXTURE_2D, m_finalTexture, 0);
 
 	GLenum Status = gl::CheckFramebufferStatus(gl::FRAMEBUFFER);
-
+	printf("FB Status, status: 0x%x\n", Status);
 	if (Status != gl::FRAMEBUFFER_COMPLETE) {
 		printf("FB error, status: 0x%x\n", Status);
 		return false;
 	}
 
 	// restore default FBO
-	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, 0);
+	//gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, 0);
 
 	return true;
 }

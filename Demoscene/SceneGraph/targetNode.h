@@ -58,9 +58,9 @@ namespace NS_SG
 			from[0] = eyeAbs[12];
 			from[1] = eyeAbs[13];
 			from[2] = eyeAbs[14];
-			up[0] = 0;
-			up[1] = 1;
-			up[2] = 0;
+			up[0] = 0.0f;
+			up[1] = 1.0f;
+			up[2] = 0.0f;
 			//math::Vector3 targetPos = math::mul(eyeAbsInv, target->getAbsoluteTransform().getTranslation());
 			M3DMatrix44f lookat;
 			m3dLookAt(lookat, at, from, up, 0.0f);

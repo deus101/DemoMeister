@@ -228,6 +228,7 @@
     </None>
     <None Include="Mesh\teapot.FBX" />
     <None Include="Mesh\newP38.mtl" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
