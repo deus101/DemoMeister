@@ -21,7 +21,7 @@ model::model()
 
 
 
-model::model(const NS_REND::context &aContext, string obj, string mtl)
+model::model( string obj, string mtl)
 {
 
 	LoadMesh(obj.c_str(), meshy);

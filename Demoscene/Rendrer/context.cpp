@@ -2,43 +2,65 @@
 #include <iostream>
 #include <stdio.h>
 
-using namespace NS_REND;
+//using namespace NS_REND;
 
-
+static ICallbacks* s_pCallbacks = NULL;
 //mGBuffer =  GBuffer;
-GBuffer * context::mGBuffer;
+//mGBuffer = NULL;
 static bool sDepth = false;
 static bool sStencil = false;
-HGLRC context::SharedContex;
- int context::Glu_Window;
- HGLRC context::RendContext = 0;
- HDC context::DeviceContext;
-bool context::ResizeBuffer;
+//HGLRC context::SharedContex;
+ //int context::Glu_Window;
+// HGLRC context::RendContext = 0;
+// HDC context::DeviceContext;
+//bool context::ResizeBuffer;
 
-context::context()
+//context::context()
+//{
+//	
+//
+//}
+//
+//
+//context::~context()
+//{
+//
+//
+//}
+static void RenderSceneCB()
 {
-	
+	s_pCallbacks->RenderSceneCB();
+}
+
+
+static void IdleCB()
+{
+	s_pCallbacks->RenderSceneCB();
 
 }
 
 
-context::~context()
+static void InitCallbacks()
 {
-
-
+	glutDisplayFunc(RenderSceneCB);
+	glutIdleFunc(IdleCB);
+	//glutSpecialFunc(SpecialKeyboardCB);
+	//glutPassiveMotionFunc(PassiveMouseCB);
+	//glutKeyboardFunc(KeyboardCB);
+	//glutMouseFunc(MouseCB);
 }
 
 
-
-//void context::Init(int argc, char** arg, bool aDepth, bool aStencil)
-bool context::Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
+void Init(int argc, char** arg, bool aDepth, bool aStencil)
 {
 
-	glutInit(&argc, arg);
 	//wglShareLists()
 
 	sDepth = aDepth;
 	sStencil = aStencil;
+
+	glutInit(&argc, arg);
+
 
 	unsigned int DisplayMode = GLUT_DOUBLE ;
 	//unsigned int DisplayMode = GLUT_DOUBLE | GLUT_RENDERING_CONTEXT | GLUT_USE_CURRENT_CONTEXT;
@@ -59,8 +81,8 @@ bool context::Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned in
 	//glutSetOption(GLUT_RENDERING_CONTEXT , GLUT_USE_CURRENT_CONTEXT);
 
 	
-	glutInitContextVersion(3, 3);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
+	//glutInitContextVersion(3, 3);
+	//glutInitContextProfile(GLUT_CORE_PROFILE);
 
 #ifdef _DEBUG
 	glutInitContextFlags(GLUT_DEBUG);
@@ -68,22 +90,22 @@ bool context::Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned in
 	//HGLRC initContext = wglGetCurrentContext();
 	//bool hei = false;
 
-//}
+}
 
-//bool context::InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
-//HGLRC context::InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
-//{
-	NS_REND::pWidth = aWidth;
-	NS_REND::pHeight = aHeight;
+bool InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
+{
+	pWidth = aWidth;
+	pHeight = aHeight;
 
 	glutInitWindowSize(aWidth, aHeight);
 	Glu_Window = glutCreateWindow(aTitle);
-	DeviceContext = wglGetCurrentDC();
+	//DeviceContext = wglGetCurrentDC();
 	
 	//wglMakeCurrent()
-	RendContext = wglGetCurrentContext();
-	wglGetCurrentDC();
-	wglMakeCurrent(DeviceContext, RendContext);
+	//RendContext = wglGetCurrentContext();
+	//wglGetCurrentDC();
+	//wglMakeCurrent(DeviceContext, RendContext);
+	
 	glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
 	if (!test)
 		return false;
@@ -100,22 +122,24 @@ bool context::Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned in
 	
 	//maybe some checks to see if you really need it?
 	//I should have a sorta enum argumented function that sorts out the different bind draw commands
-	SharedContex = wglCreateContext(DeviceContext); //wglGetCurrentContext();
-	bool ShareSuccess = wglShareLists(SharedContex, RendContext);
+	//SharedContex = wglCreateContext(DeviceContext); //wglGetCurrentContext();
+	//bool ShareSuccess = wglShareLists(SharedContex, RendContext);
 	//bool bGbuffer;
 	//mGBuffer = new GBuffer();
 	//Sure why not
-	ResizeBuffer = TRUE;
-
-
-	return ResizeBuffer;
+	//ResizeBuffer = TRUE;
+	//mGBuffer = new GBuffer();
+	//mGBuffer->Init(pWidth, pHeight);
+	//return ResizeBuffer;
 	//mGBuffer ->Init(aWidth, aHeight);
 	//bGbuffer =   Init(aWidth, aHeight);
 	//return bGbuffer;
 	//mGBuffer = new GBuffer();
+	return true;
 }
 
-void context::ChangeSize(unsigned int w, unsigned int h)
+//glem denne for nå
+void ChangeSize(unsigned int w, unsigned int h)
 {
 	GLfloat fAspect;
 
@@ -131,8 +155,8 @@ void context::ChangeSize(unsigned int w, unsigned int h)
 
 	std::cout << "Changed Screen size!" << std::endl;
 	
-	NS_REND::pWidth = w;
-	NS_REND::pHeight = h;
+	pWidth = w;
+	pHeight = h;
 
 	ResizeBuffer = TRUE;
 		//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
@@ -140,7 +164,7 @@ void context::ChangeSize(unsigned int w, unsigned int h)
 	//context::mGBuffer->Init(w, h);
 }
 //mulig en callback classe her med en app classe
-void context::Run()
+void ContextRun(ICallbacks* pCallbacks)
 {
 	std::cout << "Initialising MainLoop" << std::endl;
 
@@ -153,35 +177,43 @@ void context::Run()
 		gl::Enable(gl::DEPTH_TEST);
 	}
 
+	s_pCallbacks = pCallbacks;
+	InitCallbacks();
+
 	//what why?
 	glutMainLoop();
 	
 
 }
 
-void context::Swap()
+void Swap()
 {
 	
 	glutSwapBuffers();
 
 }
-unsigned int context::GetPixelWidth() const
-{
-	return pWidth;
-}
 
-unsigned int context::GetPixelHeight() const
+void LeaveMainLoop()
 {
-
-	return pHeight;
+	glutLeaveMainLoop();
 }
-
-bool context::GetGBStatus() const
-{
-	return ResizeBuffer;
-}
-
-void context::SetGBStatus(bool state) const
-{
-	ResizeBuffer = state;
-}
+//unsigned int context::GetPixelWidth() const
+//{
+//	return pWidth;
+//}
+//
+//unsigned int context::GetPixelHeight() const
+//{
+//
+//	return pHeight;
+//}
+//
+//bool context::GetGBStatus() const
+//{
+//	return ResizeBuffer;
+//}
+//
+//void context::SetGBStatus(bool state) const
+//{
+//	ResizeBuffer = state;
+//}

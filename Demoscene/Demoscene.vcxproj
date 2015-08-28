@@ -210,6 +210,7 @@
     <ClInclude Include="Effect\PointLightPacket.h" />
     <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="Math\matrix.h" />
+    <ClInclude Include="Rendrer\callbacks.h" />
     <ClInclude Include="SceneGraph\assetNode.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="Rendrer\buffers.h" />

@@ -50,25 +50,29 @@ GBuffer::~GBuffer()
 //vent....ikke init men run
 bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
+	GLenum error;
 	//GLRC initContext = wglGetCurrentContext();
 	// Create the FBO
 	gl::GenFramebuffers(1, &m_fbo);
 	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
 	//gl::_detail::proc_glgent
 	// Create the gbuffer textures
-	gl::Enable(gl::TEXTURE_2D);
+	//gl::Enable(gl::TEXTURE_2D);
 	gl::GenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
-
+	error =  gl::GetError();
+	//gl::GetDebugMessageLogARB()
 	gl::GenTextures(1, &m_depthTexture);
-
+	
 	gl::GenTextures(1, &m_finalTexture);
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 		gl::BindTexture(gl::TEXTURE_2D, m_textures[i]);
 		gl::TexImage2D(gl::TEXTURE_2D, 0, gl::RGB32F, WindowWidth, WindowHeight, 0, gl::RGB, gl::FLOAT, NULL);
+		
 		gl::TexParameterf(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, gl::NEAREST);
 		gl::TexParameterf(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, gl::NEAREST);
 		gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::COLOR_ATTACHMENT0 + i, gl::TEXTURE_2D, m_textures[i], 0);
+
 	}
 
 	// depth
@@ -89,7 +93,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	}
 
 	// restore default FBO
-	//gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, 0);
+	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, 0);
 
 	return true;
 }
@@ -113,6 +117,7 @@ void GBuffer::BindForGeomPass()
 		gl::COLOR_ATTACHMENT2 };
 
 	gl::DrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
+	GLenum error = gl::GetError();
 }
 
 

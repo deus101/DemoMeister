@@ -6,13 +6,14 @@
 #include <GL/freeglut.h>
 //#include "freeglut.h"
 #include "gbuffer.h"
-
-namespace NS_REND
-{
-	class context
-	{
-	public:
-		static GBuffer * mGBuffer;
+#include "callbacks.h"
+//namespace NS_REND
+//{
+//	class context
+//	{
+//	public:
+		
+		//static GBuffer * mGBuffer = 0;
 
 		static bool ResizeBuffer;
 		
@@ -22,36 +23,38 @@ namespace NS_REND
 		static int Glu_Window;
 
 		static HGLRC SharedContex;
-		GLuint Program;
+		static GLuint Program;
 
 
-		context();
-		~context();
+		//context();
+		//~context();
 
-		//static void Init(int argc, char** arg, bool aDepth, bool aStencil);
+		void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
-		static bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
-		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+		//static bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+		bool InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
 		void ChangeSize(unsigned int w, unsigned int h);
-		static void Run();
+		
+		
+		void ContextRun(ICallbacks* pCallbacks);
 
-		static void Swap();
+		void Swap();
 
-		unsigned int GetPixelWidth() const;
+		//unsigned int GetPixelWidth() ;
 
-		unsigned int GetPixelHeight() const;
+		//unsigned int GetPixelHeight() ;
 
-		bool GetGBStatus() const;
+		//bool GetGBStatus() ;
 
-		void SetGBStatus(bool) const;
-
-
-	private:
+		//void SetGBStatus(bool) ;
 
 
-	};
+	//private:
+
+
+	//};
 		
 	static unsigned int pHeight;
 	static unsigned int pWidth;
@@ -62,4 +65,4 @@ namespace NS_REND
 
 	
 
-}
+//}

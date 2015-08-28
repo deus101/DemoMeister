@@ -5,6 +5,8 @@
 #include "../SceneGraph/camera.h"
 #include "../Math/math3d.h"
 #include "../Rendrer/context.h"
+#include "../Rendrer/callbacks.h"
+
 #include "../SceneGraph/modelNode.h"
 #include "../SceneGraph/pointLightNode.h"
 #include "../SceneGraph/dirLightNode.h"
@@ -51,11 +53,11 @@ namespace NS_ENG
 		M3DMatrix44f sWVP;
 	};
 
-class rendrer
+class rendrer : public ICallbacks
 {
 public:
 	//                                should this just be name?  
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_REND::context *_context) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), mContext(_context)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer* _mGBuffer) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), mGBuffer(_mGBuffer)
 	{
 		M3DMatrix44f inversLookat;
 		//m3dLoadIdentity44(view);
@@ -105,19 +107,23 @@ public:
 	}
 	//using nodePtr might be a mistake
 	void visit(NS_SG::node *Node, M3DMatrix44f world);
-	void draw();
+	//void draw();
+	void Run();
+	virtual void RenderSceneCB();
+	//virtual void RenderSceneCB();
 
 	float CalcPointLightBSphere(const PointLight& Light);
 
 private:
 	NS_SG::composite *scene;
 	NS_SG::camera *kamera;
-	NS_REND::context *mContext;
+	//NS_REND::context *mContext;
 
 	NS_ENG::model *sphere_light;
 	NS_ENG::model *sphere_null;
 	NS_ENG::model *quad;
-	
+	GBuffer *mGBuffer;
+
 	std::list< struct RendrerItem> Visible;
 	typedef std::list< struct RendrerItem>::iterator vIT;
 	typedef std::list< struct RendrerItem>::const_iterator vITc;

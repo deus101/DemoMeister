@@ -14,7 +14,7 @@
 using namespace NS_ENG;
 using namespace NS_SG;
 
-
+// I might be making a mistake using this as a the callback interface
 void rendrer::visit(node *Node, M3DMatrix44f  world)
 {
 	
@@ -174,8 +174,13 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		
 }
 
+void rendrer::Run()
+{
+	ContextRun(this);
 
-void rendrer::draw()
+}
+
+void rendrer::RenderSceneCB()
 {	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
@@ -192,11 +197,11 @@ void rendrer::draw()
 	//m_DSGeomPassTech.Enable();
 	
 
-	mContext->mGBuffer->StartFrame();
+	mGBuffer->StartFrame();
 	
 	//NS_REND::mGBuffer->StartFrame();
 
-	mContext->mGBuffer->BindForGeomPass();
+	mGBuffer->BindForGeomPass();
 
 	//NS_REND::mGBuffer->BindForGeomPass();
 	// Only the geometry pass updates the depth buffer
@@ -237,7 +242,7 @@ void rendrer::draw()
 		ip->sNode->NullMagic->Enable();
 
 		// Disable color/depth write and enable stencil
-		mContext->mGBuffer->BindForStencilPass();
+		mGBuffer->BindForStencilPass();
 		//NS_REND::mGBuffer->BindForStencilPass();
 		gl::Enable(gl::DEPTH_TEST);
 
@@ -261,7 +266,7 @@ void rendrer::draw()
 		
 		
 		
-		mContext->mGBuffer->BindForLightPass();
+		mGBuffer->BindForLightPass();
 		//NS_REND::mGBuffer->BindForLightPass();
 		//p.WorldPos(m_boxPositions[i]);
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
@@ -292,7 +297,7 @@ void rendrer::draw()
 
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
 
-		mContext->mGBuffer->BindForLightPass();
+		mGBuffer->BindForLightPass();
 
 		//NS_REND::mGBuffer->BindForLightPass();
 
@@ -315,12 +320,12 @@ void rendrer::draw()
 	//std::cout << "height: " << mContext->GetPixelHeight() << " width: " << mContext->GetPixelHeight() << std::endl;
 	//mContext
 
-	mContext->mGBuffer->BindForFinalPass();
+	mGBuffer->BindForFinalPass();
 	//NS_REND::mGBuffer->BindForFinalPass();
-	gl::BlitFramebuffer(0, 0, mContext->GetPixelWidth(), mContext->GetPixelHeight(),
-		0, 0, mContext->GetPixelWidth(), mContext->GetPixelHeight(), gl::COLOR_BUFFER_BIT, gl::LINEAR);
+	gl::BlitFramebuffer(0, 0, pWidth, pHeight,
+		0, 0, pWidth, pHeight, gl::COLOR_BUFFER_BIT, gl::LINEAR);
 
-	mContext->Swap();
+	Swap();
 	//glutSwapBuffers();
 
 

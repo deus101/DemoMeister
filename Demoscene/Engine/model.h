@@ -74,7 +74,7 @@ namespace NS_ENG{
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
-		model(const NS_REND::context &aContext, std::string obj, std::string mtl);
+		model( std::string obj, std::string mtl);
 		~model();
 
 

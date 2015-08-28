@@ -12,8 +12,8 @@
 #include "SceneGraph\pointLightNode.h"
 #include "SceneGraph\dirLightNode.h"
 #include "SceneGraph\targetNode.h"
-NS_REND::context *mContext = NULL;
-NS_ENG::rendrer *mRender = NULL;
+//NS_REND::context *mContext = NULL;
+//NS_ENG::rendrer *mRender = NULL;
 
 
 
@@ -73,21 +73,21 @@ void TimerFunction(int)
 	glutTimerFunc(3, TimerFunction, 1);
 
 }
-void IdleFunc()
-{
-	glutPostRedisplay();
-}
+//void IdleFunc()
+//{
+//	glutPostRedisplay();
+//}
 
 void ChangeSize(int w, int h)
 {
 
 
-	mContext->ChangeSize(w, h);
+	ChangeSize(w, h);
 	//GLfloat fAspect;
 
 	//if (h == 0)
 	//	h = 1;
-	mContext->ResizeBuffer = TRUE;
+	ResizeBuffer = TRUE;
 	//gl::vie
 	//startskudd for omskriving 
 
@@ -105,23 +105,23 @@ void ChangeSize(int w, int h)
 
 
 
-void callRenderScene()
-{
-	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
-	//mContext->Run();
-	if (mContext->GetGBStatus() == TRUE){
-		delete mContext->mGBuffer;
-		mContext->mGBuffer = new GBuffer();
-		mContext->mGBuffer->Init(mContext->GetPixelWidth(), mContext->GetPixelHeight());
-		mContext->ResizeBuffer = FALSE;
-	
-	}
-	//HGLRC runContext = wglGetCurrentContext();
-
-	mRender->draw();
-	wglMakeCurrent(NULL, NULL);
-	//mContext->Swap();
-}
+//void callRenderScene()
+//{
+//	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
+//	//mContext->Run();
+//	if (mContext->GetGBStatus() == TRUE){
+//		delete mContext->mGBuffer;
+//		mContext->mGBuffer = new GBuffer();
+//		mContext->mGBuffer->Init(mContext->GetPixelWidth(), mContext->GetPixelHeight());
+//		mContext->ResizeBuffer = FALSE;
+//	
+//	}
+//	//HGLRC runContext = wglGetCurrentContext();
+//
+//	mRender->draw();
+//	wglMakeCurrent(NULL, NULL);
+//	//mContext->Swap();
+//}
 
 
 void SetupRC()
@@ -164,23 +164,24 @@ void SetupRC()
 int main(int argc, char** argv)
 {
 	//NS_REND::context *  
-	mContext = new NS_REND::context();
+	//mContext = new NS_REND::context();
 	
 	
-	//mContext->Init(argc, argv, true, false);
+	Init(argc, argv, true, false);
 
 	//glutInit(&argc, argv);
 
-	//std::cout << "Result of init windows: " << mContext->InitWindow(1600, 900, false, "Deus's Ex Machine") << std::endl;
+	std::cout << "Result of init windows: " << InitWindow(1600, 900, false, "Deus's Ex Machine") << std::endl;
 	
-	mContext->Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
+	//Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
-	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
+	//wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
 	//mContext->mGBuffer->Init(1600, 900);
 	//glutInitWindowPosition(-1, -1);
 
-
-
+	
+	//GBuffer* mGBuffer = new GBuffer();
+	//mGBuffer->Init(pWidth, pHeight);
 	//HGLRC initContext = wglGetCurrentContext();
 
 	//o_World.WindowID = 
@@ -217,7 +218,7 @@ int main(int argc, char** argv)
 	//o_loader->addChild(&tran_kambot);
 
 	e_geom.Enable();
-	NS_ENG::model fly(*mContext, "Mesh/p38.obj", "Mesh/p38.mtl");
+	NS_ENG::model fly( "Mesh/p38.obj", "Mesh/p38.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
@@ -241,8 +242,8 @@ int main(int argc, char** argv)
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	e_point.SetScreenSize(mContext->GetPixelWidth(), mContext->GetPixelHeight());
-	std::cout << "am I shit at static variables? Width: " << mContext->GetPixelWidth() << "Height: " << mContext->GetPixelHeight() << std::endl;
+	e_point.SetScreenSize(pWidth, pHeight);
+	
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
@@ -251,7 +252,7 @@ int main(int argc, char** argv)
 	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 	//e_dir.SetDirectionalLight(m_dirLight);
-	e_dir.SetScreenSize(mContext->GetPixelWidth(), mContext->GetPixelHeight());
+	e_dir.SetScreenSize(pWidth, pHeight);
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);
 	e_dir.SetWVP(WVP);
@@ -314,28 +315,29 @@ int main(int argc, char** argv)
 	o_loader->addChild(tran_Dir.get());
 	
 	e_point.Enable();
-	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	e_null.Enable();
-	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	e_dir.Enable();
-	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl"));
-
-	mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), mContext);
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
+	GBuffer* mGBuffer = new GBuffer();
+	mGBuffer->Init(pWidth, pHeight);
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), mGBuffer);
 
 
 
 	//STOP DEFINING THE SHIT!
-	glutReshapeFunc(ChangeSize);
-	glutDisplayFunc(callRenderScene);
-	glutTimerFunc(33, TimerFunction, 1);
-	glutIdleFunc(IdleFunc);
+	//glutReshapeFunc(ChangeSize);
+	//glutDisplayFunc(callRenderScene);
+	//glutTimerFunc(33, TimerFunction, 1);
+	//glutIdleFunc(IdleFunc);
 	//glutFullScreen();
 	//glutMainLoop();
-	gl::Finish();
+	//gl::Finish();
 	//mRender->draw();
-	wglMakeCurrent(nullptr, nullptr);
+	//wglMakeCurrent(nullptr, nullptr);
 	//wglDeleteContext(RendCont);
-	mContext->Run();
+	mRender->Run();
 
 
 	return 0;
