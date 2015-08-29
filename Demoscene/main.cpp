@@ -171,8 +171,9 @@ int main(int argc, char** argv)
 
 	//glutInit(&argc, argv);
 
-	std::cout << "Result of init windows: " << InitWindow(1600, 900, false, "Deus's Ex Machine") << std::endl;
-	
+	std::cout << "Result of init windows: " << InitWindow(500, 500, false, "Deus's Ex Machine") << std::endl;
+	GBuffer* mGBuffer = new GBuffer();
+	mGBuffer->Init(500, 500);
 	//Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
 	//wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
@@ -320,8 +321,7 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	e_dir.Enable();
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
-	GBuffer* mGBuffer = new GBuffer();
-	mGBuffer->Init(pWidth, pHeight);
+
 	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), mGBuffer);
 
 

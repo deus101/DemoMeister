@@ -14,7 +14,11 @@
 //	public:
 		
 		//static GBuffer * mGBuffer = 0;
-
+		static unsigned int pHeight;
+		static unsigned int pWidth;
+		static bool m_created;
+		
+		
 		static bool ResizeBuffer;
 		
 		static int glu_Window;
@@ -56,9 +60,7 @@
 
 	//};
 		
-	static unsigned int pHeight;
-	static unsigned int pWidth;
-	static bool m_created;
+
 	//static GBuffer * mGBuffer;
 
 

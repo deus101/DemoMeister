@@ -9,6 +9,10 @@ static ICallbacks* s_pCallbacks = NULL;
 //mGBuffer = NULL;
 static bool sDepth = false;
 static bool sStencil = false;
+
+//static unsigned int pHeight = 0;
+//static unsigned int pWidth = 0;
+//static bool m_created;
 //HGLRC context::SharedContex;
  //int context::Glu_Window;
 // HGLRC context::RendContext = 0;
