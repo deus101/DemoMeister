@@ -69,8 +69,8 @@ static struct sync_cb bass_cb = {
 void TimerFunction(int)
 {
 
-	glutPostRedisplay();
-	glutTimerFunc(3, TimerFunction, 1);
+	//glutPostRedisplay();
+	//glutTimerFunc(3, TimerFunction, 1);
 
 }
 //void IdleFunc()

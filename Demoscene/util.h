@@ -2,6 +2,10 @@
 #ifndef OGLDEV_UTIL_H
 #define	OGLDEV_UTIL_H
 
+#include <glload/gl_3_3.hpp>
+#include <glload/gl_load.hpp>
+#include <GLFW/glfw3.h>
+
 #ifndef WIN32
 #include <unistd.h>
 #endif
@@ -13,6 +17,10 @@
 
 
 using namespace std;
+void devError(const char* pFileName, unsigned int line, const char* pError);
+
+
+#define ENG_ERROR(Error) OgldevError(__FILE__, __LINE__, Error);
 
 struct BaseLight
 {

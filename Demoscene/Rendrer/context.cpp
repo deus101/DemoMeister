@@ -9,6 +9,7 @@ static ICallbacks* s_pCallbacks = NULL;
 //mGBuffer = NULL;
 static bool sDepth = false;
 static bool sStencil = false;
+static GLFWwindow* s_pWindow = NULL;
 
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
@@ -46,12 +47,31 @@ static void IdleCB()
 
 static void InitCallbacks()
 {
-	glutDisplayFunc(RenderSceneCB);
-	glutIdleFunc(IdleCB);
+	//glutDisplayFunc(RenderSceneCB);
+	//glutIdleFunc(IdleCB);
 	//glutSpecialFunc(SpecialKeyboardCB);
 	//glutPassiveMotionFunc(PassiveMouseCB);
 	//glutKeyboardFunc(KeyboardCB);
 	//glutMouseFunc(MouseCB);
+}
+
+
+void ErrorCallback(int error, const char* description)
+{
+#ifdef WIN32
+	char msg[1000];
+	_snprintf_s(msg, sizeof(msg), "GLFW error %d - %s", error, description);
+	MessageBoxA(NULL, msg, NULL, 0);
+#else
+	fprintf(stderr, "GLFW error %d - %s", error, description);
+#endif    
+	exit(0);
+}
+
+void GLFWBackendTerminate()
+{
+	glfwDestroyWindow(s_pWindow);
+	glfwTerminate();
 }
 
 
@@ -63,24 +83,37 @@ void Init(int argc, char** arg, bool aDepth, bool aStencil)
 	sDepth = aDepth;
 	sStencil = aStencil;
 
-	glutInit(&argc, arg);
+	//glutInit(&argc, arg);
 
 
-	unsigned int DisplayMode = GLUT_DOUBLE ;
-	//unsigned int DisplayMode = GLUT_DOUBLE | GLUT_RENDERING_CONTEXT | GLUT_USE_CURRENT_CONTEXT;
-
-
-	if (aDepth) {
-		DisplayMode |= GLUT_DEPTH;
+	if (glfwInit() != 1) {
+		//ENG_ERROR("Error initializing GLFW");
+		exit(1);
 	}
 
-	if (aStencil) {
-		DisplayMode |= GLUT_STENCIL;
-	}
+	int Major, Minor, Rev;
 
-	glutInitDisplayMode(DisplayMode);
+	glfwGetVersion(&Major, &Minor, &Rev);
 
-	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+	printf("GLFW %d.%d.%d initialized\n", Major, Minor, Rev);
+
+	glfwSetErrorCallback(ErrorCallback);
+
+	//unsigned int DisplayMode = GLUT_DOUBLE ;
+	////unsigned int DisplayMode = GLUT_DOUBLE | GLUT_RENDERING_CONTEXT | GLUT_USE_CURRENT_CONTEXT;
+
+
+	//if (aDepth) {
+	//	DisplayMode |= GLUT_DEPTH;
+	//}
+
+	//if (aStencil) {
+	//	DisplayMode |= GLUT_STENCIL;
+	//}
+
+	//glutInitDisplayMode(DisplayMode);
+
+	//glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	//glutSetOption(GLUT_RENDERING_CONTEXT , GLUT_USE_CURRENT_CONTEXT);
 
@@ -88,21 +121,47 @@ void Init(int argc, char** arg, bool aDepth, bool aStencil)
 	//glutInitContextVersion(3, 3);
 	//glutInitContextProfile(GLUT_CORE_PROFILE);
 
-#ifdef _DEBUG
-	glutInitContextFlags(GLUT_DEBUG);
-#endif
+//#ifdef _DEBUG
+	//glutInitContextFlags(GLUT_DEBUG);
+//#endif
 	//HGLRC initContext = wglGetCurrentContext();
 	//bool hei = false;
 
 }
+
 
 bool InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
 {
 	pWidth = aWidth;
 	pHeight = aHeight;
 
-	glutInitWindowSize(aWidth, aHeight);
-	Glu_Window = glutCreateWindow(aTitle);
+
+	GLFWmonitor* pMonitor = fs ? glfwGetPrimaryMonitor() : NULL;
+
+	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
+
+	if (!s_pWindow) {
+		//OGLDEV_ERROR("error creating window");
+		exit(1);
+	}
+
+	glfwMakeContextCurrent(s_pWindow);
+
+	// Must be done after glfw is initialized!
+	glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
+	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
+	std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
+	
+	if (!test) {
+		//OGLDEV_ERROR((const char*)glewGetErrorString(res));
+		exit(1);
+	}
+
+	return (s_pWindow != NULL);
+
+
+	//glutInitWindowSize(aWidth, aHeight);
+	//Glu_Window = glutCreateWindow(aTitle);
 	//DeviceContext = wglGetCurrentDC();
 	
 	//wglMakeCurrent()
@@ -110,19 +169,18 @@ bool InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* 
 	//wglGetCurrentDC();
 	//wglMakeCurrent(DeviceContext, RendContext);
 	
-	glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
-	if (!test)
-		return false;
+	//glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
+	//if (!test)
+		
 	//DeviceContext
-	if (gl::exts::var_ARB_debug_output)
-	{
-		gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+	//if (gl::exts::var_ARB_debug_output)
+	//{
+		//gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
 		//gl::DebugMessageCallbackARB(, (void*)15);
 
-	}
+	//}
 	
-	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
-	std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
+
 	
 	//maybe some checks to see if you really need it?
 	//I should have a sorta enum argumented function that sorts out the different bind draw commands
@@ -139,7 +197,7 @@ bool InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* 
 	//bGbuffer =   Init(aWidth, aHeight);
 	//return bGbuffer;
 	//mGBuffer = new GBuffer();
-	return true;
+	//return true;
 }
 
 //glem denne for nå
@@ -170,7 +228,10 @@ void ChangeSize(unsigned int w, unsigned int h)
 //mulig en callback classe her med en app classe
 void ContextRun(ICallbacks* pCallbacks)
 {
-	std::cout << "Initialising MainLoop" << std::endl;
+	if (!pCallbacks) {
+		//ENG_ERROR("callbacks not specified");
+		exit(1);
+	}
 
 	gl::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	gl::FrontFace(gl::CW);
@@ -184,8 +245,11 @@ void ContextRun(ICallbacks* pCallbacks)
 	s_pCallbacks = pCallbacks;
 	InitCallbacks();
 
-	//what why?
-	glutMainLoop();
+	while (!glfwWindowShouldClose(s_pWindow)) {
+		s_pCallbacks->RenderSceneCB();
+		glfwSwapBuffers(s_pWindow);
+		glfwPollEvents();
+	}
 	
 
 }
@@ -193,13 +257,14 @@ void ContextRun(ICallbacks* pCallbacks)
 void Swap()
 {
 	
-	glutSwapBuffers();
+	//glutSwapBuffers();
 
 }
 
 void LeaveMainLoop()
 {
-	glutLeaveMainLoop();
+	glfwSetWindowShouldClose(s_pWindow, 1);
+	//glutLeaveMainLoop();
 }
 //unsigned int context::GetPixelWidth() const
 //{

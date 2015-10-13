@@ -5,12 +5,10 @@
 #else
 #include <sys/time.h>
 #endif
-
-#include <util.h>
-
+#include "util.h"
 
 
-void OgldevError(const char* pFileName, uint line, const char* pError)
+void devError(const char* pFileName, unsigned int line, const char* pError)
 {
 #ifdef WIN32
 	char msg[1000];

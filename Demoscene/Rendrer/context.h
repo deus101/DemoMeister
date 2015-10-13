@@ -1,9 +1,7 @@
 #pragma once
 
-#include <glload/gl_3_3.hpp>
-#include <glload/gl_load.hpp>
-#include <glload/wgl_load.hpp>
-#include <GL/freeglut.h>
+
+#include "../util.h"
 //#include "freeglut.h"
 #include "gbuffer.h"
 #include "callbacks.h"
@@ -32,7 +30,7 @@
 
 		//context();
 		//~context();
-
+		void ErrorCallback(int error, const char* description);
 		void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
