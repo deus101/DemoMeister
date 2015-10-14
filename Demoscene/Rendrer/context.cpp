@@ -84,6 +84,9 @@ void Init(int argc, char** arg, bool aDepth, bool aStencil)
 	sStencil = aStencil;
 
 	//glutInit(&argc, arg);
+	//GLFWmonitor* primary = glfwGetPrimaryMonitor();
+	//const GLFWvidmode* mode = glfwGetVideoMode(primary);
+
 
 
 	if (glfwInit() != 1) {
@@ -98,6 +101,14 @@ void Init(int argc, char** arg, bool aDepth, bool aStencil)
 	printf("GLFW %d.%d.%d initialized\n", Major, Minor, Rev);
 
 	glfwSetErrorCallback(ErrorCallback);
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	//GBuffer* ss = new GBuffer();
+	//ss->Init(500, 500);
+
 
 	//unsigned int DisplayMode = GLUT_DOUBLE ;
 	////unsigned int DisplayMode = GLUT_DOUBLE | GLUT_RENDERING_CONTEXT | GLUT_USE_CURRENT_CONTEXT;
@@ -130,14 +141,23 @@ void Init(int argc, char** arg, bool aDepth, bool aStencil)
 }
 
 
-bool InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
+GLFWwindow*  InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
 {
 	pWidth = aWidth;
 	pHeight = aHeight;
 
 
 	GLFWmonitor* pMonitor = fs ? glfwGetPrimaryMonitor() : NULL;
+	//GLFWmonitor* pm = glfwGetPrimaryMonitor();
+	//const GLFWvidmode* mode = glfwGetVideoMode(pm);
 
+	//glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	//glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	//glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	//glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+	glfwWindowHint(GLFW_DOUBLEBUFFER, gl::TRUE_);
+	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
 
 	if (!s_pWindow) {
@@ -157,7 +177,13 @@ bool InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* 
 		exit(1);
 	}
 
-	return (s_pWindow != NULL);
+	GBuffer* ss = new GBuffer();
+	ss->Init(500, 500, s_pWindow);
+
+	//GBuffer* mGBuffer = new GBuffer();
+	//mGBuffer->Init(500, 500);
+
+	return s_pWindow;
 
 
 	//glutInitWindowSize(aWidth, aHeight);
@@ -234,7 +260,7 @@ void ContextRun(ICallbacks* pCallbacks)
 	}
 
 	gl::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	gl::FrontFace(gl::CW);
+	gl::FrontFace(gl::CCW);
 	gl::CullFace(gl::BACK);
 	gl::Enable(gl::CULL_FACE);
 

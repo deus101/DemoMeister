@@ -171,9 +171,15 @@ int main(int argc, char** argv)
 
 	//glutInit(&argc, argv);
 
-	std::cout << "Result of init windows: " << InitWindow(500, 500, false, "Deus's Ex Machine") << std::endl;
+	GLFWwindow*  windy = InitWindow(500, 500, false, "Deus's Ex Machine");
+
+	
+	std::cout << "Result of init windows: " << (windy != NULL) << std::endl;
+	glfwMakeContextCurrent(windy);
+
 	GBuffer* mGBuffer = new GBuffer();
-	mGBuffer->Init(500, 500);
+
+	mGBuffer->Init(500, 500, windy);
 	//Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
 	//wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);

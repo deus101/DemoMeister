@@ -48,18 +48,25 @@ GBuffer::~GBuffer()
 	}
 }
 //vent....ikke init men run
-bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
+bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight, GLFWwindow*  wdy)
+//bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
+
+	
 	GLenum error;
 	//GLRC initContext = wglGetCurrentContext();
 	// Create the FBO
 	gl::GenFramebuffers(1, &m_fbo);
+	
 	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
-	//gl::_detail::proc_glgent
+	//gl::_detail::proc_glgent 
 	// Create the gbuffer textures
 	//gl::Enable(gl::TEXTURE_2D);
 	gl::GenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
-	error =  gl::GetError();
+	//gl::gentextures
+
+
+	//error =  gl::GetError();
 	//gl::GetDebugMessageLogARB()
 	gl::GenTextures(1, &m_depthTexture);
 	
@@ -68,7 +75,8 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 		gl::BindTexture(gl::TEXTURE_2D, m_textures[i]);
 		gl::TexImage2D(gl::TEXTURE_2D, 0, gl::RGB32F, WindowWidth, WindowHeight, 0, gl::RGB, gl::FLOAT, NULL);
-		gl::GenerateMipmap(gl::TEXTURE_2D);
+		//gl::GenerateMipmap(gl::TEXTURE_2D);
+		error = gl::GetError(); 
 		gl::TexParameterf(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, gl::NEAREST);
 		gl::TexParameterf(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, gl::NEAREST);
 		gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::COLOR_ATTACHMENT0 + i, gl::TEXTURE_2D, m_textures[i], 0);
@@ -78,13 +86,13 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	// depth
 	gl::BindTexture(gl::TEXTURE_2D, m_depthTexture);
 	gl::TexImage2D(gl::TEXTURE_2D, 0, gl::DEPTH32F_STENCIL8, WindowWidth, WindowHeight, 0, gl::DEPTH_STENCIL, gl::FLOAT_32_UNSIGNED_INT_24_8_REV, NULL);
-	gl::GenerateMipmap(gl::TEXTURE_2D);
+	//gl::GenerateMipmap(gl::TEXTURE_2D);
 	gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::DEPTH_STENCIL_ATTACHMENT, gl::TEXTURE_2D, m_depthTexture, 0);
 
 	// final
 	gl::BindTexture(gl::TEXTURE_2D, m_finalTexture);
 	gl::TexImage2D(gl::TEXTURE_2D, 0, gl::RGBA, WindowWidth, WindowHeight, 0, gl::RGB, gl::FLOAT, NULL);
-	gl::GenerateMipmap(gl::TEXTURE_2D);
+	//gl::GenerateMipmap(gl::TEXTURE_2D);
 	gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::COLOR_ATTACHMENT4, gl::TEXTURE_2D, m_finalTexture, 0);
 
 	GLenum Status = gl::CheckFramebufferStatus(gl::FRAMEBUFFER);

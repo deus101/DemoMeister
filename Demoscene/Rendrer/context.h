@@ -10,7 +10,7 @@
 //	class context
 //	{
 //	public:
-		
+		//static GLFWwindow* s_pWindow = NULL;
 		//static GBuffer * mGBuffer = 0;
 		static unsigned int pHeight;
 		static unsigned int pWidth;
@@ -35,7 +35,7 @@
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
 		//static bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
-		bool InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+		GLFWwindow* InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
 		void ChangeSize(unsigned int w, unsigned int h);
 		
