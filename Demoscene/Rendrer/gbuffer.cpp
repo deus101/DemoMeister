@@ -48,7 +48,7 @@ GBuffer::~GBuffer()
 	}
 }
 //vent....ikke init men run
-bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight, GLFWwindow*  wdy)
+bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 //bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 

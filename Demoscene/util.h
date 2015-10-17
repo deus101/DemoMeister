@@ -2,7 +2,7 @@
 #ifndef OGLDEV_UTIL_H
 #define	OGLDEV_UTIL_H
 
-#include <glload/gl_3_3.hpp>
+#include <glload/gl_all.hpp>
 #include <glload/gl_load.hpp>
 #include <GLFW/glfw3.h>
 

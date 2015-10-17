@@ -27,15 +27,17 @@
 		static HGLRC SharedContex;
 		static GLuint Program;
 
+		static GBuffer* mgBuffer;
+
 
 		//context();
 		//~context();
 		void ErrorCallback(int error, const char* description);
-		void Init(int argc, char** arg, bool aDepth, bool aStencil);
+		//void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
-		//static bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
-		GLFWwindow* InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+		bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+
 
 		void ChangeSize(unsigned int w, unsigned int h);
 		
@@ -43,6 +45,8 @@
 		void ContextRun(ICallbacks* pCallbacks);
 
 		void Swap();
+
+		
 
 		//unsigned int GetPixelWidth() ;
 

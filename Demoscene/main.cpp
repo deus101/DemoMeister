@@ -167,20 +167,16 @@ int main(int argc, char** argv)
 	//mContext = new NS_REND::context();
 	
 	
-	Init(argc, argv, true, false);
+	
 
 	//glutInit(&argc, argv);
 
-	GLFWwindow*  windy = InitWindow(500, 500, false, "Deus's Ex Machine");
+	bool success = Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
 	
-	std::cout << "Result of init windows: " << (windy != NULL) << std::endl;
-	glfwMakeContextCurrent(windy);
+	std::cout << "Result of init windows: " << success << std::endl;
+	//glfwMakeContextCurrent(windy);
 
-	GBuffer* mGBuffer = new GBuffer();
-
-	mGBuffer->Init(500, 500, windy);
-	//Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
 	//wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
 	//mContext->mGBuffer->Init(1600, 900);
@@ -328,7 +324,7 @@ int main(int argc, char** argv)
 	e_dir.Enable();
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), mGBuffer);
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get());
 
 
 

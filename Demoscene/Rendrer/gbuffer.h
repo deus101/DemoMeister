@@ -34,7 +34,7 @@ public:
 	GBuffer();
 
 	~GBuffer();
-	bool Init(unsigned int WindowWidth, unsigned int WindowHeight, GLFWwindow*  wdy);
+	bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 	//bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 
 	void StartFrame();

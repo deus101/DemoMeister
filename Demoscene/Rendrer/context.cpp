@@ -10,6 +10,7 @@ static ICallbacks* s_pCallbacks = NULL;
 static bool sDepth = false;
 static bool sStencil = false;
 static GLFWwindow* s_pWindow = NULL;
+//Buffer = NULL;
 
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
@@ -75,7 +76,7 @@ void GLFWBackendTerminate()
 }
 
 
-void Init(int argc, char** arg, bool aDepth, bool aStencil)
+bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
 {
 
 	//wglShareLists()
@@ -102,47 +103,17 @@ void Init(int argc, char** arg, bool aDepth, bool aStencil)
 
 	glfwSetErrorCallback(ErrorCallback);
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//GBuffer* ss = new GBuffer();
 	//ss->Init(500, 500);
 
 
-	//unsigned int DisplayMode = GLUT_DOUBLE ;
-	////unsigned int DisplayMode = GLUT_DOUBLE | GLUT_RENDERING_CONTEXT | GLUT_USE_CURRENT_CONTEXT;
 
 
-	//if (aDepth) {
-	//	DisplayMode |= GLUT_DEPTH;
-	//}
 
-	//if (aStencil) {
-	//	DisplayMode |= GLUT_STENCIL;
-	//}
-
-	//glutInitDisplayMode(DisplayMode);
-
-	//glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
-	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	//glutSetOption(GLUT_RENDERING_CONTEXT , GLUT_USE_CURRENT_CONTEXT);
-
-	
-	//glutInitContextVersion(3, 3);
-	//glutInitContextProfile(GLUT_CORE_PROFILE);
-
-//#ifdef _DEBUG
-	//glutInitContextFlags(GLUT_DEBUG);
-//#endif
-	//HGLRC initContext = wglGetCurrentContext();
-	//bool hei = false;
-
-}
-
-
-GLFWwindow*  InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
-{
 	pWidth = aWidth;
 	pHeight = aHeight;
 
@@ -164,7 +135,6 @@ GLFWwindow*  InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, cons
 		//OGLDEV_ERROR("error creating window");
 		exit(1);
 	}
-
 	glfwMakeContextCurrent(s_pWindow);
 
 	// Must be done after glfw is initialized!
@@ -177,53 +147,18 @@ GLFWwindow*  InitWindow(unsigned int aWidth, unsigned int aHeight, bool fs, cons
 		exit(1);
 	}
 
-	GBuffer* ss = new GBuffer();
-	ss->Init(500, 500, s_pWindow);
 
+
+
+	//mgBuffer = new GBuffer();
+	//mgBuffer->Init(pWidth, pHeight, s_pWindow);
 	//GBuffer* mGBuffer = new GBuffer();
 	//mGBuffer->Init(500, 500);
 
 	return s_pWindow;
 
 
-	//glutInitWindowSize(aWidth, aHeight);
-	//Glu_Window = glutCreateWindow(aTitle);
-	//DeviceContext = wglGetCurrentDC();
-	
-	//wglMakeCurrent()
-	//RendContext = wglGetCurrentContext();
-	//wglGetCurrentDC();
-	//wglMakeCurrent(DeviceContext, RendContext);
-	
-	//glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
-	//if (!test)
-		
-	//DeviceContext
-	//if (gl::exts::var_ARB_debug_output)
-	//{
-		//gl::Enable(gl::DEBUG_OUTPUT_SYNCHRONOUS_ARB);
-		//gl::DebugMessageCallbackARB(, (void*)15);
 
-	//}
-	
-
-	
-	//maybe some checks to see if you really need it?
-	//I should have a sorta enum argumented function that sorts out the different bind draw commands
-	//SharedContex = wglCreateContext(DeviceContext); //wglGetCurrentContext();
-	//bool ShareSuccess = wglShareLists(SharedContex, RendContext);
-	//bool bGbuffer;
-	//mGBuffer = new GBuffer();
-	//Sure why not
-	//ResizeBuffer = TRUE;
-	//mGBuffer = new GBuffer();
-	//mGBuffer->Init(pWidth, pHeight);
-	//return ResizeBuffer;
-	//mGBuffer ->Init(aWidth, aHeight);
-	//bGbuffer =   Init(aWidth, aHeight);
-	//return bGbuffer;
-	//mGBuffer = new GBuffer();
-	//return true;
 }
 
 //glem denne for nå

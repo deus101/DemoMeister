@@ -195,13 +195,18 @@ void rendrer::RenderSceneCB()
 	//scene->c
 	//mContext->
 	//m_DSGeomPassTech.Enable();
-	
+	GLuint one;
+	GLuint two;
 
-	mGBuffer->StartFrame();
+	gl::GenTextures(1, &one);
+
+	gl::GenTextures(1, &two);
+	
+	mgBuffer->StartFrame();
 	
 	//NS_REND::mGBuffer->StartFrame();
 
-	mGBuffer->BindForGeomPass();
+	mgBuffer->BindForGeomPass();
 
 	//NS_REND::mGBuffer->BindForGeomPass();
 	// Only the geometry pass updates the depth buffer
@@ -242,7 +247,7 @@ void rendrer::RenderSceneCB()
 		ip->sNode->NullMagic->Enable();
 
 		// Disable color/depth write and enable stencil
-		mGBuffer->BindForStencilPass();
+		mgBuffer->BindForStencilPass();
 		//NS_REND::mGBuffer->BindForStencilPass();
 		gl::Enable(gl::DEPTH_TEST);
 
@@ -266,7 +271,7 @@ void rendrer::RenderSceneCB()
 		
 		
 		
-		mGBuffer->BindForLightPass();
+		mgBuffer->BindForLightPass();
 		//NS_REND::mGBuffer->BindForLightPass();
 		//p.WorldPos(m_boxPositions[i]);
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
@@ -297,7 +302,7 @@ void rendrer::RenderSceneCB()
 
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
 
-		mGBuffer->BindForLightPass();
+		mgBuffer->BindForLightPass();
 
 		//NS_REND::mGBuffer->BindForLightPass();
 
@@ -320,7 +325,7 @@ void rendrer::RenderSceneCB()
 	//std::cout << "height: " << mContext->GetPixelHeight() << " width: " << mContext->GetPixelHeight() << std::endl;
 	//mContext
 
-	mGBuffer->BindForFinalPass();
+	mgBuffer->BindForFinalPass();
 	//NS_REND::mGBuffer->BindForFinalPass();
 	gl::BlitFramebuffer(0, 0, pWidth, pHeight,
 		0, 0, pWidth, pHeight, gl::COLOR_BUFFER_BIT, gl::LINEAR);
