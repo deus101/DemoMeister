@@ -60,9 +60,10 @@ public:
 	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad)
 	{
 
-
+		unsigned int w = GetPixelWidth();
+		unsigned int h = GetPixelHeight();
 		mgBuffer = new GBuffer();
-		mgBuffer->Init(pWidth, pHeight);
+		mgBuffer->Init(w, h);
 
 		M3DMatrix44f inversLookat;
 		//m3dLoadIdentity44(view);

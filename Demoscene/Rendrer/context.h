@@ -27,7 +27,7 @@
 		static HGLRC SharedContex;
 		static GLuint Program;
 
-		static GBuffer* mgBuffer;
+		//static GBuffer* mgBuffer;
 
 
 		//context();
@@ -48,9 +48,9 @@
 
 		
 
-		//unsigned int GetPixelWidth() ;
+		unsigned int GetPixelWidth() ;
 
-		//unsigned int GetPixelHeight() ;
+		unsigned int GetPixelHeight() ;
 
 		//bool GetGBStatus() ;
 

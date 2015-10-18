@@ -52,7 +52,8 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 //bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 
-	
+	GLFWwindow *test = glfwGetCurrentContext();
+
 	GLenum error;
 	//GLRC initContext = wglGetCurrentContext();
 	// Create the FBO

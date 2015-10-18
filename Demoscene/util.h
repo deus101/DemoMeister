@@ -2,8 +2,10 @@
 #ifndef OGLDEV_UTIL_H
 #define	OGLDEV_UTIL_H
 
-#include <glload/gl_all.hpp>
-#include <glload/gl_load.hpp>
+//#include <glload/gl_all.hpp>
+//#include <glload/gl_load.hpp>
+#include "math/math3d.h"
+#include "math/vec.h"
 #include <GLFW/glfw3.h>
 
 
@@ -13,8 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <cstdlib>
-#include "math/math3d.h"
-#include "math/vec.h"
+
 
 
 using namespace std;

@@ -88,12 +88,16 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	//GLFWmonitor* primary = glfwGetPrimaryMonitor();
 	//const GLFWvidmode* mode = glfwGetVideoMode(primary);
 
-
-
 	if (glfwInit() != 1) {
 		//ENG_ERROR("Error initializing GLFW");
 		exit(1);
 	}
+
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 
 	int Major, Minor, Rev;
 
@@ -103,9 +107,6 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	glfwSetErrorCallback(ErrorCallback);
 
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//GBuffer* ss = new GBuffer();
 	//ss->Init(500, 500);
@@ -139,6 +140,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	// Must be done after glfw is initialized!
 	glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
+	
 	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
 	std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
 	
@@ -227,16 +229,16 @@ void LeaveMainLoop()
 	glfwSetWindowShouldClose(s_pWindow, 1);
 	//glutLeaveMainLoop();
 }
-//unsigned int context::GetPixelWidth() const
-//{
-//	return pWidth;
-//}
-//
-//unsigned int context::GetPixelHeight() const
-//{
-//
-//	return pHeight;
-//}
+unsigned int GetPixelWidth()
+{
+	return pWidth;
+}
+
+unsigned int GetPixelHeight() 
+{
+
+	return pHeight;
+}
 //
 //bool context::GetGBStatus() const
 //{
