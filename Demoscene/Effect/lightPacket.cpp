@@ -1,20 +1,3 @@
-/*
-
-Copyright 2011 Etay Meiri
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
 #include <limits.h>
 #include <string.h>
@@ -54,36 +37,36 @@ bool lightPacket::Init()
 
 void lightPacket::SetWVP(const M3DMatrix44f& WVP)
 {
-	gl::UniformMatrix4fv(m_WVPLocation, 1, gl::TRUE_, WVP);
+	glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP);
 }
 
 
 void lightPacket::SetPositionTextureUnit(unsigned int TextureUnit)
 {
-	gl::Uniform1i(m_posTextureUnitLocation, TextureUnit);
+	glUniform1i(m_posTextureUnitLocation, TextureUnit);
 }
 
 
 void lightPacket::SetColorTextureUnit(unsigned int TextureUnit)
 {
 	
-	gl::Uniform1i(m_colorTextureUnitLocation, TextureUnit);
+	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
 }
 
 
 void lightPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 {
-	gl::Uniform1i(m_normalTextureUnitLocation, TextureUnit);
+	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
 }
 
 
 void lightPacket::SetEyeWorldPos(const NS_VEC::VEC3& EyePos)
 {
-	gl::Uniform3f(m_eyeWorldPosLocation, EyePos.X, EyePos.Y, EyePos.Z);
+	glUniform3f(m_eyeWorldPosLocation, EyePos.X, EyePos.Y, EyePos.Z);
 }
 
 
 void lightPacket::SetScreenSize(unsigned int Width, unsigned int Height)
 {
-	gl::Uniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+	glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 }

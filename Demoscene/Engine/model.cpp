@@ -108,58 +108,58 @@ model::model( string obj, string mtl)
 	cout << "NR groups: " << Sort_Groups.size() << endl;
 	cout << "VBOs   vertex: " << Sort_Pos.size() << " Norms: " << Sort_Norms.size() << " UVs: " << Sort_Uvs.size() << endl;
 
-	gl::GenBuffers(1, &vbo_vertices);
+	glGenBuffers(1, &vbo_vertices);
 
-	gl::BindBuffer(gl::ARRAY_BUFFER, vbo_vertices);
-	gl::BufferData(gl::ARRAY_BUFFER, Sort_Pos.size() * sizeof(GLfloat)* 3, &Sort_Pos[0], gl::STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+	glBufferData(GL_ARRAY_BUFFER, Sort_Pos.size() * sizeof(GLfloat)* 3, &Sort_Pos[0], GL_STATIC_DRAW);
 
-	gl::GenBuffers(1, &vbo_uv);
+	glGenBuffers(1, &vbo_uv);
 
-	gl::BindBuffer(gl::ARRAY_BUFFER, vbo_uv);
-	gl::BufferData(gl::ARRAY_BUFFER, Sort_Uvs.size() * sizeof(GLfloat)* 2, &Sort_Uvs[0], gl::STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_uv);
+	glBufferData(GL_ARRAY_BUFFER, Sort_Uvs.size() * sizeof(GLfloat)* 2, &Sort_Uvs[0], GL_STATIC_DRAW);
 
-	gl::GenBuffers(1, &vbo_normals);
+	glGenBuffers(1, &vbo_normals);
 
-	gl::BindBuffer(gl::ARRAY_BUFFER, vbo_normals);
-	gl::BufferData(gl::ARRAY_BUFFER, Sort_Norms.size() * sizeof(GLfloat)* 3, &Sort_Norms[0], gl::STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+	glBufferData(GL_ARRAY_BUFFER, Sort_Norms.size() * sizeof(GLfloat)* 3, &Sort_Norms[0], GL_STATIC_DRAW);
 
 
 
 	for (unsigned int j = 0; j < Sort_Groups.size(); j++)
 	{
 		cout << "NR of indice for: " << j << " is " << Sort_Groups[j].IBO.size() << endl;
-		gl::GenVertexArrays(1, &Sort_Groups[j].vao);
-		gl::BindVertexArray(Sort_Groups[j].vao);
+		glGenVertexArrays(1, &Sort_Groups[j].vao);
+		glBindVertexArray(Sort_Groups[j].vao);
 
 		cout << "vao ident: " << Sort_Groups[j].vao << endl;
-		gl::BindBuffer(gl::ARRAY_BUFFER, vbo_vertices);
-		gl::EnableVertexAttribArray(0);
-		gl::VertexAttribPointer(0, 3, gl::FLOAT, gl::FALSE_, 0, (void*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 
-		gl::BindBuffer(gl::ARRAY_BUFFER, vbo_uv);
-		gl::EnableVertexAttribArray(1);
-		gl::VertexAttribPointer(1, 2, gl::FLOAT, gl::FALSE_, 0, (void*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_uv);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 
-		gl::BindBuffer(gl::ARRAY_BUFFER, vbo_normals);
-		gl::EnableVertexAttribArray(2);
-		gl::VertexAttribPointer(2, 3, gl::FLOAT, gl::FALSE_, 0, (void*)0);
-
-
-
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 
 
-		gl::GenBuffers(1, &Sort_Groups[j].vbo);
-		gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
-		gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned short), &Sort_Groups[j].IBO[0], gl::STATIC_DRAW);
+
+
+
+		glGenBuffers(1, &Sort_Groups[j].vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned short), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
 	}
 
 
-	gl::BindVertexArray(0);
-	gl::BindBuffer(gl::ARRAY_BUFFER, 0);
-	gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
 
@@ -249,19 +249,19 @@ void model::Draw()
 
 
 	////gl::PolygonMode(gl:: GL_FRONT_AND_BACK, gl::GL_FILL);
-	gl::PolygonMode(gl::FRONT_AND_BACK, gl::FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
 	{
 
 
-		gl::BindVertexArray(Sort_Groups[i].vao);
+		glBindVertexArray(Sort_Groups[i].vao);
 
 		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
 		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
 		//gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
 		//gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
 		//glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, (GLintptr)_data.indices.length, _data.indices.bytes);
-		gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
+		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_SHORT, (void*)0);
 		//gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
 
 		//gl::BindVertexArray(0);

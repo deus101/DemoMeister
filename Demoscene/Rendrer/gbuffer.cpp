@@ -32,19 +32,20 @@ GBuffer::GBuffer()
 GBuffer::~GBuffer()
 {
 	if (m_fbo != 0) {
-		gl::DeleteFramebuffers(1, &m_fbo);
+		glDeleteFramebuffers(1, &m_fbo);
+
 	}
 
 	if (m_textures[0] != 0) {
-		gl::DeleteTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
+		glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
 	}
 
 	if (m_depthTexture != 0) {
-		gl::DeleteTextures(1, &m_depthTexture);
+		glDeleteTextures(1, &m_depthTexture);
 	}
 
 	if (m_finalTexture != 0) {
-		gl::DeleteTextures(1, &m_finalTexture);
+		glDeleteTextures(1, &m_finalTexture);
 	}
 }
 //vent....ikke init men run
@@ -52,59 +53,60 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 //bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 
-	GLFWwindow *test = glfwGetCurrentContext();
+	//GLFWwindow *test = glfwGetCurrentContext();
 
 	GLenum error;
 	//GLRC initContext = wglGetCurrentContext();
 	// Create the FBO
-	gl::GenFramebuffers(1, &m_fbo);
+	glGenFramebuffers(1, &m_fbo);
 	
-	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
 	//gl::_detail::proc_glgent 
 	// Create the gbuffer textures
 	//gl::Enable(gl::TEXTURE_2D);
-	gl::GenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
+	glGenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
+
+	
 	//gl::gentextures
 
 
 	//error =  gl::GetError();
 	//gl::GetDebugMessageLogARB()
-	gl::GenTextures(1, &m_depthTexture);
+	glGenTextures(1, &m_depthTexture);
 	
-	gl::GenTextures(1, &m_finalTexture);
+	glGenTextures(1, &m_finalTexture);
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
-		gl::BindTexture(gl::TEXTURE_2D, m_textures[i]);
-		gl::TexImage2D(gl::TEXTURE_2D, 0, gl::RGB32F, WindowWidth, WindowHeight, 0, gl::RGB, gl::FLOAT, NULL);
-		//gl::GenerateMipmap(gl::TEXTURE_2D);
-		error = gl::GetError(); 
-		gl::TexParameterf(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, gl::NEAREST);
-		gl::TexParameterf(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, gl::NEAREST);
-		gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::COLOR_ATTACHMENT0 + i, gl::TEXTURE_2D, m_textures[i], 0);
+		glBindTexture(GL_TEXTURE_2D, m_textures[i]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
+
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_textures[i], 0);
 
 	}
 
 	// depth
-	gl::BindTexture(gl::TEXTURE_2D, m_depthTexture);
-	gl::TexImage2D(gl::TEXTURE_2D, 0, gl::DEPTH32F_STENCIL8, WindowWidth, WindowHeight, 0, gl::DEPTH_STENCIL, gl::FLOAT_32_UNSIGNED_INT_24_8_REV, NULL);
+	glBindTexture(GL_TEXTURE_2D, m_depthTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH32F_STENCIL8, WindowWidth, WindowHeight, 0, GL_DEPTH_STENCIL, GL_FLOAT_32_UNSIGNED_INT_24_8_REV, NULL);
 	//gl::GenerateMipmap(gl::TEXTURE_2D);
-	gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::DEPTH_STENCIL_ATTACHMENT, gl::TEXTURE_2D, m_depthTexture, 0);
+	glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depthTexture, 0);
 
 	// final
-	gl::BindTexture(gl::TEXTURE_2D, m_finalTexture);
-	gl::TexImage2D(gl::TEXTURE_2D, 0, gl::RGBA, WindowWidth, WindowHeight, 0, gl::RGB, gl::FLOAT, NULL);
+	glBindTexture(GL_TEXTURE_2D, m_finalTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WindowWidth, WindowHeight, 0, GL_RGB,GL_FLOAT, NULL);
 	//gl::GenerateMipmap(gl::TEXTURE_2D);
-	gl::FramebufferTexture2D(gl::DRAW_FRAMEBUFFER, gl::COLOR_ATTACHMENT4, gl::TEXTURE_2D, m_finalTexture, 0);
+	glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
 
-	GLenum Status = gl::CheckFramebufferStatus(gl::FRAMEBUFFER);
+	GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	printf("FB Status, status: 0x%x\n", Status);
-	if (Status != gl::FRAMEBUFFER_COMPLETE) {
+	if (Status != GL_FRAMEBUFFER_COMPLETE) {
 		printf("FB error, status: 0x%x\n", Status);
 		return false;
 	}
 
 	// restore default FBO
-	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
 	return true;
 }
@@ -112,30 +114,30 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 void GBuffer::StartFrame()
 {
-	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
-	gl::DrawBuffer(gl::COLOR_ATTACHMENT4);
-	gl::Clear(gl::COLOR_BUFFER_BIT);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
+	glDrawBuffer(GL_COLOR_ATTACHMENT4);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 
 void GBuffer::BindForGeomPass()
 {
-	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, m_fbo);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
 
 	GLenum DrawBuffers[] = { 
-		gl::COLOR_ATTACHMENT0,
-		gl::COLOR_ATTACHMENT1,
-		gl::COLOR_ATTACHMENT2 };
+		GL_COLOR_ATTACHMENT0,
+		GL_COLOR_ATTACHMENT1,
+		GL_COLOR_ATTACHMENT2 };
 
-	gl::DrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
-	GLenum error = gl::GetError();
+	
+	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
 }
 
 
 void GBuffer::BindForStencilPass()
 {
 	// must disable the draw buffers 
-	gl::DrawBuffer(gl::NONE);
+	glDrawBuffer(GL_NONE);
 }
 
 
@@ -144,18 +146,18 @@ void GBuffer::BindForStencilPass()
 
 void GBuffer::BindForLightPass()
 {
-	gl::DrawBuffer(gl::COLOR_ATTACHMENT4);
+	glDrawBuffer(GL_COLOR_ATTACHMENT4);
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
-		gl::ActiveTexture(gl::TEXTURE0 + i);
-		gl::BindTexture(gl::TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
 	}
 }
 
 
 void GBuffer::BindForFinalPass()
 {
-	gl::BindFramebuffer(gl::DRAW_FRAMEBUFFER, 0);
-	gl::BindFramebuffer(gl::READ_FRAMEBUFFER, m_fbo);
-	gl::ReadBuffer(gl::COLOR_ATTACHMENT4);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
+	glReadBuffer(GL_COLOR_ATTACHMENT4);
 }

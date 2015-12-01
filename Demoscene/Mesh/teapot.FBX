@@ -60,7 +60,8 @@ GlobalSettings:  {
 		P: "AmbientColor", "ColorRGB", "Color", "",0,0,0
 		P: "DefaultCamera", "KString", "", "", "Producer Perspective"
 		P: "TimeMode", "enum", "", "",0
-		P: "TimeSpanStart", "KTime", "Time", "",0
+		P: "TimeSpan
+		", "KTime", "Time", "",0
 		P: "TimeSpanStop", "KTime", "Time", "",46186158000
 		P: "CustomFrameRate", "double", "Number", "",-1
 	}

@@ -62,7 +62,7 @@ void ErrorCallback(int error, const char* description)
 #ifdef WIN32
 	char msg[1000];
 	_snprintf_s(msg, sizeof(msg), "GLFW error %d - %s", error, description);
-	MessageBoxA(NULL, msg, NULL, 0);
+	//MessageBoxA(NULL, msg, NULL, 0);
 #else
 	fprintf(stderr, "GLFW error %d - %s", error, description);
 #endif    
@@ -94,9 +94,9 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	}
 
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
 	int Major, Minor, Rev;
@@ -128,7 +128,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	//glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
 	//glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-	glfwWindowHint(GLFW_DOUBLEBUFFER, gl::TRUE_);
+	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
 
@@ -139,15 +139,15 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	glfwMakeContextCurrent(s_pWindow);
 
 	// Must be done after glfw is initialized!
-	glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
+	//glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
 	
-	std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
-	std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
-	
-	if (!test) {
+	//std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
+	//std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
+	int glewErr = glewInit();
+	//if (!test) {
 		//OGLDEV_ERROR((const char*)glewGetErrorString(res));
-		exit(1);
-	}
+//		exit(1);
+	//}
 
 
 
@@ -174,8 +174,8 @@ void ChangeSize(unsigned int w, unsigned int h)
 	//gl::vie
 	//startskudd for omskriving 
 
-	gl::Viewport(0, 0, (GLsizei)w, (GLsizei)h);
-
+	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+	
 	//fAspect = (GLfloat)w / (GLfloat)h;
 
 	std::cout << "Changed Screen size!" << std::endl;
@@ -183,7 +183,7 @@ void ChangeSize(unsigned int w, unsigned int h)
 	pWidth = w;
 	pHeight = h;
 
-	ResizeBuffer = TRUE;
+	ResizeBuffer = true;
 		//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
 
 	//context::mGBuffer->Init(w, h);
@@ -196,13 +196,13 @@ void ContextRun(ICallbacks* pCallbacks)
 		exit(1);
 	}
 
-	gl::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	gl::FrontFace(gl::CCW);
-	gl::CullFace(gl::BACK);
-	gl::Enable(gl::CULL_FACE);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glFrontFace(GL_CW);
+	glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
 
 	if (sDepth) {
-		gl::Enable(gl::DEPTH_TEST);
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	s_pCallbacks = pCallbacks;

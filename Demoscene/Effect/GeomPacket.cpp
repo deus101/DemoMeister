@@ -1,5 +1,3 @@
-#pragma once
-
 
 
 #include "GeomPacket.h"
@@ -19,12 +17,12 @@ bool GeomPacket::Init()
 		return false;
 	}
 
-	if (!LoadShader(gl::VERTEX_SHADER, "Shaders/geometry_pass.vs")) {
+	if (!LoadShader(GL_VERTEX_SHADER, "Shaders/geometry_pass.vs")) {
 		return false;
 	}
 
 
-	if (!LoadShader(gl::FRAGMENT_SHADER, "Shaders/geometry_pass.fs")) {
+	if (!LoadShader(GL_FRAGMENT_SHADER, "Shaders/geometry_pass.fs")) {
 		return false;
 	}
 
@@ -49,17 +47,17 @@ bool GeomPacket::Init()
 void GeomPacket::SetWVP(const M3DMatrix44f& WVP)
 {
 	
-	gl::UniformMatrix4fv(m_WVPLocation, 1, gl::TRUE_, WVP);
+	glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP);
 }
 
 
 void GeomPacket::SetWorldMatrix(const M3DMatrix44f& W)
 {
-	gl::UniformMatrix4fv(m_WorldMatrixLocation, 1, gl::TRUE_, W);
+	glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
 }
 
 
 void GeomPacket::SetColorTextureUnit(unsigned int TextureUnit)
 {
-	gl::Uniform1i(m_colorTextureUnitLocation, TextureUnit);
+	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
 }

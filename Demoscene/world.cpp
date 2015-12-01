@@ -295,10 +295,10 @@ void world::HyperHex()
 void world::AfterInit()
 {
 	std::cout << "JUST THIS ONCE " << std::endl;
-	gl::ClearColor(0.0f, 0.0f, 0.7f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.7f, 0.0f);
 
-	gl::Enable(gl::DEPTH_TEST);
-	gl::DepthFunc(gl::LESS);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 
 	//varius shaders in here

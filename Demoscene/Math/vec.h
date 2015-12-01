@@ -2,10 +2,14 @@
 #define VEC_HPP
 
 
-#include <glload/gl_all.hpp>
-#include <glload/gl_load.hpp>
+//#include <glload/gl_all.hpp>
+//#include <glload/gl_load.hpp>
+#include <GL\glew.h>
 //husk lerp
 //#include "../util.h"
+
+//C:\Program Files(x86)\Windows Kits\8.1\Include\um  why does this contain glload?
+
 
 namespace NS_VEC
 {

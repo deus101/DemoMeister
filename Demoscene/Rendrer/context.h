@@ -20,11 +20,11 @@
 		static bool ResizeBuffer;
 		
 		static int glu_Window;
-		static HGLRC RendContext;
-		static HDC DeviceContext;
+		//static HGLRC RendContext;
+		//static HDC DeviceContext;
 		static int Glu_Window;
 
-		static HGLRC SharedContex;
+		//static HGLRC SharedContex;
 		static GLuint Program;
 
 		//static GBuffer* mgBuffer;

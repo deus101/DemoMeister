@@ -25,7 +25,7 @@ bool renderPacket::Init()
 {
 
 	//opprette bufferne her?
-	m_shaderProg = gl::CreateProgram();
+	m_shaderProg = glCreateProgram();
 
 	//m_shaderProg = context.getProgram();
 	if (m_shaderProg == 0) {
@@ -118,62 +118,62 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 
 
 	if (shaderText == NULL)
-		return FALSE;
+		return false;
 
-	GLuint ShaderObj = gl::CreateShader(ShaderType);
+	GLuint ShaderObj = glCreateShader(ShaderType);
 
 	m_shaderObjList.push_back(ShaderObj);
 
 	glslStringPtr[0] = shaderText;
 
-	gl::ShaderSource(ShaderObj, 1, glslStringPtr, NULL);
+	glShaderSource(ShaderObj, 1, glslStringPtr, NULL);
 
 
-	gl::CompileShader(ShaderObj);
+	glCompileShader(ShaderObj);
 
-	gl::GetShaderiv(ShaderObj, gl::COMPILE_STATUS, &success);
+	glGetShaderiv(ShaderObj, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
 		GLchar infoLog[2048];
-		gl::GetShaderInfoLog(ShaderObj, 2048, NULL, infoLog);
+		glGetShaderInfoLog(ShaderObj, 2048, NULL, infoLog);
 		fprintf(stderr, "epic Vertex #%d ffffail!\n", ShaderObj);
 		fprintf(stderr, "%s\n", infoLog);
-		Sleep(10000);
+		_sleep(10000);
 		return false;
 	}
 
-	gl::AttachShader(m_shaderProg, ShaderObj);
+	glAttachShader(m_shaderProg, ShaderObj);
 
 	return true;
 }
 
 bool renderPacket::Finalize()
 {
-	gl::LinkProgram(m_shaderProg);
+	glLinkProgram(m_shaderProg);
 
 	GLint success;
 
-	gl::GetProgramiv(m_shaderProg, gl::LINK_STATUS, &success);
+	glGetProgramiv(m_shaderProg, GL_LINK_STATUS, &success);
 	if (!success)
 	{
 		GLchar infoLog[2048];
-		gl::GetProgramInfoLog(m_shaderProg, 2048, NULL, infoLog);
+		glGetProgramInfoLog(m_shaderProg, 2048, NULL, infoLog);
 
 		fprintf(stderr, "%s\n", infoLog);
-		Sleep(10000);
+		_sleep(10000);
 		return false;
 	}
 
 
-	gl::ValidateProgram(m_shaderProg);
-	gl::GetProgramiv(m_shaderProg, gl::VALIDATE_STATUS, &success);
+	glValidateProgram(m_shaderProg);
+	glGetProgramiv(m_shaderProg, GL_VALIDATE_STATUS, &success);
 	if (!success)
 	{
 		GLchar infoLog[2048];
-		gl::GetProgramInfoLog(m_shaderProg, 2048, NULL, infoLog);
+		glGetProgramInfoLog(m_shaderProg, 2048, NULL, infoLog);
 
 		fprintf(stderr, "%s\n", infoLog);
-		Sleep(10000);
+		_sleep(10000);
 		return false;
 	}
 	//std::cout << "ShaderObject! : " << m_shaderProg << endl;
@@ -184,13 +184,13 @@ bool renderPacket::Finalize()
 
 void renderPacket::Enable()
 {
-	gl::UseProgram(m_shaderProg);
+	glUseProgram(m_shaderProg);
 }
 
 
 GLint renderPacket::GetUniformLocation(const char* pUniformName)
 {
-	GLuint Location = gl::GetUniformLocation(m_shaderProg, pUniformName);
+	GLuint Location = glGetUniformLocation(m_shaderProg, pUniformName);
 
 	if (Location == INVALID_UNIFORM_LOCATION) {
 		fprintf(stderr, "Warning! Unable to get the location of uniform '%s'\n", pUniformName);
@@ -202,6 +202,6 @@ GLint renderPacket::GetUniformLocation(const char* pUniformName)
 GLint renderPacket::GetProgramParam(GLint param)
 {
 	GLint ret;
-	gl::GetProgramiv(m_shaderProg, param, &ret);
+	glGetProgramiv(m_shaderProg, param, &ret);
 	return ret;
 }

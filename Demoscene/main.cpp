@@ -182,7 +182,9 @@ int main(int argc, char** argv)
 	//mContext->mGBuffer->Init(1600, 900);
 	//glutInitWindowPosition(-1, -1);
 
-	
+	std::cout << "X! : " << pWidth  << std::endl;
+	std::cout << "Y! : " << pHeight  << std::endl;
+
 	//GBuffer* mGBuffer = new GBuffer();
 	//mGBuffer->Init(pWidth, pHeight);
 	//HGLRC initContext = wglGetCurrentContext();
@@ -221,9 +223,9 @@ int main(int argc, char** argv)
 	//o_loader->addChild(&tran_kambot);
 
 	e_geom.Enable();
-	NS_ENG::model fly( "Mesh/p38.obj", "Mesh/p38.mtl");
-	//NS_ENG::model fly(*mContext, "Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
-	//NS_ENG::model fly(*mContext, "Mesh/sphere.obj", "Mesh/sphere.mtl");
+	NS_ENG::model ball( "Mesh/p38.obj", "Mesh/p38.mtl");
+	//NS_ENG::model fly("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+	NS_ENG::model fly("Mesh/sphere.obj", "Mesh/sphere.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
 
 	//NS_SG::modelNode()
@@ -245,17 +247,19 @@ int main(int argc, char** argv)
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	e_point.SetScreenSize(pWidth, pHeight);
+	e_point.SetScreenSize(1600, 900);
 	
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
-
+	
 	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 	//e_dir.SetDirectionalLight(m_dirLight);
-	e_dir.SetScreenSize(pWidth, pHeight);
+	//e_dir.SetScreenSize(pWidth, pHeight);
+	e_dir.SetScreenSize(1600, 900);
+
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);
 	e_dir.SetWVP(WVP);
@@ -268,36 +272,49 @@ int main(int argc, char** argv)
 
 	//NS_SG::modelNode n_fly = NS_SG::modelNode("plane", &fly, &e_geom);
 	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
+
+	boost::shared_ptr<NS_SG::modelNode> n_ball(new NS_SG::modelNode("balle", &ball, &e_geom));
+
 	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
 	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	//tran_fly->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
-	//tran_fly->setScale(NS_VEC::VEC3(5.0f, 5.0f, 5.0f));
+	tran_fly->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	tran_fly->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 
+	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
+	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -10.0f));
+	tran_ball->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	tran_ball->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	
+	
+	tran_ball->addChild(n_ball.get());
 
-
-
+	
 	tran_fly->addChild(n_fly.get());
 	//target_kambot->setTarget(n_fly.get());
 
 	tran_kambot->addChild(kambot.get());
-	tran_kambot->setPosition(NS_VEC::VEC3(0.1f, 0.1f, 0.0f));
-	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
 	//tran_kambot->setScale(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 	
 	//tran_kambot.get()
 	//tran_kambot->addChild(target_kambot.get());
 	o_loader->addChild(tran_kambot.get());
+	 
+	
+
 
 	o_loader->addChild(tran_fly.get());
 
+	o_loader->addChild(tran_ball.get());
 
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
 
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.1f, 0.0f, 0.0f, 0.0f, 0.3f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
-	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
+	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 1.0f));
 	//tran_Point->setScale(NS_VEC::VEC3(4.0f, 4.0f, 4.0f));
 
 	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));

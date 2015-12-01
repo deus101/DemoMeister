@@ -1,20 +1,3 @@
-/*
-
-Copyright 2011 Etay Meiri
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
 #include <limits.h>
 #include <string.h>
@@ -33,12 +16,12 @@ bool PointLightPacket::Init()
 		return false;
 	}
 
-	if (!LoadShader(gl::VERTEX_SHADER, "shaders/light_pass.vs")) {
+	if (!LoadShader(GL_VERTEX_SHADER, "shaders/light_pass.vs")) {
 		return false;
 	}
 
 
-	if (!LoadShader(gl::FRAGMENT_SHADER, "shaders/point_light_pass.fs")) {
+	if (!LoadShader(GL_FRAGMENT_SHADER, "shaders/point_light_pass.fs")) {
 		return false;
 	}
 
@@ -70,13 +53,13 @@ bool PointLightPacket::Init()
 
 void PointLightPacket::SetPointLight(const PointLight& Light)
 {
-	gl::Uniform3f(m_pointLightLocation.Color, Light.Color.X, Light.Color.Y, Light.Color.Z);
-	gl::Uniform1f(m_pointLightLocation.AmbientIntensity, Light.AmbientIntensity);
-	gl::Uniform1f(m_pointLightLocation.DiffuseIntensity, Light.DiffuseIntensity);
-	gl::Uniform3f(m_pointLightLocation.Position, Light.Position.X, Light.Position.Y, Light.Position.Z);
-	gl::Uniform1f(m_pointLightLocation.Atten.Constant, Light.Attenuation.Constant);
-	gl::Uniform1f(m_pointLightLocation.Atten.Linear, Light.Attenuation.Linear);
-	gl::Uniform1f(m_pointLightLocation.Atten.Exp, Light.Attenuation.Exp);
+	glUniform3f(m_pointLightLocation.Color, Light.Color.X, Light.Color.Y, Light.Color.Z);
+	glUniform1f(m_pointLightLocation.AmbientIntensity, Light.AmbientIntensity);
+	glUniform1f(m_pointLightLocation.DiffuseIntensity, Light.DiffuseIntensity);
+	glUniform3f(m_pointLightLocation.Position, Light.Position.X, Light.Position.Y, Light.Position.Z);
+	glUniform1f(m_pointLightLocation.Atten.Constant, Light.Attenuation.Constant);
+	glUniform1f(m_pointLightLocation.Atten.Linear, Light.Attenuation.Linear);
+	glUniform1f(m_pointLightLocation.Atten.Exp, Light.Attenuation.Exp);
 }
 
 

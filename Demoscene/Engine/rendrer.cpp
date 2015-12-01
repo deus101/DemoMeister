@@ -38,10 +38,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			Node->getAbsoluteTransform(world);
 
 
-			//std::cout << "Node: " << Node->getName() << " Pos: ";
-			//std::cout << "[" << world[12] << "] ";
-			//std::cout << "[" << world[13] << "] ";
-			//std::cout << "[" << world[14] << "] " << endl;
+			std::cout << "Node: " << Node->getName() << " Pos: ";
+			std::cout << "[" << world[12] << "] ";
+			std::cout << "[" << world[13] << "] ";
+			std::cout << "[" << world[14] << "] " << endl;
 
 			M3DMatrix44f wv, wvp;
 
@@ -184,42 +184,28 @@ void rendrer::RenderSceneCB()
 {	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
-	//HGLRC renderContext = wglGetCurrentContext();
 
 	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN MATH3D IS SHIT!
 	M3DMatrix44f world;
 	m3dLoadIdentity44(world);
 	//std::cout << "Does it work";
 	visit(scene, world );
-	//sceneloadern bør få en referance til context objektet men hvordan rettferdigjør jeg valg av effekt filen? Utifra en haug med assetnoder
-	//scene->c
-	//mContext->
-	//m_DSGeomPassTech.Enable();
-	GLuint one;
-	GLuint two;
 
-	gl::GenTextures(1, &one);
-
-	gl::GenTextures(1, &two);
 	
 	mgBuffer->StartFrame();
-	
-	//NS_REND::mGBuffer->StartFrame();
 
 	mgBuffer->BindForGeomPass();
 
 	//NS_REND::mGBuffer->BindForGeomPass();
 	// Only the geometry pass updates the depth buffer
-	gl::DepthMask(gl::TRUE_);
+	glDepthMask(GL_TRUE);
 	
-	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	gl::Enable(gl::DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 
 	
-	//p.SetCamera(m_pGameCamera->GetPos(), m_pGameCamera->GetTarget(), m_pGameCamera->GetUp());
-	//p.SetPerspectiveProj(m_persProjInfo);
-	//p.Rotate(0.0f, m_scale, 0.0f);
+
 	//std::cout << "before geom loop" << std::endl;
 	for (vIT iv = beginVisible(); iv != endVisible(); ++iv) {
 		//p.WorldPos(m_boxPositions[i]);
@@ -238,8 +224,9 @@ void rendrer::RenderSceneCB()
 	
 	// When we get here the depth buffer is already populated and the stencil pass
 	// depends on it, but it does not write to it.
-	gl::DepthMask(gl::FALSE_);
-	gl::Enable(gl::STENCIL_TEST);
+	glDepthMask(GL_FALSE);
+
+	glEnable(GL_STENCIL_TEST);
 
 	NS_VEC::VEC3 EyeWorldPos(view[12], view[13], view[14]);
 
@@ -249,18 +236,18 @@ void rendrer::RenderSceneCB()
 		// Disable color/depth write and enable stencil
 		mgBuffer->BindForStencilPass();
 		//NS_REND::mGBuffer->BindForStencilPass();
-		gl::Enable(gl::DEPTH_TEST);
+		glEnable(GL_DEPTH_TEST);
 
-		gl::Disable(gl::CULL_FACE);
+		glDisable(GL_CULL_FACE);
 
-		gl::Clear(gl::STENCIL_BUFFER_BIT);
+		glClear(GL_STENCIL_BUFFER_BIT);
 
 		// We need the stencil test to be enabled but we want it
 		// to succeed always. Only the depth test matters.
-		gl::StencilFunc(gl::ALWAYS, 0, 0);
+		glStencilFunc(GL_ALWAYS, 0, 0);
 
-		gl::StencilOpSeparate(gl::BACK, gl::KEEP, gl::INCR_WRAP, gl::KEEP);
-		gl::StencilOpSeparate(gl::FRONT, gl::KEEP, gl::DECR_WRAP, gl::KEEP);
+		glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
+		glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
 
 
 
@@ -279,26 +266,27 @@ void rendrer::RenderSceneCB()
 		ip->sNode->LightMagic->Enable();
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 
+		//look at this
+		glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 
-		gl::StencilFunc(gl::NOTEQUAL, 0, 0xFF);
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendEquation(GL_FUNC_ADD);
+		glBlendFunc(GL_ONE, GL_ONE);
 
-		gl::Disable(gl::DEPTH_TEST);
-		gl::Enable(gl::BLEND);
-		gl::BlendEquation(gl::FUNC_ADD);
-		gl::BlendFunc(gl::ONE, gl::ONE);
-
-		gl::Enable(gl::CULL_FACE);
-		gl::CullFace(gl::FRONT);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
 		ip->sNode->LightMagic->SetWVP(ip->sWVP);
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 
 		sphere_light->Draw();
 		
-		gl::CullFace(gl::BACK);
+		glCullFace(GL_BACK);
 
-		gl::Disable(gl::BLEND);
+		glDisable(GL_BLEND);
 	}
-	gl::Disable(gl::STENCIL_TEST);
+
+	glDisable(GL_STENCIL_TEST);
 
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
 
@@ -310,13 +298,15 @@ void rendrer::RenderSceneCB()
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
 		id->sNode->LightMagic->SetWVP(id->sWVP);
-		gl::Disable(gl::DEPTH_TEST);
-		gl::Enable(gl::BLEND);
-		gl::BlendEquation(gl::FUNC_ADD);
-		gl::BlendFunc(gl::ONE, gl::ONE);
 
-		quad->Draw();
-		gl::Disable(gl::BLEND);
+
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendEquation(GL_FUNC_ADD);
+		glBlendFunc(GL_ONE, GL_ONE);
+
+		//quad->Draw();
+		glDisable(GL_BLEND);
 
 	
 	
@@ -324,11 +314,14 @@ void rendrer::RenderSceneCB()
 
 	//std::cout << "height: " << mContext->GetPixelHeight() << " width: " << mContext->GetPixelHeight() << std::endl;
 	//mContext
-
+	unsigned int w = GetPixelWidth();
+	unsigned int h = GetPixelHeight();
 	mgBuffer->BindForFinalPass();
 	//NS_REND::mGBuffer->BindForFinalPass();
-	gl::BlitFramebuffer(0, 0, pWidth, pHeight,
-		0, 0, pWidth, pHeight, gl::COLOR_BUFFER_BIT, gl::LINEAR);
+	glBlitFramebuffer(0, 0, w, h,
+		0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
+
 
 	Swap();
 	//glutSwapBuffers();
