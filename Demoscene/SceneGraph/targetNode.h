@@ -41,7 +41,7 @@ namespace NS_SG
 			M3DMatrix44f targetTransform;
 			target->getAbsoluteTransform(targetTransform);
 			m3dGetMatrixColumn44(targetTran, targetTransform, 3);
-			targetTran[3] = 0;
+			targetTran[3] = 1;
 
 			printf("target: %f %f %f\n",
 				targetTran[0], targetTran[1], targetTran[2]
@@ -66,8 +66,10 @@ namespace NS_SG
 			m3dLookAt(lookat, at, from, up, 0.0f);
 		
 			//finally the inverse
+			
 			m3dInvertMatrix44(in, lookat);
-
+			//m3dCopyMatrix44(in, lookat);
+			//m3dCopyMatrix44()
 		}
 
 		void setTarget(node *target)

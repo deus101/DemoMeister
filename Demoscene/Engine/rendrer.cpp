@@ -19,11 +19,61 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 {
 	
 	
-	//if (NS_SG::node::NODE_CAMERA == Node->getType())
-	//{
-	//	Node->
+	if (NS_SG::node::NODE_CAMERA == Node->getType())
+	{
+		camera *cammy = reinterpret_cast<camera*>(Node);
 
-	//}
+		M3DMatrix44f world, local;
+		cammy->getAbsoluteTransform(world);
+
+		std::cout << "Node: " << Node->getName() << " Pos: " << endl;
+		std::cout << "[" << world[0] << "] ";
+		std::cout << "[" << world[1] << "] ";
+		std::cout << "[" << world[2] << "] ";
+		std::cout << "[" << world[3] << "] " << endl;
+
+		std::cout << "[" << world[4] << "] ";
+		std::cout << "[" << world[5] << "] ";
+		std::cout << "[" << world[6] << "] ";
+		std::cout << "[" << world[7] << "] " << endl;
+
+		std::cout << "[" << world[8] << "] ";
+		std::cout << "[" << world[9] << "] ";
+		std::cout << "[" << world[10] << "] ";
+		std::cout << "[" << world[11] << "] " << endl;
+
+		std::cout << "[" << world[12] << "] ";
+		std::cout << "[" << world[13] << "] ";
+		std::cout << "[" << world[14] << "] ";
+		std::cout << "[" << world[15] << "] " << endl;
+
+
+		cammy->getLocalTransform(local);
+		std::cout << "Node: " << Node->getName() << " local transform matrix: " << endl;
+
+		std::cout << "[" << local[0] << "] ";
+		std::cout << "[" << local[1] << "] ";
+		std::cout << "[" << local[2] << "] ";
+		std::cout << "[" << local[3] << "] " << endl;
+
+		std::cout << "[" << local[4] << "] ";
+		std::cout << "[" << local[5] << "] ";
+		std::cout << "[" << local[6] << "] ";
+		std::cout << "[" << local[7] << "] " << endl;
+
+		std::cout << "[" << local[8] << "] ";
+		std::cout << "[" << local[9] << "] ";
+		std::cout << "[" << local[10] << "] ";
+		std::cout << "[" << local[11] << "] " << endl;
+
+		std::cout << "[" << local[12] << "] ";
+		std::cout << "[" << local[13] << "] ";
+		std::cout << "[" << local[14] << "] ";
+		std::cout << "[" << local[15] << "] " << endl;
+
+		//cammy
+
+	}
 
 	if (NS_SG::node::NODE_ASSET == Node->getType())
 	{
@@ -38,20 +88,77 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			Node->getAbsoluteTransform(world);
 
 
-			std::cout << "Node: " << Node->getName() << " Pos: ";
+			std::cout << "Node: " << Node->getName() << " Pos: " << endl;
+			std::cout << "[" << world[0] << "] ";
+			std::cout << "[" << world[1] << "] ";
+			std::cout << "[" << world[2] << "] ";
+			std::cout << "[" << world[3] << "] " << endl;
+
+			std::cout << "[" << world[4] << "] ";
+			std::cout << "[" << world[5] << "] ";
+			std::cout << "[" << world[6] << "] ";
+			std::cout << "[" << world[7] << "] " << endl;
+
+			std::cout << "[" << world[8] << "] ";
+			std::cout << "[" << world[9] << "] ";
+			std::cout << "[" << world[10] << "] ";
+			std::cout << "[" << world[11] << "] " << endl;
+
 			std::cout << "[" << world[12] << "] ";
 			std::cout << "[" << world[13] << "] ";
-			std::cout << "[" << world[14] << "] " << endl;
-
+			std::cout << "[" << world[14] << "] ";
+			std::cout << "[" << world[15] << "] " << endl;
 			M3DMatrix44f wv, wvp;
 
 			//assert(NULL != p);
 			M3DMatrix44f world_view_proj, matWVP_inv;
 			m3dMatrixMultiply44(wv, world, view);
 
+			std::cout << "World View Matrix " << endl;
+			std::cout << "[" << wv[0] << "] ";
+			std::cout << "[" << wv[1] << "] ";
+			std::cout << "[" << wv[2] << "] ";
+			std::cout << "[" << wv[3] << "] " << endl;
+
+			std::cout << "[" << wv[4] << "] ";
+			std::cout << "[" << wv[5] << "] ";
+			std::cout << "[" << wv[6] << "] ";
+			std::cout << "[" << wv[7] << "] " << endl;
+
+			std::cout << "[" << wv[8] << "] ";
+			std::cout << "[" << wv[9] << "] ";
+			std::cout << "[" << wv[10] << "] ";
+			std::cout << "[" << wv[11] << "] " << endl;
+
+			std::cout << "[" << wv[12] << "] ";
+			std::cout << "[" << wv[13] << "] ";
+			std::cout << "[" << wv[14] << "] ";
+			std::cout << "[" << wv[15] << "] " << endl;
 
 			m3dMatrixMultiply44(wvp, wv, projection);
-			
+
+
+			std::cout << "World View Projection " << endl;
+			std::cout << "[" << wvp[0] << "] ";
+			std::cout << "[" << wvp[1] << "] ";
+			std::cout << "[" << wvp[2] << "] ";
+			std::cout << "[" << wvp[3] << "] " << endl;
+
+			std::cout << "[" << wvp[4] << "] ";
+			std::cout << "[" << wvp[5] << "] ";
+			std::cout << "[" << wvp[6] << "] ";
+			std::cout << "[" << wvp[7] << "] " << endl;
+
+			std::cout << "[" << wvp[8] << "] ";
+			std::cout << "[" << wvp[9] << "] ";
+			std::cout << "[" << wvp[10] << "] ";
+			std::cout << "[" << wvp[11] << "] " << endl;
+
+			std::cout << "[" << wvp[12] << "] ";
+			std::cout << "[" << wvp[13] << "] ";
+			std::cout << "[" << wvp[14] << "] ";
+			std::cout << "[" << wvp[15] << "] " << endl;
+
 			
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			m3dCopyMatrix44(Tmp.sTransform, world);
@@ -90,10 +197,27 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			
 
 
-			//std::cout << "Node: " << Node->getName() << " Pos: ";
-			//	std::cout << "[" << world[12] << "] ";
-			//	std::cout << "[" << world[13] << "] ";
-			//	std::cout << "[" << world[14] << "] " << endl;
+				std::cout << "Node: " << Node->getName() << " Pos: " << endl;
+
+				std::cout << "[" << world[0] << "] ";
+				std::cout << "[" << world[1] << "] ";
+				std::cout << "[" << world[2] << "] ";
+				std::cout << "[" << world[3] << "] " << endl;
+
+				std::cout << "[" << world[4] << "] ";
+				std::cout << "[" << world[5] << "] ";
+				std::cout << "[" << world[6] << "] ";
+				std::cout << "[" << world[7] << "] " << endl;
+
+				std::cout << "[" << world[8] << "] ";
+				std::cout << "[" << world[9] << "] ";
+				std::cout << "[" << world[10] << "] ";
+				std::cout << "[" << world[11] << "] " << endl;
+
+				std::cout << "[" << world[12] << "] ";
+				std::cout << "[" << world[13] << "] ";
+				std::cout << "[" << world[14] << "] ";
+				std::cout << "[" << world[15] << "] " << endl;
 				
 
 
@@ -109,7 +233,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dScaleMatrix44(w_scale, f_scale, f_scale, f_scale);
 
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
-			m3dMatrixMultiply44(wv, world, view);
+			m3dMatrixMultiply44(wv, w_scaled, view);
 
 			m3dMatrixMultiply44(wvp, wv, projection);
 
@@ -229,6 +353,51 @@ void rendrer::RenderSceneCB()
 	glEnable(GL_STENCIL_TEST);
 
 	NS_VEC::VEC3 EyeWorldPos(view[12], view[13], view[14]);
+	//kamera->
+	std::cout << "ViewMatrix : " << endl;
+
+	std::cout << "[" << view[0] << "] ";
+	std::cout << "[" << view[1] << "] ";
+	std::cout << "[" << view[2] << "] ";
+	std::cout << "[" << view[3] << "] " << endl;
+
+	std::cout << "[" << view[4] << "] ";
+	std::cout << "[" << view[5] << "] ";
+	std::cout << "[" << view[6] << "] ";
+	std::cout << "[" << view[7] << "] " << endl;
+
+	std::cout << "[" << view[8] << "] ";
+	std::cout << "[" << view[9] << "] ";
+	std::cout << "[" << view[10] << "] ";
+	std::cout << "[" << view[11] << "] " << endl;
+
+	std::cout << "[" << view[12] << "] ";
+	std::cout << "[" << view[13] << "] ";
+	std::cout << "[" << view[14] << "] ";
+	std::cout << "[" << view[15] << "] " << endl;
+
+
+	std::cout << "Projection : " << endl;
+	
+	std::cout << "[" << projection[0] << "] ";
+	std::cout << "[" << projection[1] << "] ";
+	std::cout << "[" << projection[2] << "] ";
+	std::cout << "[" << projection[3] << "] " << endl;
+
+	std::cout << "[" << projection[4] << "] ";
+	std::cout << "[" << projection[5] << "] ";
+	std::cout << "[" << projection[6] << "] ";
+	std::cout << "[" << projection[7] << "] " << endl;
+
+	std::cout << "[" << projection[8] << "] ";
+	std::cout << "[" << projection[9] << "] ";
+	std::cout << "[" << projection[10] << "] ";
+	std::cout << "[" << projection[11] << "] " << endl;
+
+	std::cout << "[" << projection[12] << "] ";
+	std::cout << "[" << projection[13] << "] ";
+	std::cout << "[" << projection[14] << "] ";
+	std::cout << "[" << projection[15] << "] " << endl;
 
 	for (vPITc ip = beginVisiblePoint(); ip != endVisiblePoint(); ++ip) {
 		ip->sNode->NullMagic->Enable();
@@ -305,7 +474,7 @@ void rendrer::RenderSceneCB()
 		glBlendEquation(GL_FUNC_ADD);
 		glBlendFunc(GL_ONE, GL_ONE);
 
-		//quad->Draw();
+		quad->Draw();
 		glDisable(GL_BLEND);
 
 	
@@ -322,7 +491,7 @@ void rendrer::RenderSceneCB()
 		0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
 
-
+	
 	Swap();
 	//glutSwapBuffers();
 
@@ -333,7 +502,7 @@ void rendrer::RenderSceneCB()
 
 float rendrer::CalcPointLightBSphere(const PointLight& Light)
 {
-	float MaxChannel = fmax(fmax(Light.Color.X, Light.Color.X), Light.Color.X);
+	float MaxChannel = fmax(fmax(Light.Color.X, Light.Color.Y), Light.Color.Z);
 
 	float ret = (-Light.Attenuation.Linear + sqrtf(Light.Attenuation.Linear * Light.Attenuation.Linear - 4 * Light.Attenuation.Exp * (Light.Attenuation.Exp - 256 * MaxChannel * Light.DiffuseIntensity)))
 		/

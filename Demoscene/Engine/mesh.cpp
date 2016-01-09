@@ -47,7 +47,7 @@ namespace NS_MESH
 			{
 				VEC3 vn;
 				fscanf (objFile, "%f %f %f", &vn.X, &vn.Y, &vn.Z);
-					
+				vn.NormIt();
 				Mesh.m_Norms.push_back(vn);
 			}
 			if(strcmp ( id, "g") == 0)

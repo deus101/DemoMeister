@@ -66,10 +66,10 @@ public:
 		mgBuffer->Init(w, h);
 
 		M3DMatrix44f inversLookat;
-		//m3dLoadIdentity44(view);
+		m3dLoadIdentity44(view);
 		kamera->getProjection(projection);
 		kamera->getAbsoluteTransform(view);
-		m3dInvertMatrix44(view, view);
+		//m3dInvertMatrix44(view, view);
 		//kamera->getParent()->getLocalTransform(view);
 		std::cout << "[" << projection[0] << "] ";
 		std::cout << "[" << projection[1] << "] ";

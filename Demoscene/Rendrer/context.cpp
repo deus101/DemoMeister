@@ -219,7 +219,7 @@ void ContextRun(ICallbacks* pCallbacks)
 
 void Swap()
 {
-	
+	glfwSwapBuffers(s_pWindow);
 	//glutSwapBuffers();
 
 }

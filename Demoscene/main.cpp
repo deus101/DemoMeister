@@ -223,9 +223,9 @@ int main(int argc, char** argv)
 	//o_loader->addChild(&tran_kambot);
 
 	e_geom.Enable();
-	NS_ENG::model ball( "Mesh/p38.obj", "Mesh/p38.mtl");
+	NS_ENG::model fly( "Mesh/p38.obj", "Mesh/p38.mtl");
 	//NS_ENG::model fly("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
-	NS_ENG::model fly("Mesh/sphere.obj", "Mesh/sphere.mtl");
+	NS_ENG::model ball("Mesh/sphere.obj", "Mesh/sphere.mtl");
 	//NS_ENG::model fly(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
 
 	//NS_SG::modelNode()
@@ -259,7 +259,10 @@ int main(int argc, char** argv)
 	//e_dir.SetDirectionalLight(m_dirLight);
 	//e_dir.SetScreenSize(pWidth, pHeight);
 	e_dir.SetScreenSize(1600, 900);
-
+	//e_dir.AmbientIntensity = 0.1f;
+	//e_dir.Color = COLOR_CYAN;
+	//e_dir.DiffuseIntensity = 0.5f;
+	//e_dir.Direction = Vector3f(1.0f, 0.0f, 0.0f);
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);
 	e_dir.SetWVP(WVP);
@@ -278,28 +281,36 @@ int main(int argc, char** argv)
 	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
 	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	tran_fly->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	//tran_fly->setRotation(NS_VEC::QUAT(.0f, 0.0f, 0.0f));
+	//NS_VEC::QUAT()
 	tran_fly->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	//tran_fly->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
-	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -10.0f));
-	tran_ball->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
-	tran_ball->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 20.0f));
+	//tran_ball->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
 	
 	
 	tran_ball->addChild(n_ball.get());
 
 	
 	tran_fly->addChild(n_fly.get());
-	//target_kambot->setTarget(n_fly.get());
+	target_kambot->setTarget(n_fly.get());
 
-	tran_kambot->addChild(kambot.get());
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
-	//tran_kambot->setScale(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	target_kambot->addChild(kambot.get());
+
+	//tran_kambot->addChild(kambot.get());
+
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 10.0f));
+	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
+	//tran_kambot->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	
+
+
 	
 	//tran_kambot.get()
-	//tran_kambot->addChild(target_kambot.get());
+	tran_kambot->addChild(target_kambot.get());
 	o_loader->addChild(tran_kambot.get());
 	 
 	
@@ -312,9 +323,9 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
 
-	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.1f, 0.0f, 0.0f, 0.0f, 0.3f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.5f, 0.4f, 0.1f, 0.5f, 0.3f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
-	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 1.0f));
+	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, -2.0f));
 	//tran_Point->setScale(NS_VEC::VEC3(4.0f, 4.0f, 4.0f));
 
 	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
@@ -324,13 +335,15 @@ int main(int argc, char** argv)
 	//tran_Point2->addChild(tran_Point.get());
 	o_loader->addChild(tran_Point.get());
 	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.0f, 1.0f, 1.0f), 1.0f, 1.0f, &e_dir));
-	
+
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
+	
+	
+	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
 
 	//tran_Dir->setPosition(NS_VEC::VEC3(10.0f, 5.0f, 0.0f));
 	//tran_Dir->setRotation(NS_VEC::QUAT(-45.0f, 90.0f, 0.0f));
 	tran_Dir->addChild(n_dir_lys.get());
-	//tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 7.0f, 0.0f));
 
 	o_loader->addChild(tran_Dir.get());
 	

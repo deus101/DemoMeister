@@ -14,7 +14,7 @@ namespace NS_SG{
 				node(name),
 				fov(60.0f), 
 				aspect(16.0f / 9),
-				znear(0.5f), zfar(100.0f),
+				znear(1.0f), zfar(50.0f),
 				projection_dirty(true)
 				{
 				}
@@ -62,7 +62,7 @@ namespace NS_SG{
 				if (projection_dirty)
 				{
 					
-					m3dMakePerspectiveMatrix(projection, fov, aspect, znear, zfar);
+					m3dMakePerspectiveMatrix(projection,m3dDegToRad(fov), aspect, znear, zfar);
 					//projection.makeProjection(fov, aspect, znear, zfar);
 					projection_dirty = false;
 				}
