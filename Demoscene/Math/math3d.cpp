@@ -661,11 +661,14 @@ void m3dProjectXYZ(M3DVector3f vPointOut, const M3DMatrix44f mModelView, const M
  	vPointOut[2] = vBack[2];
 	}
 
-
+//oh yeah, i didnt rip this shit
 void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vLookFrom, const M3DVector3f vUp, float roll)
 {
+	M3DMatrix44f MatArgument;
+	m3dCopyMatrix44(MatArgument, mat);
+
 	M3DVector3f z;
-	m3dSubtractVectors3(z, vLookat, vLookFrom);
+	m3dSubtractVectors3(z, vLookFrom, vLookat);
 	m3dNormalizeVector3(z);
 
 
@@ -673,37 +676,82 @@ void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vL
 	M3DVector3f y;
 
 	m3dCrossProduct3(x, vUp, z);
-	-z[0];
-	-z[1];
-	-z[2];
-	m3dCrossProduct3(y, x, z);
+	m3dNormalizeVector3(x);
+	//-z[0];
+	//-z[1];
+	//-z[2];
+	m3dCrossProduct3(y, z,x);
 	M3DMatrix44f Orientation;
+	
+	Orientation[0] = x[0];
+	Orientation[1] = y[0];
+	Orientation[2] = z[0];
+	Orientation[3] = 0.0f;
+	//Orientation[3] = -m3dDotProduct3(x, vLookFrom);
+	//Orientation[3] = -1.0f;
+
+	Orientation[4] = x[1];
+	Orientation[5] = y[1];
+	Orientation[6] = z[1];
+	Orientation[7] = 0.0f;
+	//Orientation[7] = -m3dDotProduct3(y, vLookFrom);
+	//Orientation[7] = -1.0f;
+
+
+	Orientation[8] = x[2];
+	Orientation[9] = y[2];
+	Orientation[10] = z[2];
+	Orientation[11] = 0.0f;
+	//Orientation[11] = -m3dDotProduct3(z, vLookFrom);
+	//Orientation[11] = -1.0f;
+
+	Orientation[12] = m3dDotProduct3(x, vLookFrom);
+	Orientation[13] = -m3dDotProduct3(y, vLookFrom);
+	Orientation[14] = -m3dDotProduct3(z, vLookFrom);
+	//Orientation[12] = 0.0f;
+	//Orientation[13] = 0.0f;
+	//Orientation[14] = 0.0f;
+	Orientation[15] = 1.0;
+	
+	
+	/*
+
+	//DETTE FUNKER!
+	I rendrer mode
+	view[11] = -10.0f;
+
 
 	Orientation[0] = x[0];
-	Orientation[1] = x[1];
-	Orientation[2] = x[2];
-	Orientation[3] = 0.0;
+	Orientation[1] = y[0];
+	Orientation[2] = z[0];
+	Orientation[12] = -m3dDotProduct3(x, vLookFrom);
 
-	Orientation[4] = y[0];
+
+	Orientation[4] = x[1];
 	Orientation[5] = y[1];
-	Orientation[6] = y[2];
-	Orientation[7] = 0.0;
+	Orientation[6] = z[1];
+	Orientation[13] = -m3dDotProduct3(y, vLookFrom);
 
-	Orientation[8] = z[0];
-	Orientation[9] = z[1];
+	Orientation[8] = x[2];
+	Orientation[9] = y[2];
 	Orientation[10] = z[2];
-	Orientation[11] = 0.0;
+	Orientation[14] = -m3dDotProduct3(z, vLookFrom);
 
-	Orientation[12] = vLookFrom[0];
-	Orientation[13] = vLookFrom[1];
-	Orientation[14] = vLookFrom[2];
-	Orientation[15] = 1;
+	Orientation[3] = 0.0f;
+	Orientation[7] = 0.0f;
+	Orientation[11] = 0.0f;
+	Orientation[15] = 1.0;
+	*/
 
-	M3DMatrix44f rot;
+	
+	M3DMatrix44f rot, Trot, OrientationT;
 	m3dLoadIdentity44(rot);
 
-	m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
-	m3dMatrixMultiply44(mat,Orientation, rot);
+	//m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
+	m3dTransposeMatrix44(OrientationT, Orientation);
+	//m3dMatrixMultiply44(mat, rot, Orientation );
+
+	m3dCopyMatrix44(mat, Orientation);
 
 }
 

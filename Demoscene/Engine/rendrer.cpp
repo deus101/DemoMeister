@@ -23,55 +23,55 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 	{
 		camera *cammy = reinterpret_cast<camera*>(Node);
 
-		M3DMatrix44f world, local;
-		cammy->getAbsoluteTransform(world);
+		//M3DMatrix44f world, local;
+		//cammy->getAbsoluteTransform(world);
 
-		std::cout << "Node: " << Node->getName() << " Pos: " << endl;
-		std::cout << "[" << world[0] << "] ";
-		std::cout << "[" << world[1] << "] ";
-		std::cout << "[" << world[2] << "] ";
-		std::cout << "[" << world[3] << "] " << endl;
+		//std::cout << "Node: " << Node->getName() << " Pos: " << endl;
+		//std::cout << "[" << world[0] << "] ";
+		//std::cout << "[" << world[1] << "] ";
+		//std::cout << "[" << world[2] << "] ";
+		//std::cout << "[" << world[3] << "] " << endl;
 
-		std::cout << "[" << world[4] << "] ";
-		std::cout << "[" << world[5] << "] ";
-		std::cout << "[" << world[6] << "] ";
-		std::cout << "[" << world[7] << "] " << endl;
+		//std::cout << "[" << world[4] << "] ";
+		//std::cout << "[" << world[5] << "] ";
+		//std::cout << "[" << world[6] << "] ";
+		//std::cout << "[" << world[7] << "] " << endl;
 
-		std::cout << "[" << world[8] << "] ";
-		std::cout << "[" << world[9] << "] ";
-		std::cout << "[" << world[10] << "] ";
-		std::cout << "[" << world[11] << "] " << endl;
+		//std::cout << "[" << world[8] << "] ";
+		//std::cout << "[" << world[9] << "] ";
+		//std::cout << "[" << world[10] << "] ";
+		//std::cout << "[" << world[11] << "] " << endl;
 
-		std::cout << "[" << world[12] << "] ";
-		std::cout << "[" << world[13] << "] ";
-		std::cout << "[" << world[14] << "] ";
-		std::cout << "[" << world[15] << "] " << endl;
+		//std::cout << "[" << world[12] << "] ";
+		//std::cout << "[" << world[13] << "] ";
+		//std::cout << "[" << world[14] << "] ";
+		//std::cout << "[" << world[15] << "] " << endl;
 
 
-		cammy->getLocalTransform(local);
-		std::cout << "Node: " << Node->getName() << " local transform matrix: " << endl;
+		//cammy->getLocalTransform(local);
+		//std::cout << "Node: " << Node->getName() << " local transform matrix: " << endl;
 
-		std::cout << "[" << local[0] << "] ";
-		std::cout << "[" << local[1] << "] ";
-		std::cout << "[" << local[2] << "] ";
-		std::cout << "[" << local[3] << "] " << endl;
+		//std::cout << "[" << local[0] << "] ";
+		//std::cout << "[" << local[1] << "] ";
+		//std::cout << "[" << local[2] << "] ";
+		//std::cout << "[" << local[3] << "] " << endl;
 
-		std::cout << "[" << local[4] << "] ";
-		std::cout << "[" << local[5] << "] ";
-		std::cout << "[" << local[6] << "] ";
-		std::cout << "[" << local[7] << "] " << endl;
+		//std::cout << "[" << local[4] << "] ";
+		//std::cout << "[" << local[5] << "] ";
+		//std::cout << "[" << local[6] << "] ";
+		//std::cout << "[" << local[7] << "] " << endl;
 
-		std::cout << "[" << local[8] << "] ";
-		std::cout << "[" << local[9] << "] ";
-		std::cout << "[" << local[10] << "] ";
-		std::cout << "[" << local[11] << "] " << endl;
+		//std::cout << "[" << local[8] << "] ";
+		//std::cout << "[" << local[9] << "] ";
+		//std::cout << "[" << local[10] << "] ";
+		//std::cout << "[" << local[11] << "] " << endl;
 
-		std::cout << "[" << local[12] << "] ";
-		std::cout << "[" << local[13] << "] ";
-		std::cout << "[" << local[14] << "] ";
-		std::cout << "[" << local[15] << "] " << endl;
+		//std::cout << "[" << local[12] << "] ";
+		//std::cout << "[" << local[13] << "] ";
+		//std::cout << "[" << local[14] << "] ";
+		//std::cout << "[" << local[15] << "] " << endl;
 
-		//cammy
+		////cammy
 
 	}
 
@@ -108,12 +108,16 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			std::cout << "[" << world[13] << "] ";
 			std::cout << "[" << world[14] << "] ";
 			std::cout << "[" << world[15] << "] " << endl;
-			M3DMatrix44f wv, wvp;
+			M3DMatrix44f wv, wvp, vp;
 
 			//assert(NULL != p);
 			M3DMatrix44f world_view_proj, matWVP_inv;
-			m3dMatrixMultiply44(wv, world, view);
+//			m3dMatrixMultiply44(wv, world, view);
 
+			m3dMatrixMultiply44(wv, view, world);
+			
+			//m3dMatrixMultiply44(vp, view, projection );
+			/*
 			std::cout << "World View Matrix " << endl;
 			std::cout << "[" << wv[0] << "] ";
 			std::cout << "[" << wv[1] << "] ";
@@ -134,8 +138,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			std::cout << "[" << wv[13] << "] ";
 			std::cout << "[" << wv[14] << "] ";
 			std::cout << "[" << wv[15] << "] " << endl;
+			*/
+			m3dMatrixMultiply44(wvp, projection, wv );
 
-			m3dMatrixMultiply44(wvp, wv, projection);
+			//m3dMatrixMultiply44(wvp,  world , vp);
 
 
 			std::cout << "World View Projection " << endl;
@@ -233,9 +239,12 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dScaleMatrix44(w_scale, f_scale, f_scale, f_scale);
 
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
-			m3dMatrixMultiply44(wv, w_scaled, view);
-
-			m3dMatrixMultiply44(wvp, wv, projection);
+			
+			
+			m3dMatrixMultiply44(wv, view, w_scaled );
+			
+			
+			m3dMatrixMultiply44(wvp, projection, wv);
 
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			
@@ -265,13 +274,13 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			M3DMatrix44f world;
 			//Node->g
 			Node->getAbsoluteTransform(world);
-			M3DMatrix44f wv, wvp;
+			M3DMatrix44f wv, wvp,vp;
 
 			//assert(NULL != p);
 			M3DMatrix44f world_view_proj, matWVP_inv;
-			m3dMatrixMultiply44(wv, world, view);
+			m3dMatrixMultiply44(wv, view, world );
 
-			m3dMatrixMultiply44(wvp, wv, projection);
+			m3dMatrixMultiply44(wvp, projection, wv);
 
 			
 			Tmp.sNode = lDir;
@@ -351,8 +360,13 @@ void rendrer::RenderSceneCB()
 	glDepthMask(GL_FALSE);
 
 	glEnable(GL_STENCIL_TEST);
+	//kamera->g
+	M3DMatrix44f inverseView;
+	m3dInvertMatrix44(inverseView, view);
 
-	NS_VEC::VEC3 EyeWorldPos(view[12], view[13], view[14]);
+	NS_VEC::VEC3 EyeWorldPos(inverseView[12], inverseView[13], inverseView[14]);
+	//NS_VEC::VEC3 EyeWorldPos(view[3], view[7], view[11]);
+
 	//kamera->
 	std::cout << "ViewMatrix : " << endl;
 

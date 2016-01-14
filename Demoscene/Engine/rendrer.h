@@ -65,10 +65,26 @@ public:
 		mgBuffer = new GBuffer();
 		mgBuffer->Init(w, h);
 
-		M3DMatrix44f inversLookat;
+		M3DMatrix44f inverseView, viewT;
 		m3dLoadIdentity44(view);
 		kamera->getProjection(projection);
 		kamera->getAbsoluteTransform(view);
+		kamera->getParent()->getLocalTransform(view);
+		//m3dTransposeMatrix44(viewT, view);
+		m3dInvertMatrix44(inverseView, view);
+		//view[12]
+		//view[13]
+		//view[14] =
+		//M3DVector4f vect, eyePos;
+		//vect[0] = 0.0f;
+		//vect[1] = 0.0f;
+		//vect[2] = 0.0f;
+		//vect[3] = 1.0f;
+		//m3dTransformVector4(eyePos, vect, inverseView);
+
+		//m3dTransla
+		//kamera->getAbsoluteTransform(view);
+		//m3dTransposeMatrix44(, inversLookat);
 		//m3dInvertMatrix44(view, view);
 		//kamera->getParent()->getLocalTransform(view);
 		std::cout << "[" << projection[0] << "] ";
@@ -105,6 +121,7 @@ public:
 		std::cout << "[" << view[13] << "] ";
 		std::cout << "[" << view[14] << "] ";
 		std::cout << "[" << view[15] << "] " << endl;
+
 
 
 

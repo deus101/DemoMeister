@@ -27,13 +27,20 @@ namespace NS_SG
 			{
 			  getParent()->getAbsoluteTransform(eyeAbs);
 			}
-
+			
 			// get target position into the local coordinate system
 			// note: this will obviously fail horribly if target is dependent on this node
-			M3DMatrix44f eyeAbsInv;
-			m3dInvertMatrix44(eyeAbsInv, eyeAbs);
+			
+			//lol faen for en stut jeg er
+			M3DMatrix44f eyeInvTemp, eyeAbsInv;
+			M3DVector4f invProdukt;
+			m3dInvertMatrix44(eyeInvTemp, eyeAbs);
+			m3dGetMatrixColumn44(invProdukt, eyeInvTemp, 3);
 
-		
+			m3dLoadIdentity44(eyeAbsInv);
+			m3dSetMatrixColumn44(eyeAbsInv, invProdukt, 3);
+			
+			
 			//NS_VEC::VEC3 targetPos;
 			M3DVector4f targetPos;
 			M3DVector4f targetTran;
@@ -41,7 +48,7 @@ namespace NS_SG
 			M3DMatrix44f targetTransform;
 			target->getAbsoluteTransform(targetTransform);
 			m3dGetMatrixColumn44(targetTran, targetTransform, 3);
-			targetTran[3] = 1;
+			targetTran[3] = 0;
 
 			printf("target: %f %f %f\n",
 				targetTran[0], targetTran[1], targetTran[2]
@@ -50,6 +57,7 @@ namespace NS_SG
 
 
 			m3dTransformVector4(targetPos, eyeAbsInv, targetTran);
+			
 			//HELVETES DRITT BIBLIOTEK! ERSTATT DET!
 			M3DVector3f at, from, up;
 			at[0] = targetPos[0];
@@ -62,13 +70,18 @@ namespace NS_SG
 			up[1] = 1.0f;
 			up[2] = 0.0f;
 			//math::Vector3 targetPos = math::mul(eyeAbsInv, target->getAbsoluteTransform().getTranslation());
-			M3DMatrix44f lookat;
+			M3DMatrix44f lookat, lookat_inv;
 			m3dLookAt(lookat, at, from, up, 0.0f);
-		
+			
 			//finally the inverse
 			
-			m3dInvertMatrix44(in, lookat);
-			//m3dCopyMatrix44(in, lookat);
+			//m3dInvertMatrix44(lookat_inv, lookat);
+			m3dCopyMatrix44(in, lookat);
+			//m3dMatrixMultiply44(in, eyeAbsInv, lookat );
+
+			//m3dTransposeMatrix44()
+			//
+			//m3dCopyMatrix44(in, lookat_inv);
 			//m3dCopyMatrix44()
 		}
 

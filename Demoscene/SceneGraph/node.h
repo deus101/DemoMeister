@@ -108,6 +108,8 @@ namespace NS_SG{
 					curr = curr->parent.lock();
 
 					curr->getLocalTransform(currentTransform);
+//Is this the problem?=
+//					m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
 
 					m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
 					//				absoluteTransform = curr->getLocalTransform() * absoluteTransform;

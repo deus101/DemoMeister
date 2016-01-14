@@ -281,15 +281,15 @@ int main(int argc, char** argv)
 	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
 	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	//tran_fly->setRotation(NS_VEC::QUAT(.0f, 0.0f, 0.0f));
+	tran_fly->setRotation(NS_VEC::QUAT(0.0f, 30.0f, 0.0f));
 	//NS_VEC::QUAT()
 	tran_fly->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 	//tran_fly->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
-	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 20.0f));
+	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
 	//tran_ball->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
-	tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
+	tran_ball->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 	
 	
 	tran_ball->addChild(n_ball.get());
@@ -302,7 +302,7 @@ int main(int argc, char** argv)
 
 	//tran_kambot->addChild(kambot.get());
 
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 10.0f));
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 10.0f));
 	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
 	//tran_kambot->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 	
@@ -325,8 +325,8 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.5f, 0.4f, 0.1f, 0.5f, 0.3f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
-	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 1.0f, -2.0f));
-	//tran_Point->setScale(NS_VEC::VEC3(4.0f, 4.0f, 4.0f));
+	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
+	tran_Point->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 
 	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
 	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
@@ -339,7 +339,7 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	
 	
-	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
+	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
 	//tran_Dir->setPosition(NS_VEC::VEC3(10.0f, 5.0f, 0.0f));
 	//tran_Dir->setRotation(NS_VEC::QUAT(-45.0f, 90.0f, 0.0f));

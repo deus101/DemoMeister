@@ -500,7 +500,23 @@ inline void m3dScaleMatrix44(M3DMatrix44d m, double xScale, double yScale, doubl
 inline void m3dScaleMatrix44(M3DMatrix44d m, const M3DVector3d vScale)
 	{ m3dLoadIdentity44(m); m[0] = vScale[0]; m[5] = vScale[1]; m[10] = vScale[2]; }
 
-	
+// Transpose/Invert - Only 4x4 matricies supported
+#define TRANSPOSE44(dst, src)            \
+{                                        \
+    for (int j = 0; j < 4; j++)          \
+    {                                    \
+        for (int i = 0; i < 4; i++)      \
+        {                                \
+            dst[(j*4)+i] = src[(i*4)+j]; \
+        }                                \
+    }                                    \
+}
+inline void m3dTransposeMatrix44(M3DMatrix44f dst, const M3DMatrix44f src)
+{
+    TRANSPOSE44(dst, src);
+}
+
+
 void m3dMakePerspectiveMatrix(M3DMatrix44f mProjection, float fFov, float fAspect, float zMin, float zMax);
 void m3dMakeOrthographicMatrix(M3DMatrix44f mProjection, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax);
 

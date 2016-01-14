@@ -46,17 +46,17 @@ bool GeomPacket::Init()
 
 void GeomPacket::SetWVP(const M3DMatrix44f& WVP)
 {
-	glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP);
+	//glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP);
 
-	//glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, WVP);
+	glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, WVP);
 }
 
 
 void GeomPacket::SetWorldMatrix(const M3DMatrix44f& W)
 {
-	glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
+	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
 
-	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
+	glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
 }
 
 
