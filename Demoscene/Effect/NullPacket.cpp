@@ -40,7 +40,7 @@ bool NullPacket::Init()
 
 void NullPacket::SetWVP(const M3DMatrix44f& WVP)
 {
-	glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP);
+	glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, WVP);
 
 	//glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, (const GLfloat*)WVP);
 }

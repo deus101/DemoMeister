@@ -19,6 +19,7 @@ struct s_mat
 	{
 		name = "           ";
 			shiny = 0.0f;
+			tUnit = NULL;
 	}
 std::string name;
 GLfloat amb[4];
@@ -26,6 +27,8 @@ GLfloat diff[4];
 GLfloat spec[4];
 GLfloat emmi[4];
 GLfloat shiny;
+GLint tUnit;
+
 };
 
 struct MATERIALS

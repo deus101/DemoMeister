@@ -1,20 +1,8 @@
-#
-#
-#
-
 mtllib quad.mtl
 
+g plane
 
-#
-# Plane_Plane_None Mesh
-#
-g Plane_Plane_None Mesh
-
-
-#
-# Plane_Plane_None Mesh_None
-#
-usemtl Plane_Plane_None Mesh_None
+usemtl default
 
 v -1.000000 0.000000 1.000000
 v 1.000000 0.000000 1.000000

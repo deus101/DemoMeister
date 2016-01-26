@@ -68,11 +68,11 @@ public:
 		M3DMatrix44f inverseView, viewT;
 		m3dLoadIdentity44(view);
 		kamera->getProjection(projection);
-		kamera->getAbsoluteTransform(view);
+		//kamera->getAbsoluteTransform(view);
 		kamera->getParent()->getLocalTransform(view);
 		//m3dTransposeMatrix44(viewT, view);
-		m3dInvertMatrix44(inverseView, view);
-		//view[12]
+		//m3dInvertMatrix44(inverseView, view);
+		//view[0] = 1.0f;
 		//view[13]
 		//view[14] =
 		//M3DVector4f vect, eyePos;

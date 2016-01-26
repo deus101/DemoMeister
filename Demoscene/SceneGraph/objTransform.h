@@ -57,9 +57,10 @@ namespace NS_SG
 					m3dTranslationMatrix44(m_tran, position.X, position.Y, position.Z);
 
 
-					m3dMatrixMultiply44(m_rotXtran, m_rot, m_tran);
+					m3dMatrixMultiply44(m_rotXtran, m_tran, m_rot);
+					//m3dMatrixMultiply44(m_rotXtran, m_rot, m_tran);
 
-					m3dMatrixMultiply44(m_ScaXrotXtran, m_rotXtran, m_scale);
+					m3dMatrixMultiply44(m_ScaXrotXtran, m_scale, m_rotXtran);
 
 					//m3dTransposeMatrix44(matrix, m_ScaXrotXtran);
 

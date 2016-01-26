@@ -7,7 +7,7 @@ namespace NS_SG
 	{
 	public:
 		lightNode(std::string name, NS_VEC::VEC3 _color, float _AmbientIntensity, float _DiffuseIntensity) : node(name), Color(_color), AmbientIntensity(_AmbientIntensity), DiffuseIntensity(_DiffuseIntensity){}
-		virtual NodeType getType() { return NODE_LIGHT_DIR; }
+		//virtual NodeType getType() { return NODE_LIGHT_DIR; }
 		
 		
 		virtual BaseLight GetLight() {

@@ -6,6 +6,7 @@
 //world as a scene object and going through a sceneloader?
 #include "Rendrer\context.h"
 #include "Engine\rendrer.h"
+#include "SceneGraph\sceneparser.h"
 #include "SceneGraph\assetNode.h"
 #include "SceneGraph\modelNode.h"
 #include "SceneGraph\dirLightNode.h"
@@ -184,7 +185,7 @@ int main(int argc, char** argv)
 
 	std::cout << "X! : " << pWidth  << std::endl;
 	std::cout << "Y! : " << pHeight  << std::endl;
-
+	glViewport(0, 0, (GLsizei)1600, (GLsizei)900);
 	//GBuffer* mGBuffer = new GBuffer();
 	//mGBuffer->Init(pWidth, pHeight);
 	//HGLRC initContext = wglGetCurrentContext();
@@ -208,27 +209,24 @@ int main(int argc, char** argv)
 
 	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 
+	
+
+	//boost::shared_ptr<NS_SG::composite>  test_Loader(NS_SG::parseScene("SimpleTest.xml"));
+
 	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
-	//NS_SG::camera kambot = NS_SG::camera("kambot");
+
 	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
-	//NS_SG::modelNode plane = NS_SG::modelNode
-	//NS_SG::objTransform tran_kambot = NS_SG::objTransform("tran_kambot");
+
 	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
 	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
 
 
 
-	//husk
-	//o_loader->addChild(&tran_kambot);
-
 	e_geom.Enable();
-	NS_ENG::model fly( "Mesh/p38.obj", "Mesh/p38.mtl");
-	//NS_ENG::model fly("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
-	NS_ENG::model ball("Mesh/sphere.obj", "Mesh/sphere.mtl");
-	//NS_ENG::model fly(*mContext, "Mesh/quad.obj", "Mesh/quad.mtl");
 
-	//NS_SG::modelNode()
+	NS_ENG::model fly( "Mesh/fixedP38.obj", "Mesh/newP38.mtl");
+	NS_ENG::model ball("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
 
 
 	
@@ -252,17 +250,12 @@ int main(int argc, char** argv)
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
-	
 	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	//e_dir.SetDirectionalLight(m_dirLight);
-	//e_dir.SetScreenSize(pWidth, pHeight);
+
 	e_dir.SetScreenSize(1600, 900);
-	//e_dir.AmbientIntensity = 0.1f;
-	//e_dir.Color = COLOR_CYAN;
-	//e_dir.DiffuseIntensity = 0.5f;
-	//e_dir.Direction = Vector3f(1.0f, 0.0f, 0.0f);
+
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);
 	e_dir.SetWVP(WVP);
@@ -270,26 +263,19 @@ int main(int argc, char** argv)
 
 	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
 
-	//this should not be started here.
-	//e_geom.Enable();
 
-	//NS_SG::modelNode n_fly = NS_SG::modelNode("plane", &fly, &e_geom);
 	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
 
 	boost::shared_ptr<NS_SG::modelNode> n_ball(new NS_SG::modelNode("balle", &ball, &e_geom));
 
-	//NS_SG::objTransform tran_fly = NS_SG::objTransform("tran_plane");
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
 	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	tran_fly->setRotation(NS_VEC::QUAT(0.0f, 30.0f, 0.0f));
-	//NS_VEC::QUAT()
-	tran_fly->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
-	//tran_fly->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
+
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
-	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 1.0f, 0.0f));
-	//tran_ball->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
-	tran_ball->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	tran_ball->setRotation(NS_VEC::QUAT(0.0f, -45.0f, 0.0f));
+	tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
 	
 	
 	tran_ball->addChild(n_ball.get());
@@ -302,7 +288,7 @@ int main(int argc, char** argv)
 
 	//tran_kambot->addChild(kambot.get());
 
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 10.0f));
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
 	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
 	//tran_kambot->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 	
@@ -323,7 +309,7 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
 
-	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.5f, 0.4f, 0.1f, 0.5f, 0.3f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
 	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
 	tran_Point->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
@@ -334,26 +320,25 @@ int main(int argc, char** argv)
 	tran_Point->addChild(n_point_lys.get());
 	//tran_Point2->addChild(tran_Point.get());
 	o_loader->addChild(tran_Point.get());
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.0f, 1.0f, 1.0f), 1.0f, 1.0f, &e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 0.612f), 0.1f, 0.5f, &e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	
 	
 	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
-	//tran_Dir->setPosition(NS_VEC::VEC3(10.0f, 5.0f, 0.0f));
-	//tran_Dir->setRotation(NS_VEC::QUAT(-45.0f, 90.0f, 0.0f));
+
 	tran_Dir->addChild(n_dir_lys.get());
 
 	o_loader->addChild(tran_Dir.get());
 	
-	e_point.Enable();
+
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	e_null.Enable();
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	e_dir.Enable();
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
 
+
+	//o_loader->
 	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get());
 
 

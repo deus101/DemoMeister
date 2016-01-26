@@ -210,7 +210,7 @@ void ContextRun(ICallbacks* pCallbacks)
 
 	while (!glfwWindowShouldClose(s_pWindow)) {
 		s_pCallbacks->RenderSceneCB();
-		glfwSwapBuffers(s_pWindow);
+		//glfwSwapBuffers(s_pWindow);
 		glfwPollEvents();
 	}
 	
@@ -220,6 +220,7 @@ void ContextRun(ICallbacks* pCallbacks)
 void Swap()
 {
 	glfwSwapBuffers(s_pWindow);
+	
 	//glutSwapBuffers();
 
 }

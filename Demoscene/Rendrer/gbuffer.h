@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class GBuffer
 {
 public:
-
+	//GBUFFER_TEXTURE_TYPE_TEXCOORD,
 	enum GBUFFER_TEXTURE_TYPE {
 		GBUFFER_TEXTURE_TYPE_POSITION,
 		GBUFFER_TEXTURE_TYPE_DIFFUSE,

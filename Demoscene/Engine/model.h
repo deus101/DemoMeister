@@ -28,7 +28,9 @@ namespace NS_ENG{
 		}
 		GLuint vao;
 		GLuint vbo;
-		std::vector<unsigned short> IBO;
+		std::vector<unsigned int> IBO;
+		//std::vector<unsigned short> IBO;
+
 
 		//been to long...
 		//VEC3 amb;
@@ -37,7 +39,7 @@ namespace NS_ENG{
 		NS_VEC::VEC3 spec;
 		NS_VEC::VEC3 emi;
 		NS_VEC::VEC3 shiny;
-
+		GLuint tex;
 	};
 
 	struct PackedVertex{
@@ -92,11 +94,15 @@ namespace NS_ENG{
 	private:
 		bool getSimilarVertexIndex_fast(
 			PackedVertex & packed,
-			std::map<PackedVertex, unsigned short> & VertexToOutIndex,
-			unsigned short & result
+			//std::map<PackedVertex, unsigned short> & VertexToOutIndex,
+			//unsigned short & result
+			std::map<PackedVertex, unsigned int> & VertexToOutIndex,
+			unsigned int & result
 			)
 		{
-			std::map<PackedVertex, unsigned short>::iterator it = VertexToOutIndex.find(packed);
+			//std::map<PackedVertex, unsigned short>::iterator it = VertexToOutIndex.find(packed);
+
+			std::map<PackedVertex, unsigned int>::iterator it = VertexToOutIndex.find(packed);
 			if (it == VertexToOutIndex.end()){
 				return false;
 			}

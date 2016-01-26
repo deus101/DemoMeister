@@ -81,6 +81,12 @@
     <ClCompile Include="util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SceneGraph\sceneparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGraph\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -189,6 +195,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendrer\callbacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\sceneparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

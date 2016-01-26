@@ -31,7 +31,8 @@ model::model( string obj, string mtl)
 
 	Sort_Groups.clear();
 
-	map<PackedVertex, unsigned short> VertexToOutIndex;
+	map<PackedVertex, unsigned int> VertexToOutIndex;
+//	map<PackedVertex, unsigned short> VertexToOutIndex;
 
 	for (unsigned int u = 0; u < meshy.m_Groups.size(); u++)
 	{
@@ -49,7 +50,10 @@ model::model( string obj, string mtl)
 					meshy.m_Uvs[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_UID],
 					meshy.m_Norms[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_NID]
 				};
-				unsigned short index;
+				unsigned int index;
+				//unsigned short index;
+			
+
 
 				bool found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
 
@@ -64,7 +68,9 @@ model::model( string obj, string mtl)
 					Sort_Uvs.push_back(meshy.m_Uvs[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_UID]);
 					Sort_Norms.push_back(meshy.m_Norms[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_NID]);
 
-					unsigned short newindex = (unsigned short)Sort_Pos.size() - 1;
+					//unsigned short newindex = (unsigned short)Sort_Pos.size() - 1;
+
+					unsigned int newindex = (unsigned int)Sort_Pos.size() - 1;
 					MG.IBO.push_back(newindex);
 					VertexToOutIndex[packed] = newindex;
 				}
@@ -89,10 +95,10 @@ model::model( string obj, string mtl)
 		//MG.dif = palette.m_Materials[ meshy.m_Groups[u].matid ].diff;
 		//MG.emi = palette.m_Materials[ meshy.m_Groups[u].matid ].emmi;
 		//MG.spec = palette.m_Materials[ meshy.m_Groups[u].matid].shiny
-		
+		//palette.m
 		//cout << "group color is :" << u << endl;
 		//meshy.m_Pos.
-
+		MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].tUnit;
 
 		Sort_Groups.push_back(MG);
 
@@ -153,7 +159,9 @@ model::model( string obj, string mtl)
 
 		glGenBuffers(1, &Sort_Groups[j].vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned short), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned int), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned short), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
+		
 	}
 
 
@@ -252,21 +260,32 @@ void model::Draw()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
 	{
+		//void Texture::Bind(GLenum TextureUnit)
+		//{
 
+		//}
 
 		glBindVertexArray(Sort_Groups[i].vao);
 
+		if (Sort_Groups[i].tex != NULL)
+		{
+			glActiveTexture(COLOR_TEXTURE_UNIT);
+			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
+		}
 		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
 		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
 		//gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
 		//gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
 		//glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, (GLintptr)_data.indices.length, _data.indices.bytes);
-		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_SHORT, (void*)0);
-		//gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
+		//glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_SHORT, (void*)0);
+		
+		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
 
-		//gl::BindVertexArray(0);
+		//gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
+		
+		//glBindVertexArray(0);
 	}
-	//gl::BindVertexArray(0);
+	glBindVertexArray(0);
 
 }
 

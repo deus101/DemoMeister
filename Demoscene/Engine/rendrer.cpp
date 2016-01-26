@@ -87,85 +87,21 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			//Node->g
 			Node->getAbsoluteTransform(world);
 
-
-			std::cout << "Node: " << Node->getName() << " Pos: " << endl;
-			std::cout << "[" << world[0] << "] ";
-			std::cout << "[" << world[1] << "] ";
-			std::cout << "[" << world[2] << "] ";
-			std::cout << "[" << world[3] << "] " << endl;
-
-			std::cout << "[" << world[4] << "] ";
-			std::cout << "[" << world[5] << "] ";
-			std::cout << "[" << world[6] << "] ";
-			std::cout << "[" << world[7] << "] " << endl;
-
-			std::cout << "[" << world[8] << "] ";
-			std::cout << "[" << world[9] << "] ";
-			std::cout << "[" << world[10] << "] ";
-			std::cout << "[" << world[11] << "] " << endl;
-
-			std::cout << "[" << world[12] << "] ";
-			std::cout << "[" << world[13] << "] ";
-			std::cout << "[" << world[14] << "] ";
-			std::cout << "[" << world[15] << "] " << endl;
 			M3DMatrix44f wv, wvp, vp;
 
 			//assert(NULL != p);
 			M3DMatrix44f world_view_proj, matWVP_inv;
-//			m3dMatrixMultiply44(wv, world, view);
+//			m3dMatrixMultiply44(wv, view, world);
 
-			m3dMatrixMultiply44(wv, view, world);
+			//m3dMatrixMultiply44(wv, world, view);
 			
 			//m3dMatrixMultiply44(vp, view, projection );
-			/*
-			std::cout << "World View Matrix " << endl;
-			std::cout << "[" << wv[0] << "] ";
-			std::cout << "[" << wv[1] << "] ";
-			std::cout << "[" << wv[2] << "] ";
-			std::cout << "[" << wv[3] << "] " << endl;
+			m3dMatrixMultiply44(vp, projection, view);
 
-			std::cout << "[" << wv[4] << "] ";
-			std::cout << "[" << wv[5] << "] ";
-			std::cout << "[" << wv[6] << "] ";
-			std::cout << "[" << wv[7] << "] " << endl;
-
-			std::cout << "[" << wv[8] << "] ";
-			std::cout << "[" << wv[9] << "] ";
-			std::cout << "[" << wv[10] << "] ";
-			std::cout << "[" << wv[11] << "] " << endl;
-
-			std::cout << "[" << wv[12] << "] ";
-			std::cout << "[" << wv[13] << "] ";
-			std::cout << "[" << wv[14] << "] ";
-			std::cout << "[" << wv[15] << "] " << endl;
-			*/
-			m3dMatrixMultiply44(wvp, projection, wv );
+			//m3dMatrixMultiply44(wvp, projection, wv );
 
 			//m3dMatrixMultiply44(wvp,  world , vp);
-
-
-			std::cout << "World View Projection " << endl;
-			std::cout << "[" << wvp[0] << "] ";
-			std::cout << "[" << wvp[1] << "] ";
-			std::cout << "[" << wvp[2] << "] ";
-			std::cout << "[" << wvp[3] << "] " << endl;
-
-			std::cout << "[" << wvp[4] << "] ";
-			std::cout << "[" << wvp[5] << "] ";
-			std::cout << "[" << wvp[6] << "] ";
-			std::cout << "[" << wvp[7] << "] " << endl;
-
-			std::cout << "[" << wvp[8] << "] ";
-			std::cout << "[" << wvp[9] << "] ";
-			std::cout << "[" << wvp[10] << "] ";
-			std::cout << "[" << wvp[11] << "] " << endl;
-
-			std::cout << "[" << wvp[12] << "] ";
-			std::cout << "[" << wvp[13] << "] ";
-			std::cout << "[" << wvp[14] << "] ";
-			std::cout << "[" << wvp[15] << "] " << endl;
-
-			
+			m3dMatrixMultiply44(wvp, vp, world);
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			m3dCopyMatrix44(Tmp.sTransform, world);
 			//m3dInvertMatrix44(matWVP_inv, world_view_proj);
@@ -200,35 +136,9 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			Node->getAbsoluteTransform(world);
 
 			
-			
-
-
-				std::cout << "Node: " << Node->getName() << " Pos: " << endl;
-
-				std::cout << "[" << world[0] << "] ";
-				std::cout << "[" << world[1] << "] ";
-				std::cout << "[" << world[2] << "] ";
-				std::cout << "[" << world[3] << "] " << endl;
-
-				std::cout << "[" << world[4] << "] ";
-				std::cout << "[" << world[5] << "] ";
-				std::cout << "[" << world[6] << "] ";
-				std::cout << "[" << world[7] << "] " << endl;
-
-				std::cout << "[" << world[8] << "] ";
-				std::cout << "[" << world[9] << "] ";
-				std::cout << "[" << world[10] << "] ";
-				std::cout << "[" << world[11] << "] " << endl;
-
-				std::cout << "[" << world[12] << "] ";
-				std::cout << "[" << world[13] << "] ";
-				std::cout << "[" << world[14] << "] ";
-				std::cout << "[" << world[15] << "] " << endl;
-				
-
 
 			s_LPL = lPoint->GetPointLight();
-			M3DMatrix44f wv, wvp;
+			M3DMatrix44f wv, wvp , vp;
 
 			//assert(NULL != p);
 			//M3DMatrix44f world_view_proj, matWVP_inv;
@@ -241,11 +151,12 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
 			
 			
-			m3dMatrixMultiply44(wv, view, w_scaled );
-			
-			
-			m3dMatrixMultiply44(wvp, projection, wv);
+			//m3dMatrixMultiply44(wv, view, w_scaled );
+			m3dMatrixMultiply44(vp, projection, view);
 
+			
+			m3dMatrixMultiply44(wvp, vp, w_scaled);
+			//m3dMatrixMultiply44(wvp, projection, wv);
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			
 
@@ -272,20 +183,21 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		if (NULL != lDir->LightMagic)
 		{
 			M3DMatrix44f world;
+			m3dLoadIdentity44(world);
 			//Node->g
-			Node->getAbsoluteTransform(world);
-			M3DMatrix44f wv, wvp,vp;
+			//Node->getAbsoluteTransform(world);
+			//M3DMatrix44f wv, wvp,vp;
 
 			//assert(NULL != p);
-			M3DMatrix44f world_view_proj, matWVP_inv;
-			m3dMatrixMultiply44(wv, view, world );
+			//M3DMatrix44f world_view_proj, matWVP_inv;
+			//m3dMatrixMultiply44(wv, view, world );
 
-			m3dMatrixMultiply44(wvp, projection, wv);
+			//m3dMatrixMultiply44(wvp, projection, wv);
 
 			
 			Tmp.sNode = lDir;
 			Tmp.sDL = lDir->GetDirLight();
-			m3dCopyMatrix44(Tmp.sWVP, wvp);
+			m3dCopyMatrix44(Tmp.sWVP, world);
 
 
 
@@ -367,51 +279,6 @@ void rendrer::RenderSceneCB()
 	NS_VEC::VEC3 EyeWorldPos(inverseView[12], inverseView[13], inverseView[14]);
 	//NS_VEC::VEC3 EyeWorldPos(view[3], view[7], view[11]);
 
-	//kamera->
-	std::cout << "ViewMatrix : " << endl;
-
-	std::cout << "[" << view[0] << "] ";
-	std::cout << "[" << view[1] << "] ";
-	std::cout << "[" << view[2] << "] ";
-	std::cout << "[" << view[3] << "] " << endl;
-
-	std::cout << "[" << view[4] << "] ";
-	std::cout << "[" << view[5] << "] ";
-	std::cout << "[" << view[6] << "] ";
-	std::cout << "[" << view[7] << "] " << endl;
-
-	std::cout << "[" << view[8] << "] ";
-	std::cout << "[" << view[9] << "] ";
-	std::cout << "[" << view[10] << "] ";
-	std::cout << "[" << view[11] << "] " << endl;
-
-	std::cout << "[" << view[12] << "] ";
-	std::cout << "[" << view[13] << "] ";
-	std::cout << "[" << view[14] << "] ";
-	std::cout << "[" << view[15] << "] " << endl;
-
-
-	std::cout << "Projection : " << endl;
-	
-	std::cout << "[" << projection[0] << "] ";
-	std::cout << "[" << projection[1] << "] ";
-	std::cout << "[" << projection[2] << "] ";
-	std::cout << "[" << projection[3] << "] " << endl;
-
-	std::cout << "[" << projection[4] << "] ";
-	std::cout << "[" << projection[5] << "] ";
-	std::cout << "[" << projection[6] << "] ";
-	std::cout << "[" << projection[7] << "] " << endl;
-
-	std::cout << "[" << projection[8] << "] ";
-	std::cout << "[" << projection[9] << "] ";
-	std::cout << "[" << projection[10] << "] ";
-	std::cout << "[" << projection[11] << "] " << endl;
-
-	std::cout << "[" << projection[12] << "] ";
-	std::cout << "[" << projection[13] << "] ";
-	std::cout << "[" << projection[14] << "] ";
-	std::cout << "[" << projection[15] << "] " << endl;
 
 	for (vPITc ip = beginVisiblePoint(); ip != endVisiblePoint(); ++ip) {
 		ip->sNode->NullMagic->Enable();
@@ -473,11 +340,14 @@ void rendrer::RenderSceneCB()
 
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
 
+		id->sNode->LightMagic->Enable();
+
 		mgBuffer->BindForLightPass();
+
 
 		//NS_REND::mGBuffer->BindForLightPass();
 
-		id->sNode->LightMagic->Enable();
+		//id->sNode->LightMagic->SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
 		id->sNode->LightMagic->SetWVP(id->sWVP);

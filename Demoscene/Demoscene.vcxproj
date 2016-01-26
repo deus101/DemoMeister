@@ -98,7 +98,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\Libs;C:\glfw-3.1.1.bin.WIN32\lib-vc2013;C:\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <LinkStatus>true</LinkStatus>
     </Link>
@@ -188,6 +188,8 @@
     <ClCompile Include="Effect\NullPacket.cpp" />
     <ClCompile Include="Effect\PointLightPacket.cpp" />
     <ClCompile Include="Rendrer\buffers.cpp" />
+    <ClCompile Include="SceneGraph\sceneparser.cpp" />
+    <ClCompile Include="SceneGraph\tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="SceneGraph\camera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -225,6 +227,8 @@
     <ClInclude Include="SceneGraph\dirLightNode.h" />
     <ClInclude Include="SceneGraph\lightNode.h" />
     <ClInclude Include="SceneGraph\pointLightNode.h" />
+    <ClInclude Include="SceneGraph\sceneparser.h" />
+    <ClInclude Include="SceneGraph\tinyxml2.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Engine\materials.h" />
     <ClInclude Include="Math\math3d.h" />
