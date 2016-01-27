@@ -139,50 +139,33 @@ using namespace NS_SG;
 	//			counter = 0.0f;
 	//			clock.restart();
 	//		}
-
 	//		//counter = counter + 0.01f;
-
-
 	//		
-
-
 	//		for (unsigned int i = 0; i < herd.size(); i++)
 	//		{
 	//			//QUAT qStart(90, 0, 1, 0);
 	//			//QUAT qEnd = QUAT(90, 0, 0, 1) * QUAT(90, 0, 0, 1);
-
-
 	//			//Animation handler, but how to handle transofrmation data and calls?
 	//			//should scripting functions take place here or in another class?
-
-
-
-
 	//			/*
 	//			if(  typeid( * herd[i].get())==typeid( camera ))
 	//			cout << "actor nr: " << i << " is camera" << endl;
-
-
 	//			if(  typeid( * herd[i].get())==typeid( model ))
 	//			cout << "actor nr: " << i << " is model" << endl;
 	//			*/
-
 	//			if (typeid(*herd[i].get()) == typeid(camera))
 	//			{
 	//				//herd[i]->TranslateLocal(1.0f * second, 5.0f, 15.0f + (-0.05f * 10 * second));
 	//				//herd[i]->f
 	//				herd[i]->RotateLocal(30.0f  * second , 1.0f, 0.0f, 0.0f);
 	//				//herd[i]->SetModel();
-
 	//				//for lookat må man inverse
 	//			}
-
 	//			if (typeid(*herd[i].get()) == typeid(model))
 	//			{ 
 	//				
 	//				//herd[i]->RotateLocal(float(sync_get_val(Peek_C_L_Y,second )), 0, 1, 0 );
 	//				//herd[i]->RotateLocal(qStart.Slerp(qEnd, second));
-
 	//				herd[i]->RotateLocal(90 * second, 0.0f, 1.0f, 0.0f);
 	//				//herd[i]->TranslateLocal(0.0f, 0.0f, -second );
 	//				//er ikke dette alt jeg trenger til gnu rocket?
@@ -196,13 +179,11 @@ using namespace NS_SG;
 	//				//}
 	//			//herd[i]->RotateLocal(1.0f, 1.0f, 0.0f, 0.0f);
 	//				//herd[i]->TranslateLocal(0.0f, 0.0f, 2.0f * clock.elapsed());
-
 	//			}
 	//			//herd[i]->Translate(0.0f, 0.0f, 0.05f);
 	//			//if(draw)
 	//			herd[i]->draw();
 	//		}
-
 	//		
 
 	//		second = second + (clock.elapsed());

@@ -46,7 +46,7 @@ static void IdleCB()
 }
 
 
-static void InitCallbacks()
+ void InitCallbacks()
 {
 	//glutDisplayFunc(RenderSceneCB);
 	//glutIdleFunc(IdleCB);
@@ -54,6 +54,8 @@ static void InitCallbacks()
 	//glutPassiveMotionFunc(PassiveMouseCB);
 	//glutKeyboardFunc(KeyboardCB);
 	//glutMouseFunc(MouseCB);
+	
+	glfwSetKeyCallback(s_pWindow, KeyboardCB);
 }
 
 
@@ -222,7 +224,7 @@ void Swap()
 	glfwSwapBuffers(s_pWindow);
 	
 	//glutSwapBuffers();
-
+	
 }
 
 void LeaveMainLoop()

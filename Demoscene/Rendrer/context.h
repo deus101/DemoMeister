@@ -32,6 +32,8 @@
 
 		//context();
 		//~context();
+		void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 		void ErrorCallback(int error, const char* description);
 		//void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
@@ -46,7 +48,7 @@
 
 		void Swap();
 
-		
+		void LeaveMainLoop();
 
 		unsigned int GetPixelWidth() ;
 

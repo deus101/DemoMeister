@@ -234,6 +234,12 @@ void rendrer::RenderSceneCB()
 	M3DMatrix44f world;
 	m3dLoadIdentity44(world);
 	//std::cout << "Does it work";
+
+	
+	//scene->an
+
+
+
 	visit(scene, world );
 
 	

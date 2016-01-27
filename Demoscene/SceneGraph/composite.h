@@ -114,7 +114,7 @@ namespace NS_SG{
 				//node *oNode = findChild(name);
 				nodePtr oNode = findChild(name);
 				if (NULL == oNode) return NULL;
-
+				
 				// type check
 				if (oNode->getType() != t) return NULL;
 				return reinterpret_cast<T>(oNode);

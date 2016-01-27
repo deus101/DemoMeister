@@ -157,7 +157,19 @@ void SetupRC()
 	//test.findChild("hoo");
 }
 
-
+void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	switch (key) {
+	case GLFW_KEY_ESCAPE:
+	case GLFW_KEY_Q:
+		LeaveMainLoop();
+		break;
+	case GLFW_KEY_SPACE:
+		std::cout << "Space Pressed " <<  std::endl;
+	//default:
+	//	m_pGameCamera->OnKeyboard(OgldevKey);
+	}
+}
 
 
 
@@ -217,7 +229,6 @@ int main(int argc, char** argv)
 
 
 	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
-
 	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
 	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
 
@@ -338,22 +349,18 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
 
 
+	NS_SG::objectAnim test =  NS_SG::objectAnim();
+
+
+
+	o_loader->addObjectAnime(tran_kambot.get(), test);
+
+	//test->
+
 	//o_loader->
 	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get());
 
 
-
-	//STOP DEFINING THE SHIT!
-	//glutReshapeFunc(ChangeSize);
-	//glutDisplayFunc(callRenderScene);
-	//glutTimerFunc(33, TimerFunction, 1);
-	//glutIdleFunc(IdleFunc);
-	//glutFullScreen();
-	//glutMainLoop();
-	//gl::Finish();
-	//mRender->draw();
-	//wglMakeCurrent(nullptr, nullptr);
-	//wglDeleteContext(RendCont);
 	mRender->Run();
 
 

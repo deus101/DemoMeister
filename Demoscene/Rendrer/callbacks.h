@@ -1,13 +1,14 @@
 #ifndef CALLBACKS_H
 #define CALLBACKS_H
 
-//#include "ogldev_keys.h"
+
+#include "GLFW\glfw3.h"
 
 class ICallbacks
 {
 public:
 
-	//virtual void KeyboardCB(OGLDEV_KEY OgldevKey) {};
+	//virtual void KeyboardCB(GLFWkeyfun cbKey) {};
 
 	//virtual void PassiveMouseCB(int x, int y) {};
 
