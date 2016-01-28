@@ -19,7 +19,7 @@ namespace NS_SG
 		
 		PointLight GetPointLight()  {
 			M3DMatrix44f world;
-			//Node->ghere fuckes opp
+			
 			getAbsoluteTransform(world);
 			BaseLight s_bl = GetLight();
 			PointLight s_pl;

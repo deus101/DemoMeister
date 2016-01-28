@@ -1,6 +1,6 @@
 #pragma once
 
-
+//yeah, not sure what i was thinking... though i should have a repository of somekind for various assets.
 class buffers
 {
 public:

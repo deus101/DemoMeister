@@ -62,6 +62,8 @@ namespace NS_SG{
 
 			void setParent(nodePtr node){ parent = svakRef(node); }
 
+
+			//trouble?
 			nodePtr getParent() const { return parent.lock(); }
 
 			////! returns the node's parent node (provide a templated function for easier down-casting of nodes)
@@ -108,11 +110,9 @@ namespace NS_SG{
 					curr = curr->parent.lock();
 
 					curr->getLocalTransform(currentTransform);
-//Is this the problem?=
-//					m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
 
 					m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
-					//				absoluteTransform = curr->getLocalTransform() * absoluteTransform;
+
 				}
 
 				m3dCopyMatrix44(in, absoluteTransform);

@@ -3,7 +3,6 @@
 #define	DS_POINT_LIGHT_PASS_TECH_H
 
 #include "lightPacket.h"
-//#include "lights_common.h"
 namespace NS_EFF{
 
 	class PointLightPacket : public lightPacket

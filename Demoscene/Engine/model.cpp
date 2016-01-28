@@ -1,11 +1,8 @@
 #include "model.h"
 
 #include <iostream>
-//#include "shaders.h"
 //#include "vsGLInfoLib.h"
 
-//nei nei nei
-//extern Shader_Progs o_progs;
 using namespace NS_ENG;
 
 using namespace std;
@@ -32,7 +29,6 @@ model::model( string obj, string mtl)
 	Sort_Groups.clear();
 
 	map<PackedVertex, unsigned int> VertexToOutIndex;
-//	map<PackedVertex, unsigned short> VertexToOutIndex;
 
 	for (unsigned int u = 0; u < meshy.m_Groups.size(); u++)
 	{
@@ -105,7 +101,6 @@ model::model( string obj, string mtl)
 
 	}
 
-	//lasting av data til CPU man jeg trenger en funksjon som henter shaderprogram(gjør jeg det?) og laster buffrer
 	
 	//Husk å generer programmet før dette
 	//gl::UseProgram(aContext.Program);
@@ -160,7 +155,6 @@ model::model( string obj, string mtl)
 		glGenBuffers(1, &Sort_Groups[j].vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned int), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned short), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
 		
 	}
 
@@ -188,46 +182,6 @@ model::~model()
 }
 
 
-//FEIL FEIL FEIL
-//RENDER QUE! NUH!
-
-
-		//cout << "nr indices for: " << i << " is " << Sort_Groups[i].IBO.size() << endl;
-		//VSGLInfoLib::getBufferInfo(gl::GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[i].vbo);
-		//VSGLInfoLib::getCurrentBufferInfo();
-
-		//VSGLInfoLib::getBufferInfo(gl::
-
-
-	
-
-	//VSGLInfoLib::getProgramInfo(o_progs.ShaderObject);
-	//VSGLInfoLib::getUniformsInfo(o_progs.ShaderObject);
-	//VSGLInfoLib::getCurrentBufferInfo();
-	//VSGLInfoLib::getAttributesInfo(o_progs.ShaderObject);
-
-
-	//VSGLInfoLib::getProgramInfo(o_progs.ShaderObject);
-	//VSGLInfoLib::getUniformInfo(o_progs.ShaderObject, "V");
-	//VSGLInfoLib::getUniformInfo(o_progs.ShaderObject, "P");
-	//VSGLInfoLib::getUniformInfo(o_progs.ShaderObject, "M");
-	//VSGLInfoLib::getUniformInfo(o_progs.ShaderObject, "MV");
-
-	//VSGLInfoLib::getCurrentBufferInfo();
-
-	//gl::DisableVertexAttribArray(0);
-	//gl::DisableVertexAttribArray(1);
-	//gl::DisableVertexAttribArray(2);
-
-
-
-
-
-
-
-
-
-	//unifor for model matrix
 
 void model::Draw()
 {
@@ -256,14 +210,11 @@ void model::Draw()
 
 
 
-	////gl::PolygonMode(gl:: GL_FRONT_AND_BACK, gl::GL_FILL);
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
 	{
-		//void Texture::Bind(GLenum TextureUnit)
-		//{
-
-		//}
+	
 
 		glBindVertexArray(Sort_Groups[i].vao);
 
@@ -281,9 +232,7 @@ void model::Draw()
 		
 		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
 
-		//gl::DrawElements(gl::TRIANGLES, Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
-		
-		//glBindVertexArray(0);
+
 	}
 	glBindVertexArray(0);
 

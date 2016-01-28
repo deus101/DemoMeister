@@ -1,9 +1,8 @@
 
-#ifndef OGLDEV_UTIL_H
-#define	OGLDEV_UTIL_H
+#ifndef UTIL_HPP
+#define	UTIL_HPP
 
-//#include <glload/gl_all.hpp>
-//#include <glload/gl_load.hpp>
+
 #include "math/math3d.h"
 #include "math/vec.h"
 #include <GLFW/glfw3.h>
@@ -19,10 +18,12 @@
 
 
 using namespace std;
-void devError(const char* pFileName, unsigned int line, const char* pError);
+void EngError(const char* fn, unsigned int ln, const char* msg);
+void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 
-#define ENG_ERROR(Error) OgldevError(__FILE__, __LINE__, Error);
+#define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
+#define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
 
 struct BaseLight
 {
@@ -87,9 +88,6 @@ struct SpotLight : public PointLight
 #define COLOR_BLUE Vector3f(0.0f, 0.0f, 1.0f)
 
 
-#define OGLDEV_ERROR(Error) OgldevError(__FILE__, __LINE__, Error);
-#define OGLDEV_FILE_ERROR(FileError) OgldevFileError(__FILE__, __LINE__, FileError);
-
 #define ZERO_MEM(a) memset(a, 0, sizeof(a))
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
 
@@ -109,5 +107,5 @@ struct SpotLight : public PointLight
 #define MOTION_TEXTURE_UNIT             GL_TEXTURE5
 #define MOTION_TEXTURE_UNIT_INDEX       5
 
-#endif	/* OGLDEV_UTIL_H */
+#endif	
 

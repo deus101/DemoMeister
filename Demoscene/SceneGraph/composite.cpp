@@ -102,7 +102,7 @@ using namespace NS_SG;
 
 
 
-		//denne kan bruker til noe lurt
+		//denne kan gjenbrukes til noe lurt
 
 		void composite::AddActor(int typeID, GLfloat x, GLfloat y, GLfloat z)
 		{
@@ -225,45 +225,8 @@ using namespace NS_SG;
 		{
 
 			//rocket = sync_create_device("sync");
-			//er blir det ikke noe start posisjon
-			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
-			
 
-		
-			//herd[1]->RotateLocal(qStart.Slerp(qEnd, 0.01f));
-			//herd[1]->TranslateLocal(-10.0f, 30.0f, 0.0f);
-			//herd[1]->RotateLocal( QUAT(90,0,1,0) );
-			
-			/*
-			VEC3 axRot;
-			float axDeg;
-			qStart.Slerp(qEnd, 0.0f).TAA(axRot, axDeg);
-			herd[1]->RotateLocal(axDeg, axRot.X, axRot.Y, axRot.Z);
-			VEC3 axRot2;
-			float axDeg2;
-			qStart.Slerp(qEnd, 0.7f).TAA(axRot2, axDeg2);
-			herd[2]->RotateLocal(axDeg2, axRot2.X, axRot2.Y, axRot2.Z);
-			VEC3 axRot3;
-			float axDeg3;
-			qStart.Slerp(qEnd, 1.0).TAA(axRot3, axDeg3);
-			herd[3]->RotateLocal(axDeg3, axRot3.X, axRot3.Y, axRot3.Z);
-			*/
-			/*
-			VEC3 axRot4;
-			float axDeg4;
-			qStart.Slerp(qEnd, 20.0).TAA(axRot4, axDeg4);
-			herd[4]->RotateLocal(axDeg4, axRot4.X, axRot4.Y, axRot4.Z);
-			VEC3 axRot5;
-			float axDeg5;
-			qStart.Slerp(qEnd, 30.0f).TAA(axRot5, axDeg5);
-			herd[5]->RotateLocal(axDeg5, axRot5.X, axRot5.Y, axRot5.Z);
-			*/
-			//herd[1]->RotateLocal(-25.0f, 1.0f, 0.0f, 0.0f);
-			//herd[1]->RotateLocal(15.0f, 0.0f, 1.0f, 0.0f);
-			//herd[1]->RotateLocal(-15.0f, 0.0f, 0.0f, 1.0f);
-			//herd[1]->TranslateLocal(0.0f, 1.0f, 0.0f);
-			//herd[2]->ScaleLocal(3.0f);
-			//herd[2]->RotateLocal(90.0f, 1.0f, 0.0f, 0.0f);
+
 		/*	Peek_C_L_X = sync_get_track( rocket, "Look.X");
 			Peek_C_L_Y = sync_get_track( rocket, "Look.Y");
 			Peek_C_L_Z = sync_get_track( rocket, "Look.Z");

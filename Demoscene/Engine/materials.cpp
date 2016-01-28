@@ -77,7 +77,6 @@ namespace NS_MAT
 				char path[50];
 				fscanf(mtlFile, "%s \n", &path);
 				FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(path, 0);
-				//FreeImageIO
 				FIBITMAP* imagen = FreeImage_Load(formato, path);
 
 				FIBITMAP* temp = imagen;

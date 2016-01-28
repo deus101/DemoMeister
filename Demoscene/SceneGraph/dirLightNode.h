@@ -1,7 +1,6 @@
 #pragma once
 #include "lightNode.h"
 #include "../Effect/DirLightPacket.h"
-//#include "math3d.h"
 namespace NS_SG
 {
 	class dirLightNode : public lightNode
@@ -16,7 +15,6 @@ namespace NS_SG
 			M3DMatrix44f world;
 			getAbsoluteTransform(world);
 
-	
 			NS_VEC::VEC3 dir(1.0f, 0.0f, 0.0f);
 			dir.NormIt();
 
