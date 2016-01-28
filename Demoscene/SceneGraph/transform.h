@@ -1,6 +1,5 @@
 #pragma once
 #include "node.h"
-//#include "math3d.h"
 namespace NS_SG
 {
 		class transform : public node

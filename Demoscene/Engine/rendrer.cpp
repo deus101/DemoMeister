@@ -26,52 +26,8 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		//M3DMatrix44f world, local;
 		//cammy->getAbsoluteTransform(world);
 
-		//std::cout << "Node: " << Node->getName() << " Pos: " << endl;
-		//std::cout << "[" << world[0] << "] ";
-		//std::cout << "[" << world[1] << "] ";
-		//std::cout << "[" << world[2] << "] ";
-		//std::cout << "[" << world[3] << "] " << endl;
-
-		//std::cout << "[" << world[4] << "] ";
-		//std::cout << "[" << world[5] << "] ";
-		//std::cout << "[" << world[6] << "] ";
-		//std::cout << "[" << world[7] << "] " << endl;
-
-		//std::cout << "[" << world[8] << "] ";
-		//std::cout << "[" << world[9] << "] ";
-		//std::cout << "[" << world[10] << "] ";
-		//std::cout << "[" << world[11] << "] " << endl;
-
-		//std::cout << "[" << world[12] << "] ";
-		//std::cout << "[" << world[13] << "] ";
-		//std::cout << "[" << world[14] << "] ";
-		//std::cout << "[" << world[15] << "] " << endl;
-
-
 		//cammy->getLocalTransform(local);
-		//std::cout << "Node: " << Node->getName() << " local transform matrix: " << endl;
 
-		//std::cout << "[" << local[0] << "] ";
-		//std::cout << "[" << local[1] << "] ";
-		//std::cout << "[" << local[2] << "] ";
-		//std::cout << "[" << local[3] << "] " << endl;
-
-		//std::cout << "[" << local[4] << "] ";
-		//std::cout << "[" << local[5] << "] ";
-		//std::cout << "[" << local[6] << "] ";
-		//std::cout << "[" << local[7] << "] " << endl;
-
-		//std::cout << "[" << local[8] << "] ";
-		//std::cout << "[" << local[9] << "] ";
-		//std::cout << "[" << local[10] << "] ";
-		//std::cout << "[" << local[11] << "] " << endl;
-
-		//std::cout << "[" << local[12] << "] ";
-		//std::cout << "[" << local[13] << "] ";
-		//std::cout << "[" << local[14] << "] ";
-		//std::cout << "[" << local[15] << "] " << endl;
-
-		////cammy
 
 	}
 
@@ -84,40 +40,31 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		if (NULL != mesh->Magic)
 		{
 			M3DMatrix44f world; 
-			//Node->g
+
 			Node->getAbsoluteTransform(world);
 
 			M3DMatrix44f wv, wvp, vp;
 
-			//assert(NULL != p);
-			M3DMatrix44f world_view_proj, matWVP_inv;
-//			m3dMatrixMultiply44(wv, view, world);
 
-			//m3dMatrixMultiply44(wv, world, view);
-			
-			//m3dMatrixMultiply44(vp, view, projection );
+			M3DMatrix44f world_view_proj, matWVP_inv;
+
 			m3dMatrixMultiply44(vp, projection, view);
 
-			//m3dMatrixMultiply44(wvp, projection, wv );
 
-			//m3dMatrixMultiply44(wvp,  world , vp);
 			m3dMatrixMultiply44(wvp, vp, world);
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			m3dCopyMatrix44(Tmp.sTransform, world);
-			//m3dInvertMatrix44(matWVP_inv, world_view_proj);
 
-			//mesh->Magic->setMatrices(world , view, projection);
-			//mesh->Magic->commitChanges();
 			Tmp.sNode = mesh;
 		}
 		
 
-		//mesh->draw();
+		
 		Visible.push_back(Tmp);
 
 		//Ide: en drawque item som har Matrisene og informasjonen den trenger, må sorte denne skikkelig uansett. Transformasjons matrisen iallefall.
 
-		//kansje der kan jeg bruke den kompliserte matrise genererings funksjonne
+
 
 	}
 
@@ -140,8 +87,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			s_LPL = lPoint->GetPointLight();
 			M3DMatrix44f wv, wvp , vp;
 
-			//assert(NULL != p);
-			//M3DMatrix44f world_view_proj, matWVP_inv;
+
 			M3DMatrix44f w_scale, w_scaled;
 			float f_scale = CalcPointLightBSphere(s_LPL);
 	
@@ -151,26 +97,19 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
 			
 			
-			//m3dMatrixMultiply44(wv, view, w_scaled );
+		;
 			m3dMatrixMultiply44(vp, projection, view);
 
 			
 			m3dMatrixMultiply44(wvp, vp, w_scaled);
-			//m3dMatrixMultiply44(wvp, projection, wv);
+
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			
 
-			//m3dCopyMatrix44(Tmp.sWVP, wvp);
-			//m3dCopyMatrix44(Tmp.sWVP, world);
-			//m3dInvertMatrix44(matWVP_inv, world_view_proj);
-			//lPoint->LightMagic->
-			//mesh->Magic->setMatrices(world , view, projection);
-			//mesh->Magic->commitChanges();
 		}
 		Tmp.sPL = s_LPL;
 		Tmp.sNode = lPoint;
 
-		//mesh->draw();
 		VisiblePoint.push_back(Tmp);
 		
 
@@ -184,15 +123,6 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		{
 			M3DMatrix44f world;
 			m3dLoadIdentity44(world);
-			//Node->g
-			//Node->getAbsoluteTransform(world);
-			//M3DMatrix44f wv, wvp,vp;
-
-			//assert(NULL != p);
-			//M3DMatrix44f world_view_proj, matWVP_inv;
-			//m3dMatrixMultiply44(wv, view, world );
-
-			//m3dMatrixMultiply44(wvp, projection, wv);
 
 			
 			Tmp.sNode = lDir;
@@ -230,25 +160,21 @@ void rendrer::RenderSceneCB()
 	VisiblePoint.clear();
 	VisibleDir.clear();
 
-	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN MATH3D IS SHIT!
+	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN! MATH3D IS SHIT!
 	M3DMatrix44f world;
 	m3dLoadIdentity44(world);
-	//std::cout << "Does it work";
 
 	
 	//scene->an
-
-
 
 	visit(scene, world );
 
 	
 	mgBuffer->StartFrame();
-
+	//Geom pass---------------------------------------------
 	mgBuffer->BindForGeomPass();
 
-	//NS_REND::mGBuffer->BindForGeomPass();
-	// Only the geometry pass updates the depth buffer
+
 	glDepthMask(GL_TRUE);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -257,39 +183,34 @@ void rendrer::RenderSceneCB()
 
 	
 
-	//std::cout << "before geom loop" << std::endl;
 	for (vIT iv = beginVisible(); iv != endVisible(); ++iv) {
-		//p.WorldPos(m_boxPositions[i]);
+
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 		
 		
 		iv->sNode->Magic->Enable();
-		//std::cout << "Inside geom loop2" << std::endl;
 
-		//std::cout << "Inside geom loop3" << std::endl;
 		iv->sNode->Magic->SetWVP(iv->sWVP);
 		iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
 		iv->sNode->Model->Draw();
 	}
 
 	
-	// When we get here the depth buffer is already populated and the stencil pass
-	// depends on it, but it does not write to it.
+	//Stencil Pass og Lys pass------------------------------------------
 	glDepthMask(GL_FALSE);
 
 	glEnable(GL_STENCIL_TEST);
-	//kamera->g
+	
 	M3DMatrix44f inverseView;
 	m3dInvertMatrix44(inverseView, view);
 
 	NS_VEC::VEC3 EyeWorldPos(inverseView[12], inverseView[13], inverseView[14]);
-	//NS_VEC::VEC3 EyeWorldPos(view[3], view[7], view[11]);
+
 
 
 	for (vPITc ip = beginVisiblePoint(); ip != endVisiblePoint(); ++ip) {
 		ip->sNode->NullMagic->Enable();
 
-		// Disable color/depth write and enable stencil
 		mgBuffer->BindForStencilPass();
 		//NS_REND::mGBuffer->BindForStencilPass();
 		glEnable(GL_DEPTH_TEST);
@@ -313,16 +234,13 @@ void rendrer::RenderSceneCB()
 		
 		
 		
-		
+		//pointlys pass--------------------------------
+		//kjøre spotlight her også?
 		mgBuffer->BindForLightPass();
-		//NS_REND::mGBuffer->BindForLightPass();
-		//p.WorldPos(m_boxPositions[i]);
-		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 
 		ip->sNode->LightMagic->Enable();
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 
-		//look at this
 		glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 
 		glDisable(GL_DEPTH_TEST);
@@ -344,6 +262,7 @@ void rendrer::RenderSceneCB()
 
 	glDisable(GL_STENCIL_TEST);
 
+	//dir lys pass  dritt som ikke vil fungere -------------------
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
 
 		id->sNode->LightMagic->Enable();
@@ -351,9 +270,6 @@ void rendrer::RenderSceneCB()
 		mgBuffer->BindForLightPass();
 
 
-		//NS_REND::mGBuffer->BindForLightPass();
-
-		//id->sNode->LightMagic->SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
 		id->sNode->LightMagic->SetWVP(id->sWVP);
@@ -371,19 +287,17 @@ void rendrer::RenderSceneCB()
 	
 	}
 
-	//std::cout << "height: " << mContext->GetPixelHeight() << " width: " << mContext->GetPixelHeight() << std::endl;
-	//mContext
+	//final pass
 	unsigned int w = GetPixelWidth();
 	unsigned int h = GetPixelHeight();
 	mgBuffer->BindForFinalPass();
-	//NS_REND::mGBuffer->BindForFinalPass();
+
 	glBlitFramebuffer(0, 0, w, h,
 		0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
 
 	
 	Swap();
-	//glutSwapBuffers();
 
 
 

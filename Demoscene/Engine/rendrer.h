@@ -130,6 +130,8 @@ public:
 	}
 	//using nodePtr might be a mistake
 	void visit(NS_SG::node *Node, M3DMatrix44f world);
+
+
 	//void draw();
 	void Run();
 	virtual void RenderSceneCB();
@@ -184,12 +186,7 @@ private:
 	//std::list< struct DirLightItem>::iterator vDIT;
 
 
-	//typedef std::list<node*>::iterator child_iterator;
-	//typedef std::list<node *>::const_iterator child_const_iterator;
-	//child_iterator beginChildren() { return children.begin(); }
-	//child_iterator endChildren() { return children.end(); }
-	//child_const_iterator beginChildren() const { return children.begin(); }
-	//child_const_iterator endChildren() const { return children.end(); }
+
 
 public:
 	M3DMatrix44f view, projection;

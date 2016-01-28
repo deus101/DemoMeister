@@ -2,8 +2,7 @@
 #define CAMERA_HPP
 
 #include "node.h"
-//#include "math3d.h"
-//#include "world.h"
+
 namespace NS_SG{
 
 
@@ -45,17 +44,7 @@ namespace NS_SG{
 				projection_dirty = true;
 			}
 
-			//M3DMatrix44f View;
-			//M3DMatrix44f Projection;
-			//M3DMatrix44f Ortho;
 
-			/*camera();
-			camera(GLfloat, GLfloat, GLfloat, bool);
-			virtual void draw();
-			void SetProjection();
-			void SetView();
-			void LookAt();
-			void EasyMV();*/
 			const void  getProjection(M3DMatrix44f in) const
 			{
 				/* recalculate matrix if needed */
@@ -63,7 +52,7 @@ namespace NS_SG{
 				{
 					
 					m3dMakePerspectiveMatrix(projection,m3dDegToRad(fov), aspect, znear, zfar);
-					//projection.makeProjection(fov, aspect, znear, zfar);
+					
 					projection_dirty = false;
 				}
 

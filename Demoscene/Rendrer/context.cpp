@@ -48,6 +48,8 @@ static void IdleCB()
 
  void InitCallbacks()
 {
+	//I'm beginning to think I should utilize the world class
+
 	//glutDisplayFunc(RenderSceneCB);
 	//glutIdleFunc(IdleCB);
 	//glutSpecialFunc(SpecialKeyboardCB);
@@ -81,14 +83,11 @@ void GLFWBackendTerminate()
 bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
 {
 
-	//wglShareLists()
 
 	sDepth = aDepth;
 	sStencil = aStencil;
 
-	//glutInit(&argc, arg);
-	//GLFWmonitor* primary = glfwGetPrimaryMonitor();
-	//const GLFWvidmode* mode = glfwGetVideoMode(primary);
+;
 
 	if (glfwInit() != 1) {
 		//ENG_ERROR("Error initializing GLFW");
@@ -110,12 +109,6 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	glfwSetErrorCallback(ErrorCallback);
 
 
-	//GBuffer* ss = new GBuffer();
-	//ss->Init(500, 500);
-
-
-
-
 
 	pWidth = aWidth;
 	pHeight = aHeight;
@@ -135,20 +128,14 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
 
 	if (!s_pWindow) {
-		//OGLDEV_ERROR("error creating window");
 		exit(1);
 	}
 	glfwMakeContextCurrent(s_pWindow);
 
-	// Must be done after glfw is initialized!
-	//glload::LoadTest test = glload::LoadFunctions(); //DeviceContext
-	
-	//std::cout << "Minor version! : " << glload::GetMinorVersion() << std::endl;
-	//std::cout << "Major Version! : " << glload::GetMajorVersion() << std::endl;
+
 	int glewErr = glewInit();
-	//if (!test) {
-		//OGLDEV_ERROR((const char*)glewGetErrorString(res));
-//		exit(1);
+	//if (!glewErr) {
+	//		exit(1);
 	//}
 
 
@@ -156,7 +143,6 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	//mgBuffer = new GBuffer();
 	//mgBuffer->Init(pWidth, pHeight, s_pWindow);
-	//GBuffer* mGBuffer = new GBuffer();
 	//mGBuffer->Init(500, 500);
 
 	return s_pWindow;
@@ -173,7 +159,6 @@ void ChangeSize(unsigned int w, unsigned int h)
 	if (h == 0)
 		h = 1;
 
-	//gl::vie
 	//startskudd for omskriving 
 
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
@@ -186,7 +171,6 @@ void ChangeSize(unsigned int w, unsigned int h)
 	pHeight = h;
 
 	ResizeBuffer = true;
-		//gluPerspective(35.0f, fAspect, 1.0f, 200.0f);
 
 	//context::mGBuffer->Init(w, h);
 }
@@ -210,7 +194,10 @@ void ContextRun(ICallbacks* pCallbacks)
 	s_pCallbacks = pCallbacks;
 	InitCallbacks();
 
+	//kansje denne burde være I main eller World.
 	while (!glfwWindowShouldClose(s_pWindow)) {
+
+		//bruke en callback her for rocket?
 		s_pCallbacks->RenderSceneCB();
 		//glfwSwapBuffers(s_pWindow);
 		glfwPollEvents();
@@ -222,15 +209,13 @@ void ContextRun(ICallbacks* pCallbacks)
 void Swap()
 {
 	glfwSwapBuffers(s_pWindow);
-	
-	//glutSwapBuffers();
-	
+		
 }
 
 void LeaveMainLoop()
 {
 	glfwSetWindowShouldClose(s_pWindow, 1);
-	//glutLeaveMainLoop();
+
 }
 unsigned int GetPixelWidth()
 {

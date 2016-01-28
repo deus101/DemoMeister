@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "PointLightPacket.h"
-//#include "ogldev_util.h"
+
 using namespace NS_EFF;
 
 PointLightPacket::PointLightPacket()

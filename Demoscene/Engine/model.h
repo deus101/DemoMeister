@@ -6,14 +6,13 @@
 #include <vector>
 #include <deque> 
 #include <map>
-//#include "world.h"
+
 
 #include "mesh.h"
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
 #include "../Rendrer/context.h"
-//using namespace NS_MESH;
-//using namespace NS_MAT;
+
 
 namespace NS_ENG{
 
@@ -94,13 +93,10 @@ namespace NS_ENG{
 	private:
 		bool getSimilarVertexIndex_fast(
 			PackedVertex & packed,
-			//std::map<PackedVertex, unsigned short> & VertexToOutIndex,
-			//unsigned short & result
 			std::map<PackedVertex, unsigned int> & VertexToOutIndex,
 			unsigned int & result
 			)
 		{
-			//std::map<PackedVertex, unsigned short>::iterator it = VertexToOutIndex.find(packed);
 
 			std::map<PackedVertex, unsigned int>::iterator it = VertexToOutIndex.find(packed);
 			if (it == VertexToOutIndex.end()){
@@ -118,9 +114,6 @@ namespace NS_ENG{
 
 
 
-		//skal man lage en konteiner for alle VAO objektene i composite klassen?
-
-		//GLuint vao_model, vbo_vertices, vbo_normals, vbo_indices;
 
 
 	};

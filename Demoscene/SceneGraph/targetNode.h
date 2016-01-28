@@ -69,20 +69,14 @@ namespace NS_SG
 			up[0] = 0.0f;
 			up[1] = 1.0f;
 			up[2] = 0.0f;
-			//math::Vector3 targetPos = math::mul(eyeAbsInv, target->getAbsoluteTransform().getTranslation());
+
+
 			M3DMatrix44f lookat, lookat_inv;
 			m3dLookAt(lookat, at, from, up, 0.0f);
 			
-			//finally the inverse
-			
-			//m3dInvertMatrix44(lookat_inv, lookat);
-			m3dCopyMatrix44(in, lookat);
-			//m3dMatrixMultiply44(in, eyeAbsInv, lookat );
 
-			//m3dTransposeMatrix44()
-			//
-			//m3dCopyMatrix44(in, lookat_inv);
-			//m3dCopyMatrix44()
+			m3dCopyMatrix44(in, lookat);
+
 		}
 
 		void setTarget(node *target)

@@ -4,7 +4,6 @@
 #include <string.h>
 
 #include "DirLightPacket.h"
-//#include "ogldev_util.h"
 using namespace NS_EFF;
 
 DirLightPacket::DirLightPacket()

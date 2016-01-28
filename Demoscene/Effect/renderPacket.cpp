@@ -7,7 +7,7 @@
 using namespace NS_VEC;
 using namespace NS_EFF;
 
-//dropper dette for øyeblikket
+//I should go back to using context class/objects
 //renderPacket::renderPacket(const NS_REND::context &aContext)
 renderPacket::renderPacket()
 {
@@ -35,56 +35,7 @@ bool renderPacket::Init()
 	return true;
 
 }
-/*
-//ehm....Jo vent jeg satt den der fordi m_shaderProg var der men nå har jo model klassen den informasjonen.
-//faen her skal jo asset være drit I å legge til model, dette er jo Asset som jeg tror model er ment å arve fra.
-void renderPacket::Draw(NS_ENG::model *o, const M3DMatrix44f mMat)
-{
 
-	//gl::BindVertexArray(vao_model);
-	//Sett opp egne programmer
-	gl::UseProgram(m_shaderProg);
-	GLint ModelLoc = gl::GetUniformLocation(m_shaderProg, "M");
-	if (ModelLoc != -1)
-	{
-		//cout << "In Model found uniform for Model Matrix" << endl;
-		//gl::UniformMatrix4fv(ModelLoc, 1, gl::FALSE_, this->Model);
-		//"this" i rendrenren henter model matrisen
-	}
-
-	GLint DifLoc = gl::GetUniformLocation(m_shaderProg, "Diffuse");
-	GLint AmbLoc = gl::GetUniformLocation(m_shaderProg, "Ambiant");
-	GLint SpecLoc = gl::GetUniformLocation(m_shaderProg, "Specular");
-	GLint ShiLoc = gl::GetUniformLocation(m_shaderProg, "Shininess");
-
-	if (ModelLoc != -1)
-	{
-		//cout << "In Model found uniform for Model Matrix" << endl;
-		//gl::UniformMatrix4fv(AmbLoc, 1, gl::TRUE_, this->  );
-		//"this" i rendrenren henter model matrisen
-	}
-
-
-
-	//gl::PolygonMode(gl::GL_FRONT_AND_BACK, gl::GL_FILL);
-
-	for (unsigned int i = 0; i < o->Sort_Groups.size(); i++)
-	{
-
-
-		gl::BindVertexArray(o->Sort_Groups[i].vao);
-
-		gl::Uniform4fv(DifLoc, 1, (const GLfloat *)o->palette.m_Materials[o->meshy.m_Groups[i].matid].diff);
-		gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)o->palette.m_Materials[o->meshy.m_Groups[i].matid].amb);
-		gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)o->palette.m_Materials[o->meshy.m_Groups[i].matid].spec);
-		gl::Uniform1f(ShiLoc, o->palette.m_Materials[o->meshy.m_Groups[i].matid].shiny);
-
-		gl::DrawElements(gl::TRIANGLES, o->Sort_Groups[i].IBO.size(), gl::UNSIGNED_SHORT, (void*)0);
-	}
-
-
-}
-*/
 
 bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 {

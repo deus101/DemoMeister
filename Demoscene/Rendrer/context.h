@@ -2,7 +2,7 @@
 
 
 #include "../util.h"
-//#include "freeglut.h"
+
 #include "gbuffer.h"
 #include "callbacks.h"
 //namespace NS_REND
