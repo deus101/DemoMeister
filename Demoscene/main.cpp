@@ -17,8 +17,17 @@
 //NS_ENG::rendrer *mRender = NULL;
 
 
+HSTREAM stream;
 
+sync_device *rocket;
 
+const struct sync_track *plane_Pos_X, *plane_Pos_Y, *plane_Pos_Z, *plane_Rot_X, *plane_Rot_Y, *plane_Rot_Z;
+const struct sync_track *cam_Pos_X, *cam_Pos_Y, *cam_Pos_Z;
+
+NS_SG::objectAnim PlaneSync, CameraSync;
+
+NS_SG::composite *ptrComp;
+NS_SG::objTransform *ptrCamTran;
 static const float bpm = 150.0f; /* beats per minute */
 static const int rpb = 8; /* rows per beat */
 static const double row_rate = (double(bpm) / 60) * rpb;
@@ -64,7 +73,28 @@ static struct sync_cb bass_cb = {
 #endif
 
 
+void Sync()
+{
+	
+	double row = bass_get_row(stream);
+	
+	if (sync_update(rocket, (int)floor(row), &bass_cb, (void *)&stream))
+		sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT);
 
+
+	//float(sync_get_val(cam_rot, row))
+	//v3_tmpCamPos NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row)));
+	
+
+	//CameraSync.setPosKeyFrame(row, NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row))));
+	//CameraSync.setRotKeyFrame(row, NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
+	//CameraSync.setScaleKeyFrame(row, NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	//PlaneSync.setPosKeyFrame(row, NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
+	//PlaneSync.setRotKeyFrame(row, NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
+
+
+	ptrCamTran->setPosition(NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row))));
+}
 
 
 void TimerFunction(int)
@@ -289,12 +319,12 @@ int main(int argc, char** argv)
 
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
 	
-	
+	 
 
 	tran_kambot->addChild(target_kambot.get());
 	o_loader->addChild(tran_kambot.get());
 	 
-	
+	ptrCamTran = tran_kambot.get();
 
 
 	o_loader->addChild(tran_fly.get());
@@ -334,22 +364,57 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
+	
+	
+	
+	if (!BASS_Init(-1, 44100, 0, 0, 0))
+		std::cout << "failed to init bass" << std::endl;
+	stream = BASS_StreamCreateFile(false, "bf.ogg", 0, 0,
+		BASS_STREAM_PRESCAN);
+	if (!stream)
+		std::cout << "failed to open tune" << std::endl;
+
+	rocket = sync_create_device("sync");
 
 
-	NS_SG::objectAnim test =  NS_SG::objectAnim();
+
+	plane_Pos_X = sync_get_track(rocket, "plane.x");
+	plane_Pos_Y = sync_get_track(rocket, "plane.y");
+	plane_Rot_Z = sync_get_track(rocket, "plane.z");
+	plane_Rot_X = sync_get_track(rocket, "rot.x");
+	plane_Rot_Y = sync_get_track(rocket, "rot.y");
+	plane_Rot_Z = sync_get_track(rocket, "rot.z");
+	
+	
+	cam_Pos_X = sync_get_track(rocket, "cam.x"),
+	cam_Pos_Y = sync_get_track(rocket, "cam.y");
+	cam_Pos_Z = sync_get_track(rocket, "cam.z");
+	
+	PlaneSync = NS_SG::objectAnim();
+	CameraSync = NS_SG::objectAnim();
+
+	
 
 
 
-	o_loader->addObjectAnime(tran_kambot.get(), test);
-
+	//o_loader->addObjectAnime(tran_fly.get(), PlaneSync);
+	o_loader->addObjectAnime(tran_kambot.get(), CameraSync);
 	//test->
 
 	//can't i define this as global
+
+
+	ptrComp = o_loader.get();
+
+
 	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get());
+
 
 
 	mRender->Run();
 
 
+
+	sync_destroy_device(rocket);
 	return 0;
 }

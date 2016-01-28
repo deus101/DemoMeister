@@ -11,8 +11,13 @@
 #include "../SceneGraph/pointLightNode.h"
 #include "../SceneGraph/dirLightNode.h"
 #include "model.h"
+#include "../bass.h"
+
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
+
+extern HSTREAM stream;
+
 namespace NS_ENG
 { 
 

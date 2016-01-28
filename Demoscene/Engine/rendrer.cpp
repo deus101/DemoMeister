@@ -14,6 +14,8 @@
 using namespace NS_ENG;
 using namespace NS_SG;
 
+
+
 // I might be making a mistake using this as a the callback interface
 void rendrer::visit(node *Node, M3DMatrix44f  world)
 {
@@ -26,7 +28,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		//M3DMatrix44f world, local;
 		//cammy->getAbsoluteTransform(world);
 
-		//cammy->getLocalTransform(local);
+		cammy->getParent()->getLocalTransform(view);
 
 
 	}
@@ -151,6 +153,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 
 void rendrer::Run()
 {
+	
+	BASS_Start();
+	BASS_ChannelPlay(stream, false);
+
 	ContextRun(this);
 
 }

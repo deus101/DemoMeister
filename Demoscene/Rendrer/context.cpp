@@ -12,6 +12,8 @@ static bool sStencil = false;
 static GLFWwindow* s_pWindow = NULL;
 //Buffer = NULL;
 
+
+extern void Sync();
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
 //static bool m_created;
@@ -197,6 +199,8 @@ void ContextRun(ICallbacks* pCallbacks)
 	//kansje denne burde være I main eller World.
 	while (!glfwWindowShouldClose(s_pWindow)) {
 
+
+		Sync();
 		//bruke en callback her for rocket?
 		s_pCallbacks->RenderSceneCB();
 		//glfwSwapBuffers(s_pWindow);

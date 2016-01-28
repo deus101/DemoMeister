@@ -50,6 +50,8 @@
 
 		void LeaveMainLoop();
 
+
+
 		unsigned int GetPixelWidth() ;
 
 		unsigned int GetPixelHeight() ;
