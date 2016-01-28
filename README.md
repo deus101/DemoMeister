@@ -1,7 +1,6 @@
 DemoEngine
 ==========
 
-Trying to clean up repo
 
 
 Credits:
