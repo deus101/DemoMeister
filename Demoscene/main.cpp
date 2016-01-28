@@ -176,37 +176,24 @@ void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 int main(int argc, char** argv)
 {
-	//NS_REND::context *  
+	
 	//mContext = new NS_REND::context();
 	
 	
 	
 
-	//glutInit(&argc, argv);
 
 	bool success = Init(argc, argv, true, false, 1600, 900, false, "Deus's Ex Machine");
 
 	
 	std::cout << "Result of init windows: " << success << std::endl;
-	//glfwMakeContextCurrent(windy);
 
 
-	//wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
-	//mContext->mGBuffer->Init(1600, 900);
-	//glutInitWindowPosition(-1, -1);
 
 	std::cout << "X! : " << pWidth  << std::endl;
 	std::cout << "Y! : " << pHeight  << std::endl;
 	glViewport(0, 0, (GLsizei)1600, (GLsizei)900);
-	//GBuffer* mGBuffer = new GBuffer();
-	//mGBuffer->Init(pWidth, pHeight);
-	//HGLRC initContext = wglGetCurrentContext();
 
-	//o_World.WindowID = 
-	//    glutIgnoreKeyRepeat(1);
-
-	//    glutSpecialFunc( keyBoard );
-	//    glutSpecialUpFunc( callKeyRelease );
 
 	//SetupRC();
 	//DO IT! TO IT!
@@ -284,6 +271,7 @@ int main(int argc, char** argv)
 
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
+	
 	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 	tran_ball->setRotation(NS_VEC::QUAT(0.0f, -45.0f, 0.0f));
 	tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
@@ -293,20 +281,16 @@ int main(int argc, char** argv)
 
 	
 	tran_fly->addChild(n_fly.get());
+
 	target_kambot->setTarget(n_fly.get());
 
 	target_kambot->addChild(kambot.get());
 
-	//tran_kambot->addChild(kambot.get());
 
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
-	//tran_kambot->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
-	//tran_kambot->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	
 	
 
-
-	
-	//tran_kambot.get()
 	tran_kambot->addChild(target_kambot.get());
 	o_loader->addChild(tran_kambot.get());
 	 
@@ -331,6 +315,8 @@ int main(int argc, char** argv)
 	tran_Point->addChild(n_point_lys.get());
 	//tran_Point2->addChild(tran_Point.get());
 	o_loader->addChild(tran_Point.get());
+
+
 	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 0.612f), 0.1f, 0.5f, &e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
@@ -341,9 +327,10 @@ int main(int argc, char** argv)
 
 	tran_Dir->addChild(n_dir_lys.get());
 
+
 	o_loader->addChild(tran_Dir.get());
 	
-
+	//ugh
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
@@ -357,7 +344,7 @@ int main(int argc, char** argv)
 
 	//test->
 
-	//o_loader->
+	//can't i define this as global
 	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get());
 
 
