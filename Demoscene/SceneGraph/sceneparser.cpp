@@ -68,8 +68,9 @@ private:
 	composite *composition;
 
 public:
-	SceneParser::SceneParser(composite* comp, const std::string filename) : composition(comp), filename(filename), basename(stripDir(filename))
+	SceneParser::SceneParser(composite* comp, const std::string filename) : filename(filename), basename(stripDir(filename))
 	{
+		composition = comp;
 	}
 
 	nodePtr loadPrsTransform( XMLElement *xmlElem)
@@ -125,7 +126,7 @@ public:
 				else if (strcmp(val, "scale") == 0)
 					ret->setScale(getVector3(currElem));
 				else if (strcmp(val, "children") == 0)
-					getChildren(ret.get(), currElem);
+					getChildren(ret, currElem);
 				else
 					throw std::string("unknown element \"") + val + std::string("\"");
 			}
@@ -147,7 +148,7 @@ public:
 			if (currElem) {
 				const char *val = curr->Value();
 				if (strcmp(val, "children") == 0)
-					getChildren( ret.get(), currElem);
+					getChildren( ret, currElem);
 				else
 					throw std::string("unknown element \"") + val + std::string("\"");
 			}
@@ -184,7 +185,7 @@ public:
 		return ret;
 	}
 
-	void getChildren(node *graphNode, XMLElement *xmlElem)
+	void getChildren(svakRef graphNode, XMLElement *xmlElem)
 	{
 		XMLNode *curr = xmlElem->FirstChild();
 		while (curr) {
@@ -202,11 +203,15 @@ public:
 					newChild = loadMesh( currElem);
 				else if (strcmp(val, "camera") == 0)
 					newChild = getCamera(currElem);
+				/*else if (strcmp(val, "point_light") == 0)
+					break;
+				else if (strcmp(val, "directional_light") == 0)
+					break;*/
 				else
 					throw std::string("unknown element \"") + val + std::string("\"");
 
 				assert(NULL != newChild);
-				graphNode->addChild(newChild.get());
+				graphNode.lock()->addChild(newChild.get());
 			}
 			curr = curr->NextSibling();
 		}
@@ -240,13 +245,15 @@ composite *NS_SG::parseScene(const std::string filename)
 		if (currElem)
 		{
 			if (strcmp(curr->Value(), "children") == 0)
-				sceneParser.getChildren(composed.get(), currElem);
+				sceneParser.getChildren(composed, currElem);
 			else
 				throw curr->Value() + std::string("excpected 'scene'! \n");
 		}
 		
 		}
 		curr = curr->NextSibling();
+		return composed.get();
+
 	}
 	catch (const std::string &str)
 	{

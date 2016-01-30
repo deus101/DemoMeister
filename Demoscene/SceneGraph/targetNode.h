@@ -50,9 +50,9 @@ namespace NS_SG
 			m3dGetMatrixColumn44(targetTran, targetTransform, 3);
 			targetTran[3] = 0;
 
-			printf("target: %f %f %f\n",
-				targetTran[0], targetTran[1], targetTran[2]
-				);
+			//printf("target: %f %f %f\n",
+			//	targetTran[0], targetTran[1], targetTran[2]
+			//	);
 
 
 

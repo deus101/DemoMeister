@@ -21,13 +21,16 @@ HSTREAM stream;
 
 sync_device *rocket;
 
-const struct sync_track *plane_Pos_X, *plane_Pos_Y, *plane_Pos_Z, *plane_Rot_X, *plane_Rot_Y, *plane_Rot_Z;
+const struct sync_track *plane_Pos_X, *plane_Pos_Y, *plane_Pos_Z, *plane_Rot_X, *plane_Rot_Y, *plane_Rot_Z, *plane_Sca_X, *plane_Sca_Y, *plane_Sca_Z;
+const struct sync_track *lit_Pos_X, *lit_Pos_Y, *lit_Pos_Z;
 const struct sync_track *cam_Pos_X, *cam_Pos_Y, *cam_Pos_Z;
 
 NS_SG::objectAnim PlaneSync, CameraSync;
 
 NS_SG::composite *ptrComp;
 NS_SG::objTransform *ptrCamTran;
+NS_SG::objTransform *ptrTranPlan;
+NS_SG::objTransform *ptrLitPlan;
 static const float bpm = 150.0f; /* beats per minute */
 static const int rpb = 8; /* rows per beat */
 static const double row_rate = (double(bpm) / 60) * rpb;
@@ -92,8 +95,16 @@ void Sync()
 	//PlaneSync.setPosKeyFrame(row, NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
 	//PlaneSync.setRotKeyFrame(row, NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
 
-
+	//ptrTranPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
+	//
 	ptrCamTran->setPosition(NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row))));
+
+	ptrTranPlan->setRotation(NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
+	ptrTranPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
+	ptrTranPlan->setScale(NS_VEC::VEC3(float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_Y, row)), float(sync_get_val(plane_Sca_Z, row))));
+
+	ptrLitPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(lit_Pos_X, row)), float(sync_get_val(lit_Pos_Y, row)), float(sync_get_val(lit_Pos_Z, row))));
+
 }
 
 
@@ -240,7 +251,7 @@ int main(int argc, char** argv)
 
 	
 
-	//boost::shared_ptr<NS_SG::composite>  test_Loader(NS_SG::parseScene("SimpleTest.xml"));
+	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
 
 	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
@@ -253,8 +264,10 @@ int main(int argc, char** argv)
 
 	e_geom.Enable();
 
+	NS_ENG::model ball("Mesh/cave.obj", "Mesh/cave.mtl");
 	NS_ENG::model fly( "Mesh/fixedP38.obj", "Mesh/newP38.mtl");
-	NS_ENG::model ball("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+	//NS_ENG::model ball("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+
 
 
 	
@@ -298,13 +311,13 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
 	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-
+	ptrTranPlan = tran_fly.get();
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
 	
 	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	tran_ball->setRotation(NS_VEC::QUAT(0.0f, -45.0f, 0.0f));
-	tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
+	//tran_ball->setRotation(NS_VEC::QUAT(0.0f, -45.0f, 0.0f));
+	//tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
 	
 	
 	tran_ball->addChild(n_ball.get());
@@ -344,6 +357,11 @@ int main(int argc, char** argv)
 
 	tran_Point->addChild(n_point_lys.get());
 	//tran_Point2->addChild(tran_Point.get());
+
+	ptrLitPlan = tran_Point.get();
+
+
+
 	o_loader->addChild(tran_Point.get());
 
 
@@ -378,18 +396,27 @@ int main(int argc, char** argv)
 
 
 
-	plane_Pos_X = sync_get_track(rocket, "plane.x");
-	plane_Pos_Y = sync_get_track(rocket, "plane.y");
-	plane_Rot_Z = sync_get_track(rocket, "plane.z");
-	plane_Rot_X = sync_get_track(rocket, "rot.x");
-	plane_Rot_Y = sync_get_track(rocket, "rot.y");
-	plane_Rot_Z = sync_get_track(rocket, "rot.z");
+	plane_Pos_X = sync_get_track(rocket, "Ppos.x");
+	plane_Pos_Y = sync_get_track(rocket, "Ppos.y");
+	plane_Pos_Z = sync_get_track(rocket, "Ppos.z");
+	plane_Rot_X = sync_get_track(rocket, "Prot.x");
+	plane_Rot_Y = sync_get_track(rocket, "Prot.y");
+	plane_Rot_Z = sync_get_track(rocket, "Prot.z");
+	plane_Sca_X = sync_get_track(rocket, "Psca.x");
+	plane_Sca_Y = sync_get_track(rocket, "Psca.y");
+	plane_Sca_Z = sync_get_track(rocket, "Psca.z");
 	
-	
+
+
+
 	cam_Pos_X = sync_get_track(rocket, "cam.x"),
 	cam_Pos_Y = sync_get_track(rocket, "cam.y");
 	cam_Pos_Z = sync_get_track(rocket, "cam.z");
 	
+
+	lit_Pos_X = sync_get_track(rocket, "Lpos.x");
+	lit_Pos_Y = sync_get_track(rocket, "Lpos.y");
+	lit_Pos_Z = sync_get_track(rocket, "Lpos.z");
 	PlaneSync = NS_SG::objectAnim();
 	CameraSync = NS_SG::objectAnim();
 

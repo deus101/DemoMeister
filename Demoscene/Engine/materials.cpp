@@ -31,8 +31,8 @@ namespace NS_MAT
 			if(strcmp (id, "newmtl") == 0)
 			{
 				s_mat mtl;
-				char nam[50];
-				fscanf(mtlFile, "%s \n", &nam );
+				char nam[80] ="";
+				fscanf(mtlFile, "%79s", nam );
 				mtl.name = nam;
 				//cout << "material name: " << mtl.name << endl;
 				Mats.m_Materials.push_back( mtl );
@@ -66,16 +66,16 @@ namespace NS_MAT
 			}
 			if(strcmp (id, "Ns") == 0)
 			{
-				GLfloat c = 0.0f;
-				fscanf(mtlFile, "%f", &c );
-				Mats.m_Materials.back().shiny = c;
+				GLfloat shin = 0.0f;
+				fscanf(mtlFile, "%f", &shin);
+				Mats.m_Materials.back().shiny = shin;
 			}
 			else
 			if (strcmp(id, "map_Kd") == 0)
 			{
 				GLuint tmp_TName = 0;
-				char path[50];
-				fscanf(mtlFile, "%s \n", &path);
+				char path[80];
+				fscanf(mtlFile, "%79s", path);
 				FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(path, 0);
 				FIBITMAP* imagen = FreeImage_Load(formato, path);
 
