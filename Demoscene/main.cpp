@@ -29,8 +29,11 @@ NS_SG::objectAnim PlaneSync, CameraSync;
 
 NS_SG::composite *ptrComp;
 NS_SG::objTransform *ptrCamTran;
-NS_SG::objTransform *ptrTranPlan;
+NS_SG::objTransform *ptrTranProt;
 NS_SG::objTransform *ptrLitPlan;
+
+
+
 static const float bpm = 150.0f; /* beats per minute */
 static const int rpb = 8; /* rows per beat */
 static const double row_rate = (double(bpm) / 60) * rpb;
@@ -95,31 +98,30 @@ void Sync()
 	//PlaneSync.setPosKeyFrame(row, NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
 	//PlaneSync.setRotKeyFrame(row, NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
 
-	//ptrTranPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
+	//ptrTranProt->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
 	//
 	ptrCamTran->setPosition(NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row))));
 
-	ptrTranPlan->setRotation(NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
-	ptrTranPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
-	ptrTranPlan->setScale(NS_VEC::VEC3(float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_Y, row)), float(sync_get_val(plane_Sca_Z, row))));
+	ptrTranProt->setRotation(NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
+	ptrTranProt->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
+	ptrTranProt->setScale(NS_VEC::VEC3(float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_Y, row)), float(sync_get_val(plane_Sca_Z, row))));
 
 	ptrLitPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(lit_Pos_X, row)), float(sync_get_val(lit_Pos_Y, row)), float(sync_get_val(lit_Pos_Z, row))));
 
 }
 
-
+//I need some better timer func but leave it for now
 void TimerFunction(int)
 {
-
+	
 	//glutPostRedisplay();
 	//glutTimerFunc(3, TimerFunction, 1);
 
 }
-//void IdleFunc()
-//{
-//	glutPostRedisplay();
-//}
 
+
+
+//Dont really need this, kept in context.cpp
 void ChangeSize(int w, int h)
 {
 
@@ -147,55 +149,10 @@ void ChangeSize(int w, int h)
 
 
 
-//void callRenderScene()
-//{
-//	wglMakeCurrent(mContext->DeviceContext, mContext->SharedContex);
-//	//mContext->Run();
-//	if (mContext->GetGBStatus() == TRUE){
-//		delete mContext->mGBuffer;
-//		mContext->mGBuffer = new GBuffer();
-//		mContext->mGBuffer->Init(mContext->GetPixelWidth(), mContext->GetPixelHeight());
-//		mContext->ResizeBuffer = FALSE;
-//	
-//	}
-//	//HGLRC runContext = wglGetCurrentContext();
-//
-//	mRender->draw();
-//	wglMakeCurrent(NULL, NULL);
-//	//mContext->Swap();
-//}
-
 
 void SetupRC()
 {
-	//glload::LoadFunctions();
-	
-	//if(glload::LoadFunctions() == glload::)
-	//{
-
-	//glutSwapBuffers();
-	//Sleep(2000);
-	//exit(0);
- //   }
-	
-	//glload::LoadWinFunctions(
-
-
-	//o_World.AfterInit();
-	/*
-	sg::noder::composite test("test");
-
-	model("Mesh/p38.obj", "Mesh/p38.mtl");
-	*/
-	//nei faen den er en attributt nå den!
-	
-	
-
-	//o_loader
-
-	
-
-	//test.findChild("hoo");
+//I used to keep the OpenGL initialisers here
 }
 
 void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -239,7 +196,7 @@ int main(int argc, char** argv)
 	//SetupRC();
 	//DO IT! TO IT!
 
-
+//-------------------The effects packets 
 	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
 
 
@@ -249,29 +206,7 @@ int main(int argc, char** argv)
 
 	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 
-	
 
-	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
-
-	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
-
-
-	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
-	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
-	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
-
-
-
-	e_geom.Enable();
-
-	NS_ENG::model ball("Mesh/cave.obj", "Mesh/cave.mtl");
-	NS_ENG::model fly( "Mesh/fixedP38.obj", "Mesh/newP38.mtl");
-	//NS_ENG::model ball("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
-
-
-
-	
-	
 
 	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
 
@@ -304,45 +239,133 @@ int main(int argc, char** argv)
 
 	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
 
+//--------------scene node that goes into scenerendrer
+	//scene parser does not work because I suck at boost
+	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
 
-	boost::shared_ptr<NS_SG::modelNode> n_fly(new NS_SG::modelNode("plane", &fly, &e_geom));
 
-	boost::shared_ptr<NS_SG::modelNode> n_ball(new NS_SG::modelNode("balle", &ball, &e_geom));
+	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
-	boost::shared_ptr<NS_SG::objTransform> tran_fly(new NS_SG::objTransform("tran_plane"));
-	tran_fly->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	ptrTranPlan = tran_fly.get();
 
-	boost::shared_ptr<NS_SG::objTransform> tran_ball(new NS_SG::objTransform("tran_ball"));
+
+
+//------------UnderGround Scene
+
+	//m is for mesh/model  texture is included. 
+	NS_ENG::model m_cavern("Mesh/cave.obj", "Mesh/cave.mtl");
+
+
+
+	//NS_ENG::model fly( "Mesh/fixedP38.obj", "Mesh/newP38.mtl");
+
+
+	//mn is for model node
+	boost::shared_ptr<NS_SG::modelNode> mn_cavern(new NS_SG::modelNode("Scene_Cavern", &m_cavern, &e_geom));
+
+
+	boost::shared_ptr<NS_SG::objTransform> tran_cavern(new NS_SG::objTransform("tran_cavern"));
+
+	tran_cavern->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	tran_cavern->setRotation(NS_VEC::QUAT(0.0f, 90.0f, 0.0f));
+
+	tran_cavern->addChild(mn_cavern.get());
+
+
+	//details to Scene
+	NS_ENG::model m_stalagmite("Mesh/Stalagmite.obj", "Mesh/Stalagmite.mtl");
+
+
+
+	//a node can only have one parent
+	boost::shared_ptr<NS_SG::modelNode> mn_stalagmite_1(new NS_SG::modelNode("Scene_Stalagmite_1", &m_stalagmite, &e_geom));
+	boost::shared_ptr<NS_SG::objTransform> tran_stalagmite_1(new NS_SG::objTransform("tran_stalagmite_1"));
+	tran_stalagmite_1->setPosition(NS_VEC::VEC3(2.0f, 10.0f, 10.0f));
+	tran_stalagmite_1->addChild(mn_stalagmite_1.get());
+
+	boost::shared_ptr<NS_SG::modelNode> mn_stalagmite_2(new NS_SG::modelNode("Scene_Stalagmite_2", &m_stalagmite, &e_geom));
+	boost::shared_ptr<NS_SG::objTransform> tran_stalagmite_2(new NS_SG::objTransform("tran_stalagmite_2"));
 	
-	tran_ball->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	//tran_ball->setRotation(NS_VEC::QUAT(0.0f, -45.0f, 0.0f));
-	//tran_ball->setScale(NS_VEC::VEC3(0.5f, 0.5f, 0.5f));
+	tran_stalagmite_2->addChild(mn_stalagmite_2.get());
+	tran_stalagmite_2->setPosition(NS_VEC::VEC3(-3.0f, 10.0f, 10.0f));
+
+
+	o_loader->addChild(tran_stalagmite_1.get());
+	o_loader->addChild(tran_stalagmite_2.get());
+//-------------------------------------me
+
+	//WHY AM I SO DUMB! YOU CANT MAKE A HEDRON OUT OUT HEXAGONS ALONE!
+	//NS_ENG::model m_HexBase("Mesh/HexBase.obj", "Mesh/HexBase.mtl");
+	//NS_ENG::model m_HexArm("Mesh/HexArm.obj", "Mesh/HexArm.mtl");
+	NS_ENG::model m_protagonist("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+
+	//mn is for model node
+	boost::shared_ptr<NS_SG::modelNode> mn_protoganist(new NS_SG::modelNode("protoganist", &m_protagonist, &e_geom));
+
+
+
+
+
+	boost::shared_ptr<NS_SG::objTransform> tran_protagonist(new NS_SG::objTransform("tran_protoganist"));
 	
 	
-	tran_ball->addChild(n_ball.get());
+	
+	tran_protagonist->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	
+	
+	
+	tran_protagonist->addChild(mn_protoganist.get());
+
+
+
+	ptrTranProt = tran_protagonist.get();
 
 	
-	tran_fly->addChild(n_fly.get());
 
-	target_kambot->setTarget(n_fly.get());
+
+	
+//--------------------Camera 
+	//1 for nowf
+	
+
+	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
+
+
+	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
+	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
+
+
+	
+	
+	target_kambot->setTarget(mn_protoganist.get());
 
 	target_kambot->addChild(kambot.get());
 
 
+
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
 	
-	 
+	
 
 	tran_kambot->addChild(target_kambot.get());
+	
+	
 	o_loader->addChild(tran_kambot.get());
 	 
+
+
 	ptrCamTran = tran_kambot.get();
 
 
-	o_loader->addChild(tran_fly.get());
 
-	o_loader->addChild(tran_ball.get());
+
+
+
+
+
+
+//------------------Lights
+
+
 
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
@@ -355,6 +378,9 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
 	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
 
+
+
+
 	tran_Point->addChild(n_point_lys.get());
 	//tran_Point2->addChild(tran_Point.get());
 
@@ -365,10 +391,16 @@ int main(int argc, char** argv)
 	o_loader->addChild(tran_Point.get());
 
 
+
+
+	//Dir Light
 	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 0.612f), 0.1f, 0.5f, &e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	
+
+
+
 	
 	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
@@ -378,13 +410,16 @@ int main(int argc, char** argv)
 
 	o_loader->addChild(tran_Dir.get());
 	
+
+
+
 	//ugh
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
 	
 	
-	
+//---------load music into bass	
 	if (!BASS_Init(-1, 44100, 0, 0, 0))
 		std::cout << "failed to init bass" << std::endl;
 	stream = BASS_StreamCreateFile(false, "bf.ogg", 0, 0,
@@ -392,6 +427,10 @@ int main(int argc, char** argv)
 	if (!stream)
 		std::cout << "failed to open tune" << std::endl;
 
+
+
+//----------create rocket device
+	//Should be up at first
 	rocket = sync_create_device("sync");
 
 
@@ -417,18 +456,21 @@ int main(int argc, char** argv)
 	lit_Pos_X = sync_get_track(rocket, "Lpos.x");
 	lit_Pos_Y = sync_get_track(rocket, "Lpos.y");
 	lit_Pos_Z = sync_get_track(rocket, "Lpos.z");
+	
+	
+	
 	PlaneSync = NS_SG::objectAnim();
 	CameraSync = NS_SG::objectAnim();
 
 	
 
+//------adds node to scene  (should do this when created to help  sort shit out)
+	o_loader->addChild(tran_protagonist.get());
 
+	o_loader->addChild(tran_cavern.get());
 
-	//o_loader->addObjectAnime(tran_fly.get(), PlaneSync);
 	o_loader->addObjectAnime(tran_kambot.get(), CameraSync);
-	//test->
 
-	//can't i define this as global
 
 
 	ptrComp = o_loader.get();
