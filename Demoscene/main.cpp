@@ -277,26 +277,47 @@ int main(int argc, char** argv)
 
 
 	//a node can only have one parent
+	//green
 	boost::shared_ptr<NS_SG::modelNode> mn_stalagmite_1(new NS_SG::modelNode("Scene_Stalagmite_1", &m_stalagmite, &e_geom));
 	boost::shared_ptr<NS_SG::objTransform> tran_stalagmite_1(new NS_SG::objTransform("tran_stalagmite_1"));
-	tran_stalagmite_1->setPosition(NS_VEC::VEC3(2.0f, 10.0f, 10.0f));
+	//tran_stalagmite_1->setScale(NS_VEC::VEC3(3.0f, 3.0f, 3.0f));
+	tran_stalagmite_1->setPosition(NS_VEC::VEC3(4.0f, 10.0f, 10.0f));
+	tran_stalagmite_1->setRotation(NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
 	tran_stalagmite_1->addChild(mn_stalagmite_1.get());
-
+	//yellow
 	boost::shared_ptr<NS_SG::modelNode> mn_stalagmite_2(new NS_SG::modelNode("Scene_Stalagmite_2", &m_stalagmite, &e_geom));
 	boost::shared_ptr<NS_SG::objTransform> tran_stalagmite_2(new NS_SG::objTransform("tran_stalagmite_2"));
-	
 	tran_stalagmite_2->addChild(mn_stalagmite_2.get());
-	tran_stalagmite_2->setPosition(NS_VEC::VEC3(-3.0f, 10.0f, 10.0f));
+	//tran_stalagmite_2->setScale(NS_VEC::VEC3(3.0f, 3.0f, 3.0f));
+	tran_stalagmite_2->setPosition(NS_VEC::VEC3(-5.0f, 10.0f, 15.0f));
+	tran_stalagmite_2->setRotation(NS_VEC::QUAT(0.0f, 90.0f, 0.0f));
+	//red
+	boost::shared_ptr<NS_SG::modelNode> mn_stalagmite_3(new NS_SG::modelNode("Scene_Stalagmite_3", &m_stalagmite, &e_geom));
+	boost::shared_ptr<NS_SG::objTransform> tran_stalagmite_3(new NS_SG::objTransform("tran_stalagmite_3"));
+	tran_stalagmite_3->addChild(mn_stalagmite_3.get());
+	tran_stalagmite_3->setScale(NS_VEC::VEC3(2.0f, 2.0f, 2.0f));
+	tran_stalagmite_3->setPosition(NS_VEC::VEC3(2.5f, 5.0f, 9.5f));
+	tran_stalagmite_3->setRotation(NS_VEC::QUAT(0.0f, 90.0f, 0.0f));
+	//blue
+	boost::shared_ptr<NS_SG::modelNode> mn_stalagmite_4(new NS_SG::modelNode("Scene_Stalagmite_4", &m_stalagmite, &e_geom));
+	boost::shared_ptr<NS_SG::objTransform> tran_stalagmite_4(new NS_SG::objTransform("tran_stalagmite_4"));
+	tran_stalagmite_4->addChild(mn_stalagmite_4.get());
+	//tran_stalagmite_4->setScale(NS_VEC::VEC3(3.0f, 3.0f, 3.0f));
+	tran_stalagmite_4->setPosition(NS_VEC::VEC3(6.0f, 10.0f, 22.0f));
+	tran_stalagmite_4->setRotation(NS_VEC::QUAT(0.0f, 90.0f, 0.0f));
+
 
 
 	o_loader->addChild(tran_stalagmite_1.get());
 	o_loader->addChild(tran_stalagmite_2.get());
+	o_loader->addChild(tran_stalagmite_3.get());
+	o_loader->addChild(tran_stalagmite_4.get());
 //-------------------------------------me
 
 	//WHY AM I SO DUMB! YOU CANT MAKE A HEDRON OUT OUT HEXAGONS ALONE!
 	//NS_ENG::model m_HexBase("Mesh/HexBase.obj", "Mesh/HexBase.mtl");
 	//NS_ENG::model m_HexArm("Mesh/HexArm.obj", "Mesh/HexArm.mtl");
-	NS_ENG::model m_protagonist("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+	NS_ENG::model m_protagonist("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 
 	//mn is for model node
 	boost::shared_ptr<NS_SG::modelNode> mn_protoganist(new NS_SG::modelNode("protoganist", &m_protagonist, &e_geom));
@@ -369,26 +390,51 @@ int main(int argc, char** argv)
 
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
-
+	//Cavern Follow Light
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
 	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
-	tran_Point->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
-
-	//boost::shared_ptr<NS_SG::objTransform> tran_Point2(new NS_SG::objTransform("tran_PointLys2"));
-	//tran_Point2->setPosition(NS_VEC::VEC3(1.0f, 2.0f, 0.0f));
-
-
-
-
 	tran_Point->addChild(n_point_lys.get());
+	ptrLitPlan = tran_Point.get();
+	o_loader->addChild(tran_Point.get());
+
+
+//Light Green Stalagmite
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys_GW(new NS_SG::pointLightNode("G_White_PointLys", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_Point_GW(new NS_SG::objTransform("tran_G_White_PointLys"));
+	tran_Point_GW->addChild(n_point_lys_GW.get());
+	tran_Point_GW->setPosition(NS_VEC::VEC3(4.0f, 10.0f, 10.0f));
+	o_loader->addChild(tran_Point_GW.get());
+
+	
+//Light Yellow Stalagmite
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys_YW(new NS_SG::pointLightNode("Y_White_PointLys", NS_VEC::VEC3(1.0f, 1.0f, 0.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_Point_YW(new NS_SG::objTransform("tran_Y_White_PointLys"));
+	tran_Point_YW->addChild(n_point_lys_YW.get());
+	tran_Point_YW->setPosition(NS_VEC::VEC3(-5.0f, 10.0f, 15.0f));
+	o_loader->addChild(tran_Point_YW.get());
+
+	
+//Light Red Stalagmite
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys_RW(new NS_SG::pointLightNode("R_White_PointLys", NS_VEC::VEC3(1.0f, 0.0f, 0.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_Point_RW(new NS_SG::objTransform("tran_R_White_PointLys"));
+	tran_Point_RW->addChild(n_point_lys_RW.get());
+	tran_Point_RW->setPosition(NS_VEC::VEC3(2.5f, 5.0f, 18.5f));
+	o_loader->addChild(tran_Point_RW.get());
+
+//Light Blue Stalagmite
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys_BW(new NS_SG::pointLightNode("B_White_PointLys", NS_VEC::VEC3(0.0f, 0.0f, 1.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_Point_BW(new NS_SG::objTransform("tran_B_White_PointLys"));
+	tran_Point_BW->addChild(n_point_lys_BW.get());
+	tran_Point_BW->setPosition(NS_VEC::VEC3(6.0f, 10.0f, 22.0f));
+	o_loader->addChild(tran_Point_BW.get());
+
+	
 	//tran_Point2->addChild(tran_Point.get());
 
-	ptrLitPlan = tran_Point.get();
 
 
 
-	o_loader->addChild(tran_Point.get());
 
 
 
