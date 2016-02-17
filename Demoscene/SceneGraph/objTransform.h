@@ -27,7 +27,7 @@ namespace NS_SG
 				if (matrix_dirty)
 				{
 
-					M3DMatrix44f m_scale, m_rot, m_tran, m_rotXtran, m_ScaXrotXtran;
+					M3DMatrix44f m_scale, m_rot, m_tran, m_rotXtran, m_ScaXRot,  m_ScaXrotXtran, m_TranXScaXRot;
 					
 					m3dLoadIdentity44(m_scale);
 					m3dScaleMatrix44(m_scale, scale.X, scale.Y, scale.Z);
@@ -41,12 +41,16 @@ namespace NS_SG
 					m3dTranslationMatrix44(m_tran, position.X, position.Y, position.Z);
 
 
-					m3dMatrixMultiply44(m_rotXtran, m_tran, m_rot);
 
-					m3dMatrixMultiply44(m_ScaXrotXtran, m_rotXtran, m_scale);
+					m3dMatrixMultiply44(m_ScaXRot, m_scale, m_rot);
+					m3dMatrixMultiply44(m_TranXScaXRot, m_tran, m_ScaXRot);
+					
+					m3dCopyMatrix44(matrix, m_TranXScaXRot);
+					//m3dMatrixMultiply44(m_rotXtran, m_tran, m_rot);
 
-	
-					m3dCopyMatrix44(matrix, m_ScaXrotXtran);
+					//m3dMatrixMultiply44(m_ScaXrotXtran, m_rotXtran, m_scale);
+
+					//m3dCopyMatrix44(matrix, m_ScaXrotXtran);
 				
 					matrix_dirty = false;
 				}
