@@ -343,12 +343,18 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::objTransform> t_1_12(new NS_SG::objTransform("t1_12"));
 
+	//NS_VEC::QUAT()
 	t_1_12->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.81f));
-	t_1_12->setRotation(NS_VEC::QUAT(0.0f, 180.0f, 0.0f));
 
+
+	//tr_1_12->setRotation(NS_VEC::QUAT(90.0f, 0.0f, 0.0f));
+	//t_1_12->setScale(NS_VEC::VEC3(1.0f, 1.0f, -1.0f));
+	//t_1_12->addChild(tr_1_12.get());
+
+	//tr_1_12->setTarget(mn_protoganist.get());
+	//tr_1_12->addChild(m_1_12.get());
 
 	t_1_12->addChild(m_1_12.get());
-
 
 
 
@@ -362,8 +368,18 @@ int main(int argc, char** argv)
 
 	
 
+	boost::shared_ptr<NS_SG::targetTransform> target_look(new NS_SG::targetTransform("tar_look"));
+	boost::shared_ptr<NS_SG::objTransform> t_look(new NS_SG::objTransform("t_look"));
 
+
+	boost::shared_ptr<NS_SG::modelNode> lookTest(new NS_SG::modelNode("looker", &m_P_Arm, &e_geom));
+
+	t_look->setPosition(NS_VEC::VEC3(-2.0f, 0.0f, 2.0f));
+	target_look->setTarget(mn_protoganist.get());
 	
+	t_look->addChild(target_look.get());
+
+	o_loader->addChild(t_look.get());
 //--------------------Camera 
 	//1 for nowf
 	
@@ -588,6 +604,8 @@ int main(int argc, char** argv)
 
 //------adds node to scene  (should do this when created to help  sort shit out)
 	o_loader->addChild(tran_protagonist.get());
+
+	//o_loader->addChild()
 
 	o_loader->addChild(tran_cavern.get());
 

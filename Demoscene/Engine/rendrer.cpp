@@ -41,7 +41,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		modelNode *mesh = reinterpret_cast<modelNode*>(Node);
 		if (NULL != mesh->Magic)
 		{
-			M3DMatrix44f world; 
+			//M3DMatrix44f world; 
 
 			Node->getAbsoluteTransform(world);
 
@@ -99,7 +99,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
 			
 			
-		;
+		
 			m3dMatrixMultiply44(vp, projection, view);
 
 			
