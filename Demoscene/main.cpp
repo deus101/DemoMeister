@@ -24,6 +24,12 @@ sync_device *rocket;
 const struct sync_track *plane_Pos_X, *plane_Pos_Y, *plane_Pos_Z, *plane_Rot_X, *plane_Rot_Y, *plane_Rot_Z, *plane_Sca_X, *plane_Sca_Y, *plane_Sca_Z;
 const struct sync_track *lit_Pos_X, *lit_Pos_Y, *lit_Pos_Z;
 const struct sync_track *cam_Pos_X, *cam_Pos_Y, *cam_Pos_Z;
+const struct sync_track *e_1_6_Rot_X, *e_1_6_Rot_Y, *e_1_6_Rot_Z;
+
+const struct sync_track *litG_Pos_X, *litG_Pos_Y, *litG_Pos_Z;
+const struct sync_track *litY_Pos_X, *litY_Pos_Y, *litY_Pos_Z;
+const struct sync_track *litR_Pos_X, *litR_Pos_Y, *litR_Pos_Z;
+const struct sync_track *litB_Pos_X, *litB_Pos_Y, *litB_Pos_Z;
 
 NS_SG::objectAnim PlaneSync, CameraSync;
 
@@ -32,6 +38,14 @@ NS_SG::objTransform *ptrCamTran;
 NS_SG::objTransform *ptrTranProt;
 NS_SG::objTransform *ptrLitPlan;
 
+NS_SG::objTransform *ptrE_1_6;
+
+
+
+NS_SG::objTransform *ptrLitPLG;
+NS_SG::objTransform *ptrLitPLY;
+NS_SG::objTransform *ptrLitPLR;
+NS_SG::objTransform *ptrLitPLB;
 
 
 static const float bpm = 150.0f; /* beats per minute */
@@ -107,6 +121,14 @@ void Sync()
 	ptrTranProt->setScale(NS_VEC::VEC3(float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_Y, row)), float(sync_get_val(plane_Sca_Z, row))));
 
 	ptrLitPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(lit_Pos_X, row)), float(sync_get_val(lit_Pos_Y, row)), float(sync_get_val(lit_Pos_Z, row))));
+
+	ptrE_1_6->setRotation(NS_VEC::QUAT(float(sync_get_val(e_1_6_Rot_X, row)), float(sync_get_val(e_1_6_Rot_Y, row)), float(sync_get_val(e_1_6_Rot_Z, row))));
+
+
+	ptrLitPLG->setPosition(NS_VEC::VEC3(float(sync_get_val(litG_Pos_X, row)), float(sync_get_val(litG_Pos_Y, row)), float(sync_get_val(litG_Pos_Z, row))));
+	ptrLitPLY->setPosition(NS_VEC::VEC3(float(sync_get_val(litY_Pos_X, row)), float(sync_get_val(litY_Pos_Y, row)), float(sync_get_val(litY_Pos_Z, row))));
+	ptrLitPLR->setPosition(NS_VEC::VEC3(float(sync_get_val(litR_Pos_X, row)), float(sync_get_val(litR_Pos_Y, row)), float(sync_get_val(litR_Pos_Z, row))));
+	ptrLitPLB->setPosition(NS_VEC::VEC3(float(sync_get_val(litB_Pos_X, row)), float(sync_get_val(litB_Pos_Y, row)), float(sync_get_val(litB_Pos_Z, row))));
 
 }
 
@@ -339,12 +361,12 @@ int main(int argc, char** argv)
 
 
 	
-	boost::shared_ptr<NS_SG::modelNode> m_1_12(new NS_SG::modelNode("1_12", &m_P_Arm, &e_geom));
+	boost::shared_ptr<NS_SG::modelNode> m_1_6(new NS_SG::modelNode("1_6", &m_P_Arm, &e_geom));
 
-	boost::shared_ptr<NS_SG::objTransform> t_1_12(new NS_SG::objTransform("t1_12"));
+	boost::shared_ptr<NS_SG::objTransform> t_1_6(new NS_SG::objTransform("t1_6"));
 
 	//NS_VEC::QUAT()
-	t_1_12->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.81f));
+	t_1_6->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.81f));
 
 
 	//tr_1_12->setRotation(NS_VEC::QUAT(90.0f, 0.0f, 0.0f));
@@ -354,19 +376,19 @@ int main(int argc, char** argv)
 	//tr_1_12->setTarget(mn_protoganist.get());
 	//tr_1_12->addChild(m_1_12.get());
 
-	t_1_12->addChild(m_1_12.get());
+	t_1_6->addChild(m_1_6.get());
 
 
 
 
 	//lastly
-	tran_protagonist->addChild(t_1_12.get());
+	tran_protagonist->addChild(t_1_6.get());
 
 
 	//and
 	ptrTranProt = tran_protagonist.get();
-
-	
+	//ptr
+	ptrE_1_6 = t_1_6.get();
 
 	boost::shared_ptr<NS_SG::targetTransform> target_look(new NS_SG::targetTransform("tar_look"));
 	boost::shared_ptr<NS_SG::objTransform> t_look(new NS_SG::objTransform("t_look"));
@@ -389,13 +411,18 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
 	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
-
+	boost::shared_ptr<NS_SG::objTransform> pivot_kambot(new NS_SG::objTransform("pivot_kambot"));
 
 	
 	
 	target_kambot->setTarget(mn_protoganist.get());
 
 	target_kambot->addChild(kambot.get());
+	//target_kambot->addChild(target_pivot.get());
+
+	//target_pivot->addChild(kambot.get());
+
+
 
 
 
@@ -435,7 +462,33 @@ int main(int argc, char** argv)
 	o_loader->addChild(tran_Point.get());
 
 
+	boost::shared_ptr<NS_SG::pointLightNode> n_pl_g(new NS_SG::pointLightNode("PointLys_G", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_pl_g(new NS_SG::objTransform("tran_PointLys_G"));
+	tran_pl_g->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
+	tran_pl_g->addChild(n_pl_g.get());
+	ptrLitPLG = tran_pl_g.get();
+	o_loader->addChild(tran_pl_g.get());
 
+	boost::shared_ptr<NS_SG::pointLightNode> n_pl_y(new NS_SG::pointLightNode("PointLys_Y", NS_VEC::VEC3(1.0f, 1.0f, 0.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_pl_y(new NS_SG::objTransform("tran_PointLys_Y"));
+	tran_pl_g->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
+	tran_pl_y->addChild(n_pl_y.get());
+	ptrLitPLY = tran_pl_y.get();
+	o_loader->addChild(tran_pl_y.get());
+
+	boost::shared_ptr<NS_SG::pointLightNode> n_pl_r(new NS_SG::pointLightNode("PointLys_R", NS_VEC::VEC3(1.0f, 0.0f, 0.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_pl_r(new NS_SG::objTransform("tran_PointLys_R"));
+	tran_pl_r->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
+	tran_pl_r->addChild(n_pl_r.get());
+	ptrLitPLR = tran_pl_r.get();
+	o_loader->addChild(tran_pl_r.get());
+
+	boost::shared_ptr<NS_SG::pointLightNode> n_pl_b(new NS_SG::pointLightNode("PointLys_B", NS_VEC::VEC3(0.0f, 0.0f, 1.0f), 0.5f, 0.5f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::objTransform> tran_pl_b(new NS_SG::objTransform("tran_PointLys_B"));
+	tran_pl_b->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
+	tran_pl_b->addChild(n_pl_b.get());
+	ptrLitPLB = tran_pl_b.get();
+	o_loader->addChild(tran_pl_b.get());
 
 //Light Green Stalagmite
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys_GW_1(new NS_SG::pointLightNode("G_White_PointLys_1", NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 1.5f, 4.0f, 0.01f, 0.8f, 0.5f, &e_point, &e_null));
@@ -528,6 +581,8 @@ int main(int argc, char** argv)
 //Light Violet Stalagmite
 
 
+	
+
 
 
 
@@ -595,8 +650,29 @@ int main(int argc, char** argv)
 	lit_Pos_Y = sync_get_track(rocket, "Lpos.y");
 	lit_Pos_Z = sync_get_track(rocket, "Lpos.z");
 	
-	
-	
+	e_1_6_Rot_X = sync_get_track(rocket, "e_1_6_rX");
+	e_1_6_Rot_Y = sync_get_track(rocket, "e_1_6_rY");
+	e_1_6_Rot_Z = sync_get_track(rocket, "e_1_6_rZ");
+
+
+	litG_Pos_X = sync_get_track(rocket, "GLpos.x");
+	litG_Pos_Y = sync_get_track(rocket, "GLpos.y");
+	litG_Pos_Z = sync_get_track(rocket, "GLpos.z");
+
+	litY_Pos_X = sync_get_track(rocket, "YLpos.x");
+	litY_Pos_Y = sync_get_track(rocket, "YLpos.y");
+	litY_Pos_Z = sync_get_track(rocket, "YLpos.z");
+
+	litR_Pos_X = sync_get_track(rocket, "RLpos.x");
+	litR_Pos_Y = sync_get_track(rocket, "RLpos.y");
+	litR_Pos_Z = sync_get_track(rocket, "RLpos.z");
+
+	litB_Pos_X = sync_get_track(rocket, "BLpos.x");
+	litB_Pos_Y = sync_get_track(rocket, "BLpos.y");
+	litB_Pos_Z = sync_get_track(rocket, "BLpos.z");
+
+
+
 	PlaneSync = NS_SG::objectAnim();
 	CameraSync = NS_SG::objectAnim();
 

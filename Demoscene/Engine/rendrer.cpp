@@ -210,6 +210,8 @@ void rendrer::RenderSceneCB()
 	M3DMatrix44f inverseView;
 	m3dInvertMatrix44(inverseView, view);
 
+	//NS_VEC::VEC3 EyeWorldPos(view[12], view[13], view[14]);
+	
 	NS_VEC::VEC3 EyeWorldPos(inverseView[12], inverseView[13], inverseView[14]);
 
 
