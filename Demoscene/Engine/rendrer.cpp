@@ -25,10 +25,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 	{
 		camera *cammy = reinterpret_cast<camera*>(Node);
 
-		//M3DMatrix44f world, local;
-		//cammy->getAbsoluteTransform(world);
-
-		cammy->getParent()->getLocalTransform(view);
+		M3DMatrix44f CamWorld, local;
+		cammy->getAbsoluteTransform(CamWorld);
+		m3dInvertMatrix44(view, CamWorld);
+		//cammy->getParent()->getLocalTransform(view);
 
 
 	}

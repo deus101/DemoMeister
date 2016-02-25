@@ -27,16 +27,15 @@ namespace NS_SG
 
 				//just to check how much I fuck ups
 				M3DMatrix44f MatArgument, parInv;
+				NS_VEC::VEC3 parPos;
 				m3dCopyMatrix44(MatArgument, in);
 				this->getParent()->getInverseRotation(parInv);
-				//this->po
+
+				
 				if (matrix_dirty)
 				{
 
-					M3DMatrix44f m_scale, m_rot, m_tran, m_rotXtran, m_ScaXRot, m_ScaXrotXtran, m_TranXScaXRot;
-
-
-
+					M3DMatrix44f m_scale, m_rot, m_tran, m_rotTr, m_ScaXRot, m_ScaXrotXtran;
 
 
 
@@ -45,43 +44,37 @@ namespace NS_SG
 
 
 					m3dRotationMatrix44(m_rot, rotation);
-
+					//m3dTransposeMatrix44(m_rotTr, m_rot);
 
 
 					m3dLoadIdentity44(m_tran);
+
+
+
 					m3dTranslationMatrix44(m_tran, position.X, position.Y, position.Z);
 
 
 
 					m3dMatrixMultiply44(m_ScaXRot, m_scale, m_rot);
-					m3dMatrixMultiply44(m_TranXScaXRot, m_tran, m_ScaXRot);
+					//m3dCopyMatrix44(invRot, m_TranXScaXRot);
 
-					m3dCopyMatrix44(matrix, m_TranXScaXRot);
+					m3dMatrixMultiply44(m_ScaXrotXtran, m_tran, m_ScaXRot);
 
-					m_TranXScaXRot[12] = 0.0f;
-					m_TranXScaXRot[13] = 0.0f;
-					m_TranXScaXRot[14] = 0.0f;
-					//m3dInvertMatrix44(invRot, m_TranXScaXRot);
-					//m3dMatrixMultiply44(m_rotXtran, m_tran, m_rot);
-					m3dCopyMatrix44(invRot, m_TranXScaXRot);
-
-					//m3dMatrixMultiply44(m_ScaXrotXtran, m_rotXtran, m_scale);
-
-					//m3dCopyMatrix44(matrix, m_ScaXrotXtran);
+					m3dCopyMatrix44(matrix, m_ScaXrotXtran);
 
 
 					matrix_dirty = false;
 				}
-				M3DVector4f rotatedPos;
-				M3DVector4f current;
+				//M3DVector4f rotatedPos;
+				//M3DVector4f current;
 
-				current[0] = this->position.X;
-				current[1] = this->position.Y;
-				current[2] = this->position.Z;
-				current[3] = 1.0f;
-				m3dTransformVector4(rotatedPos, current, parInv);
+				//current[0] = this->position.X;
+				//current[1] = this->position.Y;
+				//current[2] = this->position.Z;
+				//current[3] = 1.0f;
+				//m3dTransformVector4(rotatedPos, current, parInv);
 				//m3dMatrixMultiply44(in, matrix, parInv);
-				m3dSetMatrixColumn44(matrix, rotatedPos, 3);
+				//m3dSetMatrixColumn44(matrix, rotatedPos, 3);
 				m3dCopyMatrix44(in, matrix);
 			}
 
@@ -94,6 +87,7 @@ namespace NS_SG
 			void setRotation(NS_VEC::QUAT &rot)
 			{
 				this->rotation = rot;
+				this->rotation.NormIt();
 				this->matrix_dirty = true;
 			}
 

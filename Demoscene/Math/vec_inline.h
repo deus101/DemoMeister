@@ -19,16 +19,28 @@ namespace NS_VEC
 		//nevermind did it here
 		w = w / 360 * (float)M_PI * 2;
 
-		W = cos(w / 2);
-		X = x*sin(w / 2);
-		Y = y*sin(w / 2);
-		Z = z*sin(w / 2);
+		W = cosf(w / 2);
+		X = x*sinf(w / 2);
+		Y = y*sinf(w / 2);
+		Z = z*sinf(w / 2);
 	}
 
+	//construct a complete local rotation
+
 	inline QUAT::QUAT( float x, float y, float z) {
-		(*this) = QUAT(x, 1.0f, 0.0f, 0.0f) * QUAT(y, 0.0f, 1.0f, 0.0f) * QUAT(z, 0.0f, 0.0f, 1.0f);
+		QUAT Xaxis, Yaxis, Zaxis;
+		Xaxis = QUAT(x, 1.0f, 0.0f, 0.0f);
+		Yaxis = QUAT(y, 0.0f, 1.0f, 0.0f);
+		Zaxis = QUAT(z, 0.0f, 0.0f, 1.0f);
+		//set as identity Quat
+		this->W = 1.0f;
+		this->X = 0.0f;
+		this->Y = 0.0f;
+		this->Z = 0.0f;
 
-
+		*this = *this * Xaxis;
+		*this = *this * Yaxis;
+		*this = *this * Zaxis;
 	}
 
 	inline const QUAT QUAT::Inverse(void) const
@@ -96,6 +108,17 @@ namespace NS_VEC
 		float at = a*t;
 		//returning the transformed/exponatiated QUATERNION
 		return QUAT(at, n.X, n.Y, n.Z);
+
+	}
+
+	inline void QUAT::NormIt() 
+	{
+		const float n = 1.0f / sqrtf(this->X * this->X + this->Y * this->Y + this->Z * this->Z + this->W * this->W);
+		
+		this->X *= n;
+		this->Y *= n;
+		this->Z *= n;
+		this->W *= n;
 
 	}
 

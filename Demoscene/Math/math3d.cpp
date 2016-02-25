@@ -458,7 +458,7 @@ void m3dRotationMatrix44(M3DMatrix44d m, double angle, double x, double y, doubl
 void m3dRotationMatrix44(M3DMatrix44f m, const NS_VEC::QUAT qRot)
 {
 
-	
+	//M3DMatrix33f pre, Tpre;
 
 #define M(col,row)  m[col*4+row]
 
@@ -484,6 +484,8 @@ void m3dRotationMatrix44(M3DMatrix44f m, const NS_VEC::QUAT qRot)
 	M(3, 3) = 1.0;
 
 #undef M
+
+	
 }
 ////////////////////////////////////////////////////////////////////////////
 /// This function is not exported by library, just for this modules use only
@@ -747,11 +749,11 @@ void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vL
 	M3DMatrix44f rot, Trot, OrientationT;
 	m3dLoadIdentity44(rot);
 
-	//m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
-	m3dTransposeMatrix44(OrientationT, Orientation);
-	//m3dMatrixMultiply44(mat, rot, Orientation );
+	m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
+	//m3dTransposeMatrix44(OrientationT, Orientation);
+	m3dMatrixMultiply44(mat, rot, Orientation );
 
-	m3dCopyMatrix44(mat, Orientation);
+	//m3dCopyMatrix44(mat, Orientation);
 
 }
 

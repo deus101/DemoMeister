@@ -118,9 +118,9 @@ namespace NS_SG{
 					curr = curr->parent.lock();
 
 					curr->getLocalTransform(currentTransform);
-					//here is where the fuckup can be avoided...all truly local transforms gets turned into global
-					m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
-
+					//HOLY FUCK!!!!!!!!!!!!!!!!
+					//m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
+					m3dMatrixMultiply44(absoluteTransform, currentTransform, absoluteTransform);
 				}
 
 				m3dCopyMatrix44(in, absoluteTransform);
