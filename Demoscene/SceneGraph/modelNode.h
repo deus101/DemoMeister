@@ -11,7 +11,7 @@ namespace NS_SG{
 	
 		class modelNode : public assetNode
 		{
-		public:
+		public:												//should I seperate between asset and procedural?
 			modelNode(std::string name,  NS_ENG::model  *mesh, NS_EFF::GeomPacket *tech) :
 				assetNode(name),
 				Model(mesh),

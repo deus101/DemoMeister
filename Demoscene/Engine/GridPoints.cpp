@@ -1,8 +1,37 @@
 #include "GridPoints.h"
 
+using namespace NS_ENG;
 
-GridPoints::GridPoints()
+GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_Y)
 {
+	//Half size
+
+	//CellPos = vector < NS_VEC::VEC2>;
+
+	float HalfSizeX = Size_X / 2;
+
+	//start
+	int i = GridSize_X / 2;
+	int j = GridSize_Y / 2;
+
+	int LimI = -GridSize_X / 2;
+	int LimJ = -GridSize_Y / 2;
+	while (j > LimJ)
+	{
+		float ypos = j * Size_Y;
+		while (i > LimI)
+		{
+			float xpos = i * Size_X;
+			CellPos.push_back(NS_VEC::VEC2(xpos, ypos));
+					i--;
+
+			}
+		j--;
+
+
+	}
+
+
 }
 
 
@@ -12,30 +41,16 @@ void GridPoints::Draw()
 
 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
-	{
 
 
-		glBindVertexArray(Sort_Groups[i].vao);
 
-		if (Sort_Groups[i].tex != NULL)
-		{
-			glActiveTexture(COLOR_TEXTURE_UNIT);
-			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
-		}
-		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
-		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
-		//gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
-		//gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
-		//glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, (GLintptr)_data.indices.length, _data.indices.bytes);
-		//glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_SHORT, (void*)0);
+	//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 
-		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
+	glDrawArrays(GL_POINT_BIT, 0, CellPos.size() *sizeof(NS_VEC::VEC2));
 
 
-	}
-	glBindVertexArray(0);
+
+	//glBindVertexArray(0);
 
 }
 

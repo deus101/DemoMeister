@@ -458,14 +458,14 @@ int main(int argc, char** argv)
 	ptrE_3_02 = t_3_02.get();
 
 	//t_3_10
-	boost::shared_ptr<NS_SG::modelNode> m_2_10(new NS_SG::modelNode("2_10", &m_P_Arm, &e_geom));
+	boost::shared_ptr<NS_SG::modelNode> m_3_10(new NS_SG::modelNode("3_10", &m_P_Arm, &e_geom));
 
-	boost::shared_ptr<NS_SG::objTransform> t_2_10(new NS_SG::objTransform("t2_10"));
+	boost::shared_ptr<NS_SG::objTransform> t_3_10(new NS_SG::objTransform("t3_10"));
 	//xrot=63.0 yrot=36
-	t_2_10->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
-	t_2_10->addChild(m_2_10.get());
+	t_3_10->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
+	t_3_10->addChild(m_2_10.get());
 
-	ptrE_2_10 = t_2_10.get();
+	ptrE_3_10 = t_3_10.get();
 
 
 

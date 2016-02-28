@@ -1,6 +1,6 @@
 #include "HeightMapPacket.h"
 
-
+using namespace NS_EFF;
 HeightMapPacket::HeightMapPacket()
 {
 }
@@ -53,9 +53,9 @@ void HeightMapPacket::SetWorldMatrix(const M3DMatrix44f& W)
 	glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
 }
 
-void HeightMapPacket::SetHeightTextureUnit(unsigned int TextureUnit)
+void HeightMapPacket::SetHeightTextureUnit(unsigned int HeightUnit)
 {
-	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
+	glUniform1i(m_colorHeightUnitLocation, HeightUnit);
 }
 void HeightMapPacket::SetColorTextureUnit(unsigned int TextureUnit)
 {

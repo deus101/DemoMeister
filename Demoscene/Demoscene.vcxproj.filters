@@ -215,6 +215,9 @@
     <ClInclude Include="Engine\GridPoints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SceneGraph\gridNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">
@@ -258,6 +261,8 @@
     </None>
     <None Include="Mesh\teapot.FBX" />
     <None Include="Mesh\newP38.mtl" />
+    <None Include="Shaders\geometry_grid_pass.vs" />
+    <None Include="Shaders\geometry_grid_pass.gs" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
