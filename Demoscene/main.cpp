@@ -24,7 +24,20 @@ sync_device *rocket;
 const struct sync_track *plane_Pos_X, *plane_Pos_Y, *plane_Pos_Z, *plane_Rot_X, *plane_Rot_Y, *plane_Rot_Z, *plane_Sca_X, *plane_Sca_Y, *plane_Sca_Z;
 const struct sync_track *lit_Pos_X, *lit_Pos_Y, *lit_Pos_Z;
 const struct sync_track *cam_Pos_X, *cam_Pos_Y, *cam_Pos_Z;
+
 const struct sync_track *e_1_6_Rot_X, *e_1_6_Rot_Y, *e_1_6_Rot_Z;
+const struct sync_track *e_1_04_Rot_X, *e_1_04_Rot_Y, *e_1_04_Rot_Z;
+const struct sync_track *e_1_08_Rot_X, *e_1_08_Rot_Y, *e_1_08_Rot_Z;
+
+const struct sync_track *ArmPos_X, *ArmPos_Y, *ArmPos_Z;
+
+
+const struct sync_track *e_2_10_Rot_X, *e_2_10_Rot_Y, *e_2_10_Rot_Z;
+const struct sync_track *e_2_02_Rot_X, *e_2_02_Rot_Y, *e_2_02_Rot_Z;
+
+const struct sync_track *e_3_10_Rot_X, *e_3_10_Rot_Y, *e_3_10_Rot_Z;
+const struct sync_track *e_3_02_Rot_X, *e_3_02_Rot_Y, *e_3_02_Rot_Z;
+
 
 const struct sync_track *litG_Pos_X, *litG_Pos_Y, *litG_Pos_Z;
 const struct sync_track *litY_Pos_X, *litY_Pos_Y, *litY_Pos_Z;
@@ -35,12 +48,27 @@ NS_SG::objectAnim PlaneSync, CameraSync;
 
 NS_SG::composite *ptrComp;
 NS_SG::objTransform *ptrCamTran;
-NS_SG::objTransform *ptrTranProt;
 NS_SG::objTransform *ptrLitPlan;
 
+NS_SG::objTransform *ptrTranProt;
 NS_SG::objTransform *ptrE_1_6;
+NS_SG::objTransform *ptrE_1_04;
+NS_SG::objTransform *ptrE_1_08;
 
+//on 1_6
+NS_SG::objTransform *ptrE_2_10;
+NS_SG::objTransform *ptrE_2_02;
 
+//on 2_02
+NS_SG::objTransform *ptrE_3_02;
+//on 3_02
+NS_SG::objTransform *ptrE_4_02;
+
+//on 2_10
+NS_SG::objTransform *ptrE_3_10;
+
+//on 3_10
+NS_SG::objTransform *ptrE_4_10;
 
 NS_SG::objTransform *ptrLitPLG;
 NS_SG::objTransform *ptrLitPLY;
@@ -123,6 +151,16 @@ void Sync()
 	ptrLitPlan->setPosition(NS_VEC::VEC3(float(sync_get_val(lit_Pos_X, row)), float(sync_get_val(lit_Pos_Y, row)), float(sync_get_val(lit_Pos_Z, row))));
 
 	ptrE_1_6->setRotation(NS_VEC::QUAT(float(sync_get_val(e_1_6_Rot_X, row)), float(sync_get_val(e_1_6_Rot_Y, row)), float(sync_get_val(e_1_6_Rot_Z, row))));
+	//really its 10oclock and 2oClock
+	ptrE_1_08->setRotation(NS_VEC::QUAT(float(sync_get_val(e_1_08_Rot_X, row)), float(sync_get_val(e_1_08_Rot_Y, row)), float(sync_get_val(e_1_08_Rot_Z, row))));
+	ptrE_1_04->setRotation(NS_VEC::QUAT(float(sync_get_val(e_1_04_Rot_X, row)), float(sync_get_val(e_1_04_Rot_Y, row)), float(sync_get_val(e_1_04_Rot_Z, row))));
+
+	//ptrE_1_04->setPosition(NS_VEC::VEC3(float(sync_get_val(ArmPos_X, row)), float(sync_get_val(ArmPos_Y, row)), float(sync_get_val(ArmPos_Z, row))));
+	
+
+	ptrE_2_10->setRotation(NS_VEC::QUAT(float(sync_get_val(e_2_10_Rot_X, row)), float(sync_get_val(e_2_10_Rot_Y, row)), float(sync_get_val(e_2_10_Rot_Z, row))));
+	ptrE_2_02->setRotation(NS_VEC::QUAT(float(sync_get_val(e_2_02_Rot_X, row)), float(sync_get_val(e_2_02_Rot_Y, row)), float(sync_get_val(e_2_02_Rot_Z, row))));
+
 
 
 	ptrLitPLG->setPosition(NS_VEC::VEC3(float(sync_get_val(litG_Pos_X, row)), float(sync_get_val(litG_Pos_Y, row)), float(sync_get_val(litG_Pos_Z, row))));
@@ -288,7 +326,7 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::objTransform> tran_cavern(new NS_SG::objTransform("tran_cavern"));
 
 	tran_cavern->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-	tran_cavern->setRotation(NS_VEC::QUAT(0.0f, 90.0f, 0.0f));
+	tran_cavern->setRotation(NS_VEC::QUAT(0.0f, -90.0f, 0.0f));
 
 	tran_cavern->addChild(mn_cavern.get());
 
@@ -360,31 +398,87 @@ int main(int argc, char** argv)
 	tran_protagonist->addChild(mn_protoganist.get());
 
 
-	
+	//t_1_6
 	boost::shared_ptr<NS_SG::modelNode> m_1_6(new NS_SG::modelNode("1_6", &m_P_Arm, &e_geom));
 
 	boost::shared_ptr<NS_SG::objTransform> t_1_6(new NS_SG::objTransform("t1_6"));
 
-	//NS_VEC::QUAT()
+	//xrot=-114.0 yrot=0
 	t_1_6->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.81f));
-
-
-	//tr_1_12->setRotation(NS_VEC::QUAT(90.0f, 0.0f, 0.0f));
-	//t_1_12->setScale(NS_VEC::VEC3(1.0f, 1.0f, -1.0f));
-	//t_1_12->addChild(tr_1_12.get());
-
-	//tr_1_12->setTarget(mn_protoganist.get());
-	//tr_1_12->addChild(m_1_12.get());
 
 	t_1_6->addChild(m_1_6.get());
 
+	//t_1_02
+	boost::shared_ptr<NS_SG::modelNode> m_1_04(new NS_SG::modelNode("1_04", &m_P_Arm, &e_geom));
 
+	boost::shared_ptr<NS_SG::objTransform> t_1_04(new NS_SG::objTransform("t1_04"));
+	//really t_1_02(or 10)  xrot=-117.0 Yrot=216 or something  VEC3(0.48, 0.0f, -0.66f)
+	t_1_04->setPosition(NS_VEC::VEC3(0.48, 0.0f, -0.66f));
+	t_1_04->addChild(m_1_04.get());
+	ptrE_1_04 = t_1_04.get();
+
+
+	//t_1_10
+	boost::shared_ptr<NS_SG::modelNode> m_1_08(new NS_SG::modelNode("1_08", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_1_08(new NS_SG::objTransform("t1_08"));
+	//really t_1_10 xrot=-36.0  YRot= 63.0  
+	t_1_08->setPosition(NS_VEC::VEC3(-0.48, 0.0f, -0.66f));
+	t_1_08->addChild(m_1_08.get());
+	ptrE_1_08 = t_1_08.get();
+
+
+
+	//t_2_10
+	boost::shared_ptr<NS_SG::modelNode> m_2_10(new NS_SG::modelNode("2_10", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_2_10(new NS_SG::objTransform("t2_10"));
+	//xrot=63.0 yrot=36
+	t_2_10->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
+	t_2_10->addChild(m_2_10.get());
+
+	ptrE_2_10 = t_2_10.get();
+
+	//t_2_02
+	boost::shared_ptr<NS_SG::modelNode> m_2_02(new NS_SG::modelNode("2_02", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_2_02(new NS_SG::objTransform("t2_02"));
+	// xrot=63 Yrot=-36.0 
+	t_2_02->setPosition(NS_VEC::VEC3(-0.48028, 0.0f, -1.47909f));
+	t_2_02->addChild(m_2_02.get());
+	ptrE_2_02 = t_2_02.get();
+
+	//t_3_02
+	boost::shared_ptr<NS_SG::modelNode> m_3_02(new NS_SG::modelNode("3_02", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_3_02(new NS_SG::objTransform("t3_02"));
+	// xrot=63 Yrot=-36.0 
+	t_3_02->setPosition(NS_VEC::VEC3(-0.48028, 0.0f, -1.47909f));
+	t_3_02->addChild(m_3_02.get());
+	ptrE_3_02 = t_3_02.get();
+
+	//t_3_10
+	boost::shared_ptr<NS_SG::modelNode> m_2_10(new NS_SG::modelNode("2_10", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_2_10(new NS_SG::objTransform("t2_10"));
+	//xrot=63.0 yrot=36
+	t_2_10->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
+	t_2_10->addChild(m_2_10.get());
+
+	ptrE_2_10 = t_2_10.get();
+
+
+
+	t_1_6->addChild(t_2_10.get());
+	t_1_6->addChild(t_2_02.get());
+
+	//add two steps of pentagons to each
 
 
 	//lastly
 	tran_protagonist->addChild(t_1_6.get());
-
-
+	tran_protagonist->addChild(t_1_08.get());
+	tran_protagonist->addChild(t_1_04.get());
 	//and
 	ptrTranProt = tran_protagonist.get();
 	//ptr
@@ -654,6 +748,27 @@ int main(int argc, char** argv)
 	e_1_6_Rot_Y = sync_get_track(rocket, "e_1_6_rY");
 	e_1_6_Rot_Z = sync_get_track(rocket, "e_1_6_rZ");
 
+	e_1_04_Rot_X = sync_get_track(rocket, "e_1_04_rX");
+	e_1_04_Rot_Y = sync_get_track(rocket, "e_1_04_rY");
+	e_1_04_Rot_Z = sync_get_track(rocket, "e_1_04_rZ");
+
+	e_1_08_Rot_X = sync_get_track(rocket, "e_1_08_rX");
+	e_1_08_Rot_Y = sync_get_track(rocket, "e_1_08_rY");
+	e_1_08_Rot_Z = sync_get_track(rocket, "e_1_08_rZ");
+
+	e_2_10_Rot_X = sync_get_track(rocket, "e_2_10_rX");
+	e_2_10_Rot_Y = sync_get_track(rocket, "e_2_10_rY");
+	e_2_10_Rot_Z = sync_get_track(rocket, "e_2_10_rZ");
+
+	e_2_02_Rot_X = sync_get_track(rocket, "e_2_02_rX");
+	e_2_02_Rot_Y = sync_get_track(rocket, "e_2_02_rY");
+	e_2_02_Rot_Z = sync_get_track(rocket, "e_2_02_rZ");
+
+
+	ArmPos_X = sync_get_track(rocket, "armPos_X");
+	
+	ArmPos_Y = sync_get_track(rocket, "armPos_Y");
+	ArmPos_Z = sync_get_track(rocket, "armPos_Z");
 
 	litG_Pos_X = sync_get_track(rocket, "GLpos.x");
 	litG_Pos_Y = sync_get_track(rocket, "GLpos.y");

@@ -459,7 +459,48 @@ void m3dRotationMatrix44(M3DMatrix44f m, const NS_VEC::QUAT qRot)
 {
 
 	//M3DMatrix33f pre, Tpre;
+	double sqw = qRot.W*qRot.W;
+	double sqx = qRot.X*qRot.X;
+	double sqy = qRot.Y*qRot.Y;
+	double sqz = qRot.Z*qRot.Z;
+	// get the invert square length 
+	double invs = 1 / (sqx + sqy + sqz + sqw);
 
+
+
+	// rotation matrix is scaled by inverse square length 
+#define M(col,row)  m[col*4+row]
+	M(0, 0) = (sqx - sqy - sqz + sqw) * invs;
+	M(1, 1) = (-sqx + sqy - sqz + sqw) * invs;
+	M(2, 2) = (-sqx - sqy + sqz + sqw) * invs;
+
+	double tmp1 = qRot.X*qRot.Y;
+	double tmp2 = qRot.Z*qRot.W;
+	M(1, 0) = 2.0 * (tmp1 + tmp2) * invs;
+	M(0, 1) = 2.0 * (tmp1 - tmp2) * invs;
+
+	tmp1 = qRot.X*qRot.Z;
+	tmp2 = qRot.Y*qRot.W;
+	M(2, 0) = 2.0 * (tmp1 - tmp2) * invs;
+	M(0, 2) = 2.0 * (tmp1 + tmp2) * invs;
+	tmp1 = qRot.Y*qRot.Z;
+	tmp2 = qRot.X*qRot.W;
+	M(2, 1) = 2.0 * (tmp1 + tmp2) * invs;
+	M(1, 2) = 2.0 * (tmp1 - tmp2) * invs;
+
+	M(0, 3) = 0.0;
+	M(1, 3) = 0.0;
+	M(2, 3) = 0.0;
+
+	M(3, 0) = 0.0;
+	M(3, 1) = 0.0;
+	M(3, 2) = 0.0;
+	M(3, 3) = 1.0;
+#undef M
+}
+
+	
+	/*
 #define M(col,row)  m[col*4+row]
 
 
@@ -485,8 +526,9 @@ void m3dRotationMatrix44(M3DMatrix44f m, const NS_VEC::QUAT qRot)
 
 #undef M
 
+*/
 	
-}
+
 ////////////////////////////////////////////////////////////////////////////
 /// This function is not exported by library, just for this modules use only
 // 3x3 determinant

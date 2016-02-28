@@ -43,19 +43,18 @@ namespace NS_SG
 					m3dScaleMatrix44(m_scale, scale.X, scale.Y, scale.Z);
 
 
+					//rotation.NormIt();
 					m3dRotationMatrix44(m_rot, rotation);
-					//m3dTransposeMatrix44(m_rotTr, m_rot);
-
 
 					m3dLoadIdentity44(m_tran);
 
 
 
 					m3dTranslationMatrix44(m_tran, position.X, position.Y, position.Z);
+					
 
 
-
-					m3dMatrixMultiply44(m_ScaXRot, m_scale, m_rot);
+					m3dMatrixMultiply44(m_ScaXRot, m_rot,m_scale);
 					//m3dCopyMatrix44(invRot, m_TranXScaXRot);
 
 					m3dMatrixMultiply44(m_ScaXrotXtran, m_tran, m_ScaXRot);
@@ -64,6 +63,12 @@ namespace NS_SG
 
 
 					matrix_dirty = false;
+					if (this->getName() == "tran_stalagmite_2")
+					{
+						std::string name = this->getName();
+						int faen = 0;
+					}
+
 				}
 				//M3DVector4f rotatedPos;
 				//M3DVector4f current;
@@ -87,7 +92,7 @@ namespace NS_SG
 			void setRotation(NS_VEC::QUAT &rot)
 			{
 				this->rotation = rot;
-				this->rotation.NormIt();
+				//this->rotation.NormIt();
 				this->matrix_dirty = true;
 			}
 

@@ -109,7 +109,7 @@ namespace NS_SG{
 
 			virtual void getAbsoluteTransform(M3DMatrix44f in)
 			{
-				M3DMatrix44f absoluteTransform;
+				M3DMatrix44f absoluteTransform, newAbsoluteTransform;
 				getLocalTransform(absoluteTransform);
 				nodePtr curr = shared_from_this();
 				while (NULL != curr->getParent())
@@ -120,7 +120,8 @@ namespace NS_SG{
 					curr->getLocalTransform(currentTransform);
 					//HOLY FUCK!!!!!!!!!!!!!!!!
 					//m3dMatrixMultiply44(absoluteTransform, absoluteTransform, currentTransform);
-					m3dMatrixMultiply44(absoluteTransform, currentTransform, absoluteTransform);
+					m3dMatrixMultiply44(newAbsoluteTransform, currentTransform, absoluteTransform);
+					m3dCopyMatrix44(absoluteTransform, newAbsoluteTransform);
 				}
 
 				m3dCopyMatrix44(in, absoluteTransform);
