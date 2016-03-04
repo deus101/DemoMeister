@@ -263,6 +263,10 @@
     <None Include="Mesh\newP38.mtl" />
     <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\geometry_grid_pass.gs" />
+    <None Include="Mesh\PentagonArm.blend" />
+    <None Include="Mesh\PentagonArm.mtl" />
+    <None Include="Mesh\PentagonBase.blend" />
+    <None Include="Mesh\PentagonBase.mtl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -367,6 +371,8 @@
     <Object Include="Mesh\world3.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="Mesh\PentagonArm.obj" />
+    <Object Include="Mesh\PentagonBase.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">

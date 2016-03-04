@@ -29,7 +29,7 @@ namespace NS_SG
 				M3DMatrix44f MatArgument, parInv;
 				NS_VEC::VEC3 parPos;
 				m3dCopyMatrix44(MatArgument, in);
-				this->getParent()->getInverseRotation(parInv);
+				//this->getParent()->getInverseRotation(parInv);
 
 				
 				if (matrix_dirty)

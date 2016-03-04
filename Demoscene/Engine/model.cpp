@@ -18,7 +18,7 @@ model::model()
 
 
 
-model::model( string obj, string mtl)
+model::model(string obj, string mtl) : asset()
 {
 
 	LoadMesh(obj.c_str(), meshy);

@@ -8,6 +8,7 @@
 #include "../Rendrer/callbacks.h"
 
 #include "../SceneGraph/modelNode.h"
+#include "../SceneGraph/gridNode.h"
 #include "../SceneGraph/pointLightNode.h"
 #include "../SceneGraph/dirLightNode.h"
 #include "model.h"
@@ -34,7 +35,10 @@ namespace NS_ENG
 		//burde vært detrte men prøver mer direkt metode først
 		//NS_SG::assetNode *sNode;
 		//shared_ptr damnit
-		NS_SG::modelNode *sNode;
+		//NS_SG::modelNode *sNode;
+		asset *gpuIn;
+		NS_EFF::renderPacket *gpuEff;
+
 		M3DMatrix44f sTransform;
 		M3DMatrix44f sWVP;
 	};

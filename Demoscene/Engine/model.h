@@ -53,7 +53,7 @@ namespace NS_ENG{
 
 
 
-	class model
+	class model : public asset
 	{
 	public:
 		std::vector<NS_VEC::VEC3> Sort_Pos;

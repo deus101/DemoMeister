@@ -15,7 +15,7 @@
 
 namespace NS_ENG{
 
-	class GridPoints
+	class GridPoints : public asset
 	{
 	public:
 		std::vector<NS_VEC::VEC2> CellPos;
@@ -24,8 +24,8 @@ namespace NS_ENG{
 
 
 
-		GridPoints(int GridSize_X, int GridSize_Y,float Size_X, float Size_Y);
-		~GridPoints();
+		GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_Y);
+		
 		//Let the node handle that?
 		//CreateHeightMap
 

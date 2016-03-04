@@ -19,12 +19,12 @@ namespace NS_SG{
 			transparent(false)
 		{}
 
-		virtual bool isTransparent()
+		 bool isTransparent()
 		{
 			return transparent;
 		}
 
-		virtual void Draw()
+		 void Draw()
 		{
 
 			assert(NULL != Grid);
@@ -33,7 +33,10 @@ namespace NS_SG{
 		}
 
 		bool transparent;
-		virtual NodeType getType() { return NODE_ASSET; }
+		 NodeType getType() { return NODE_ASSET; }
+
+		NS_EFF::HeightMapPacket *getMagic(){ return Magic; }
+		NS_ENG::GridPoints *getAsset(){ return Grid; }
 
 
 		NS_ENG::GridPoints *Grid;

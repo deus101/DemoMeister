@@ -5,7 +5,7 @@
 #include "../SceneGraph/transform.h"
 #include "../SceneGraph/assetNode.h"
 #include "../SceneGraph/modelNode.h"
-
+#include "../SceneGraph/gridNode.h"
 
 #include <vector>
 #include <stack>
@@ -38,8 +38,8 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		//std::cout << Node->getName() << std::endl;
 		RendrerItem Tmp;
 		//aabb checks of culling her
-		modelNode *mesh = reinterpret_cast<modelNode*>(Node);
-		if (NULL != mesh->Magic)
+		assetNode *mesh = reinterpret_cast<assetNode*>(Node);
+		if (NULL != mesh->getMagic())
 		{
 			//M3DMatrix44f world; 
 
@@ -57,7 +57,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			m3dCopyMatrix44(Tmp.sTransform, world);
 
-			Tmp.sNode = mesh;
+
+			Tmp.gpuEff = mesh->getMagic();
+			Tmp.gpuIn = mesh->getAsset();
+			//Tmp.sNode = mesh;
 		}
 		
 
@@ -193,12 +196,32 @@ void rendrer::RenderSceneCB()
 
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 		
-		
-		iv->sNode->Magic->Enable();
+		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*> (iv->gpuEff);
+		NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
 
-		iv->sNode->Magic->SetWVP(iv->sWVP);
-		iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
-		iv->sNode->Model->Draw();
+		
+		if (hmapEff != NULL)
+		{
+			hmapEff->Enable();
+			hmapEff->SetWVP(iv->sWVP);
+			hmapEff->SetWorldMatrix(iv->sTransform);
+		}
+		if (geoEff != NULL)
+		{
+			geoEff->Enable();
+			geoEff->SetWVP(iv->sWVP);
+			geoEff->SetWorldMatrix(iv->sTransform);
+		}
+
+		iv->gpuIn->Draw();
+		
+		//old
+		//in truth the gridnode should derive from modelnode with virtual functions that can be overridden
+		//iv->sNode->Magic->Enable();
+
+		//iv->sNode->Magic->SetWVP(iv->sWVP);
+		//iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
+		//iv->sNode->Model->Draw();
 	}
 
 	

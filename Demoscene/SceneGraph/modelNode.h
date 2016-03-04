@@ -21,22 +21,26 @@ namespace NS_SG{
 
 			~modelNode(){ }
 
-			virtual bool isTransparent()
+			 bool isTransparent()
 			{
 				return transparent;
 			}
 
-			virtual void Draw()
+			 void Draw()
 			{
 				//M3DMatrix44f ABS;
 				//getAbsoluteTransform(ABS);
 				assert(NULL != Model);
 				assert(NULL != Magic);
 				//Magic->Draw(Model, ABS);
+				
 			}
 
 			bool transparent;
-			virtual NodeType getType() { return NODE_ASSET ; }
+			NodeType getType() { return NODE_ASSET ; }
+			NS_EFF::GeomPacket *getMagic(){ return Magic; }
+			NS_ENG::model *getAsset(){ return Model; }
+
 
 			NS_ENG::model *Model;
 			NS_EFF::GeomPacket *Magic;

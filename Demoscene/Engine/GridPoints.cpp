@@ -2,8 +2,9 @@
 
 using namespace NS_ENG;
 
-GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_Y)
+GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_Y) : asset()
 {
+	
 	//Half size
 
 	//CellPos = vector < NS_VEC::VEC2>;
@@ -16,10 +17,10 @@ GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_
 
 	int LimI = -GridSize_X / 2;
 	int LimJ = -GridSize_Y / 2;
-	while (j > LimJ)
+	while (j >= LimJ)
 	{
 		float ypos = j * Size_Y;
-		while (i > LimI)
+		while (i >= LimI)
 		{
 			float xpos = i * Size_X;
 			CellPos.push_back(NS_VEC::VEC2(xpos, ypos));
@@ -27,6 +28,7 @@ GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_
 
 			}
 		j--;
+		i = GridSize_X / 2;
 
 
 	}

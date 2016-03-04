@@ -6,6 +6,9 @@
 //world as a scene object and going through a sceneloader?
 #include "Rendrer\context.h"
 #include "Engine\rendrer.h"
+#include "Engine\GridPoints.h"
+#include "SceneGraph\gridNode.h"
+
 #include "SceneGraph\sceneparser.h"
 #include "SceneGraph\assetNode.h"
 #include "SceneGraph\modelNode.h"
@@ -161,7 +164,8 @@ void Sync()
 	ptrE_2_10->setRotation(NS_VEC::QUAT(float(sync_get_val(e_2_10_Rot_X, row)), float(sync_get_val(e_2_10_Rot_Y, row)), float(sync_get_val(e_2_10_Rot_Z, row))));
 	ptrE_2_02->setRotation(NS_VEC::QUAT(float(sync_get_val(e_2_02_Rot_X, row)), float(sync_get_val(e_2_02_Rot_Y, row)), float(sync_get_val(e_2_02_Rot_Z, row))));
 
-
+	ptrE_3_10->setRotation(NS_VEC::QUAT(float(sync_get_val(e_3_10_Rot_X, row)), float(sync_get_val(e_3_10_Rot_Y, row)), float(sync_get_val(e_3_10_Rot_Z, row))));
+	ptrE_3_02->setRotation(NS_VEC::QUAT(float(sync_get_val(e_3_02_Rot_X, row)), float(sync_get_val(e_3_02_Rot_Y, row)), float(sync_get_val(e_3_02_Rot_Z, row))));
 
 	ptrLitPLG->setPosition(NS_VEC::VEC3(float(sync_get_val(litG_Pos_X, row)), float(sync_get_val(litG_Pos_Y, row)), float(sync_get_val(litG_Pos_Z, row))));
 	ptrLitPLY->setPosition(NS_VEC::VEC3(float(sync_get_val(litY_Pos_X, row)), float(sync_get_val(litY_Pos_Y, row)), float(sync_get_val(litY_Pos_Z, row))));
@@ -266,6 +270,8 @@ int main(int argc, char** argv)
 
 	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 
+	NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
+
 
 
 	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
@@ -273,6 +279,7 @@ int main(int argc, char** argv)
 	e_geom.Enable();
 	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
 
+	std::cout << "Status of geometry effect is: " << e_hmap.Init() << std::endl;
 
 	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
 
@@ -463,7 +470,7 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::objTransform> t_3_10(new NS_SG::objTransform("t3_10"));
 	//xrot=63.0 yrot=36
 	t_3_10->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
-	t_3_10->addChild(m_2_10.get());
+	t_3_10->addChild(m_3_10.get());
 
 	ptrE_3_10 = t_3_10.get();
 
@@ -473,6 +480,8 @@ int main(int argc, char** argv)
 	t_1_6->addChild(t_2_02.get());
 
 	//add two steps of pentagons to each
+	t_2_10->addChild(t_3_10.get());
+	t_2_02->addChild(t_3_02.get());
 
 
 	//lastly
@@ -496,6 +505,23 @@ int main(int argc, char** argv)
 	t_look->addChild(target_look.get());
 
 	o_loader->addChild(t_look.get());
+
+//-----------------------------Grid
+
+		boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
+		t_grid->setPosition(NS_VEC::VEC3(0, -1, 0));
+		NS_ENG::GridPoints m_grid10x10(10,10,1,1);
+		boost::shared_ptr<NS_SG::gridNode> mn_grid(new NS_SG::gridNode("grid", &m_grid10x10, &e_hmap));
+
+
+		t_grid->addChild(mn_grid.get());
+
+
+		o_loader->addChild(t_grid.get());
+
+
+
+
 //--------------------Camera 
 	//1 for nowf
 	
@@ -764,6 +790,13 @@ int main(int argc, char** argv)
 	e_2_02_Rot_Y = sync_get_track(rocket, "e_2_02_rY");
 	e_2_02_Rot_Z = sync_get_track(rocket, "e_2_02_rZ");
 
+	e_3_02_Rot_X = sync_get_track(rocket, "e_3_02_rX");
+	e_3_02_Rot_Y = sync_get_track(rocket, "e_3_02_rY");
+	e_3_02_Rot_Z = sync_get_track(rocket, "e_3_02_rZ");
+
+	e_3_10_Rot_X = sync_get_track(rocket, "e_3_10_rX");
+	e_3_10_Rot_Y = sync_get_track(rocket, "e_3_10_rY");
+	e_3_10_Rot_Z = sync_get_track(rocket, "e_3_10_rZ");
 
 	ArmPos_X = sync_get_track(rocket, "armPos_X");
 	
