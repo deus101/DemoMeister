@@ -267,6 +267,7 @@
     <None Include="Mesh\PentagonArm.mtl" />
     <None Include="Mesh\PentagonBase.blend" />
     <None Include="Mesh\PentagonBase.mtl" />
+    <None Include="Shaders\geometry_grid_pass.fs" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

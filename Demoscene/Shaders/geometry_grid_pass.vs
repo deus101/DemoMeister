@@ -4,10 +4,10 @@ in vec2 Position;
 
 uniform mat4 gWVP;
 
-out gl_Position;
+out vec4 gl_Position;
 void main()
 {       
-    gl_Position    = gWVP * vec4(Position.X,0.0,Position.Y, 1.0);
+    gl_Position    = gWVP * vec4(Position.x,0.0,Position.y, 1.0);
             
 
 }

@@ -12,10 +12,13 @@ bool HeightMapPacket::Init()
 		return false;
 	}
 
-	if (!LoadShader(GL_VERTEX_SHADER, "Shaders/geometry_pass.vs")) {
+	if (!LoadShader(GL_VERTEX_SHADER, "Shaders/geometry_grid_pass.vs")) {
 		return false;
 	}
 
+	if (!LoadShader(GL_GEOMETRY_SHADER, "Shaders/geometry_grid_pass.gs")) {
+		return false;
+	}
 
 	if (!LoadShader(GL_FRAGMENT_SHADER, "Shaders/geometry_pass.fs")) {
 		return false;
