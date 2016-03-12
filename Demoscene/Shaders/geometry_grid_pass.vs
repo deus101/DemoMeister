@@ -1,13 +1,16 @@
 #version 330                                                                        
                                                                                     
-in vec2 Position;                                             
+                                          
+//layout (location = 0) in vec2 Position;
+in vec2 Position;
+//out vec4 WorldPos0;                                                                 
 
-uniform mat4 gWVP;
 
-out vec4 gl_Position;
 void main()
 {       
-    gl_Position    = gWVP * vec4(Position.x,0.0,Position.y, 1.0);
-            
+
+   gl_Position =  vec4(Position.x,0.0,Position.y, 1.0);
+
+
 
 }

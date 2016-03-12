@@ -20,7 +20,7 @@ bool HeightMapPacket::Init()
 		return false;
 	}
 
-	if (!LoadShader(GL_FRAGMENT_SHADER, "Shaders/geometry_pass.fs")) {
+	if (!LoadShader(GL_FRAGMENT_SHADER, "Shaders/geometry_grid_pass.fs")) {
 		return false;
 	}
 
@@ -28,13 +28,13 @@ bool HeightMapPacket::Init()
 		return false;
 	}
 
-	m_WVPLocation = GetUniformLocation("gWVP");
 	m_WorldMatrixLocation = GetUniformLocation("gWorld");
-	m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+	m_WVPLocation = GetUniformLocation("gWVP");
+
+	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
-		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION ||
-		m_colorTextureUnitLocation == INVALID_UNIFORM_LOCATION) {
+		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION ) {
 		return false;
 	}
 

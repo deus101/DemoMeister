@@ -4,7 +4,7 @@ using namespace NS_ENG;
 
 GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_Y) : asset()
 {
-	
+	GLenum error;
 	//Half size
 
 	//CellPos = vector < NS_VEC::VEC2>;
@@ -33,6 +33,15 @@ GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float Size_X, float Size_
 
 	}
 
+	glGenVertexArrays(1, &vao_model);
+	glBindVertexArray( vao_model);
+	glGenBuffers(1, &vbo_points);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_points);
+	glBufferData(GL_ARRAY_BUFFER, CellPos.size() * sizeof(GLfloat) * 2, CellPos.data(), GL_STATIC_DRAW);
+	//, 0, CellPos.size() *sizeof(NS_VEC::VEC2)
+	error = glGetError();
+	glBindVertexArray(0);
 
 }
 
@@ -41,18 +50,19 @@ void GridPoints::Draw()
 {
 
 
+	GLenum error;
 
-
+	glBindVertexArray(vao_model);
 
 
 
 	//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 
-	glDrawArrays(GL_POINT_BIT, 0, CellPos.size() *sizeof(NS_VEC::VEC2));
+	glDrawArrays(GL_POINTS, 0, CellPos.size() );
 
+	error = glGetError();
 
-
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
 
 }
 

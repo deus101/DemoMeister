@@ -279,7 +279,7 @@ int main(int argc, char** argv)
 	e_geom.Enable();
 	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
 
-	std::cout << "Status of geometry effect is: " << e_hmap.Init() << std::endl;
+	std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
 
 	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
 

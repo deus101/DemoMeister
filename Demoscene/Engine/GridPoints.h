@@ -28,7 +28,10 @@ namespace NS_ENG{
 		
 		//Let the node handle that?
 		//CreateHeightMap
-
+		GLuint vao_model;
+		GLuint vbo_points;
+		//GLuint vbo_height;
+		//GLuint vbo_col;
 
 		void Draw();
 
