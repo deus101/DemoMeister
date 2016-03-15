@@ -36,6 +36,7 @@ namespace NS_SG{
 		 NodeType getType() { return NODE_ASSET; }
 
 		NS_EFF::HeightMapPacket *getMagic(){ return Magic; }
+		//During get asset the asset classes could perform their various buffer updates.
 		NS_ENG::GridPoints *getAsset(){ return Grid; }
 
 

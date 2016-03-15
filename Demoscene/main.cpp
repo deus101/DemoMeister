@@ -509,8 +509,8 @@ int main(int argc, char** argv)
 //-----------------------------Grid
 
 		boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
-		t_grid->setPosition(NS_VEC::VEC3(0, 0, 0));
-		NS_ENG::GridPoints m_grid10x10(10,10,1,1);
+		t_grid->setPosition(NS_VEC::VEC3(0, -4, 40));
+		NS_ENG::GridPoints m_grid10x10(200, 200, 0.2);
 		boost::shared_ptr<NS_SG::gridNode> mn_grid(new NS_SG::gridNode("grid", &m_grid10x10, &e_hmap));
 
 
