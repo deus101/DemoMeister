@@ -30,11 +30,12 @@ bool HeightMapPacket::Init()
 
 	m_WorldMatrixLocation = GetUniformLocation("gWorld");
 	m_WVPLocation = GetUniformLocation("gWVP");
-
+	f_halfSizLocation = GetUniformLocation("halfSize");
 	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
-		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION ) {
+		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION || 
+		f_halfSizLocation == INVALID_UNIFORM_LOCATION) {
 		return false;
 	}
 
@@ -63,4 +64,11 @@ void HeightMapPacket::SetHeightTextureUnit(unsigned int HeightUnit)
 void HeightMapPacket::SetColorTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
+}
+void HeightMapPacket::SetHalfSize(float HalfSizeOrLoc)
+{
+	if (HalfSizeOrLoc == -1)
+		glUniform1f(f_halfSizLocation, f_halfSize);
+	else
+		f_halfSize = HalfSizeOrLoc;
 }

@@ -205,6 +205,7 @@ void rendrer::RenderSceneCB()
 			hmapEff->Enable();
 			hmapEff->SetWVP(iv->sWVP);
 			hmapEff->SetWorldMatrix(iv->sTransform);
+			hmapEff->SetHalfSize();
 		}
 		if (geoEff != NULL)
 		{

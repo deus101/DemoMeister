@@ -32,10 +32,15 @@ namespace NS_SG{
 
 		}
 
+		 void setCellSize(float fSize)
+		 {
+			 Grid->HalfSize = fSize / 2;
+
+		 }
 		bool transparent;
 		 NodeType getType() { return NODE_ASSET; }
 
-		NS_EFF::HeightMapPacket *getMagic(){ return Magic; }
+		 NS_EFF::HeightMapPacket *getMagic(){ Magic->SetHalfSize(Grid->HalfSize);  return Magic; }
 		//During get asset the asset classes could perform their various buffer updates.
 		NS_ENG::GridPoints *getAsset(){ return Grid; }
 

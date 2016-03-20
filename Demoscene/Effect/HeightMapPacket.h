@@ -15,13 +15,15 @@ namespace NS_EFF{
 			void SetWorldMatrix(const M3DMatrix44f& W);
 			void SetColorTextureUnit(unsigned int TextureUnit);
 			void SetHeightTextureUnit(unsigned int HeightUnit);
+			void SetHalfSize(float HalfSizeOrLoc = -1);
 		private:
 
 			GLuint m_WVPLocation;
 			GLuint m_WorldMatrixLocation;
 			GLuint m_colorTextureUnitLocation;
 			GLuint m_colorHeightUnitLocation;
-	
+			GLuint f_halfSizLocation;
+			GLfloat f_halfSize;
 	};
 }
 

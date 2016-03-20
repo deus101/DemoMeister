@@ -47,6 +47,10 @@ const struct sync_track *litY_Pos_X, *litY_Pos_Y, *litY_Pos_Z;
 const struct sync_track *litR_Pos_X, *litR_Pos_Y, *litR_Pos_Z;
 const struct sync_track *litB_Pos_X, *litB_Pos_Y, *litB_Pos_Z;
 
+//simple int
+const struct sync_track *gridDrop;
+int GridEffCurr = 0;
+
 NS_SG::objectAnim PlaneSync, CameraSync;
 
 NS_SG::composite *ptrComp;
@@ -77,6 +81,8 @@ NS_SG::objTransform *ptrLitPLG;
 NS_SG::objTransform *ptrLitPLY;
 NS_SG::objTransform *ptrLitPLR;
 NS_SG::objTransform *ptrLitPLB;
+
+NS_SG::gridNode *ptrGridNode;
 
 
 static const float bpm = 150.0f; /* beats per minute */
@@ -123,6 +129,26 @@ static struct sync_cb bass_cb = {
 
 #endif
 
+void GridBeat(int func)
+{
+	if (GridEffCurr != func)
+	{
+		GridEffCurr = func;
+		if (func == 1)
+		{
+		ptrGridNode->Grid->CreateGridActor(NS_VEC::VEC2(0.0f, 0.0f), NS_VEC::VEC3(1.0f, 0.0f, 0.0f), 1.0f);
+
+		}
+		else if (func == 0)
+		{
+			//ehm pass
+
+		}
+	}
+
+
+
+}
 
 void Sync()
 {
@@ -172,7 +198,13 @@ void Sync()
 	ptrLitPLR->setPosition(NS_VEC::VEC3(float(sync_get_val(litR_Pos_X, row)), float(sync_get_val(litR_Pos_Y, row)), float(sync_get_val(litR_Pos_Z, row))));
 	ptrLitPLB->setPosition(NS_VEC::VEC3(float(sync_get_val(litB_Pos_X, row)), float(sync_get_val(litB_Pos_Y, row)), float(sync_get_val(litB_Pos_Z, row))));
 
+	GridBeat(int(sync_get_val(gridDrop, row)));
+	
 }
+
+
+
+
 
 //I need some better timer func but leave it for now
 void TimerFunction(int)
@@ -510,9 +542,10 @@ int main(int argc, char** argv)
 
 		boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
 		t_grid->setPosition(NS_VEC::VEC3(0, -4, 40));
-		NS_ENG::GridPoints m_grid10x10(200, 200, 0.2);
+		NS_ENG::GridPoints m_grid10x10(40, 40, 0.5);
 		boost::shared_ptr<NS_SG::gridNode> mn_grid(new NS_SG::gridNode("grid", &m_grid10x10, &e_hmap));
-
+		
+		ptrGridNode = mn_grid.get();
 
 		t_grid->addChild(mn_grid.get());
 
@@ -819,7 +852,7 @@ int main(int argc, char** argv)
 	litB_Pos_Y = sync_get_track(rocket, "BLpos.y");
 	litB_Pos_Z = sync_get_track(rocket, "BLpos.z");
 
-
+	gridDrop = sync_get_track(rocket, "gridFunc");
 
 	PlaneSync = NS_SG::objectAnim();
 	CameraSync = NS_SG::objectAnim();

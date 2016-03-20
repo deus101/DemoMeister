@@ -13,7 +13,7 @@ out vec3 Color;
 out vec3 Normal0;
 
 uniform mat4  gWorld, gWVP;
-
+uniform float halfSize;
 
 
 void main()
@@ -29,7 +29,7 @@ void main()
 		vec3 color = CellCol[0];
 		float height = CellHeight[0];
 
-		float halfSize = 0.1;
+		//float halfSize = 0.25;
         // +X direction is "North", -X direction is "South"
         // +Y direction is "Up",    -Y direction is "Down"
         // +Z direction is "East",  -Z direction is "West

@@ -3,7 +3,7 @@
                                           
 layout(location = 0) in vec2 Position;
 layout(location = 1) in vec3 Colour;
-layout(location = 1) in float Height;
+layout(location = 2) in float Height;
 //in vec2 Position;
 //out vec4 WorldPos0;                                                                 
 out vec3 CellCol;
