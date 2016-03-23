@@ -93,6 +93,7 @@ static const double row_rate = (double(bpm) / 60) * rpb;
 static double bass_get_row(HSTREAM h)
 {
 	QWORD pos = BASS_ChannelGetPosition(h, BASS_POS_BYTE);
+	//add a small delay here
 	double time = BASS_ChannelBytes2Seconds(h, pos);
 	return time * row_rate;
 }
@@ -150,13 +151,26 @@ void GridBeat(int func)
 
 }
 
+void DodoOpen(float degree)
+{
+	if (degree != 0.0f)
+	{
+
+	}
+
+
+
+}
+
 void Sync()
 {
 	
 	double row = bass_get_row(stream);
-	
-	if (sync_update(rocket, (int)floor(row), &bass_cb, (void *)&stream))
-		sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT);
+#ifndef SYNC_PLAYER
+	sync_update(rocket, (int)floor(row), &bass_cb, (void *)&stream);
+#endif
+		
+		//sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT);
 
 
 	//float(sync_get_val(cam_rot, row))
@@ -172,7 +186,7 @@ void Sync()
 	//ptrTranProt->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
 	//
 	ptrCamTran->setPosition(NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row))));
-
+	float test = float(sync_get_val(cam_Pos_Z, row));
 	ptrTranProt->setRotation(NS_VEC::QUAT(float(sync_get_val(plane_Rot_X, row)), float(sync_get_val(plane_Rot_Y, row)), float(sync_get_val(plane_Rot_Z, row))));
 	ptrTranProt->setPosition(NS_VEC::VEC3(float(sync_get_val(plane_Pos_X, row)), float(sync_get_val(plane_Pos_Y, row)), float(sync_get_val(plane_Pos_Z, row))));
 	ptrTranProt->setScale(NS_VEC::VEC3(float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_Y, row)), float(sync_get_val(plane_Sca_Z, row))));
@@ -419,9 +433,7 @@ int main(int argc, char** argv)
 	o_loader->addChild(tran_stalagmite_4.get());
 //-------------------------------------me
 
-	//WHY AM I SO DUMB! YOU CANT MAKE A HEDRON OUT OUT HEXAGONS ALONE!
-	//NS_ENG::model m_HexBase("Mesh/HexBase.obj", "Mesh/HexBase.mtl");
-	//NS_ENG::model m_HexArm("Mesh/HexArm.obj", "Mesh/HexArm.mtl");
+
 	NS_ENG::model m_protagonist("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 
 	NS_ENG::model m_P_Arm("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
@@ -777,9 +789,14 @@ int main(int argc, char** argv)
 
 //----------create rocket device
 	//Should be up at first
-	rocket = sync_create_device("sync");
+	rocket = sync_create_device("Nasa/sync");
+	if (!rocket)
+		std::cout << "failed to open device" << std::endl;
 
-
+#ifndef SYNC_PLAYER
+	if (sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT))
+		std::cout << "failed to connect to host" << std::endl;
+#endif
 
 	plane_Pos_X = sync_get_track(rocket, "Ppos.x");
 	plane_Pos_Y = sync_get_track(rocket, "Ppos.y");
@@ -880,6 +897,9 @@ int main(int argc, char** argv)
 	mRender->Run();
 
 
+//#ifndef SYNC_PLAYER
+//	sync_save_tracks(rocket);
+//#endif
 
 	sync_destroy_device(rocket);
 	return 0;

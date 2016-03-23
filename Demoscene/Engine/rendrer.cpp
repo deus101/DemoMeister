@@ -284,7 +284,7 @@ void rendrer::RenderSceneCB()
 		glCullFace(GL_FRONT);
 		ip->sNode->LightMagic->SetWVP(ip->sWVP);
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
-
+		
 		sphere_light->Draw();
 		
 		glCullFace(GL_BACK);

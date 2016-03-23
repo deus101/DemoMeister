@@ -29,17 +29,21 @@ namespace NS_ENG{
 		//amplitude?
 		float heightModifier;
 
-		//lifespan ends when there are no grid cells to modify. 
-		bool finished;
+		 
+		//bool finished;
 		//end of base properties
 
 
-		//If distance and radius is match up send the new height and color values
-		//Radius should maybe be in one of the concrete classes
+
 	private:
+		//lifespan ends when there are no grid cells to modify.
+		bool finished;
+
 		float radius;
 		//incremental radius increase
 		float increment;
+		//If distance and radius is match up send the new height and color values
+		//Radius should maybe be in one of the concrete classes
 	public:
 		 AbstractModifier(float dX, float dY, NS_VEC::VEC2 v, float mod_amp, NS_VEC::VEC3 mod_col, float rad, float rad_inc)
 			: Dim_X(dX), Dim_Y(dY), orig(v), colorModifier(mod_col), heightModifier(mod_amp), radius(rad), increment(rad_inc)
@@ -79,6 +83,7 @@ namespace NS_ENG{
 			}
 			else{
 				this->radius += this->increment;
+				finished = true;
 				return true;
 			}
 		}
