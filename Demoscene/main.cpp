@@ -42,6 +42,15 @@ const struct sync_track *e_3_10_Rot_X, *e_3_10_Rot_Y, *e_3_10_Rot_Z;
 const struct sync_track *e_3_02_Rot_X, *e_3_02_Rot_Y, *e_3_02_Rot_Z;
 
 
+const struct sync_track *e_4_08_Rot_X, *e_4_08_Rot_Y, *e_4_08_Rot_Z;
+const struct sync_track *e_4_04_Rot_X, *e_4_04_Rot_Y, *e_4_04_Rot_Z;
+
+
+//Was meant to be 4 more if we split the rest in half  Now its one whole pentagon on each side 
+const struct sync_track *e_4_02_Rot_X, *e_4_02_Rot_Y, *e_4_02_Rot_Z;
+const struct sync_track *e_2_08_Rot_X, *e_2_08_Rot_Y, *e_2_08_Rot_Z;
+
+
 const struct sync_track *litG_Pos_X, *litG_Pos_Y, *litG_Pos_Z;
 const struct sync_track *litY_Pos_X, *litY_Pos_Y, *litY_Pos_Z;
 const struct sync_track *litR_Pos_X, *litR_Pos_Y, *litR_Pos_Z;
@@ -69,13 +78,21 @@ NS_SG::objTransform *ptrE_2_02;
 //on 2_02
 NS_SG::objTransform *ptrE_3_02;
 //on 3_02
-NS_SG::objTransform *ptrE_4_02;
+NS_SG::objTransform *ptrE_4_04;
 
 //on 2_10
 NS_SG::objTransform *ptrE_3_10;
 
 //on 3_10
-NS_SG::objTransform *ptrE_4_10;
+NS_SG::objTransform *ptrE_4_08;
+
+
+//fuck it half is normal
+//top lid
+NS_SG::objTransform *ptrE_4_02_half;
+NS_SG::objTransform *ptrE_2_08_half;
+
+
 
 NS_SG::objTransform *ptrLitPLG;
 NS_SG::objTransform *ptrLitPLY;
@@ -153,8 +170,72 @@ void GridBeat(int func)
 
 void DodoOpen(float degree)
 {
+	
+	
+
 	if (degree != 0.0f)
+
 	{
+		float DegX_104 = -117.0 + degree;
+		float DegY_104 = 216.0;
+
+		float DegX_108 = -63.0 + degree;
+		float DegY_108 = -36.0;
+
+		float DegX_106 = -117.0 + degree;
+		float DegY_106 = 0;
+
+		//float DegX_106 = -117.0 + degree;
+		//float DegY_106 = 0;
+
+		float DegX_202 = 63.0 + degree;
+		float DegY_202 = -36.0;
+
+		float DegX_210 = 36.0 + degree;
+		float DegY_210 = 63.0;
+		
+
+
+		float DegX_302 = 63.0 + degree;
+		float DegY_302 = -36.0;
+
+		float DegX_310 = 63.0 + degree;
+		float DegY_310 = 36.0; 
+
+		float DegX_404 = 63.0 + degree;
+		float DegY_404 = -108.0;
+
+		float DegX_408 = 63.0 + degree;
+		float DegY_408 = 108.0f;
+
+		//really 304?
+		float DegX_402_half = 64.0 + degree;
+		float DegY_402_half = 36.0f;
+
+		
+		float DegX_208_half = -63.0f + degree;
+		float DegY_208_half = 36.0f;
+
+
+		ptrE_1_6->setRotation(NS_VEC::QUAT(DegX_106, DegY_106, 0.0f));
+		ptrE_1_04->setRotation(NS_VEC::QUAT(DegX_104, DegY_104, 0.0f));
+		ptrE_1_08->setRotation(NS_VEC::QUAT(DegX_108, DegY_108, 0.0f));
+
+
+
+		ptrE_2_02->setRotation(NS_VEC::QUAT(DegX_202, DegY_202, 0.0f));
+		ptrE_2_10->setRotation(NS_VEC::QUAT(DegX_210, DegY_210, 0.0f));
+
+		ptrE_3_02->setRotation(NS_VEC::QUAT(DegX_302, DegY_302, 0.0f));
+		ptrE_3_10->setRotation(NS_VEC::QUAT(DegX_310, DegX_310, 0.0f));
+
+
+		ptrE_4_04->setRotation(NS_VEC::QUAT(DegX_404, DegY_404, 0.0f));
+
+		ptrE_4_08->setRotation(NS_VEC::QUAT(DegX_408, DegY_408, 0.0f));
+
+		ptrE_4_02_half->setRotation(NS_VEC::QUAT(DegX_402_half, DegY_402_half, 0.0f));
+		ptrE_2_08_half->setRotation(NS_VEC::QUAT(DegX_208_half, DegY_208_half, 0.0f));
 
 	}
 
@@ -198,7 +279,6 @@ void Sync()
 	ptrE_1_08->setRotation(NS_VEC::QUAT(float(sync_get_val(e_1_08_Rot_X, row)), float(sync_get_val(e_1_08_Rot_Y, row)), float(sync_get_val(e_1_08_Rot_Z, row))));
 	ptrE_1_04->setRotation(NS_VEC::QUAT(float(sync_get_val(e_1_04_Rot_X, row)), float(sync_get_val(e_1_04_Rot_Y, row)), float(sync_get_val(e_1_04_Rot_Z, row))));
 
-	//ptrE_1_04->setPosition(NS_VEC::VEC3(float(sync_get_val(ArmPos_X, row)), float(sync_get_val(ArmPos_Y, row)), float(sync_get_val(ArmPos_Z, row))));
 	
 
 	ptrE_2_10->setRotation(NS_VEC::QUAT(float(sync_get_val(e_2_10_Rot_X, row)), float(sync_get_val(e_2_10_Rot_Y, row)), float(sync_get_val(e_2_10_Rot_Z, row))));
@@ -206,6 +286,22 @@ void Sync()
 
 	ptrE_3_10->setRotation(NS_VEC::QUAT(float(sync_get_val(e_3_10_Rot_X, row)), float(sync_get_val(e_3_10_Rot_Y, row)), float(sync_get_val(e_3_10_Rot_Z, row))));
 	ptrE_3_02->setRotation(NS_VEC::QUAT(float(sync_get_val(e_3_02_Rot_X, row)), float(sync_get_val(e_3_02_Rot_Y, row)), float(sync_get_val(e_3_02_Rot_Z, row))));
+
+
+	//ptrE_4_08->setPosition(NS_VEC::VEC3(float(sync_get_val(ArmPos_X, row)), float(sync_get_val(ArmPos_Y, row)), float(sync_get_val(ArmPos_Z, row))));
+	ptrE_4_08->setRotation(NS_VEC::QUAT(float(sync_get_val(e_4_08_Rot_X, row)), float(sync_get_val(e_4_08_Rot_Y, row)), float(sync_get_val(e_4_08_Rot_Z, row))));
+	
+	
+	//ptrE_4_04->setPosition(NS_VEC::VEC3(float(sync_get_val(ArmPos_X, row)), float(sync_get_val(ArmPos_Y, row)), float(sync_get_val(ArmPos_Z, row))));
+	ptrE_4_04->setRotation(NS_VEC::QUAT(float(sync_get_val(e_4_04_Rot_X, row)), float(sync_get_val(e_4_04_Rot_Y, row)), float(sync_get_val(e_4_04_Rot_Z, row))));
+
+
+	//ptrE_4_02_half->setPosition(NS_VEC::VEC3(float(sync_get_val(ArmPos_X, row)), float(sync_get_val(ArmPos_Y, row)), float(sync_get_val(ArmPos_Z, row))));
+	ptrE_4_02_half->setRotation(NS_VEC::QUAT(float(sync_get_val(e_4_02_Rot_X, row)), float(sync_get_val(e_4_02_Rot_Y, row)), float(sync_get_val(e_4_02_Rot_Z, row))));
+	
+	//ptrE_2_08_half->setPosition(NS_VEC::VEC3(float(sync_get_val(ArmPos_X, row)), float(sync_get_val(ArmPos_Y, row)), float(sync_get_val(ArmPos_Z, row))));
+	ptrE_2_08_half->setRotation(NS_VEC::QUAT(float(sync_get_val(e_2_08_Rot_X, row)), float(sync_get_val(e_2_08_Rot_Y, row)), float(sync_get_val(e_2_08_Rot_Z, row))));
+
 
 	ptrLitPLG->setPosition(NS_VEC::VEC3(float(sync_get_val(litG_Pos_X, row)), float(sync_get_val(litG_Pos_Y, row)), float(sync_get_val(litG_Pos_Z, row))));
 	ptrLitPLY->setPosition(NS_VEC::VEC3(float(sync_get_val(litY_Pos_X, row)), float(sync_get_val(litY_Pos_Y, row)), float(sync_get_val(litY_Pos_Z, row))));
@@ -438,6 +534,9 @@ int main(int argc, char** argv)
 
 	NS_ENG::model m_P_Arm("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
 
+	//NS_ENG::model m_P_Half_Arm("Mesh/PentagonHalfArm.obj", "Mesh/PentagonHalfArm.mtl");
+
+
 
 	//mn is for model node
 	boost::shared_ptr<NS_SG::modelNode> mn_protoganist(new NS_SG::modelNode("protoganist", &m_protagonist, &e_geom));
@@ -479,6 +578,16 @@ int main(int argc, char** argv)
 	ptrE_1_08 = t_1_08.get();
 
 
+	//t_1_10->halfarm   Half is normal fuck it two on each side each end
+	//boost::shared_ptr<NS_SG::modelNode> m_4_02_half(new NS_SG::modelNode("4_02_half", &m_P_Half_Arm, &e_geom));
+	boost::shared_ptr<NS_SG::modelNode> m_2_08_half(new NS_SG::modelNode("2_08_half", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_2_08_half(new NS_SG::objTransform("t4_02_half"));
+	// xrot=63 Yrot=-36.0 
+	t_2_08_half->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
+	t_2_08_half->addChild(m_2_08_half.get());
+	ptrE_2_08_half = t_2_08_half.get();
+
 
 	//t_2_10
 	boost::shared_ptr<NS_SG::modelNode> m_2_10(new NS_SG::modelNode("2_10", &m_P_Arm, &e_geom));
@@ -490,6 +599,9 @@ int main(int argc, char** argv)
 
 	ptrE_2_10 = t_2_10.get();
 
+
+
+
 	//t_2_02
 	boost::shared_ptr<NS_SG::modelNode> m_2_02(new NS_SG::modelNode("2_02", &m_P_Arm, &e_geom));
 
@@ -499,6 +611,9 @@ int main(int argc, char** argv)
 	t_2_02->addChild(m_2_02.get());
 	ptrE_2_02 = t_2_02.get();
 
+
+
+
 	//t_3_02
 	boost::shared_ptr<NS_SG::modelNode> m_3_02(new NS_SG::modelNode("3_02", &m_P_Arm, &e_geom));
 
@@ -507,6 +622,30 @@ int main(int argc, char** argv)
 	t_3_02->setPosition(NS_VEC::VEC3(-0.48028, 0.0f, -1.47909f));
 	t_3_02->addChild(m_3_02.get());
 	ptrE_3_02 = t_3_02.get();
+
+
+	//WRONG its halfarm is in third echelon
+	//t_3_02->halfarm   Half is normal fuck it two on each side each end
+	//boost::shared_ptr<NS_SG::modelNode> m_4_02_half(new NS_SG::modelNode("4_02_half", &m_P_Half_Arm, &e_geom));
+	boost::shared_ptr<NS_SG::modelNode> m_4_02_half(new NS_SG::modelNode("4_02_half", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_4_02_half(new NS_SG::objTransform("t4_02_half"));
+	// xrot=63 Yrot=-36.0 
+	t_4_02_half->setPosition(NS_VEC::VEC3(0.48028, 0.0f, -1.47909f));
+	t_4_02_half->addChild(m_4_02_half.get());
+	ptrE_4_02_half = t_4_02_half.get();
+
+
+	//t_3_02 -> t_4_04 //Where 104 should be
+
+	boost::shared_ptr<NS_SG::modelNode> m_4_04(new NS_SG::modelNode("4_04", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_4_04(new NS_SG::objTransform("t4_04"));
+	// xrot=63 Yrot=-36.0 
+	t_4_04->setPosition(NS_VEC::VEC3(-0.77, 0.0f, -0.565));
+	t_4_04->addChild(m_4_04.get());
+	ptrE_4_04 = t_4_04.get();
+
 
 	//t_3_10
 	boost::shared_ptr<NS_SG::modelNode> m_3_10(new NS_SG::modelNode("3_10", &m_P_Arm, &e_geom));
@@ -519,6 +658,17 @@ int main(int argc, char** argv)
 	ptrE_3_10 = t_3_10.get();
 
 
+	//t_3_10 -> t_4_08 //Where 108 should be
+
+	boost::shared_ptr<NS_SG::modelNode> m_4_08(new NS_SG::modelNode("4_08", &m_P_Arm, &e_geom));
+
+	boost::shared_ptr<NS_SG::objTransform> t_4_08(new NS_SG::objTransform("t4_08"));
+	// xrot=63 Yrot=-36.0 
+	t_4_08->setPosition(NS_VEC::VEC3(0.77, 0.0f, -0.565));
+	t_4_08->addChild(m_4_08.get());
+	ptrE_4_08 = t_4_08.get();
+
+
 
 	t_1_6->addChild(t_2_10.get());
 	t_1_6->addChild(t_2_02.get());
@@ -527,15 +677,26 @@ int main(int argc, char** argv)
 	t_2_10->addChild(t_3_10.get());
 	t_2_02->addChild(t_3_02.get());
 
+	t_3_10->addChild(t_4_08.get());
+	t_3_02->addChild(t_4_04.get());
+	
+
+	//whatever Really an 3_08
+	t_2_02->addChild(t_4_02_half.get());
 
 	//lastly
 	tran_protagonist->addChild(t_1_6.get());
 	tran_protagonist->addChild(t_1_08.get());
 	tran_protagonist->addChild(t_1_04.get());
+
+	t_1_08->addChild(t_2_08_half.get());
+
 	//and
 	ptrTranProt = tran_protagonist.get();
 	//ptr
 	ptrE_1_6 = t_1_6.get();
+
+
 
 	boost::shared_ptr<NS_SG::targetTransform> target_look(new NS_SG::targetTransform("tar_look"));
 	boost::shared_ptr<NS_SG::objTransform> t_look(new NS_SG::objTransform("t_look"));
@@ -848,8 +1009,24 @@ int main(int argc, char** argv)
 	e_3_10_Rot_Y = sync_get_track(rocket, "e_3_10_rY");
 	e_3_10_Rot_Z = sync_get_track(rocket, "e_3_10_rZ");
 
+	e_4_04_Rot_X = sync_get_track(rocket, "e_4_04_rX");
+	e_4_04_Rot_Y = sync_get_track(rocket, "e_4_04_rY");
+	e_4_04_Rot_Z = sync_get_track(rocket, "e_4_04_rZ");
+
+	e_4_08_Rot_X = sync_get_track(rocket, "e_4_08_rX");
+	e_4_08_Rot_Y = sync_get_track(rocket, "e_4_08_rY");
+	e_4_08_Rot_Z = sync_get_track(rocket, "e_4_08_rZ");
+
+
+	e_4_02_Rot_X = sync_get_track(rocket, "e_4_02_rX");
+	e_4_02_Rot_Y = sync_get_track(rocket, "e_4_02_rY");
+	e_4_02_Rot_Z = sync_get_track(rocket, "e_4_02_rZ");
+
+	e_2_08_Rot_X = sync_get_track(rocket, "e_2_08_rX");
+	e_2_08_Rot_Y = sync_get_track(rocket, "e_2_08_rY");
+	e_2_08_Rot_Z = sync_get_track(rocket, "e_2_08_rZ");
+
 	ArmPos_X = sync_get_track(rocket, "armPos_X");
-	
 	ArmPos_Y = sync_get_track(rocket, "armPos_Y");
 	ArmPos_Z = sync_get_track(rocket, "armPos_Z");
 
@@ -882,7 +1059,7 @@ int main(int argc, char** argv)
 	//o_loader->addChild()
 
 	o_loader->addChild(tran_cavern.get());
-
+	
 	o_loader->addObjectAnime(tran_kambot.get(), CameraSync);
 
 

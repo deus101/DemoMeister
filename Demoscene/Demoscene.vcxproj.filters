@@ -342,9 +342,6 @@
     <Object Include="Mesh\planeexp1.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\planehqnorm.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
     <Object Include="Mesh\planenormals.obj">
       <Filter>Resource Files</Filter>
     </Object>
@@ -373,7 +370,6 @@
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\PentagonArm.obj" />
-    <Object Include="Mesh\PentagonBase.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
@@ -397,5 +393,9 @@
     <Image Include="Mesh\texture2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Mesh\PentagonBase.obj" />
+    <Resource Include="Mesh\planehqnorm.obj" />
   </ItemGroup>
 </Project>

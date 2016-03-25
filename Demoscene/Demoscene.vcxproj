@@ -132,7 +132,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\Libs;C:\glfw-3.1.1.bin.WIN32\lib-vc2013;C:\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocket-playerd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <LinkStatus>true</LinkStatus>
     </Link>
