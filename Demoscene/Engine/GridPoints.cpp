@@ -144,6 +144,13 @@ void GridPoints::CreateGridActor(NS_VEC::VEC2 _pos, NS_VEC::VEC3 col, float high
 
 }
 
+void GridPoints::Asciify(const char *word, int size)
+{
+	
+
+
+}
+
 void GridPoints::UpdateLists()
 {
 	GLenum error;

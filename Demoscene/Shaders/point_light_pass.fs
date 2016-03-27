@@ -28,7 +28,7 @@ struct PointLight
 };
 
 struct SpotLight
-{
+{  
     PointLight Base;
     vec3 Direction;
     float Cutoff;

@@ -17,6 +17,20 @@ namespace NS_ENG{
 
 	//effect classes specifically for grids
 	//ideas is to have a container of these objects that will deleted themselves when its moved on
+	/*
+	int Char_A[9][9] ={
+		{ 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+		{ 0, 0, 0, 1, 2, 1, 0, 0, 0 },
+		{ 0, 0, 1, 2, 1, 2, 1, 0, 0 },
+		{ 0, 1, 2, 1, 0, 1, 2, 1, 0 },
+		{ 0, 1, 2, 1, 0, 1, 2, 1, 0 },
+		{ 0, 1, 2, 2, 2, 2, 2, 1, 0 },
+		{ 0, 1, 2, 1, 1, 1, 2, 1, 0 },
+		{ 0, 1, 1, 1, 0, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+*/
 	class AbstractModifier
 	{
 		//used for intersection at a given point form a cell
@@ -161,6 +175,7 @@ namespace NS_ENG{
 		//Composite methods not sure which one to use...
 		void CreateGridActor(NS_VEC::VEC2 _pos, NS_VEC::VEC3 col, float high = 0.0f);
 
+		void Asciify(const char *word, int size);
 
 	private:
 
