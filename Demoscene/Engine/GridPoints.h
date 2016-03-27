@@ -43,7 +43,7 @@ namespace NS_ENG{
 		//amplitude?
 		float heightModifier;
 
-		 
+		
 		//bool finished;
 		//end of base properties
 
@@ -89,14 +89,15 @@ namespace NS_ENG{
 
 		//does two things, first it chekcs wheter it modified any cells in previous frame
 		//second it increment, this should also be a virtual method. 
-		bool Increment()
+		bool Increment(float Delta = 1.0f)
 		{
 			if (finished){
 				//tell grid class to remove from container
 				return false;
 			}
 			else{
-				this->radius += this->increment;
+				
+				this->radius += this->increment * Delta;
 				finished = true;
 				return true;
 			}
@@ -108,6 +109,7 @@ namespace NS_ENG{
 	class GridPoints : public asset
 	{
 	public:
+		float DeltaTime;
 
 		struct CellAttributes{
 			NS_VEC::VEC3 cellCol;
@@ -170,6 +172,7 @@ namespace NS_ENG{
 
 		void AtEase();
 		void UpdateBuffers();
+		void SetDelta(double d = 1.0);
 
 		void StimulateCell(int index, NS_VEC::VEC3 col, float high = 0.0f);
 		//Composite methods not sure which one to use...

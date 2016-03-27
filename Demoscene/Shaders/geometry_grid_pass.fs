@@ -29,7 +29,7 @@ void main()
 
      DiffuseOut      = Color;
 
-	 //NormalOut       = normalize(Normal0);					
+	 NormalOut       = normalize(Normal0);					
 
 	//TexCoordOut     = vec3(TexCoord0, 0.0);				
 

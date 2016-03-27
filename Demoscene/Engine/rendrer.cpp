@@ -7,6 +7,7 @@
 #include "../SceneGraph/modelNode.h"
 #include "../SceneGraph/gridNode.h"
 
+
 #include <vector>
 #include <stack>
 
@@ -161,11 +162,25 @@ void rendrer::Run()
 	BASS_ChannelPlay(stream, false);
 
 	ContextRun(this);
-
+	Ctan = Timer();
+	currentCtan = Ctan.elapsed();
 }
 
 void rendrer::RenderSceneCB()
-{	Visible.clear();
+{	
+	double deltaCtan;
+	double nowCtan = Ctan.elapsed();
+
+	deltaCtan = nowCtan - currentCtan;
+	currentCtan = nowCtan;
+	//deltaTime = deltaCtan;
+	//currentTime = currentCtan;
+
+
+	//float test = GetDeltaTime();
+	//double testD = GetDeltaTimeD();
+
+	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
 
@@ -198,7 +213,7 @@ void rendrer::RenderSceneCB()
 		
 		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*> (iv->gpuEff);
 		NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
-
+		NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
 		
 		if (hmapEff != NULL)
 		{
@@ -212,6 +227,11 @@ void rendrer::RenderSceneCB()
 			geoEff->Enable();
 			geoEff->SetWVP(iv->sWVP);
 			geoEff->SetWorldMatrix(iv->sTransform);
+		}
+
+		if (gridAss != NULL)
+		{
+			gridAss->SetDelta(deltaCtan);
 		}
 
 		iv->gpuIn->Draw();

@@ -260,10 +260,10 @@ void GridBeat(int func)
 			
 		}
 
-		//4 is green
+		//4 is yellow
 		if (func == 4)
 		{
-			ptrGridNode->Grid->CreateGridActor(NS_VEC::VEC2(-5.0f, -5.0f), NS_VEC::VEC3(0.0f, 1.0f, 0.0f), 1.0f);
+			ptrGridNode->Grid->CreateGridActor(NS_VEC::VEC2(-5.0f, -5.0f), NS_VEC::VEC3(1.0f, 1.0f, 0.0f), 1.0f);
 
 		}
 
@@ -542,14 +542,14 @@ int main(int argc, char** argv)
 			Yres = stoi(s_Y);
 		}
 		if (Argument.compare("-FS") == 0)
+		{
 			FS = true;
+		}
 	}
 	
 	//overide remember to remove
-
-	Xres = 1280;
-	Yres = 720;
-	FS = true;
+	std::cout << "Initialising at resolution " << Xres << "X" << Yres << "  Fullscreen: " << FS << std::endl;
+	
 
 #ifndef SYNC_PLAYER
 	Xres = 1280;
@@ -666,7 +666,7 @@ int main(int argc, char** argv)
 
 	//plane add as child later on the dodo
 
-	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/newP38.mtl");
+	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 

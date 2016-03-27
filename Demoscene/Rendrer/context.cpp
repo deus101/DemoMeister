@@ -133,7 +133,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
-
+	glfwSetInputMode(s_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	if (!s_pWindow) {
 		exit(1);
 	}
@@ -236,6 +236,23 @@ unsigned int GetPixelHeight()
 
 	return pHeight;
 }
+
+/*
+float GetDeltaTime()
+{
+
+	return float(deltaTime);
+
+
+}
+
+double GetDeltaTimeD()
+{
+
+	return deltaTime;
+}
+*/
+
 //
 //bool context::GetGBStatus() const
 //{

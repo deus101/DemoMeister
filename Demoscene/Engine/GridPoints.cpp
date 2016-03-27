@@ -129,7 +129,7 @@ void GridPoints::Draw()
 	for (int i = 0; i < GridEffects.size(); i++)
 	{
 		//if false delete
-		if (GridEffects[i].Increment() == false)
+		if (GridEffects[i].Increment(1+DeltaTime) == false)
 		{ 
 		GridEffects.erase((GridEffects.begin() + i));
 		}
@@ -139,6 +139,14 @@ void GridPoints::Draw()
 void GridPoints::CreateGridActor(NS_VEC::VEC2 _pos, NS_VEC::VEC3 col, float high)
 {
 	GridEffects.push_back( AbstractModifier(this->UniformCellSize, this->UniformCellSize, _pos, high, col, 0.5, 0.1));
+
+
+
+}
+//maybe at the asset base class?
+void GridPoints::SetDelta(double del)
+{
+	DeltaTime = float(del);
 
 
 
