@@ -5,6 +5,7 @@
 #include "../SceneGraph/transform.h"
 #include "../SceneGraph/assetNode.h"
 #include "../SceneGraph/modelNode.h"
+#include "../SceneGraph/gridNode.h"
 
 
 #include <vector>
@@ -13,6 +14,8 @@
 
 using namespace NS_ENG;
 using namespace NS_SG;
+
+
 
 // I might be making a mistake using this as a the callback interface
 void rendrer::visit(node *Node, M3DMatrix44f  world)
@@ -23,10 +26,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 	{
 		camera *cammy = reinterpret_cast<camera*>(Node);
 
-		//M3DMatrix44f world, local;
-		//cammy->getAbsoluteTransform(world);
-
-		//cammy->getLocalTransform(local);
+		M3DMatrix44f CamWorld, local;
+		cammy->getAbsoluteTransform(CamWorld);
+		m3dInvertMatrix44(view, CamWorld);
+		//cammy->getParent()->getLocalTransform(view);
 
 
 	}
@@ -36,10 +39,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		//std::cout << Node->getName() << std::endl;
 		RendrerItem Tmp;
 		//aabb checks of culling her
-		modelNode *mesh = reinterpret_cast<modelNode*>(Node);
-		if (NULL != mesh->Magic)
+		assetNode *mesh = reinterpret_cast<assetNode*>(Node);
+		if (NULL != mesh->getMagic())
 		{
-			M3DMatrix44f world; 
+			//M3DMatrix44f world; 
 
 			Node->getAbsoluteTransform(world);
 
@@ -55,7 +58,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			m3dCopyMatrix44(Tmp.sTransform, world);
 
-			Tmp.sNode = mesh;
+
+			Tmp.gpuEff = mesh->getMagic();
+			Tmp.gpuIn = mesh->getAsset();
+			//Tmp.sNode = mesh;
 		}
 		
 
@@ -97,7 +103,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dMatrixMultiply44(w_scaled, world, w_scale);
 			
 			
-		;
+		
 			m3dMatrixMultiply44(vp, projection, view);
 
 			
@@ -151,12 +157,30 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 
 void rendrer::Run()
 {
-	ContextRun(this);
+	
+	BASS_Start();
+	BASS_ChannelPlay(stream, false);
 
+	ContextRun(this);
+	Ctan = Timer();
+	currentCtan = Ctan.elapsed();
 }
 
 void rendrer::RenderSceneCB()
-{	Visible.clear();
+{	
+	double deltaCtan;
+	double nowCtan = Ctan.elapsed();
+
+	deltaCtan = nowCtan - currentCtan;
+	currentCtan = nowCtan;
+	//deltaTime = deltaCtan;
+	//currentTime = currentCtan;
+
+
+	//float test = GetDeltaTime();
+	//double testD = GetDeltaTimeD();
+
+	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
 
@@ -187,12 +211,38 @@ void rendrer::RenderSceneCB()
 
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 		
+		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*> (iv->gpuEff);
+		NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
+		NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
 		
-		iv->sNode->Magic->Enable();
+		if (hmapEff != NULL)
+		{
+			hmapEff->Enable();
+			hmapEff->SetWVP(iv->sWVP);
+			hmapEff->SetWorldMatrix(iv->sTransform);
+			hmapEff->SetHalfSize();
+		}
+		if (geoEff != NULL)
+		{
+			geoEff->Enable();
+			geoEff->SetWVP(iv->sWVP);
+			geoEff->SetWorldMatrix(iv->sTransform);
+		}
 
-		iv->sNode->Magic->SetWVP(iv->sWVP);
-		iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
-		iv->sNode->Model->Draw();
+		if (gridAss != NULL)
+		{
+			gridAss->SetDelta(deltaCtan);
+		}
+
+		iv->gpuIn->Draw();
+		
+		//old
+		//in truth the gridnode should derive from modelnode with virtual functions that can be overridden
+		//iv->sNode->Magic->Enable();
+
+		//iv->sNode->Magic->SetWVP(iv->sWVP);
+		//iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
+		//iv->sNode->Model->Draw();
 	}
 
 	
@@ -204,6 +254,8 @@ void rendrer::RenderSceneCB()
 	M3DMatrix44f inverseView;
 	m3dInvertMatrix44(inverseView, view);
 
+	//NS_VEC::VEC3 EyeWorldPos(view[12], view[13], view[14]);
+	
 	NS_VEC::VEC3 EyeWorldPos(inverseView[12], inverseView[13], inverseView[14]);
 
 
@@ -252,7 +304,7 @@ void rendrer::RenderSceneCB()
 		glCullFace(GL_FRONT);
 		ip->sNode->LightMagic->SetWVP(ip->sWVP);
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
-
+		
 		sphere_light->Draw();
 		
 		glCullFace(GL_BACK);

@@ -13,6 +13,9 @@ namespace NS_SG{
 
 			virtual bool isTransparent() = 0;
 			virtual void Draw() = 0;
+
+			virtual NS_EFF::renderPacket *getMagic() = 0;
+			virtual NS_ENG::asset *getAsset() = 0;
 		};
 	
 }

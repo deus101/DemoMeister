@@ -87,6 +87,15 @@
     <ClCompile Include="SceneGraph\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Effect\HeightMapPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GridPoints.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\ConeLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -203,6 +212,18 @@
     <ClInclude Include="SceneGraph\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Effect\HeightMapPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GridPoints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\gridNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\ConeLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">
@@ -246,6 +267,13 @@
     </None>
     <None Include="Mesh\teapot.FBX" />
     <None Include="Mesh\newP38.mtl" />
+    <None Include="Shaders\geometry_grid_pass.vs" />
+    <None Include="Shaders\geometry_grid_pass.gs" />
+    <None Include="Mesh\PentagonArm.blend" />
+    <None Include="Mesh\PentagonArm.mtl" />
+    <None Include="Mesh\PentagonBase.blend" />
+    <None Include="Mesh\PentagonBase.mtl" />
+    <None Include="Shaders\geometry_grid_pass.fs" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -320,9 +348,6 @@
     <Object Include="Mesh\planeexp1.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\planehqnorm.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
     <Object Include="Mesh\planenormals.obj">
       <Filter>Resource Files</Filter>
     </Object>
@@ -350,6 +375,7 @@
     <Object Include="Mesh\world3.obj">
       <Filter>Resource Files</Filter>
     </Object>
+    <Object Include="Mesh\PentagonArm.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
@@ -373,5 +399,9 @@
     <Image Include="Mesh\texture2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Mesh\PentagonBase.obj" />
+    <Resource Include="Mesh\planehqnorm.obj" />
   </ItemGroup>
 </Project>

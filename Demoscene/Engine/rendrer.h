@@ -8,11 +8,20 @@
 #include "../Rendrer/callbacks.h"
 
 #include "../SceneGraph/modelNode.h"
+#include "../SceneGraph/gridNode.h"
 #include "../SceneGraph/pointLightNode.h"
 #include "../SceneGraph/dirLightNode.h"
 #include "model.h"
+#include "../bass.h"
+#include "../Timer.h"
+
+
+
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
+
+extern HSTREAM stream;
+
 namespace NS_ENG
 { 
 
@@ -29,7 +38,10 @@ namespace NS_ENG
 		//burde vært detrte men prøver mer direkt metode først
 		//NS_SG::assetNode *sNode;
 		//shared_ptr damnit
-		NS_SG::modelNode *sNode;
+		//NS_SG::modelNode *sNode;
+		asset *gpuIn;
+		NS_EFF::renderPacket *gpuEff;
+
 		M3DMatrix44f sTransform;
 		M3DMatrix44f sWVP;
 	};
@@ -56,6 +68,10 @@ namespace NS_ENG
 class rendrer : public ICallbacks
 {
 public:
+	Timer Ctan;
+	double currentCtan;
+
+
 	//                                should this just be name?  
 	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad)
 	{
@@ -87,6 +103,8 @@ public:
 		//m3dTransposeMatrix44(, inversLookat);
 		//m3dInvertMatrix44(view, view);
 		//kamera->getParent()->getLocalTransform(view);
+
+		/*
 		std::cout << "[" << projection[0] << "] ";
 		std::cout << "[" << projection[1] << "] ";
 		std::cout << "[" << projection[2] << "] ";
@@ -122,7 +140,7 @@ public:
 		std::cout << "[" << view[14] << "] ";
 		std::cout << "[" << view[15] << "] " << endl;
 
-
+		*/
 
 
 		//		NS_ENG::model sphere = NS_ENG::model(mContext, std::string("../Mesh/sphere.obj"), std::string("../Mesh/sphere.mtl"));

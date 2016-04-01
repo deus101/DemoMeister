@@ -7,7 +7,7 @@
 GLfloat turn = 0.0;
 GLuint VertexArrayID;
 
-HSTREAM stream;
+//HSTREAM stream;
 
 
 world::world() //public context()
@@ -42,12 +42,6 @@ void world::HyperHex()
 void world::AfterInit()
 {
 
-	if (!BASS_Init(-1, 44100, 0, 0, 0))
-		std::cout << "failed to init bass" << std::endl;
-	stream = BASS_StreamCreateFile(false, "bf.ogg", 0, 0,
-		BASS_STREAM_PRESCAN);
-	if (!stream)
-		std::cout << "failed to open tune" << std::endl;
 
 	//sync_device *pRocket = stuff.rocket;
 
@@ -75,8 +69,7 @@ void world::AfterInit()
 	//cam_dist = sync_get_track(rocket, "cam.dist");
 
 	/* let's roll! */
-	BASS_Start();
-	BASS_ChannelPlay(stream, false);
+	
 
 
 }

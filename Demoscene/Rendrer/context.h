@@ -16,7 +16,9 @@
 		static unsigned int pWidth;
 		static bool m_created;
 		
-		
+		//static double deltaTime;
+		//static double currentTime;
+
 		static bool ResizeBuffer;
 		
 		static int glu_Window;
@@ -50,9 +52,12 @@
 
 		void LeaveMainLoop();
 
-		unsigned int GetPixelWidth() ;
 
-		unsigned int GetPixelHeight() ;
+
+		unsigned int GetPixelWidth();
+
+		unsigned int GetPixelHeight();
+
 
 		//bool GetGBStatus() ;
 

@@ -15,6 +15,9 @@ public:
 	virtual void RenderSceneCB() {};
 	
 	//virtual void MouseCB(GLFWmousebuttonfun Button, int State, int x, int y) {};
+
+
+	//virtual int SyncedRow()
 };
 
 

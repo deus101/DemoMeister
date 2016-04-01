@@ -53,8 +53,8 @@ namespace NS_MESH
 			if(strcmp ( id, "g") == 0)
 			{
 				s_Group temp;
-				char nam[50];
-				char mat[50];
+				char nam[50] = "";
+				char mat[50] = "";
 				fscanf (objFile, "%s \n", &nam);
 				fscanf (objFile, "%s", &mat);
 				fscanf (objFile, "%s", &mat);

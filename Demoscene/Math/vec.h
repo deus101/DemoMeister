@@ -111,6 +111,7 @@ namespace NS_VEC
 
 		void TAA(VEC3& vAxis, float& fAngle) const;
 
+		void NormIt();
 	};
 
 		
