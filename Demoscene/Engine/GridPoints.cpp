@@ -197,17 +197,17 @@ void GridPoints::UpdateLists()
 					CellAttrib[i].cellHeight = modHeight;
 					*HiPtr = modHeight;
 					HiPtr++;
-
-					CellAttrib[i].cellCol.X = modCol.X;
-					*ColPtr = modCol.X;
+					
+					CellAttrib[i].cellCol.X = (modCol.X + *ColPtr) / 2 ;
+					*ColPtr = CellAttrib[i].cellCol.X;
 					ColPtr++;
 
-					CellAttrib[i].cellCol.Y = modCol.Y;
-					*ColPtr = modCol.Y;
+					CellAttrib[i].cellCol.Y = (modCol.Y + *ColPtr) / 2;
+					*ColPtr = CellAttrib[i].cellCol.Y;
 					ColPtr++;
 
-					CellAttrib[i].cellCol.Z = modCol.Z;
-					*ColPtr = modCol.Z;
+					CellAttrib[i].cellCol.Z = (modCol.Z + *ColPtr) / 2;
+					*ColPtr = CellAttrib[i].cellCol.Z;
 					ColPtr++;
 				}
 				else
