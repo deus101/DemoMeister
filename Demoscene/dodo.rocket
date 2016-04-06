@@ -1,0 +1,174 @@
+<sync rows="128">
+	<tracks>
+		<track name="Ppos.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Ppos.y">
+			<key row="0" interpolation="0" value="-1"/>
+		</track>
+		<track name="Ppos.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Prot.x"/>
+		<track name="Prot.y">
+			<key row="0" interpolation="1" value="0"/>
+			<key row="127" interpolation="0" value="360"/>
+		</track>
+		<track name="Prot.z"/>
+		<track name="Psca.x">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Psca.y">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Psca.z">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="cam.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.z">
+			<key row="0" interpolation="0" value="4"/>
+		</track>
+		<track name="Lpos.x"/>
+		<track name="Lpos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Lpos.z"/>
+		<track name="e_1_6_rX">
+			<key row="0" interpolation="0" value="-116"/>
+		</track>
+		<track name="e_1_6_rY">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="e_1_6_rZ">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="e_2_10_rX">
+			<key row="0" interpolation="0" value="64"/>
+		</track>
+		<track name="e_2_10_rY">
+			<key row="0" interpolation="0" value="36"/>
+		</track>
+		<track name="e_2_10_rZ"/>
+		<track name="GLpos.x">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="GLpos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="GLpos.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="YLpos.x">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="YLpos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="YLpos.z">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="RLpos.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="RLpos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="RLpos.z">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="BLpos.x">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="BLpos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="BLpos.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="e_1_04_rX">
+			<key row="0" interpolation="0" value="-115"/>
+		</track>
+		<track name="e_1_04_rY">
+			<key row="0" interpolation="0" value="216"/>
+		</track>
+		<track name="e_1_04_rZ"/>
+		<track name="e_1_08_rX">
+			<key row="0" interpolation="0" value="-63"/>
+		</track>
+		<track name="e_1_08_rY">
+			<key row="0" interpolation="0" value="-36"/>
+		</track>
+		<track name="e_1_08_rZ"/>
+		<track name="e_2_02_rX">
+			<key row="0" interpolation="0" value="63"/>
+		</track>
+		<track name="e_2_02_rY">
+			<key row="0" interpolation="0" value="-36"/>
+		</track>
+		<track name="e_2_02_rZ"/>
+		<track name="armPos_X">
+			<key row="0" interpolation="0" value="0.48"/>
+		</track>
+		<track name="armPos_Y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="armPos_Z">
+			<key row="0" interpolation="0" value="-1.47"/>
+		</track>
+		<track name="e_3_02_rX">
+			<key row="0" interpolation="0" value="63"/>
+		</track>
+		<track name="e_3_02_rY">
+			<key row="0" interpolation="0" value="-36"/>
+		</track>
+		<track name="e_3_02_rZ"/>
+		<track name="e_3_10_rX">
+			<key row="0" interpolation="0" value="63"/>
+		</track>
+		<track name="e_3_10_rY">
+			<key row="0" interpolation="0" value="36"/>
+		</track>
+		<track name="e_3_10_rZ"/>
+		<track name="gridFunc"/>
+		<track name="e_4_04_rX">
+			<key row="0" interpolation="0" value="63"/>
+		</track>
+		<track name="e_4_04_rY">
+			<key row="0" interpolation="0" value="-108"/>
+		</track>
+		<track name="e_4_04_rZ"/>
+		<track name="e_4_08_rX">
+			<key row="0" interpolation="0" value="63"/>
+		</track>
+		<track name="e_4_08_rY">
+			<key row="0" interpolation="0" value="108"/>
+		</track>
+		<track name="e_4_08_rZ"/>
+		<track name="e_4_02_rX">
+			<key row="0" interpolation="0" value="64"/>
+		</track>
+		<track name="e_4_02_rY">
+			<key row="0" interpolation="0" value="36"/>
+		</track>
+		<track name="e_4_02_rZ"/>
+		<track name="e_2_08_rX">
+			<key row="0" interpolation="0" value="-63"/>
+		</track>
+		<track name="e_2_08_rY">
+			<key row="0" interpolation="0" value="36"/>
+		</track>
+		<track name="e_2_08_rZ"/>
+	</tracks>
+	<bookmarks>
+		<bookmark row="0"/>
+		<bookmark row="40"/>
+		<bookmark row="64"/>
+		<bookmark row="80"/>
+		<bookmark row="88"/>
+	</bookmarks>
+</sync>

@@ -1,14 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demoscene", "Demoscene\Demoscene.vcxproj", "{B4F2D6D2-EC74-4589-8699-11E54DBB4207}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
+		DeployDebug|Win32 = DeployDebug|Win32
+		DeployDebug|x64 = DeployDebug|x64
 		DeployRelease|Win32 = DeployRelease|Win32
 		DeployRelease|x64 = DeployRelease|x64
 		Release|Win32 = Release|Win32
@@ -19,6 +24,10 @@ Global
 		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.Debug|Win32.Build.0 = Debug|Win32
 		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.Debug|x64.ActiveCfg = Debug|x64
 		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.Debug|x64.Build.0 = Debug|x64
+		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployDebug|Win32.ActiveCfg = DeployDebug|Win32
+		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployDebug|Win32.Build.0 = DeployDebug|Win32
+		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployDebug|x64.ActiveCfg = DeployDebug|x64
+		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployDebug|x64.Build.0 = DeployDebug|x64
 		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployRelease|Win32.ActiveCfg = DeployRelease|Win32
 		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployRelease|Win32.Build.0 = DeployRelease|Win32
 		{B4F2D6D2-EC74-4589-8699-11E54DBB4207}.DeployRelease|x64.ActiveCfg = DeployRelease|x64
@@ -30,8 +39,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

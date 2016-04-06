@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene>
+<children>
+	<prs_transform name="tran_cambot">
+		<position x="0.0f" y="4.0f" z="4.0f"/>
+
+	</prs_transform>
+</children>
+</scene>

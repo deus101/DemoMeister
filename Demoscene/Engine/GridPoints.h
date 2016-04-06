@@ -120,11 +120,11 @@ namespace NS_ENG{
 			CellAttributes(){};
 			CellAttributes(NS_VEC::VEC2 XY ,NS_VEC::VEC3 defCol, float defHei){
 				pos = XY;
-				defaultCol = NS_VEC::VEC3(0.0, 0.749, 1.0);
+				defaultCol = NS_VEC::VEC3(0.0f, 0.749f, 1.0f);
 				cellCol = defCol;
 				//just for testing
 				//defaultHeight = defHei;
-				defaultHeight = 0.1;
+				defaultHeight = 0.1f;
 				cellHeight = defHei;
 
 			};

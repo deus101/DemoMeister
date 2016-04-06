@@ -274,6 +274,8 @@
     <None Include="Mesh\PentagonBase.blend" />
     <None Include="Mesh\PentagonBase.mtl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
+    <None Include="Scene.rocket" />
+    <None Include="Mesh\LazyGreets.mtl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -376,11 +378,13 @@
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\PentagonArm.obj" />
+    <Object Include="Mesh\LazyGreets.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="AF.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\p38.obj.bac.txt">

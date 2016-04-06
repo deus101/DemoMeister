@@ -1,0 +1,51 @@
+<sync rows="2048">
+	<tracks>
+		<track name="plane.x">
+			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="60" value="1"/>
+			<key interpolation="0" row="105" value="1"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="plane.y">
+			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="plane.z">
+			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="rot.x">
+			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="rot.y">
+			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="rot.z">
+			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="cam.x">
+			<key interpolation="1" row="0" value="0"/>
+			<key interpolation="1" row="37" value="2"/>
+			<key interpolation="3" row="41" value="7"/>
+			<key interpolation="0" row="127" value="0"/>
+		</track>
+		<track name="cam.y">
+			<key interpolation="3" row="0" value="2"/>
+			<key interpolation="3" row="39" value="3"/>
+			<key interpolation="3" row="40" value="3"/>
+			<key interpolation="1" row="101" value="10"/>
+			<key interpolation="0" row="127" value="5"/>
+		</track>
+		<track name="cam.z">
+			<key interpolation="1" row="0" value="3"/>
+			<key interpolation="1" row="41" value="7"/>
+			<key interpolation="1" row="81" value="-10"/>
+			<key interpolation="0" row="101" value="-15"/>
+			<key interpolation="0" row="127" value="5"/>
+		</track>
+	</tracks>
+	<bookmarks/>
+</sync>

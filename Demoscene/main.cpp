@@ -287,39 +287,39 @@ void DodoOpen(float degree)
 	{
 		DodoOpenCurr = degree;
 
-		float DegX_104 = -117.0 - degree;
-		float DegY_104 = 216.0; 
+		float DegX_104 = -117.0f - degree;
+		float DegY_104 = 216.0f; 
 
 
 
-		float DegX_108 = -63.0 + degree;
-		float DegY_108 = -36.0;
+		float DegX_108 = -63.0f + degree;
+		float DegY_108 = -36.0f;
 
-		float DegX_106 = -117.0 - degree;
+		float DegX_106 = -117.0f - degree;
 		float DegY_106 = 0.0f;
 
 		//float DegX_106 = -117.0 + degree;
 		//float DegY_106 = 0;
 
-		float DegX_202 = 63.0 - degree;
-		float DegY_202 = -36.0;
+		float DegX_202 = 63.0f - degree;
+		float DegY_202 = -36.0f;
 		
-		float DegX_210 = 63.0 - degree;
-		float DegY_210 = 36.0;
+		float DegX_210 = 63.0f - degree;
+		float DegY_210 = 36.0f;
 		
 
 
-		float DegX_302 = 63.0 - degree;
-		float DegY_302 = -36.0;
+		float DegX_302 = 63.0f - degree;
+		float DegY_302 = -36.0f;
 
 		
-		float DegX_310 = 63.0 - degree;
-		float DegY_310 = 36.0; 
+		float DegX_310 = 63.0f - degree;
+		float DegY_310 = 36.0f; 
 
-		float DegX_404 = 63.0 - degree;
-		float DegY_404 = -108.0;
+		float DegX_404 = 63.0f - degree;
+		float DegY_404 = -108.0f;
 
-		float DegX_408 = 63.0 - degree;
+		float DegX_408 = 63.0f - degree;
 		float DegY_408 = 108.0f;
 
 		//really 304?
@@ -376,9 +376,11 @@ void Sync()
 
 
 	//float(sync_get_val(cam_rot, row))
-	//v3_tmpCamPos NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row)));
-	
+	//NS_VEC::VEC3 test =  NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row)));
+	//cout << "testXYZ cam pos" << test.X << "-" << test.Y << "-" << test.Z << endl;
 
+	//NS_VEC::VEC3 teasdst = NS_VEC::VEC3(float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_X, row)), float(sync_get_val(plane_Sca_X, row)));
+	//cout << "testXYZ plan sca" << teasdst.X << "-" << teasdst.Y << "-" << teasdst.Z << endl;
 	//CameraSync.setPosKeyFrame(row, NS_VEC::VEC3(float(sync_get_val(cam_Pos_X, row)), float(sync_get_val(cam_Pos_Y, row)), float(sync_get_val(cam_Pos_Z, row))));
 	//CameraSync.setRotKeyFrame(row, NS_VEC::QUAT(0.0f, 0.0f, 0.0f));
 	//CameraSync.setScaleKeyFrame(row, NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
@@ -1268,7 +1270,7 @@ int main(int argc, char** argv)
 
 //----------create rocket device
 	//Should be up at first
-	rocket = sync_create_device("Nasa/sync");
+	rocket = sync_create_device("sync");
 	if (!rocket)
 		std::cout << "failed to open device" << std::endl;
 

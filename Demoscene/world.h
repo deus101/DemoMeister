@@ -29,7 +29,6 @@
 
 #include "sync.h"
 
-
 #include "SceneGraph\node.h"
 #include "SceneGraph\camera.h"
 #include "SceneGraph\composite.h"
