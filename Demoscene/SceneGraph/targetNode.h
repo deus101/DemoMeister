@@ -79,12 +79,8 @@ namespace NS_SG
 
 			m3dGetMatrixColumn44(targetTran, targetTransform, 3);
 			
-			//remember to remove with below
+
 			targetTran[3] = 0.0f;
-			
-			//LOL ofcourse the lookat didnt work, well this works now for my demo
-			//later versions will have this fixed
-			//targetTran[3] = 1.0f;
 
 
 
@@ -106,6 +102,7 @@ namespace NS_SG
 			at[0] = targetPos[0];
 			at[1] = targetPos[1];
 			at[2] = targetPos[2];
+
 			from[0] = eyeAbs[12];
 			from[1] = eyeAbs[13];
 			from[2] = eyeAbs[14];

@@ -1230,17 +1230,16 @@ int main(int argc, char** argv)
 
 
 
-
 	//Dir Light
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 0.612f), 0.1f, 0.5f, &e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f, &e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	
 
-
+	
 
 	
-	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
+	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 10.0f, 30.0f));
 
 
 	tran_Dir->addChild(n_dir_lys.get());
@@ -1254,7 +1253,9 @@ int main(int argc, char** argv)
 	//ugh
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad.obj", "Mesh/quad.mtl"));
+	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/quad.obj", "Mesh/quad.mtl"));
+
 	
 	
 //---------load music into bass	
@@ -1281,6 +1282,9 @@ int main(int argc, char** argv)
 
 	TrackPart = sync_get_track(rocket, "part");
 
+	cam_Pos_X = sync_get_track(rocket, "cam.x"),
+	cam_Pos_Y = sync_get_track(rocket, "cam.y");
+	cam_Pos_Z = sync_get_track(rocket, "cam.z");
 
 	plane_Pos_X = sync_get_track(rocket, "Ppos.x");
 	plane_Pos_Y = sync_get_track(rocket, "Ppos.y");
@@ -1291,13 +1295,8 @@ int main(int argc, char** argv)
 	plane_Sca_X = sync_get_track(rocket, "Psca.x");
 	plane_Sca_Y = sync_get_track(rocket, "Psca.y");
 	plane_Sca_Z = sync_get_track(rocket, "Psca.z");
-	
 
 
-
-	cam_Pos_X = sync_get_track(rocket, "cam.x"),
-	cam_Pos_Y = sync_get_track(rocket, "cam.y");
-	cam_Pos_Z = sync_get_track(rocket, "cam.z");
 	
 
 	lit_Pos_X = sync_get_track(rocket, "Lpos.x");

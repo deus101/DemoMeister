@@ -378,13 +378,13 @@
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\PentagonArm.obj" />
-    <Object Include="Mesh\LazyGreets.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
       <Filter>Resource Files</Filter>
     </Media>
     <Media Include="AF.mp3" />
+    <Media Include="Mesh\LazyGreets.obj" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\p38.obj.bac.txt">

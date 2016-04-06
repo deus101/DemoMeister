@@ -331,8 +331,9 @@ void rendrer::RenderSceneCB()
 		glEnable(GL_BLEND);
 		glBlendEquation(GL_FUNC_ADD);
 		glBlendFunc(GL_ONE, GL_ONE);
-
-		quad->Draw();
+		glFrontFace(GL_CW);
+ 		quad->Draw();
+		glFrontFace(GL_CCW);
 		glDisable(GL_BLEND);
 
 	
