@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene>
+<children>
+	<prs_transform name="tran_cambot">
+		<position x="0.0f" y="4.0f" z="4.0f"/>
+		<children>
+			<target_transform name="target_cambot" target="plane">
+			<children>
+				<camera name="cambot" fov="60.0f" znear="0.1" zfar="1000.0f" />
+			</children>
+			</target_transform>
+		</children>
+	</prs_transform>
+	<prs_transform name="tran_plane">
+		<position x="0.0f" y="0.0f" z="0.0f"/>
+		<children>
+			<mesh name="plane" file="Mesh/fixedp38">
+			</mesh>
+		</children>
+	</prs_transform>
+	<prs_transform name="tran_box">
+		<position x="0.0f" y="0.0f" z="0.0f"/>
+		<rotation x="0.0f" y="45.0f"  z="0.0f"/>
+		<scale x="0.5f" y="0.5f" z="0.5f"/>
+		<children>
+			<mesh name="box" file="Mesh/cube_texture">
+			</mesh>
+		</children>
+	</prs_transform>
+	<prs_transform name="tran_pl">
+		<position x="0.0f" y="2.0f" z="0.0f"/>
+		<children>
+			<point_light>
+			<color x="1.0f" y="1.0f" z="1.0f"/>
+			<intensity ambient="0.5f" diffuse="0.5f"/>
+			<attenuation constant="0.01f" linear="0.02f" exponetial="0.05f"/>
+			</point_light>
+		</children>
+	</prs_transform>
+	<directional_light>
+		<color x="1.0f" y="0.0f" z="0.0f"/>
+		<intensity ambient="0.01f" diffuse="0.5f"/>
+		<direction x="0.0f" y="-1.0f" z="0.0f"/>
+	</directional_light>	
+</children>
+</scene>
