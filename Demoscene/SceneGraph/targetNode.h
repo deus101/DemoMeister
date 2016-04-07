@@ -19,7 +19,7 @@ namespace NS_SG
 			if (NULL == target)
 			{
 				m3dLoadIdentity44(in);
-			
+				return;
 			}
 
 
@@ -106,7 +106,7 @@ namespace NS_SG
 			from[0] = eyeAbs[12];
 			from[1] = eyeAbs[13];
 			from[2] = eyeAbs[14];
-			up[0] = 0.0f;
+ 			up[0] = 0.0f;
 			up[1] = 1.0f;
 			up[2] = 0.0f;
 

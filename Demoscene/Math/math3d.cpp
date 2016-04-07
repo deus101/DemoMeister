@@ -749,7 +749,7 @@ void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vL
 	//Orientation[11] = -m3dDotProduct3(z, vLookFrom);
 	//Orientation[11] = -1.0f;
 
-	Orientation[12] = m3dDotProduct3(x, vLookFrom);
+	Orientation[12] = -m3dDotProduct3(x, vLookFrom);
 	Orientation[13] = -m3dDotProduct3(y, vLookFrom);
 	Orientation[14] = -m3dDotProduct3(z, vLookFrom);
 	//Orientation[12] = 0.0f;
@@ -794,7 +794,6 @@ void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vL
 	m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
 	//m3dTransposeMatrix44(OrientationT, Orientation);
 	m3dMatrixMultiply44(mat, rot, Orientation );
-
 	//m3dCopyMatrix44(mat, Orientation);
 
 }
