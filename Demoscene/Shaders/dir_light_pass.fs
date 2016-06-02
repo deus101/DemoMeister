@@ -41,8 +41,8 @@ uniform DirectionalLight gDirectionalLight;
 uniform PointLight gPointLight;
 uniform SpotLight gSpotLight;
 uniform vec3 gEyeWorldPos;
-uniform float gMatSpecularIntensity;
-uniform float gSpecularPower;
+uniform float gMatSpecularIntensity = 0.8f;
+uniform float gSpecularPower = 0.5f;
 uniform int gLightType;
 uniform vec2 gScreenSize;
 
@@ -107,12 +107,16 @@ out vec4 FragColor;
 
 void main()
 {
+	int draw_mode = 1;
     vec2 TexCoord = CalcTexCoord();
 	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
+	float Depth = texture(gPositionMap, TexCoord).a;
 	vec3 Color = texture(gColorMap, TexCoord).xyz;
     vec3 Normal = texture(gNormalMap, TexCoord).xyz;
 	Normal = normalize(Normal);
 
-
+	//if(draw_mode == 1)
+	//FragColor = vec4(vec3(Depth / 200.0), 1.0);
+	
 	FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal);
 }

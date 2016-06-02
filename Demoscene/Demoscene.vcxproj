@@ -375,12 +375,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Effect\aoPacket.cpp" />
     <ClCompile Include="Effect\ConeLightPacket.cpp" />
     <ClCompile Include="Effect\DirLightPacket.cpp" />
     <ClCompile Include="Effect\lightPacket.cpp" />
     <ClCompile Include="Effect\NullPacket.cpp" />
     <ClCompile Include="Effect\PointLightPacket.cpp" />
     <ClCompile Include="Effect\HeightMapPacket.cpp" />
+    <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
     <ClCompile Include="Rendrer\buffers.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
@@ -404,13 +406,17 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Effect\aoPacket.h" />
     <ClInclude Include="Effect\ConeLightPacket.h" />
     <ClInclude Include="Effect\DirLightPacket.h" />
+    <ClInclude Include="Effect\aoBlurPass.h" />
     <ClInclude Include="Effect\lightPacket.h" />
     <ClInclude Include="Effect\NullPacket.h" />
+    <ClInclude Include="Effect\OceanPacket.h" />
     <ClInclude Include="Effect\PointLightPacket.h" />
     <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="Effect\HeightMapPacket.h" />
+    <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
@@ -425,6 +431,7 @@
     <ClInclude Include="Effect\GeomPacket.h" />
     <ClInclude Include="SceneGraph\dirLightNode.h" />
     <ClInclude Include="SceneGraph\lightNode.h" />
+    <ClInclude Include="SceneGraph\oceanNode.h" />
     <ClInclude Include="SceneGraph\pointLightNode.h" />
     <ClInclude Include="SceneGraph\sceneparser.h" />
     <ClInclude Include="SceneGraph\tinyxml2.h" />
@@ -604,6 +611,7 @@
     </None>
     <None Include="Mesh\teapot.FBX" />
     <None Include="Scene.rocket" />
+    <None Include="Shaders\ao_Pass_Frag.glsl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
     <None Include="Shaders\geometry_grid_pass.gs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -622,6 +630,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
     </Object>
     <Object Include="Mesh\38ps.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

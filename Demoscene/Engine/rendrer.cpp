@@ -30,7 +30,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		cammy->getAbsoluteTransform(CamWorld);
 		m3dInvertMatrix44(view, CamWorld);
 		//cammy->getParent()->getLocalTransform(view);
-
+		cammy->getProjection(projection);
 
 	}
 
@@ -227,6 +227,8 @@ void rendrer::RenderSceneCB()
 			geoEff->Enable();
 			geoEff->SetWVP(iv->sWVP);
 			geoEff->SetWorldMatrix(iv->sTransform);
+			geoEff->SetViewMatrix(view);
+			geoEff->SetProjectionMatrix(projection);
 		}
 
 		if (gridAss != NULL)
@@ -234,6 +236,7 @@ void rendrer::RenderSceneCB()
 			gridAss->SetDelta(deltaCtan);
 		}
 
+		
 		iv->gpuIn->Draw();
 		
 		//old
@@ -245,7 +248,40 @@ void rendrer::RenderSceneCB()
 		//iv->sNode->Model->Draw();
 	}
 
+	//Screen spaced Ambient Occulsion pass
+
+	M3DMatrix44f IdentSWP;
+	m3dLoadIdentity44(IdentSWP);
+	AoPass->Enable();
+	mgBuffer->BindForAoPass();
+	//glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	//AoPass->Enable();
+
 	
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, mgBuffer->GBUFFER_TEXTURE_TYPE_POSITION + 6);
+	//AoPass->SetPositionTextureUnit(0);
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindTexture(GL_TEXTURE_2D, mgBuffer->GBUFFER_TEXTURE_TYPE_NORMAL + 6);
+	//AoPass->SetNormalTextureUnit(1);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, AoPass->m_NoiseLocation);
+	//AoPass->SetNoiseTextureUnit(2);
+
+
+	AoPass->SetWVP(IdentSWP);
+
+	AoPass->SetProjectionMatrix(projection);
+	//glDisable(GL_DEPTH_TEST);
+	//glEnable(GL_BLEND);
+
+	glFrontFace(GL_CW);
+	quad->Draw();
+	glFrontFace(GL_CCW);
+
+	//glDisable(GL_BLEND);
+	//glEnable(GL_DEPTH_TEST);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	//Stencil Pass og Lys pass------------------------------------------
 	glDepthMask(GL_FALSE);
 

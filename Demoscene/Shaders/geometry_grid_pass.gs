@@ -12,19 +12,34 @@ out vec3 WorldPos0;
 out vec3 Color;   
 out vec3 Normal0;
 
-uniform mat4  gWorld, gWVP;
+
+uniform mat4 gWVP;
+uniform mat4 gView;
+uniform mat4 gWorld;
+uniform mat4 gProjection;      
+
+//uniform mat4  gWorld, gWVP;
 uniform float halfSize;
 
 
 void main()
-{       
+{       	
+
+
+	vec4 viewPos = gView * gWorld * gl_in[0].gl_Position;
+    //gl_Position    = gWVP * vec4(Position, 1.0);
+	gl_Position = gProjection * viewPos;
+    TexCoord0      = TexCoord;                  
+    Normal0        = (gWorld * vec4(Normal, 0.0)).xyz;   
+   //WorldPos0      = (gWorld * vec4(Position, 1.0)).xyz;
+
+    //WorldPos0      = viewPos.xyz;
 
          //fColor = vColor[0];
 
 
 
-        //gl_in[0].gl_Position = proj * view * model * gl_in[0].gl_Position;
-		//vs_position[0]
+
 		vec4 position =  gl_in[0].gl_Position;
 		vec3 color = CellCol[0];
 		float height = CellHeight[0];
@@ -62,7 +77,7 @@ void main()
 
 		gl_Position = gWVP * (position + EUS);
         WorldPos0 = (gWorld * (position + EUS)).xyz;
-		
+		viewPos.xyz;
 		//Color = vec3(0.0, 1.0, 0.0);
 		//yes yes, should renamed one of these
 		Color = color;

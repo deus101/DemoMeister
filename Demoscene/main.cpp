@@ -19,6 +19,10 @@
 //NS_REND::context *mContext = NULL;
 //NS_ENG::rendrer *mRender = NULL;
 
+//eh
+#include "Effect\aoPacket.h"
+
+
 
 HSTREAM stream;
 
@@ -290,7 +294,7 @@ void Sync()
 
 
 	
-	GridBeat(int(sync_get_val(gridDrop, row)));
+	//GridBeat(int(sync_get_val(gridDrop, row)));
 
 
 	//if (partCurrent == 3)
@@ -436,14 +440,34 @@ int main(int argc, char** argv)
 	NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
 
 
+	NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
+
+
 
 	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
 
 	e_geom.Enable();
 	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
 
-	std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
 
+	//ikke gi opp
+	//std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
+
+
+
+	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl;
+	e_ao_Pass.Enable();
+	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+
+	e_ao_Pass.SetScreenSize(Xres, Yres);
+
+	e_ao_Pass.InitKernel();
+	e_ao_Pass.InitNoise();
+
+	e_ao_Pass.SetPositionTextureUnit((UINT32)0);
+	e_ao_Pass.SetNormalTextureUnit((UINT32)2);
+	e_ao_Pass.SetNoiseTextureUnit((UINT32)3);
 	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
 
 	e_point.Enable();
@@ -517,6 +541,8 @@ int main(int argc, char** argv)
 	o_loader->addChild(tran_sponza.get());
 	*/
 	
+
+	
 	NS_ENG::model m_sponza("Mesh/sti.obj", "Mesh/sti.mtl");
 	boost::shared_ptr<NS_SG::modelNode> mn_sponza(new NS_SG::modelNode("Scene_sponza", &m_sponza, &e_geom));
 
@@ -527,6 +553,7 @@ int main(int argc, char** argv)
 
 	o_loader->addChild(tran_sponza.get());
 	
+
 //-------------------------------------me
 
 
@@ -567,6 +594,8 @@ int main(int argc, char** argv)
 	*/
 //-----------------------------Grid
 
+
+	/*
 		boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
 		t_grid->setPosition(NS_VEC::VEC3(0, 1, 0));
 		NS_ENG::GridPoints m_grid10x10(90, 90, 1.0f);
@@ -580,7 +609,7 @@ int main(int argc, char** argv)
 
 		o_loader->addChild(t_grid.get());
 
-
+		*/
 
 
 //--------------------Camera 
@@ -817,7 +846,7 @@ int main(int argc, char** argv)
 	ptrComp = o_loader.get();
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get());
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
 
 
 

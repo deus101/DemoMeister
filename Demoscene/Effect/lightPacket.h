@@ -17,6 +17,10 @@ namespace NS_EFF{
 		void SetPositionTextureUnit(unsigned int TextureUnit);
 		void SetColorTextureUnit(unsigned int TextureUnit);
 		void SetNormalTextureUnit(unsigned int TextureUnit);
+		
+		
+		//void SetSSAOTextureUnit(unsigned int TextureUnit);
+
 		void SetEyeWorldPos(const NS_VEC::VEC3& EyeWorldPos);
 		void SetMatSpecularIntensity(float Intensity);
 		void SetMatSpecularPower(float Power);

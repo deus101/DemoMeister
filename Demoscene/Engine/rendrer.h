@@ -16,6 +16,9 @@
 #include "../Timer.h"
 
 
+//yes I know I need a proper system for passes. 
+#include "../Effect/aoPacket.h"
+
 
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
@@ -71,9 +74,9 @@ public:
 	Timer Ctan;
 	double currentCtan;
 
-
+	// should scene/composite hold the pass packets?
 	//                                should this just be name?  
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), AoPass(_AoPass)
 	{
 
 		unsigned int w = GetPixelWidth();
@@ -165,6 +168,10 @@ private:
 	NS_ENG::model *sphere_light;
 	NS_ENG::model *sphere_null;
 	NS_ENG::model *quad;
+
+	//need better system for this
+	NS_EFF::aoPacket *AoPass;
+
 	GBuffer *mgBuffer;
 
 	std::list< struct RendrerItem> Visible;

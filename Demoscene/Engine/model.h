@@ -77,7 +77,9 @@ namespace NS_ENG{
 		model();
 		model( std::string obj, std::string mtl);
 		~model();
-
+		
+		//AAA fuck it!
+		GLuint VEC3_DIFF_UNILOC, FLOAT_SPECINT_UNILOC, FLOAT_SPECPOW_UNILOC;
 
 
 		void Draw();

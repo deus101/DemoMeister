@@ -6,5 +6,7 @@ namespace NS_ENG{
 	public:
 		virtual void Draw() = 0;
 
+
+		//GLuint SpecularIntLoc, SpecularPowLoc, DiffuseColLoc;
 	};
 }

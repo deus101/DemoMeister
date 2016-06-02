@@ -94,7 +94,12 @@ model::model(string obj, string mtl) : asset()
 		//palette.m
 		//cout << "group color is :" << u << endl;
 		//meshy.m_Pos.
+		
+
+		//ehm..why did i do this?
 		MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].tUnit;
+		MG.dif = NS_VEC::VEC3(palette.m_Materials[meshy.m_Groups[u].matid].diff[0], palette.m_Materials[meshy.m_Groups[u].matid].diff[1], palette.m_Materials[meshy.m_Groups[u].matid].diff[2]);
+		//if im going to use attributepointers for diffcolor, specular intensity and specular power create  it here
 
 		Sort_Groups.push_back(MG);
 
@@ -200,7 +205,8 @@ void model::Draw()
 	//GLint AmbLoc = gl::GetUniformLocation(m_shaderProg, "Ambiant");
 	//GLint SpecLoc = gl::GetUniformLocation(m_shaderProg, "Specular");
 	//GLint ShiLoc = gl::GetUniformLocation(m_shaderProg, "Shininess");
-
+	
+	//GLint DiffLoc = glGetUniformLocation(m_shaderProg, "mDiffuseCol");
 	//if (ModelLoc != -1)
 	//{
 	//	//cout << "In Model found uniform for Model Matrix" << endl;
@@ -208,25 +214,41 @@ void model::Draw()
 	//	//"this" i rendrenren henter model matrisen
 	//}
 
+	//if(VEC3_DIFF_UNILOC == NULL || FLOAT_SPECINT_UNILOC == NULL || FLOAT_SPECPOW_UNILOC == NULL)
+	//{
+	GLint ShaderProg;
 
+	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
+	VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
+	FLOAT_SPECINT_UNILOC = glGetUniformLocation(ShaderProg, "mSpecularInt");
+	FLOAT_SPECPOW_UNILOC = glGetUniformLocation(ShaderProg, "mSpecularPow");
+
+
+	//}
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
 	{
-	
 
 		glBindVertexArray(Sort_Groups[i].vao);
-
+		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
 		if (Sort_Groups[i].tex != NULL)
 		{
 			glActiveTexture(COLOR_TEXTURE_UNIT);
 			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 		}
+		else
+		{
+			glUniform3f(VEC3_DIFF_UNILOC,   Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
+
+		}
+
+		//Sort_Groups[i].
 		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
 		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
 		//gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
-		//gl::Uniform1f(ShiLoc, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
+		//glUniform1f(this->, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
 		//glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, (GLintptr)_data.indices.length, _data.indices.bytes);
 		//glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_SHORT, (void*)0);
 		

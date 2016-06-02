@@ -44,7 +44,7 @@ static void RenderSceneCB()
 static void IdleCB()
 {
 	s_pCallbacks->RenderSceneCB();
-
+	
 }
 
 

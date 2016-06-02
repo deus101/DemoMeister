@@ -23,7 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class GBuffer
 {
 public:
-	//GBUFFER_TEXTURE_TYPE_TEXCOORD,
+	/*
+	enum PRIMITIVE_COLOR_INPUT {
+		GBUFFER_MATERIAL_DIF_UNILOC,
+		GBUFFER_MATERIAL_SPECINT_UNILOC,
+		GBUFFER_MATERIAL_SPECPOW_UNILOC,
+		GBUFFER_NUM_UNIFORMS
+	};
+	*/
 	enum GBUFFER_TEXTURE_TYPE {
 		GBUFFER_TEXTURE_TYPE_POSITION,
 		GBUFFER_TEXTURE_TYPE_DIFFUSE,
@@ -39,18 +46,25 @@ public:
 
 	void StartFrame();
 	void BindForGeomPass();
+	void BindForAoPass();
 	void BindForStencilPass();
 	void BindForLightPass();
 	void BindForFinalPass();
 
+
+	
 private:
 
-	GLuint m_fbo;
+	GLuint m_fbo, ao_fbo;
+	
+	//GLuint m_uniforms[GBUFFER_NUM_UNIFORMS];
 	GLuint m_textures[GBUFFER_NUM_TEXTURES];
+	GLuint m_AoTexture;
 	GLuint m_depthTexture;
 	GLuint m_finalTexture;
+	
 
 };
 
-#endif	/* SHADOWMAPFBO_H */
+#endif	
 

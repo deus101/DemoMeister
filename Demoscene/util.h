@@ -94,6 +94,8 @@ struct SpotLight : public PointLight
 #define INVALID_UNIFORM_LOCATION 0xffffffff
 #define INVALID_OGL_VALUE 0xffffffff
 
+
+//hold øye på dette
 #define COLOR_TEXTURE_UNIT              GL_TEXTURE0
 #define COLOR_TEXTURE_UNIT_INDEX        0
 #define SHADOW_TEXTURE_UNIT             GL_TEXTURE1
