@@ -38,6 +38,13 @@ public:
 		GBUFFER_NUM_TEXTURES
 	};
 
+	enum AO_TEXTURE_TYPE {
+		AO_TEXTURE_TYPE_AO_MAP,
+		AO_TEXTURE_TYPE_NOISE,
+		AO_TEXTURE_TYPE_NORMAL,
+		AO_NUM_TEXTURES
+	};
+
 	GBuffer();
 
 	~GBuffer();
@@ -59,6 +66,9 @@ private:
 	
 	//GLuint m_uniforms[GBUFFER_NUM_UNIFORMS];
 	GLuint m_textures[GBUFFER_NUM_TEXTURES];
+
+	GLuint ao_textures[AO_NUM_TEXTURES];
+
 	GLuint m_AoTexture;
 	GLuint m_depthTexture;
 	GLuint m_finalTexture;

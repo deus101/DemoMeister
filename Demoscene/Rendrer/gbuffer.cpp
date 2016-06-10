@@ -30,6 +30,7 @@ GBuffer::GBuffer()
 	m_depthTexture = 0;
 	m_finalTexture = 0;
 	ZERO_MEM(m_textures);
+	ZERO_MEM(ao_textures);
 }
 
 GBuffer::~GBuffer()
@@ -72,6 +73,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glGenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
 
 	
+
 	//gl::gentextures
 
 
@@ -144,9 +146,13 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
-	glGenTextures(1, &m_AoTexture);
-	
-	glBindTexture(GL_TEXTURE_2D, m_AoTexture);
+
+	glGenTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
+	//glGenTextures(1, &m_AoTexture);
+	//glGenTextures(1, &m_AoTexture);
+
+	//ao_textures[AO_TEXTURE_TYPE_AO_MAP] = m_AoTexture;
+	glBindTexture(GL_TEXTURE_2D, ao_textures[0]);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, WindowWidth, WindowHeight, 0, GL_RED, GL_FLOAT, NULL);
@@ -154,7 +160,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_AoTexture, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_AoTexture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ao_textures[0], 0);
 
 	GLenum Status1 = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	printf(" AO FBO Status, status: 0x%x\n", Status1);
@@ -244,12 +250,21 @@ void GBuffer::BindForStencilPass()
 
 void GBuffer::BindForLightPass()
 {
+	//prob not right
+	//glBindFramebuffer(GL_READ_FRAMEBUFFER, ao_fbo);
+	//glReadBuffer(GL_COLOR_ATTACHMENT0);
+
 	glDrawBuffer(GL_COLOR_ATTACHMENT4);
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
-	}
+	}	
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, ao_textures[AO_TEXTURE_TYPE_AO_MAP]);
+
+	//glBindTexture(GL_TEXTURE_2D, m_AoTexture);
+
 }
 
 

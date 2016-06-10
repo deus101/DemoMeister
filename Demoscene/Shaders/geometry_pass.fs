@@ -14,8 +14,9 @@ uniform vec3 mDiffuseCol;
 uniform float mSpecularInt;
 uniform float mSpecularPow;  
 
-const float NEAR = 1.0f;
-const float FAR = 200.0f;
+const float NEAR = 0.1f;
+const float FAR = 50.0f;
+
 float LinearDepth(float depth)
 {
     float z = depth * 2.0 - 1.0; 
@@ -24,10 +25,12 @@ float LinearDepth(float depth)
  											
 void main()									
 {	//With depth										
+	//WorldPosOut.xyz     = WorldPos0;
+	//WorldPosOut.w = LinearDepth(gl_FragCoord.z);
+
 	WorldPosOut.xyz     = WorldPos0;
 
 	WorldPosOut.w = LinearDepth(gl_FragCoord.z);
-
 	if( textureSize( gColorMap, 0).x > 0)
 	{				
 

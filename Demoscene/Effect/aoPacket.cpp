@@ -22,7 +22,7 @@ bool aoPacket::Init() {
 		return false;
 	}
 
-	if (!LoadShader(GL_VERTEX_SHADER, "shaders/null_technique.vs")) {
+	if (!LoadShader(GL_VERTEX_SHADER, "shaders/IdentityPacket.vert")) {
 		return false;
 	}
 
@@ -34,16 +34,20 @@ bool aoPacket::Init() {
 	if (!Finalize()) {
 		return false;
 	}
-
+	//Im just using this for ID matrise 
 	m_WVPLocation = GetUniformLocation("gWVP");
 
-	m_ProjectionLocation = GetUniformLocation("gProjection");
+	//m_ProjectionLocation = GetUniformLocation("gProjection");
+	
 
+	 m_ProjectionLocation = GetUniformLocation("gProjection");
+	 m_WorldMatrixLocation = GetUniformLocation("gWorld");
+	 m_ViewLocation = GetUniformLocation("gView");
 	//m_KernelLocation = GetUniformLocation("gKernel[0]");
 	
 	//gTexNoise
 	m_NoiseLocation = GetUniformLocation("gTexNoise");
-
+	
 
 	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
 
@@ -100,15 +104,15 @@ void aoPacket::InitKernel()
 	}
 
 	//glUniform3fv(m_KernelLocation, KERNEL_SIZE, (const GLfloat*)&kernel[0]);
-	for (GLuint i = 0; i < 64; ++i)
-
+	for (GLuint i = 0; i < 64; ++i) {
 		glUniform3fv(GetUniformLocation(string("gKernel[" + std::to_string(i) + "]").c_str()), 1, (const GLfloat*)&kernel[i]);
 
+	}
 }
 
 
 void aoPacket::InitNoise()
-{
+{	//bah no not here ffs
 	std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0);
 	std::default_random_engine generator;
 
@@ -119,14 +123,14 @@ void aoPacket::InitNoise()
 		NS_VEC::VEC3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
 		ssaoNoise.push_back(noise);
 	}
-	glGenTextures(1, &m_NoiseLocation);
-	glBindTexture(GL_TEXTURE_2D, m_NoiseLocation);
+	glGenTextures(1, &NoiseTexure);
+	glBindTexture(GL_TEXTURE_2D, NoiseTexure);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
+	this->SetNoiseTextureUnit(NoiseTexure);
 
 }
 //ugh why dont I virtualize these in the base class

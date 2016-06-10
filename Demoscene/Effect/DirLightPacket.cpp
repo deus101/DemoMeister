@@ -16,7 +16,7 @@ bool DirLightPacket::Init()
 		return false;
 	}
 
-	if (!LoadShader(GL_VERTEX_SHADER, "shaders/light_pass.vs")) {
+	if (!LoadShader(GL_VERTEX_SHADER, "shaders/IdentityPacket.vert")) {
 		return false;
 	}
 

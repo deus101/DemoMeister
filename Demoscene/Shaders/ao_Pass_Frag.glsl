@@ -9,6 +9,8 @@ uniform sampler2D gNormalMap;
 uniform sampler2D gTexNoise;
 
 uniform mat4 gProjection;
+uniform mat4 gView;
+uniform mat4 gWorld;
 
 uniform vec3 gEyeWorldPos;
 uniform vec2 gScreenSize;
@@ -32,9 +34,12 @@ void main()
 {
 	vec2 TexCoords = CalcTexCoord();
     // Get input for SSAO algorithm
-    vec3 fragPos = texture(gPositionMap, TexCoords).xyz;
+
+    vec3 fragPos = (gView * vec4( texture(gPositionMap, TexCoords).xyz, 1.0f)).xyz;
+
+
     vec3 normal = texture(gTexNoise, TexCoords).rgb;
-    vec3 randomVec = texture(gNormalMap, TexCoords * noiseScale).xyz;
+    vec3 randomVec = (gView * vec4(texture(gNormalMap, TexCoords * noiseScale).xyz,0.0f)).xyz;
 	
     // Create TBN change-of-basis matrix: from tangent-space to view-space
     vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));

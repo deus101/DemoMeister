@@ -298,6 +298,7 @@
     <None Include="Scene.rocket" />
     <None Include="Mesh\LazyGreets.mtl" />
     <None Include="Shaders\ao_Pass_Frag.glsl" />
+    <None Include="Shaders\IdentityPacket.vert" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

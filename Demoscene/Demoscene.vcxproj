@@ -619,6 +619,7 @@
     <None Include="Shaders\geometry_grid_pass.vs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="Shaders\IdentityPacket.vert" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

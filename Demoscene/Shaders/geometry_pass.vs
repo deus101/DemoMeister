@@ -21,8 +21,12 @@ void main()
     //gl_Position    = gWVP * vec4(Position, 1.0);
 	gl_Position = gProjection * viewPos;
     TexCoord0      = TexCoord;                  
-    Normal0        = (gWorld * vec4(Normal, 0.0)).xyz;   
-   //WorldPos0      = (gWorld * vec4(Position, 1.0)).xyz;
+	//mat3 normalMatrix = transpose(inverse(mat3(gView * gWorld)));
+	Normal0        = (gWorld * vec4(Normal, 0.0)).xyz;   
+	//Normal0        = normalMatrix * Normal;
 
-    WorldPos0      = viewPos.xyz;
+   WorldPos0      = (gWorld * vec4(Position, 1.0)).xyz;
+
+   //Real name should be viewpos
+    //WorldPos0      = viewPos.xyz;
 }

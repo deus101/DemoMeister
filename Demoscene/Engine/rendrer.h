@@ -47,6 +47,7 @@ namespace NS_ENG
 
 		M3DMatrix44f sTransform;
 		M3DMatrix44f sWVP;
+		
 	};
 
 	
@@ -56,7 +57,7 @@ namespace NS_ENG
 		NS_SG::pointLightNode *sNode;
 		PointLight sPL;
 		M3DMatrix44f sWVP;
-
+		M3DMatrix44f sW;
 
 
 	};
@@ -66,6 +67,8 @@ namespace NS_ENG
 		NS_SG::dirLightNode *sNode;
 		DirectionalLight sDL;
 		M3DMatrix44f sWVP;
+		M3DMatrix44f sW;
+		
 	};
 
 class rendrer : public ICallbacks

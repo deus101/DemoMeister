@@ -45,9 +45,13 @@ namespace NS_EFF {
 
 
 		//samplers
+		GLuint NoiseTexure;
+
+		GLuint m_NoiseLocation;
+
 		GLuint m_posTextureUnitLocation;
 		GLuint m_normalTextureUnitLocation;
-		GLuint m_NoiseLocation;
+		
 
 
 		GLuint m_KernelLocation;

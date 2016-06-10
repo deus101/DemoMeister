@@ -465,9 +465,10 @@ int main(int argc, char** argv)
 	e_ao_Pass.InitKernel();
 	e_ao_Pass.InitNoise();
 
-	e_ao_Pass.SetPositionTextureUnit((UINT32)0);
-	e_ao_Pass.SetNormalTextureUnit((UINT32)2);
-	e_ao_Pass.SetNoiseTextureUnit((UINT32)3);
+	e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	//e_ao_Pass.SetNoiseTextureUnit(GL_TEXTURE5);
+	//e_ao_Pass.SetNoiseTextureUnit((UINT32)3);
 	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
 
 	e_point.Enable();
@@ -475,8 +476,11 @@ int main(int argc, char** argv)
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	e_point.SetScreenSize(Xres, Yres);
+	//e_point.SetAoTextureUnit(GL_TEXTURE5);
+	e_point.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP);
 
+	e_point.SetScreenSize(Xres, Yres);
+	
 	//e_point.SetScreenSize(1600, 900);
 	
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
@@ -485,8 +489,8 @@ int main(int argc, char** argv)
 	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-
-	
+	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
+	e_dir.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP);
 	//e_dir.SetScreenSize(1600, 900);
 	e_dir.SetScreenSize(Xres, Yres);
 
@@ -543,12 +547,15 @@ int main(int argc, char** argv)
 	
 
 	
-	NS_ENG::model m_sponza("Mesh/sti.obj", "Mesh/sti.mtl");
+	//NS_ENG::model m_sponza("Mesh/sti.obj", "Mesh/sti.mtl");
+	NS_ENG::model m_sponza("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 	boost::shared_ptr<NS_SG::modelNode> mn_sponza(new NS_SG::modelNode("Scene_sponza", &m_sponza, &e_geom));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_sponza(new NS_SG::objTransform("tran_sponza"));
 	tran_sponza->addChild(mn_sponza.get());
-	tran_sponza->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
+	tran_sponza->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+//	tran_sponza->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
+
 	tran_sponza->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
 	o_loader->addChild(tran_sponza.get());
@@ -557,9 +564,9 @@ int main(int argc, char** argv)
 //-------------------------------------me
 
 
-	NS_ENG::model m_protagonist("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
+	//NS_ENG::model m_protagonist("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 
-	NS_ENG::model m_P_Arm("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
+	//NS_ENG::model m_P_Arm("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
 
 	//NS_ENG::model m_P_Half_Arm("Mesh/PentagonHalfArm.obj", "Mesh/PentagonHalfArm.mtl");
 

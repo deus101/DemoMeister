@@ -26,11 +26,12 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 	{
 		camera *cammy = reinterpret_cast<camera*>(Node);
 
-		M3DMatrix44f CamWorld, local;
+		M3DMatrix44f CamWorld, local, tmpProj;
 		cammy->getAbsoluteTransform(CamWorld);
 		m3dInvertMatrix44(view, CamWorld);
 		//cammy->getParent()->getLocalTransform(view);
-		cammy->getProjection(projection);
+		cammy->getProjection(tmpProj);
+		m3dCopyMatrix44(projection, tmpProj);
 
 	}
 
@@ -110,7 +111,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dMatrixMultiply44(wvp, vp, w_scaled);
 
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
-			
+			m3dCopyMatrix44(Tmp.sW, world);
 
 		}
 		Tmp.sPL = s_LPL;
@@ -127,14 +128,15 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		dirLightNode *lDir = reinterpret_cast<dirLightNode*>(Node);
 		if (NULL != lDir->LightMagic)
 		{
+			M3DMatrix44f swp;
+			m3dLoadIdentity44(swp);
 			M3DMatrix44f world;
 			m3dLoadIdentity44(world);
-
 			
 			Tmp.sNode = lDir;
 			Tmp.sDL = lDir->GetDirLight();
-			m3dCopyMatrix44(Tmp.sWVP, world);
-
+			m3dCopyMatrix44(Tmp.sW, world);
+			m3dCopyMatrix44(Tmp.sWVP, swp);
 
 
 		}
@@ -264,17 +266,18 @@ void rendrer::RenderSceneCB()
 	//glActiveTexture(GL_TEXTURE1);
 	//glBindTexture(GL_TEXTURE_2D, mgBuffer->GBUFFER_TEXTURE_TYPE_NORMAL + 6);
 	//AoPass->SetNormalTextureUnit(1);
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, AoPass->m_NoiseLocation);
 	//AoPass->SetNoiseTextureUnit(2);
 
 
 	AoPass->SetWVP(IdentSWP);
-
+	//AoPass->SetWorldMatrix(IdentSWP);
+	AoPass->SetViewMatrix(view);
 	AoPass->SetProjectionMatrix(projection);
 	//glDisable(GL_DEPTH_TEST);
 	//glEnable(GL_BLEND);
-
+	//glDrawBuffer(GL_COLOR_ATTACHMENT0);
 	glFrontFace(GL_CW);
 	quad->Draw();
 	glFrontFace(GL_CCW);
@@ -283,6 +286,8 @@ void rendrer::RenderSceneCB()
 	//glEnable(GL_DEPTH_TEST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	//Stencil Pass og Lys pass------------------------------------------
+
+
 	glDepthMask(GL_FALSE);
 
 	glEnable(GL_STENCIL_TEST);
@@ -314,9 +319,11 @@ void rendrer::RenderSceneCB()
 		glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
 		glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
 
+		ip->sNode->NullMagic->SetWorldMatrix(ip->sW);
 
-
-		ip->sNode->NullMagic->SetWVP(ip->sWVP);
+		ip->sNode->NullMagic->SetProjectionMatrix(projection);
+		ip->sNode->NullMagic->SetViewMatrix(view);
+		
 		sphere_null->Draw();
 		
 		
@@ -324,9 +331,10 @@ void rendrer::RenderSceneCB()
 		
 		//pointlys pass--------------------------------
 		//kjøre spotlight her også?
+		ip->sNode->LightMagic->Enable();
+
 		mgBuffer->BindForLightPass();
 
-		ip->sNode->LightMagic->Enable();
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 
 		glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
@@ -338,7 +346,10 @@ void rendrer::RenderSceneCB()
 
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
-		ip->sNode->LightMagic->SetWVP(ip->sWVP);
+		//ip->sNode->LightMagic->SetWVP(ip->sWVP);
+		ip->sNode->LightMagic->SetProjectionMatrix(projection);
+		ip->sNode->LightMagic->SetViewMatrix(view);
+		ip->sNode->LightMagic->SetWorldMatrix(ip->sW);
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 		
 		sphere_light->Draw();
@@ -356,12 +367,13 @@ void rendrer::RenderSceneCB()
 		id->sNode->LightMagic->Enable();
 
 		mgBuffer->BindForLightPass();
-
+		//swp
 
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
-		id->sNode->LightMagic->SetWVP(id->sWVP);
-
+		id->sNode->LightMagic->SetWorldMatrix(id->sW);
+		id->sNode->LightMagic->SetViewMatrix(id->sWVP);
+		id->sNode->LightMagic->SetProjectionMatrix(projection);
 
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
