@@ -16,7 +16,7 @@
 
 namespace NS_ENG{
 
-	//AHAAA! JEG KAN GENERE FRA GRUPPENE BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
+	//AHAAA! JEG KAN GENNE FRA GRUPPE, BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
 	//Alt ligger på på plass! og model noden trenger jo bare å kjøre addchildren eller gi den til faren
 
 	struct buffer_Group

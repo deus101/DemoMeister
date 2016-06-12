@@ -384,7 +384,8 @@
     <ClCompile Include="Effect\HeightMapPacket.cpp" />
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
-    <ClCompile Include="Rendrer\buffers.cpp" />
+    <ClCompile Include="Rendrer\aobuffer.cpp" />
+    <ClCompile Include="Rendrer\base_buffer.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
     <ClCompile Include="SceneGraph\tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
@@ -418,12 +419,13 @@
     <ClInclude Include="Effect\HeightMapPacket.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
+    <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
     <ClInclude Include="Rendrer\callbacks.h" />
     <ClInclude Include="SceneGraph\assetNode.h" />
     <ClInclude Include="bass.h" />
-    <ClInclude Include="Rendrer\buffers.h" />
+    <ClInclude Include="Rendrer\base_buffer.h" />
     <ClInclude Include="SceneGraph\camera.h" />
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />

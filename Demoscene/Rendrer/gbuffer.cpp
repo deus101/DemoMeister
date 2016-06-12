@@ -15,6 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+
+
 //Todo find out how to split this using a pass system for now I'll just get it all in plce for AO
 
 #include <stdio.h>
@@ -52,12 +55,9 @@ GBuffer::~GBuffer()
 		glDeleteTextures(1, &m_finalTexture);
 	}
 }
-//vent....ikke init men run
 bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
-//bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 
-	//GLFWwindow *test = glfwGetCurrentContext();
 
 	GLenum error;
 	//GLRC initContext = wglGetCurrentContext();
@@ -141,17 +141,13 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glGenFramebuffers(1, &ao_fbo);
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, ao_fbo);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
 
 	glGenTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
-	//glGenTextures(1, &m_AoTexture);
-	//glGenTextures(1, &m_AoTexture);
 
-	//ao_textures[AO_TEXTURE_TYPE_AO_MAP] = m_AoTexture;
+
 	glBindTexture(GL_TEXTURE_2D, ao_textures[0]);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
 
@@ -169,8 +165,6 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 		return false;
 	}
 
-	// restore default FBO
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	return true;
@@ -206,41 +200,29 @@ void GBuffer::BindForGeomPass()
 
 void GBuffer::BindForAoPass()
 {
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
 
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, ao_fbo);
-	//glClear(GL_COLOR_BUFFER_BIT);
-	//glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
-
-	//glDrawBuffer(GL_NONE);
-	//glClear(GL_COLOR_BUFFER_BIT);
-
-	//glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
-	//glDrawBuffer(GL_COLOR_ATTACHMENT5);
+
 
 	glActiveTexture(GL_TEXTURE0 );
 	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION ]);
 	glActiveTexture(GL_TEXTURE2 );
 	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_NORMAL]);
 
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, ao_fbo);
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
 }
 
 
 void GBuffer::BindForStencilPass()
-{	//uuuuuh
+{	
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
 
-	// must disable the draw buffers 
 	glDrawBuffer(GL_NONE);
 }
 
@@ -251,8 +233,7 @@ void GBuffer::BindForStencilPass()
 void GBuffer::BindForLightPass()
 {
 	//prob not right
-	//glBindFramebuffer(GL_READ_FRAMEBUFFER, ao_fbo);
-	//glReadBuffer(GL_COLOR_ATTACHMENT0);
+
 
 	glDrawBuffer(GL_COLOR_ATTACHMENT4);
 

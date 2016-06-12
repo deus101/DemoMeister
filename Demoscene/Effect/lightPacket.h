@@ -1,6 +1,6 @@
 #ifndef LIGHTPACKET_HPP
 #define	LIGHTPACKET_HPP
-
+//I think this should be move out of the gbuffer
 #include <string>
 
 #include "renderPacket.h"

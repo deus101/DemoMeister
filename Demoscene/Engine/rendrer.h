@@ -79,13 +79,13 @@ public:
 
 	// should scene/composite hold the pass packets?
 	//                                should this just be name?  
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), AoPass(_AoPass)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), AoPass(_AoPass), mgBuffer(_GBuffer)
 	{
 
 		unsigned int w = GetPixelWidth();
 		unsigned int h = GetPixelHeight();
-		mgBuffer = new GBuffer();
-		mgBuffer->Init(w, h);
+		//mgBuffer = new GBuffer();
+		//mgBuffer->Init(w, h);
 
 		M3DMatrix44f inverseView, viewT;
 		m3dLoadIdentity44(view);

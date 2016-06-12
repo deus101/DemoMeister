@@ -129,6 +129,7 @@ static int bass_is_playing(void *d)
 {
 	HSTREAM h = *((HSTREAM *)d);
 	return BASS_ChannelIsActive(h) == BASS_ACTIVE_PLAYING;
+	
 }
 
 static struct sync_cb bass_cb = {
@@ -136,6 +137,8 @@ static struct sync_cb bass_cb = {
 	bass_set_row,
 	bass_is_playing
 };
+
+
 
 #endif
 
@@ -427,6 +430,12 @@ int main(int argc, char** argv)
 	//SetupRC();
 	//DO IT! TO IT!
 
+	GBuffer Pass_GBuffer = GBuffer();
+
+
+	Pass_GBuffer.Init(Xres, Yres);
+
+
 //--------------scene node that goes into scenerendrer
 	//scene parser does not work because I suck at boost
 	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
@@ -437,7 +446,7 @@ int main(int argc, char** argv)
 
 
 
-
+	
 //--------------------Camera 
 	//1 for nowf
 
@@ -504,7 +513,7 @@ int main(int argc, char** argv)
 
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_ao_Pass);
 
 
 
@@ -762,91 +771,93 @@ int main(int argc, char** argv)
 	if (sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT))
 		std::cout << "failed to connect to host" << std::endl;
 #endif
+	
+ 	
+	const char *cstr = "/Nasa/";
+	TrackPart = sync_get_track(rocket, cstr[0] + "part");
 
-	TrackPart = sync_get_track(rocket, "part");
+	cam_Pos_X = sync_get_track(rocket,cstr[0] + "cam.x"),
+	cam_Pos_Y = sync_get_track(rocket,cstr[0] + "cam.y");
+	cam_Pos_Z = sync_get_track(rocket,cstr[0] + "cam.z");
 
-	cam_Pos_X = sync_get_track(rocket, "cam.x"),
-	cam_Pos_Y = sync_get_track(rocket, "cam.y");
-	cam_Pos_Z = sync_get_track(rocket, "cam.z");
+	cam_Rot_X = sync_get_track(rocket,cstr[0] + "cam.Rot.x");
+	cam_Rot_Y = sync_get_track(rocket,cstr[0] + "cam.Rot.y");
+	cam_Rot_Z = sync_get_track(rocket,cstr[0] + "cam.Rot.z");
 
-	cam_Rot_X = sync_get_track(rocket, "cam.Rot.x");
-	cam_Rot_Y = sync_get_track(rocket, "cam.Rot.y");
-	cam_Rot_Z = sync_get_track(rocket, "cam.Rot.z");
-
-	plane_Pos_X = sync_get_track(rocket, "Ppos.x");
-	plane_Pos_Y = sync_get_track(rocket, "Ppos.y");
-	plane_Pos_Z = sync_get_track(rocket, "Ppos.z");
-	plane_Rot_X = sync_get_track(rocket, "Prot.x");
-	plane_Rot_Y = sync_get_track(rocket, "Prot.y");
-	plane_Rot_Z = sync_get_track(rocket, "Prot.z");
-	plane_Sca_X = sync_get_track(rocket, "Psca.x");
-	plane_Sca_Y = sync_get_track(rocket, "Psca.y");
-	plane_Sca_Z = sync_get_track(rocket, "Psca.z");
+	plane_Pos_X = sync_get_track(rocket,cstr[0] + "Ppos.x");
+	plane_Pos_Y = sync_get_track(rocket,cstr[0] + "Ppos.y");
+	plane_Pos_Z = sync_get_track(rocket,cstr[0] + "Ppos.z");
+	plane_Rot_X = sync_get_track(rocket,cstr[0] + "Prot.x");
+	plane_Rot_Y = sync_get_track(rocket,cstr[0] + "Prot.y");
+	plane_Rot_Z = sync_get_track(rocket,cstr[0] + "Prot.z");
+	plane_Sca_X = sync_get_track(rocket,cstr[0] + "Psca.x");
+	plane_Sca_Y = sync_get_track(rocket,cstr[0] + "Psca.y");
+	plane_Sca_Z = sync_get_track(rocket,cstr[0] + "Psca.z");
 
 
 	
 
-	lit_Pos_X = sync_get_track(rocket, "Lpos.x");
-	lit_Pos_Y = sync_get_track(rocket, "Lpos.y");
-	lit_Pos_Z = sync_get_track(rocket, "Lpos.z");
+	lit_Pos_X = sync_get_track(rocket,cstr[0] + "Lpos.x");
+	lit_Pos_Y = sync_get_track(rocket,cstr[0] + "Lpos.y");
+	lit_Pos_Z = sync_get_track(rocket,cstr[0] + "Lpos.z");
 	/*
-	e_1_6_Rot_X = sync_get_track(rocket, "e_1_6_rX");
-	e_1_6_Rot_Y = sync_get_track(rocket, "e_1_6_rY");
-	e_1_6_Rot_Z = sync_get_track(rocket, "e_1_6_rZ");
+	e_1_6_Rot_X = sync_get_track(rocket,cstr[0] + "e_1_6_rX");
+	e_1_6_Rot_Y = sync_get_track(rocket,cstr[0] + "e_1_6_rY");
+	e_1_6_Rot_Z = sync_get_track(rocket,cstr[0] + "e_1_6_rZ");
 
-	e_1_04_Rot_X = sync_get_track(rocket, "e_1_04_rX");
-	e_1_04_Rot_Y = sync_get_track(rocket, "e_1_04_rY");
-	e_1_04_Rot_Z = sync_get_track(rocket, "e_1_04_rZ");
+	e_1_04_Rot_X = sync_get_track(rocket,cstr[0] + "e_1_04_rX");
+	e_1_04_Rot_Y = sync_get_track(rocket,cstr[0] + "e_1_04_rY");
+	e_1_04_Rot_Z = sync_get_track(rocket,cstr[0] + "e_1_04_rZ");
 
-	e_1_08_Rot_X = sync_get_track(rocket, "e_1_08_rX");
-	e_1_08_Rot_Y = sync_get_track(rocket, "e_1_08_rY");
-	e_1_08_Rot_Z = sync_get_track(rocket, "e_1_08_rZ");
+	e_1_08_Rot_X = sync_get_track(rocket,cstr[0] + "e_1_08_rX");
+	e_1_08_Rot_Y = sync_get_track(rocket,cstr[0] + "e_1_08_rY");
+	e_1_08_Rot_Z = sync_get_track(rocket,cstr[0] + "e_1_08_rZ");
 
-	e_2_10_Rot_X = sync_get_track(rocket, "e_2_10_rX");
-	e_2_10_Rot_Y = sync_get_track(rocket, "e_2_10_rY");
-	e_2_10_Rot_Z = sync_get_track(rocket, "e_2_10_rZ");
+	e_2_10_Rot_X = sync_get_track(rocket,cstr[0] + "e_2_10_rX");
+	e_2_10_Rot_Y = sync_get_track(rocket,cstr[0] + "e_2_10_rY");
+	e_2_10_Rot_Z = sync_get_track(rocket,cstr[0] + "e_2_10_rZ");
 
-	e_2_02_Rot_X = sync_get_track(rocket, "e_2_02_rX");
-	e_2_02_Rot_Y = sync_get_track(rocket, "e_2_02_rY");
-	e_2_02_Rot_Z = sync_get_track(rocket, "e_2_02_rZ");
+	e_2_02_Rot_X = sync_get_track(rocket,cstr[0] + "e_2_02_rX");
+	e_2_02_Rot_Y = sync_get_track(rocket,cstr[0] + "e_2_02_rY");
+	e_2_02_Rot_Z = sync_get_track(rocket,cstr[0] + "e_2_02_rZ");
 
-	e_3_02_Rot_X = sync_get_track(rocket, "e_3_02_rX");
-	e_3_02_Rot_Y = sync_get_track(rocket, "e_3_02_rY");
-	e_3_02_Rot_Z = sync_get_track(rocket, "e_3_02_rZ");
+	e_3_02_Rot_X = sync_get_track(rocket,cstr[0] + "e_3_02_rX");
+	e_3_02_Rot_Y = sync_get_track(rocket,cstr[0] + "e_3_02_rY");
+	e_3_02_Rot_Z = sync_get_track(rocket,cstr[0] + "e_3_02_rZ");
 
-	e_3_10_Rot_X = sync_get_track(rocket, "e_3_10_rX");
-	e_3_10_Rot_Y = sync_get_track(rocket, "e_3_10_rY");
-	e_3_10_Rot_Z = sync_get_track(rocket, "e_3_10_rZ");
+	e_3_10_Rot_X = sync_get_track(rocket,cstr[0] + "e_3_10_rX");
+	e_3_10_Rot_Y = sync_get_track(rocket,cstr[0] + "e_3_10_rY");
+	e_3_10_Rot_Z = sync_get_track(rocket,cstr[0] + "e_3_10_rZ");
 
-	e_4_04_Rot_X = sync_get_track(rocket, "e_4_04_rX");
-	e_4_04_Rot_Y = sync_get_track(rocket, "e_4_04_rY");
-	e_4_04_Rot_Z = sync_get_track(rocket, "e_4_04_rZ");
+	e_4_04_Rot_X = sync_get_track(rocket,cstr[0] + "e_4_04_rX");
+	e_4_04_Rot_Y = sync_get_track(rocket,cstr[0] + "e_4_04_rY");
+	e_4_04_Rot_Z = sync_get_track(rocket,cstr[0] + "e_4_04_rZ");
 
-	e_4_08_Rot_X = sync_get_track(rocket, "e_4_08_rX");
-	e_4_08_Rot_Y = sync_get_track(rocket, "e_4_08_rY");
-	e_4_08_Rot_Z = sync_get_track(rocket, "e_4_08_rZ");
+	e_4_08_Rot_X = sync_get_track(rocket,cstr[0] + "e_4_08_rX");
+	e_4_08_Rot_Y = sync_get_track(rocket,cstr[0] + "e_4_08_rY");
+	e_4_08_Rot_Z = sync_get_track(rocket,cstr[0] + "e_4_08_rZ");
 
 
-	e_4_02_Rot_X = sync_get_track(rocket, "e_4_02_rX");
-	e_4_02_Rot_Y = sync_get_track(rocket, "e_4_02_rY");
-	e_4_02_Rot_Z = sync_get_track(rocket, "e_4_02_rZ");
+	e_4_02_Rot_X = sync_get_track(rocket,cstr[0] + "e_4_02_rX");
+	e_4_02_Rot_Y = sync_get_track(rocket,cstr[0] + "e_4_02_rY");
+	e_4_02_Rot_Z = sync_get_track(rocket,cstr[0] + "e_4_02_rZ");
 
-	e_2_08_Rot_X = sync_get_track(rocket, "e_2_08_rX");
-	e_2_08_Rot_Y = sync_get_track(rocket, "e_2_08_rY");
-	e_2_08_Rot_Z = sync_get_track(rocket, "e_2_08_rZ");
+	e_2_08_Rot_X = sync_get_track(rocket,cstr[0] + "e_2_08_rX");
+	e_2_08_Rot_Y = sync_get_track(rocket,cstr[0] + "e_2_08_rY");
+	e_2_08_Rot_Z = sync_get_track(rocket,cstr[0] + "e_2_08_rZ");
 	
-	ArmPos_X = sync_get_track(rocket, "armPos_X");
-	ArmPos_Y = sync_get_track(rocket, "armPos_Y");
-	ArmPos_Z = sync_get_track(rocket, "armPos_Z");
+	ArmPos_X = sync_get_track(rocket,cstr[0] + "armPos_X");
+	ArmPos_Y = sync_get_track(rocket,cstr[0] + "armPos_Y");
+	ArmPos_Z = sync_get_track(rocket,cstr[0] + "armPos_Z");
 	*/
 
 
 	
 
-	gridDrop = sync_get_track(rocket, "gridFunc");
+	gridDrop = sync_get_track(rocket,cstr[0] + "gridFunc");
 
 
-	UtilityTrack = sync_get_track(rocket, "Utility");
+	UtilityTrack = sync_get_track(rocket, cstr[0] + "Utility");
 
 
 

@@ -35,6 +35,8 @@ extern void Sync();
 //
 //
 //}
+
+
 static void RenderSceneCB()
 {
 	s_pCallbacks->RenderSceneCB();
@@ -96,7 +98,6 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 
 	if (glfwInit() != 1) {
-		//ENG_ERROR("Error initializing GLFW");
 		exit(1);
 	}
 
@@ -121,15 +122,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	GLFWmonitor* pMonitor = fs ? glfwGetPrimaryMonitor() : NULL;
 	
 	glfwWindowHint(GLFW_REFRESH_RATE, 60);
-	/*
-	GLFWmonitor* pm = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(pm);
 
-	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-	*/
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
@@ -179,13 +172,17 @@ void ChangeSize(unsigned int w, unsigned int h)
 
 	ResizeBuffer = true;
 
+
+
 	//context::mGBuffer->Init(w, h);
+
+
+
 }
 //mulig en callback classe her med en app classe
 void ContextRun(ICallbacks* pCallbacks)
 {
 	if (!pCallbacks) {
-		//ENG_ERROR("callbacks not specified");
 		exit(1);
 	}
 
@@ -201,7 +198,6 @@ void ContextRun(ICallbacks* pCallbacks)
 	s_pCallbacks = pCallbacks;
 	InitCallbacks();
 
-	//kansje denne burde være I main eller World.
 	while (!glfwWindowShouldClose(s_pWindow)) {
 
 

@@ -256,34 +256,27 @@ void rendrer::RenderSceneCB()
 	m3dLoadIdentity44(IdentSWP);
 	AoPass->Enable();
 	mgBuffer->BindForAoPass();
-	//glDrawBuffer(GL_COLOR_ATTACHMENT0);
-	//AoPass->Enable();
 
-	
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, mgBuffer->GBUFFER_TEXTURE_TYPE_POSITION + 6);
-	//AoPass->SetPositionTextureUnit(0);
-	//glActiveTexture(GL_TEXTURE1);
-	//glBindTexture(GL_TEXTURE_2D, mgBuffer->GBUFFER_TEXTURE_TYPE_NORMAL + 6);
-	//AoPass->SetNormalTextureUnit(1);
+
+
 	glActiveTexture(GL_TEXTURE7);
 	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
-	//AoPass->SetNoiseTextureUnit(2);
 
 
 	AoPass->SetWVP(IdentSWP);
 	//AoPass->SetWorldMatrix(IdentSWP);
 	AoPass->SetViewMatrix(view);
 	AoPass->SetProjectionMatrix(projection);
-	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 	//glEnable(GL_BLEND);
 	//glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
 	glFrontFace(GL_CW);
 	quad->Draw();
 	glFrontFace(GL_CCW);
 
 	//glDisable(GL_BLEND);
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	//Stencil Pass og Lys pass------------------------------------------
 
