@@ -28,7 +28,7 @@ void main()
 	//WorldPosOut.xyz     = WorldPos0;
 	//WorldPosOut.w = LinearDepth(gl_FragCoord.z);
 
-	WorldPosOut.xyz     = WorldPos0;
+	WorldPosOut.xyz = WorldPos0;
 
 	WorldPosOut.w = LinearDepth(gl_FragCoord.z);
 	if( textureSize( gColorMap, 0).x > 0)

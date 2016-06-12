@@ -82,6 +82,8 @@ void  lightPacket::SetProjectionMatrix(const M3DMatrix44f& P)
 void lightPacket::SetPositionTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_posTextureUnitLocation, TextureUnit);
+	std::cout << "Light postex Uniform Location is " << m_posTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+
 }
 
 
@@ -89,17 +91,24 @@ void lightPacket::SetColorTextureUnit(unsigned int TextureUnit)
 {
 	
 	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
+	std::cout << "Light colTex Uniform Location is " << m_colorTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+
 }
 
 
 void lightPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
+	std::cout << "Light normal tex Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+
 }
 
 void lightPacket::SetAoTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_AoTextureUnitLocation, TextureUnit);
+
+	std::cout << "Light AO Uniform Location is " << m_AoTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+
 }
 
 void lightPacket::SetEyeWorldPos(const NS_VEC::VEC3& EyePos)

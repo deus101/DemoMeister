@@ -18,15 +18,15 @@ out vec3 WorldPos0;
 void main()
 {       
 	vec4 viewPos = gView * gWorld * vec4(Position, 1.0f);
-    //gl_Position    = gWVP * vec4(Position, 1.0);
+    //gl_Position    = gWVP * vec4(Position, 1.0f);
 	gl_Position = gProjection * viewPos;
     TexCoord0      = TexCoord;                  
 	//mat3 normalMatrix = transpose(inverse(mat3(gView * gWorld)));
-	Normal0        = (gWorld * vec4(Normal, 0.0)).xyz;   
+	Normal0        = (gWorld * vec4(Normal, 0.0f)).xyz;   
 	//Normal0        = normalMatrix * Normal;
 
-   WorldPos0      = (gWorld * vec4(Position, 1.0)).xyz;
+	WorldPos0      = (gWorld * vec4(Position, 1.0f)).xyz;
 
    //Real name should be viewpos
-    //WorldPos0      = viewPos.xyz;
+   //WorldPos0      = viewPos.xyz;
 }

@@ -427,6 +427,58 @@ int main(int argc, char** argv)
 	//SetupRC();
 	//DO IT! TO IT!
 
+//--------------scene node that goes into scenerendrer
+	//scene parser does not work because I suck at boost
+	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
+
+
+	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
+
+
+
+
+
+//--------------------Camera 
+	//1 for nowf
+
+
+	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
+
+
+	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
+	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
+	boost::shared_ptr<NS_SG::objTransform> pivot_kambot(new NS_SG::objTransform("pivot_kambot"));
+
+
+
+	//target_kambot->setTarget(mn_protoganist.get());
+
+	target_kambot->addChild(kambot.get());
+	//target_kambot->addChild(target_pivot.get());
+
+	//target_pivot->addChild(kambot.get());
+
+
+
+
+
+	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
+
+
+
+	tran_kambot->addChild(target_kambot.get());
+
+
+	o_loader->addChild(tran_kambot.get());
+
+
+
+	ptrCamTran = tran_kambot.get();
+
+
+
+
+
 //-------------------The effects packets 
 	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
 
@@ -441,6 +493,18 @@ int main(int argc, char** argv)
 
 
 	NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
+
+
+
+	//GET RID OF THIS!!!!
+	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/quad.obj", "Mesh/quad.mtl"));
+
+
+
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
 
 
 
@@ -477,7 +541,7 @@ int main(int argc, char** argv)
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
-	e_point.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP);
+	e_point.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 
 	e_point.SetScreenSize(Xres, Yres);
 	
@@ -490,7 +554,7 @@ int main(int argc, char** argv)
 	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
 	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
-	e_dir.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP);
+	e_dir.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	//e_dir.SetScreenSize(1600, 900);
 	e_dir.SetScreenSize(Xres, Yres);
 
@@ -501,12 +565,8 @@ int main(int argc, char** argv)
 
 	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
 
-//--------------scene node that goes into scenerendrer
-	//scene parser does not work because I suck at boost
-	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
 
 
-	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
 
 //-------------Greets Assets
@@ -547,14 +607,14 @@ int main(int argc, char** argv)
 	
 
 	
-	//NS_ENG::model m_sponza("Mesh/sti.obj", "Mesh/sti.mtl");
-	NS_ENG::model m_sponza("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
+	NS_ENG::model m_sponza("Mesh/sti.obj", "Mesh/sti.mtl");
+	//NS_ENG::model m_sponza("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 	boost::shared_ptr<NS_SG::modelNode> mn_sponza(new NS_SG::modelNode("Scene_sponza", &m_sponza, &e_geom));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_sponza(new NS_SG::objTransform("tran_sponza"));
 	tran_sponza->addChild(mn_sponza.get());
-	tran_sponza->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
-//	tran_sponza->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
+	//tran_sponza->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
+	tran_sponza->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
 
 	tran_sponza->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
@@ -619,44 +679,6 @@ int main(int argc, char** argv)
 		*/
 
 
-//--------------------Camera 
-	//1 for nowf
-	
-
-	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
-
-
-	boost::shared_ptr<NS_SG::objTransform> tran_kambot(new NS_SG::objTransform("tran_kambot"));
-	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
-	boost::shared_ptr<NS_SG::objTransform> pivot_kambot(new NS_SG::objTransform("pivot_kambot"));
-
-	
-	
-	//target_kambot->setTarget(mn_protoganist.get());
-
-	target_kambot->addChild(kambot.get());
-	//target_kambot->addChild(target_pivot.get());
-
-	//target_pivot->addChild(kambot.get());
-
-
-
-
-
-	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
-	
-	
-
-	tran_kambot->addChild(target_kambot.get());
-	
-	
-	o_loader->addChild(tran_kambot.get());
-	 
-
-
-	ptrCamTran = tran_kambot.get();
-
-
 
 
 
@@ -671,7 +693,7 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
 	//Cavern Follow Light
-	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.8f, 0.8f, 0.01f, 0.02f, 0.5f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.7f, 1.0f, 0.7f), 0.8f, 0.2f, 1.0f, 0.09f, 0.032f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
 	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
 	tran_Point->addChild(n_point_lys.get());
@@ -698,11 +720,11 @@ int main(int argc, char** argv)
 
 
 	//Dir Light
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f, &e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.9f, 0.9f, 1.0f), 0.7f, 0.2f, &e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	
-
+	
 	
 
 	
@@ -717,13 +739,7 @@ int main(int argc, char** argv)
 
 
 
-	//ugh
-	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model( "Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/quad.obj", "Mesh/quad.mtl"));
 
-	
 	
 //---------load music into bass	
 	if (!BASS_Init(-1, 44100, 0, 0, 0))
@@ -853,7 +869,7 @@ int main(int argc, char** argv)
 	ptrComp = o_loader.get();
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
+//	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
 
 
 

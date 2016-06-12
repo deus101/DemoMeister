@@ -266,8 +266,8 @@ void rendrer::RenderSceneCB()
 	//glActiveTexture(GL_TEXTURE1);
 	//glBindTexture(GL_TEXTURE_2D, mgBuffer->GBUFFER_TEXTURE_TYPE_NORMAL + 6);
 	//AoPass->SetNormalTextureUnit(1);
-	glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D, AoPass->m_NoiseLocation);
+	glActiveTexture(GL_TEXTURE7);
+	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
 	//AoPass->SetNoiseTextureUnit(2);
 
 

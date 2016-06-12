@@ -227,7 +227,7 @@ void GBuffer::BindForAoPass()
 
 	glActiveTexture(GL_TEXTURE0 );
 	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION ]);
-	glActiveTexture(GL_TEXTURE1 );
+	glActiveTexture(GL_TEXTURE2 );
 	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_NORMAL]);
 
 	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, ao_fbo);
@@ -260,7 +260,8 @@ void GBuffer::BindForLightPass()
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
 	}	
-	glActiveTexture(GL_TEXTURE3);
+	//glActiveTexture(GL_TEXTURE3);
+	glActiveTexture(GL_TEXTURE5);
 	glBindTexture(GL_TEXTURE_2D, ao_textures[AO_TEXTURE_TYPE_AO_MAP]);
 
 	//glBindTexture(GL_TEXTURE_2D, m_AoTexture);

@@ -39,12 +39,16 @@ uniform sampler2D gColorMap;
 uniform sampler2D gNormalMap;
 uniform sampler2D gAoPass;
 
+uniform mat4 gProjection;
+uniform mat4 gView;
+uniform mat4 gWorld;
+
 uniform DirectionalLight gDirectionalLight;
 uniform PointLight gPointLight;
 uniform SpotLight gSpotLight;
 uniform vec3 gEyeWorldPos;
-uniform float gMatSpecularIntensity;
-uniform float gSpecularPower;
+uniform float gMatSpecularIntensity = 0.3f;
+uniform float gSpecularPower = 0.2f;
 uniform int gLightType;
 uniform vec2 gScreenSize;
 
@@ -54,7 +58,7 @@ vec4 CalcLightInternal(BaseLight Light,
 					   vec3 Normal,
 					   float AO)
 {
-	vec4 OcculsionFactor = vec4(vec3(0.3 * AO),1.0);
+	vec4 OcculsionFactor = vec4(vec3(0.9 * AO),1.0);
     vec4 AmbientColor = vec4(Light.Color * Light.AmbientIntensity, 1.0) ;
 	AmbientColor *= OcculsionFactor;
     float DiffuseFactor = dot(Normal, -LightDirection);
@@ -115,6 +119,7 @@ out vec4 FragColor;
 
 void main()
 {
+	mat3 viewNormal = transpose(inverse(mat3(gView)));
 	//int draw_mode = 0;
 	//float debug = 1.0f;
 	//vec4 Debugger = vec4(0, 0, 0, 0);
@@ -127,8 +132,18 @@ void main()
 	//vec2 texelSize =  vec2(textureSize(gAoPass, 0));
 	float AmbientOcculsion = texture(gAoPass, TexCoord ).r;
 
-	Normal = normalize(Normal);
 
+
+	//Normal = normalize(Normal);
+	Normal = normalize(Normal * 2.0 - 1.0);
+	Normal = normalize(viewNormal * Normal);
+
+	if(gScreenSize.x == 0.0f)
+	{
+	FragColor = vec4(vec3(AmbientOcculsion), 1.0);
+	}
+	else
+	{
 	FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
-
+	}
 }

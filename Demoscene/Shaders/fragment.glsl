@@ -49,5 +49,4 @@ void main()
 
 	
 	output = max(intensity * diff + spec , amb);
-	
 }

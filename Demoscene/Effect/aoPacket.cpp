@@ -46,12 +46,14 @@ bool aoPacket::Init() {
 	//m_KernelLocation = GetUniformLocation("gKernel[0]");
 	
 	//gTexNoise
-	m_NoiseLocation = GetUniformLocation("gTexNoise");
 	
 
 	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
 
 	m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
+
+	m_NoiseLocation = GetUniformLocation("gTexNoise");
+
 
 	m_ScreenSizeLocation = GetUniformLocation("gScreenSize");
 
@@ -95,7 +97,7 @@ void aoPacket::InitKernel()
 
 		v.X = 2.0f *(float)rand() / RAND_MAX - 1.0f;
 		v.Y = 2.0f *(float)rand() / RAND_MAX - 1.0f;
-		v.Z = 2.0f *(float)rand() / RAND_MAX - 1.0f;
+		v.Z = 0.0f *(float)rand() / RAND_MAX + 1.0f;
 
 		v *= (0.1f + 0.9f * scale * scale);
 
@@ -177,6 +179,8 @@ void aoPacket::SetScreenSize(unsigned int Width, unsigned int Height)
 void aoPacket::SetPositionTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_posTextureUnitLocation, TextureUnit);
+
+	std::cout << "AO_Packet Position Uniform Location is " << m_posTextureUnitLocation << "Sampler Id is" << TextureUnit << std::endl;
 }
 
 
@@ -185,6 +189,7 @@ void aoPacket::SetNoiseTextureUnit(unsigned int TextureUnit)
 	
 	glUniform1i(m_NoiseLocation, TextureUnit);
 	//glUniform1i(m_NoiseLocation, m_NoiseLocation);
+	std::cout << "AO_Packet Noise Uniform Location is " << m_NoiseLocation << "Sampler Id is" << TextureUnit << std::endl;
 
 }
 
@@ -192,4 +197,6 @@ void aoPacket::SetNoiseTextureUnit(unsigned int TextureUnit)
 void aoPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
+	std::cout << "AO_Packet Normal Uniform Location is " << m_normalTextureUnitLocation << "Sampler Id is" << TextureUnit << std::endl;
+
 }
