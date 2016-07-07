@@ -382,6 +382,8 @@
     <ClCompile Include="Effect\NullPacket.cpp" />
     <ClCompile Include="Effect\PointLightPacket.cpp" />
     <ClCompile Include="Effect\HeightMapPacket.cpp" />
+    <ClCompile Include="Effect\RayMarcher.cpp" />
+    <ClCompile Include="Engine\Grid.cpp" />
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
     <ClCompile Include="Rendrer\aobuffer.cpp" />
@@ -415,8 +417,10 @@
     <ClInclude Include="Effect\NullPacket.h" />
     <ClInclude Include="Effect\OceanPacket.h" />
     <ClInclude Include="Effect\PointLightPacket.h" />
+    <ClInclude Include="Effect\RayMarcher.h" />
     <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="Effect\HeightMapPacket.h" />
+    <ClInclude Include="Engine\Grid.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
     <ClInclude Include="Rendrer\aobuffer.h" />
@@ -622,6 +626,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="Shaders\IdentityPacket.vert" />
+    <None Include="Shaders\RayMarcher_Frag.glsl" />
+    <None Include="Shaders\RayMarcher_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

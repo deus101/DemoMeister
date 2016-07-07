@@ -105,6 +105,12 @@
     <ClCompile Include="Rendrer\aobuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\RayMarcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -251,6 +257,12 @@
     <ClInclude Include="Rendrer\aobuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\RayMarcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">
@@ -305,6 +317,8 @@
     <None Include="Mesh\LazyGreets.mtl" />
     <None Include="Shaders\ao_Pass_Frag.glsl" />
     <None Include="Shaders\IdentityPacket.vert" />
+    <None Include="Shaders\RayMarcher_Frag.glsl" />
+    <None Include="Shaders\RayMarcher_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
