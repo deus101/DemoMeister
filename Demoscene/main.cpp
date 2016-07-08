@@ -21,6 +21,7 @@
 
 //eh
 #include "Effect\aoPacket.h"
+#include "Effect\RayMarcher.h"
 
 
 
@@ -503,7 +504,7 @@ int main(int argc, char** argv)
 
 	NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
 
-
+	NS_EFF::RayMarcher e_rm_Pack = NS_EFF::RayMarcher();
 
 	//GET RID OF THIS!!!!
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
@@ -513,7 +514,7 @@ int main(int argc, char** argv)
 
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_ao_Pass);
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
 
 
 
@@ -522,10 +523,12 @@ int main(int argc, char** argv)
 	e_geom.Enable();
 	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
 
-
+	
+	std::cout << "Status of geometry RayMarcher effect is: " << e_rm_Pack.Init() << std::endl;
 	//ikke gi opp
 	//std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
-
+	e_rm_Pack.Enable();
+	e_rm_Pack.SetScreenSize(Xres, Yres);
 
 
 	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl;

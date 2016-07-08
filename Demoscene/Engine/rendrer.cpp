@@ -205,6 +205,14 @@ void rendrer::RenderSceneCB()
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+	GeoRayMarch->Enable();
+	GeoRayMarch->SetViewMatrix(view);
+	//If I want a Raymarcher here should the depth test be disable?
+	glFrontFace(GL_CW);
+	quad->Draw();
+	glFrontFace(GL_CCW);
+
 	glEnable(GL_DEPTH_TEST);
 
 	

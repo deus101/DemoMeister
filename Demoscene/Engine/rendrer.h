@@ -18,6 +18,7 @@
 
 //yes I know I need a proper system for passes. 
 #include "../Effect/aoPacket.h"
+#include "../Effect/RayMarcher.h"
 
 
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
@@ -78,8 +79,8 @@ public:
 	double currentCtan;
 
 	// should scene/composite hold the pass packets?
-	//                                should this just be name?  
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), AoPass(_AoPass), mgBuffer(_GBuffer)
+	//                                should this just be name?																																																								
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::RayMarcher * _GeoRayMarch,  NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass), mgBuffer(_GBuffer)
 	{
 
 		unsigned int w = GetPixelWidth();
@@ -168,14 +169,23 @@ private:
 	NS_SG::camera *kamera;
 	//NS_REND::context *mContext;
 
+	//soo...sooo ashamed...
 	NS_ENG::model *sphere_light;
 	NS_ENG::model *sphere_null;
 	NS_ENG::model *quad;
 
 	//need better system for this
 	NS_EFF::aoPacket *AoPass;
-
+	NS_EFF::RayMarcher *GeoRayMarch;
+	//Question is what should I do with the packets that does not require a node
+	//I could just create a sorta render component node
+	//another idea might be to give room the buffer class for these and give them the buffer an sorta special method.
 	GBuffer *mgBuffer;
+	//std::list< base_buffer> Passes;
+	//Pretty sure I want something like this, Since I'm juggling with various rendertargets I need to 
+	//Fit in getter and setters for the them not to mention a good log output, maybe I should make base_buffer into a composite class.
+
+
 
 	std::list< struct RendrerItem> Visible;
 	typedef std::list< struct RendrerItem>::iterator vIT;

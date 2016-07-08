@@ -114,7 +114,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	}
 
 
-
+	//But depth and final are still utilized in the geometry fbo, should be be set an seperate FBO
 	// depth
 	glBindTexture(GL_TEXTURE_2D, m_depthTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH32F_STENCIL8, WindowWidth, WindowHeight, 0, GL_DEPTH_STENCIL, GL_FLOAT_32_UNSIGNED_INT_24_8_REV, NULL);

@@ -13,17 +13,19 @@ namespace NS_EFF {
 
 		virtual bool Init();
 
-		void SetWVP(const M3DMatrix44f& WVP);
-		void SetWorldMatrix(const M3DMatrix44f& W);
+		//void SetWVP(const M3DMatrix44f& WVP);
+		//void SetWorldMatrix(const M3DMatrix44f& W);
 
 		void SetViewMatrix(const M3DMatrix44f& V);
 
-		void SetProjectionMatrix(const M3DMatrix44f& P);
+		//void SetProjectionMatrix(const M3DMatrix44f& P);
 
 
 		void SetColorTextureUnit(unsigned int TextureUnit);
 
+		void SetEyeWorldPos(const NS_VEC::VEC3& EyeWorldPos);
 
+		void SetScreenSize(unsigned int Width, unsigned int Height);
 
 	private:
 
@@ -33,6 +35,8 @@ namespace NS_EFF {
 		GLuint m_ViewLocation;
 		GLuint m_WorldMatrixLocation;
 
+		GLuint m_EyeWorldLoc;
+		GLuint m_ScreenSizeLoc;
 
 		GLuint v4_FarNearLocation;
 		GLuint m_colorTextureUnitLocation;
