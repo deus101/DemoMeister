@@ -24,6 +24,13 @@ const float FAR = 50.0f;
 const int raySteps		= 64;
 const float rayEpsilon = 0.001f;
 
+float mapTo(float x, float minX, float maxX, float minY, float maxY)
+{
+	float a = (maxY - minY) / (maxX - minX);
+	float b = minY - a * minX;
+	return a * x + b;
+}
+
 float udBox(vec3 p, vec3 size)
 {
 	return length(max(abs(p) - size, vec3(0.0f)));
@@ -62,6 +69,16 @@ void pewpew(vec3 orig, vec3 dir, out int i, out float t)
 
 //void dissectView()
 
+vec3 getNormal(vec3 p)
+{
+	float h = 0.0001f;
+
+	return normalize(vec3(
+		distScene(p + vec3(h, 0, 0)) - distScene(p - vec3(h, 0, 0)),
+		distScene(p + vec3(0, h, 0)) - distScene(p - vec3(0, h, 0)),
+		distScene(p + vec3(0, 0, h)) - distScene(p - vec3(0, 0, h))));
+}
+
 vec4 chessBoard(vec3 p)
 {
 	vec2 m = mod(p.xz, 2.0f) - vec2(1.0f);
@@ -78,7 +95,11 @@ float infPlane(vec3 ro, vec3 rd, vec3 n, vec3 o)
 void main()
 {
 	vec3 ro = gView[3].xyz;
-	vec3 g_skyColor = vec3(30.54 ,0.824,1);
+	
+	vec4 color = vec4(1.0); 
+	
+	vec4 skyColor = vec4(0.54 ,0.824,1.0,1.0);
+	vec3 normal = vec3(0.0);
 
 	vec3 viewRight = gView[0].xyz;
 	vec3 viewUp = gView[1].xyz;
@@ -94,32 +115,38 @@ void main()
 	vec3 floorNormal = vec3(0, 1, 0);
 
 
-
 	float t1 = infPlane(ro, rd, floorNormal, vec3(0, -0.5, 0));
 	vec3 p = ro + rd * t1;
 	//normal = floorNormal;
-	vec4 color = vec4(1.0); 
+	float dep = 0.0f;
 
+	float t;
+	float z = 0;
 	if(t1 < t0 && t1 >= NEAR && t1 <= FAR) 
 	{
 		t = t1;
 		p = ro + rd * t1;
 		normal = floorNormal;
 		color = chessBoard(p);
+		dep = distance(ro, p);
+		z = mapTo(t, NEAR, FAR, 1, 0);
+
 	}
 	else if(i < raySteps && t0 >= NEAR  && t0 <= FAR) 
 	{
 		t = t0;
 		p = ro + rd * t0;
 		normal = getNormal(p);
+		dep = distance(ro, p);
+		z = mapTo(t, NEAR, FAR, 1, 0);
 	}
 	else
 	{
-		return g_skyColor;
+		color = skyColor;
 	}
-	vec4 color = chessBoard(p);
-	float dep = distance(ro, p);
+
+	p.z = z;
 	WorldPosOut = vec4(p,dep);
 	DiffuseOut = color.xyz;
-	NormalOut = floorNormal;
+	NormalOut = normal;
 }
