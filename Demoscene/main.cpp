@@ -459,6 +459,8 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
 	boost::shared_ptr<NS_SG::objTransform> pivot_kambot(new NS_SG::objTransform("pivot_kambot"));
 
+	//lol why didnt I go through with it?
+	//boost::shared_ptr<NS_SG::objTransform> cambot_pivot(new NS_SG::objTransform("tran_pivot"));
 
 
 	//target_kambot->setTarget(mn_protoganist.get());
@@ -475,9 +477,15 @@ int main(int argc, char** argv)
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
 
 
-
+	tran_kambot->addChild(pivot_kambot.get());
 	tran_kambot->addChild(target_kambot.get());
+	
+	
 
+	pivot_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -1.0f));
+
+
+	target_kambot->setTarget(pivot_kambot.get());
 
 	o_loader->addChild(tran_kambot.get());
 
@@ -584,14 +592,23 @@ int main(int argc, char** argv)
 //-------------Greets Assets
 
 
+	
+	//plane add as child later on the dodo	1
 
-	//plane add as child later on the dodo
+	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 
-	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
+	NS_ENG::model m_fly("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
+	//NS_ENG::model m_fly("Mesh/quad.obj", "Mesh/quad.mtl");
+	//NS_ENG::model m_fly("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
+	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ShowPiece(new NS_SG::objTransform("tran_ShowPiece"));
+
+	boost::shared_ptr<NS_SG::objTransform> cambot_pivot(new NS_SG::objTransform("tran_pivot"));
+
 
 	tran_ShowPiece->addChild(mn_ShowPiece.get());
 
@@ -601,6 +618,7 @@ int main(int argc, char** argv)
 	tran_ShowPiece->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 	tran_ShowPiece->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 
+	
 
 //------------UnderGround Scene
 

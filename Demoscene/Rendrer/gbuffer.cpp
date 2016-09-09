@@ -174,7 +174,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 void GBuffer::StartFrame()
 {
 	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
-
+    
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 	glDrawBuffer(GL_COLOR_ATTACHMENT4);
 	glClear(GL_COLOR_BUFFER_BIT);

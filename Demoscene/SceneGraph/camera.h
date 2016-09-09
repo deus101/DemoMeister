@@ -59,11 +59,25 @@ namespace NS_SG{
 				m3dCopyMatrix44(in, projection);
 			}
 
+			const void  getCameraToolkit(M3DMatrix44f in) const
+			{
+				//all the shit in here, im fucking tired of uniforms
+				M3DMatrix44f camKit;
+
+				//m3dDegToRad(fov)
+				//aspect, znear, zfar
+				
+
+
+				m3dCopyMatrix44(in, camKit);
+			}
+
 
 		private:
 			float fov;
 			float aspect;
 			float znear, zfar;
+			int xRes, yRes;
 
 			mutable M3DMatrix44f projection;
 			mutable bool         projection_dirty;

@@ -1,0 +1,19 @@
+﻿1>------ Build started: Project: Demoscene, Configuration: DeployDebug Win32 ------
+1>  main.cpp
+1>c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+1>  c:\glfw-3.1.2.bin.win32\include\glfw\glfw3.h(85): note: see previous definition of 'APIENTRY'
+1>  Unknown compiler version - please run the configure tests and report the results
+1>c:\users\tore\source\repos\demoscene\demoscene\scenegraph\camera.h(54): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+1>c:\users\tore\source\repos\demoscene\demoscene\scenegraph\objtransform.h(29): warning C4101: 'parInv': unreferenced local variable
+1>c:\users\tore\source\repos\demoscene\demoscene\scenegraph\objtransform.h(38): warning C4101: 'm_rotTr': unreferenced local variable
+1>c:\users\tore\source\repos\demoscene\demoscene\engine\gridpoints.h(149): warning C4305: 'argument': truncation from 'double' to 'float'
+1>c:\users\tore\source\repos\demoscene\demoscene\engine\rendrer.h(91): warning C4101: 'inverseView': unreferenced local variable
+1>c:\users\tore\source\repos\demoscene\demoscene\engine\rendrer.h(91): warning C4101: 'viewT': unreferenced local variable
+1>c:\users\tore\source\repos\demoscene\demoscene\scenegraph\targetnode.h(114): warning C4101: 'lookat_inv': unreferenced local variable
+1>c:\users\tore\source\repos\demoscene\demoscene\main.cpp(349): warning C4717: 'ChangeSize': recursive on all control paths, function will cause runtime stack overflow
+1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+1>aoPacket.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+1>  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+1>  Demoscene.vcxproj -> C:\Users\Tore\Source\Repos\Demoscene\DeployDebug\Demoscene.exe
+1>          1 file(s) copied.
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

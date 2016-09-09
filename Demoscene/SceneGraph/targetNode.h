@@ -116,8 +116,7 @@ namespace NS_SG
 
 			m3dLookAt(lookat, at, from, up, 0.0f);
 			
-			m3dInvertMatrix44(in, lookat);
-			//m3dCopyMatrix44(in, lookat);
+			m3dCopyMatrix44(in, lookat);
 
 	
 

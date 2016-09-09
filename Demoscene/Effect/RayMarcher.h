@@ -13,12 +13,12 @@ namespace NS_EFF {
 
 		virtual bool Init();
 
-		//void SetWVP(const M3DMatrix44f& WVP);
+		void SetWVP(const M3DMatrix44f& WVP);
 		//void SetWorldMatrix(const M3DMatrix44f& W);
 
 		void SetViewMatrix(const M3DMatrix44f& V);
 
-		//void SetProjectionMatrix(const M3DMatrix44f& P);
+		void SetProjectionMatrix(const M3DMatrix44f& P);
 
 
 		void SetColorTextureUnit(unsigned int TextureUnit);

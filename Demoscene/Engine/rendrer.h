@@ -227,9 +227,10 @@ private:
 
 
 public:
-	M3DMatrix44f view, projection;
-
-
+	M3DMatrix44f view,InvViewRT, projection;
+	NS_VEC::VEC3 EyeWorldPos;
+	GLfloat FOV;
+	
 };
 }
 #endif
