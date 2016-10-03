@@ -598,10 +598,12 @@ int main(int argc, char** argv)
 	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 
 	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
-	NS_ENG::model m_fly("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
+	//NS_ENG::model m_fly("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
 	//NS_ENG::model m_fly("Mesh/quad.obj", "Mesh/quad.mtl");
+	//NS_ENG::model m_fly("Mesh/HexagonBase.obj", "Mesh/HexagonBase.mtl");
 	//NS_ENG::model m_fly("Mesh/cube_texture.obj", "Mesh/cube_texture.mtl");
-	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+
+	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 
