@@ -15,7 +15,8 @@ namespace NS_SG
 			M3DMatrix44f world;
 			getAbsoluteTransform(world);
 
-			NS_VEC::VEC3 dir(-0.5f, -0.5f, -0.5f);
+			NS_VEC::VEC3 dir(0.5, -0.7, 0.5);
+			//NS_VEC::VEC3 dir(-0.5f, -0.5f, -0.5f);
 			dir.NormIt();
 
 			BaseLight s_bl = GetLight();

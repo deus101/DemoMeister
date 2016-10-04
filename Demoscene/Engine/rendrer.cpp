@@ -330,14 +330,14 @@ void rendrer::RenderSceneCB()
 	GeoRayMarch->SetViewMatrix(view);
 	GeoRayMarch->SetProjectionMatrix(projection);
 
-	M3DMatrix44f ModelView, toCam;
-	m3dLoadIdentity44(ModelView);
-	m3dLoadIdentity44(toCam);
+	//M3DMatrix44f ModelView, toCam;
+	//m3dLoadIdentity44(ModelView);
+	//m3dLoadIdentity44(toCam);
 	//m3dMatrixMultiply44(toCam, view, ModelView);
-	m3dInvertMatrix44(toCam, view);
-	m3dTransposeMatrix44(ModelView, toCam);
+	//m3dInvertMatrix44(toCam, view);
+	//m3dTransposeMatrix44(ModelView, toCam);
 	//m3dCopyMatrix44(Tmp.sWVP, wvp);
-	GeoRayMarch->SetWVP(toCam);
+	//GeoRayMarch->SetWVP(toCam);
 	GeoRayMarch->SetEyeWorldPos(EyeWorldPos);
 	//If I want a Raymarcher here should the depth test be disable?
 	glFrontFace(GL_CW);

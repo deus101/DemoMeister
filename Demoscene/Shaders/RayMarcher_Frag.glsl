@@ -131,19 +131,17 @@ void main()
 
 	vec2 NDC = vec2(0.0);
 
-	//NDC.x = (uv.x+0.5)/gScreenSize.x;
-	//NDC.y = (uv.y+0.5)/gScreenSize.y;
-	//NDC.x = (uv.x*0.5+0.5)/gScreenSize.x;
-	//NDC.y = -(uv.y*0.5-0.5)/gScreenSize.y;
 
-
+	//Im just drawing a simple square so no need to divide it to image size
 	NDC.x = (uv.x*0.5+0.5);
-	NDC.y = (uv.y*0.5+0.5);
+	//NDC.y = (uv.y*0.5+0.5);
 	//NDC.x = -(uv.x*0.5-0.5);
-	//NDC.y = -(uv.y*0.5-0.5);
+	NDC.y = -(uv.y*0.5-0.5);
+	
+	
 	//gWVP
-	mat4 iVP = inverse(gView);
-	mat4 VP = gProjection * gView;
+	//mat4 iVP = inverse(gView);
+	//mat4 VP = gProjection * gView;
 	//EP
 	//vec3 ro = gEyeWorldPos;
 
@@ -181,15 +179,18 @@ void main()
 	//float scale = gProjection[1].y;
 
 	float pixelScreenX = 2 * NDC.x -1;
-	float pixelScreenY = 2 * NDC.y -1;
+	//float pixelScreenY = 2 * NDC.y -1;
 
-	//float pixelScreenY = 1 - 2 * NDC.y;
+	float pixelScreenY = 1 - 2 * NDC.y;
 	//float pixelScreenX = 1 - 2 * NDC.x;
+	
 	//PixelCamera
 	float Px = (pixelScreenX ) * scale * aspectRatio;
 	float Py = (pixelScreenY) * scale;
 	//float Px = (pixelScreenX ) * scale;
 	//float Py = (pixelScreenY) * scale * 1 / aspectRatio;
+	//Oh yeah, note to self stop working while tired
+
 
 	//float Px = NDC.x * aspectRatio *scale;
 	//float Py = NDC.y * scale;
@@ -217,31 +218,40 @@ void main()
 
 	vec3 rayPWorld = vec3(0.0); 
 	
+	//remember perspective is seen from above, dofus
+	vec3 w_p = (-(aspectRatio*2) / 2 ) * CamToWorldTR[0].xyz + (2 / 2) * CamToWorldTR[1].xyz - ((2 / 2) / tan(FovY * 0.5));
+	//vec3 NDCrd = normalize(pixelScreenX * CamToWorldTR[0].xyz + pixelScreenY * (-CamToWorldTR[1].xyz) + w_p); 
 	
-	vec3 w_p = (-gScreenSize.x / 2 ) * CamToWorldTR[0].xyz + (gScreenSize.y / 2) * CamToWorldTR[1].xyz - (gScreenSize.y / 2);
-	// tan(FovY * 0.5);
+	
 	vec3 NDCrd = normalize(NDC.x * CamToWorldTR[0].xyz + NDC.y * (-CamToWorldTR[1].xyz) + w_p); 
 
-
+	
 
 	rayPWorld = (vec4(vec3(Px, Py, -1), 1.0)*CamToWorldTR).xyz;
 
+	//rayPWorld = (vec4(vec3(Px, Py, -0.1), 1.0)*CamToWorldTR).xyz;
 
-	vec3 eyeFwd = viewForward;
 
+	
+
+	//one is just a direction, the fuck am i doing?!
 	//vec3 worldDir =  rayOriginWorld - rayPWorld;
 	vec3 worldDir =  rayPWorld - rayOriginWorld;
 
-
-
-	vec3 rd = normalize(worldDir);
+	//vec3 eyeFwd = viewForward;
+	vec3 eyeFwd = normalize(worldDir);
+	//vec3 rd = normalize(worldDir);
+	vec3 rd = NDCrd;
 	//vec3 ro = rayOriginWorld - worldDir * focalLenght;
 	//vec3 ro = gEyeWorldPos - (worldDir * vec3(0 , 0 , -focalLenght));
 
-	vec3 ro = gEyeWorldPos;
+
+
+	//vec3 ro = gEyeWorldPos * 1;
+	vec3 ro = vec3(0,0,0);
 	//What the fuck, what is it Im not getting!
 	
-	ro = ro * 2;
+	//ro = ro * focalLenght;
 	
 	float t0;
 	
@@ -315,28 +325,36 @@ void main()
 		ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
 		p = ro + (rd * FAR);
 		//p = (gProjection * vec4(p,1)).xyz;
-		//z = mapTo(t, NEAR, FAR, 1, 0);
-		//dep = FAR;
+		z = mapTo(t, NEAR, FAR, 1, 0);
+		//normal = vec3(0,-1,0);
+		//dep = distance(ro, p) * 20000;
 		//ndcDepth = FAR;
 	}
 
 
 	//p.z = p.z * z;
-	float zc = (VP * vec4(p, 1.0 )).z;
+	//float zc = (VP * vec4(p, 1.0 )).z;
 
-	float wc = (VP * vec4(p, 1.0 )).w;
+	//float wc = (VP * vec4(p, 1.0 )).w;
 
 	gl_FragDepth = ndcDepth;
 	//gl_FragDepth = zc / wc;
 
 
-	float zSqrd = z * z;
-	color = mix(skyColor, color, zSqrd * (3.0f - 2.0f * z)); // Fog
+	//float zSqrd = z * z;
+	//color = mix(skyColor, color, zSqrd * (3.0f - 2.0f * z)); // Fog
 	
 
 	//WorldPosOut.xyz = p /wc;
-	WorldPosOut.xyz = p / 2;
-	WorldPosOut.w = dep / 2;
+	//WorldPosOut.xyz = p / 2;
+	//WorldPosOut.w = dep / 2;
+	WorldPosOut.xyz = p;
+	//WorldPosOut.w = dep * 0.5;
+	
+	//WorldPosOut.w = z;
+	WorldPosOut.w = LinearDepth(ndcDepth);
+	//WorldPosOut.xyz = p;
+	//WorldPosOut.w = dep;
 
 	//WorldPosOut.w = scale;
 	//WorldPosOut.w = projected.z;
@@ -345,16 +363,20 @@ void main()
 	//DiffuseOut = vec3(NDC.x, NDC.y,0);
 	//DiffuseOut = vec3(pixelScreenX, pixelScreenY,-1);
 	
-	DiffuseOut = color.xyz;
+	//DiffuseOut = color.xyz;
 	//DiffuseOut = rayOriginWorld;
 	//DiffuseOut = rayOriginWorld;
 	//DiffuseOut = rayPWorld;
 	//DiffuseOut = RayDir;
 	//DiffuseOut = worldDir;
-	//DiffuseOut = rd;
+	DiffuseOut = rd;
 	//DiffuseOut = NDCrd;
 	
-	NormalOut = normal;
+	//NormalOut = normal;
+	//NormalOut = w_p;
+	NormalOut = NDCrd;
+	//NormalOut.xy = NDC.xy;
+	//NormalOut = vec3(pixelScreenX, pixelScreenY,-1);
 	//NormalOut = vec3(eyeHitZ,t,dep);
 	//NormalOut = vec3(pixelScreenX, pixelScreenY,-1);
 	//NormalOut = rayOriginWorld.xyz;
