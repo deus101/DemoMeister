@@ -185,10 +185,10 @@ void main()
 	//float pixelScreenX = 1 - 2 * NDC.x;
 	
 	//PixelCamera
-	float Px = (pixelScreenX ) * scale * aspectRatio;
-	float Py = (pixelScreenY) * scale;
-	//float Px = (pixelScreenX ) * scale;
-	//float Py = (pixelScreenY) * scale * 1 / aspectRatio;
+	//float Px = (pixelScreenX ) * scale * aspectRatio;
+	//float Py = (pixelScreenY) * scale;
+	float Px = (pixelScreenX ) * scale;
+	float Py = (pixelScreenY) * scale * 1 / aspectRatio;
 	//Oh yeah, note to self stop working while tired
 
 
@@ -200,34 +200,46 @@ void main()
 
 	//focalLenght
 	vec3 rayOrigin = vec3(0.0, 0.0, 0.0); 
+	//vec3 rayOrigin = gEyeWorldPos * 1;
 	//vec3 rayOrigin = viewForward * -focalLenght;
 	//vec3 rayOrigin = vec3(0.0, 0.0, -focalLenght); 
 
 	
-	mat4 CamToWorld = inverse(gView);
+	//mat4 CamToWorld = inverse(gView);
 	//mat4 CamToWorld = inverse(gWVP);
 
 
-	mat4 CamToWorldTR = transpose(CamToWorld);
+	mat4 CamToWorldTR = transpose(gView);
 
 
 
-	vec3 rayOriginWorld = (vec4(rayOrigin,1)*CamToWorldTR).xyz;
 
-
+	//rayOriginWorld = rayOriginWorld * focalLenght
 
 	vec3 rayPWorld = vec3(0.0); 
 	
 	//remember perspective is seen from above, dofus
 	vec3 w_p = (-(aspectRatio*2) / 2 ) * CamToWorldTR[0].xyz + (2 / 2) * CamToWorldTR[1].xyz - ((2 / 2) / tan(FovY * 0.5));
-	//vec3 NDCrd = normalize(pixelScreenX * CamToWorldTR[0].xyz + pixelScreenY * (-CamToWorldTR[1].xyz) + w_p); 
+	//vec3 w_p = (-0.5) * CamToWorldTR[0].xyz + (0.5) * CamToWorldTR[1].xyz - (0.5 / tan(FovY * 0.5));
+
+	//vec3 NDCrd = normalize(Px * CamToWorldTR[0].xyz + Py * (-(CamToWorldTR[1].xyz)) + w_p); 
+	vec3 NDCrd = normalize(pixelScreenX * CamToWorldTR[0].xyz + pixelScreenY * (-(CamToWorldTR[1].xyz)) + w_p);
 	
-	
-	vec3 NDCrd = normalize(NDC.x * CamToWorldTR[0].xyz + NDC.y * (-CamToWorldTR[1].xyz) + w_p); 
+	//vec3 NDCrd = normalize(NDC.x * CamToWorldTR[0].xyz + NDC.y * (-CamToWorldTR[1].xyz) + w_p); 
 
 	
 
-	rayPWorld = (vec4(vec3(Px, Py, -1), 1.0)*CamToWorldTR).xyz;
+
+	//vec3 rayOriginWorld = (vec4(rayOrigin,1)*CamToWorldTR).xyz;
+	//vec3 rayOriginWorld = (vec4(rayOrigin,1)*CamToWorldTR).xyz;
+	vec3 rayOriginWorld = (CamToWorldTR*vec4(rayOrigin,1)).xyz;
+
+
+	//rayPWorld = (vec4(vec3(Px, Py, -1), 0.0)*CamToWorldTR).xyz;
+	//rayPWorld = (CamToWorldTR*vec4(vec3(pixelScreenX, pixelScreenY, -1), 0.0)).xyz;
+	rayPWorld = (CamToWorldTR*vec4(vec3(pixelScreenX, pixelScreenY, -1), 0.0)).xyz;
+
+	//rayPWorld = (vec4(vec3(pixelScreenX, pixelScreenY, -1), 0.0)*CamToWorldTR).xyz;
 
 	//rayPWorld = (vec4(vec3(Px, Py, -0.1), 1.0)*CamToWorldTR).xyz;
 
@@ -237,22 +249,24 @@ void main()
 	//one is just a direction, the fuck am i doing?!
 	//vec3 worldDir =  rayOriginWorld - rayPWorld;
 	vec3 worldDir =  rayPWorld - rayOriginWorld;
+	//vec3 worldDir = rayPWorld;
 
-	//vec3 eyeFwd = viewForward;
-	vec3 eyeFwd = normalize(worldDir);
-	//vec3 rd = normalize(worldDir);
-	vec3 rd = NDCrd;
+	vec3 eyeFwd = viewForward;
+	//vec3 eyeFwd = normalize(worldDir);
+	vec3 rd = normalize(worldDir);
+	//vec3 rd = NDCrd;
 	//vec3 ro = rayOriginWorld - worldDir * focalLenght;
 	//vec3 ro = gEyeWorldPos - (worldDir * vec3(0 , 0 , -focalLenght));
 
 
-
-	//vec3 ro = gEyeWorldPos * 1;
-	vec3 ro = vec3(0,0,0);
+	vec3 ro = gEyeWorldPos * 1;
+	//vec3 ro = vec3(0,0,0);
 	//What the fuck, what is it Im not getting!
 	
-	//ro = ro * focalLenght;
-	
+	//ro = (ro  * eyeFwd) * focalLenght;
+	ro = ro * focalLenght;
+
+
 	float t0;
 	
 	int i;
@@ -280,7 +294,7 @@ void main()
 	{
 		t = t1;
 		p = (ro + (rd * t));
-		//p = (gProjection * vec4(p,1)).xyz;
+		
 		//eyeHitZ = -t *dot(rd,eyeFwd);
 		eyeHitZ = -t *dot(eyeFwd,rd);
 		//eyeHitZ = -t *dot(normalize(viewForward),rd);
@@ -346,8 +360,8 @@ void main()
 	
 
 	//WorldPosOut.xyz = p /wc;
-	//WorldPosOut.xyz = p / 2;
-	//WorldPosOut.w = dep / 2;
+	//WorldPosOut.xyz = CamToWorldTR[2].xyz;
+	//WorldPosOut.w = CamToWorldTR[2].w;
 	WorldPosOut.xyz = p;
 	//WorldPosOut.w = dep * 0.5;
 	
@@ -363,22 +377,24 @@ void main()
 	//DiffuseOut = vec3(NDC.x, NDC.y,0);
 	//DiffuseOut = vec3(pixelScreenX, pixelScreenY,-1);
 	
-	//DiffuseOut = color.xyz;
+	DiffuseOut = color.xyz;
 	//DiffuseOut = rayOriginWorld;
 	//DiffuseOut = rayOriginWorld;
 	//DiffuseOut = rayPWorld;
 	//DiffuseOut = RayDir;
 	//DiffuseOut = worldDir;
-	DiffuseOut = rd;
+	//DiffuseOut = vec3(pixelScreenX, pixelScreenY,-1);
 	//DiffuseOut = NDCrd;
 	
-	//NormalOut = normal;
+	//NormalOut = CamToWorldTR[0].xzw;
+	NormalOut = normal;
 	//NormalOut = w_p;
-	NormalOut = NDCrd;
+	//NormalOut = NDCrd;
 	//NormalOut.xy = NDC.xy;
 	//NormalOut = vec3(pixelScreenX, pixelScreenY,-1);
 	//NormalOut = vec3(eyeHitZ,t,dep);
 	//NormalOut = vec3(pixelScreenX, pixelScreenY,-1);
+	//NormalOut = vec3(Px, Py,-1);
 	//NormalOut = rayOriginWorld.xyz;
 
 }
