@@ -7,7 +7,7 @@
 			<key value="0" interpolation="0" row="0"/>
 		</track>
 		<track name="Lpos.z">
-			<key value="0" interpolation="0" row="0"/>
+			<key value="1" interpolation="0" row="0"/>
 		</track>
 		<track name="Ppos.x">
 			<key value="0" interpolation="0" row="0"/>
@@ -40,7 +40,7 @@
 			<key value="0" interpolation="0" row="0"/>
 		</track>
 		<track name="cam.Rot.x">
-			<key value="0" interpolation="0" row="0"/>
+			<key value="30" interpolation="0" row="0"/>
 		</track>
 		<track name="cam.Rot.y">
 			<key value="0" interpolation="0" row="0"/>
@@ -52,12 +52,12 @@
 			<key value="0" interpolation="0" row="0"/>
 		</track>
 		<track name="cam.y">
-			<key value="1" interpolation="1" row="0"/>
+			<key value="2" interpolation="1" row="0"/>
 			<key value="2" interpolation="0" row="127"/>
 		</track>
 		<track name="cam.z">
-			<key value="4" interpolation="1" row="0"/>
-			<key value="6" interpolation="0" row="127"/>
+			<key value="3" interpolation="1" row="0"/>
+			<key value="10" interpolation="0" row="127"/>
 		</track>
 		<track name="gridFunc">
 			<key value="0" interpolation="0" row="0"/>

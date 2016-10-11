@@ -62,7 +62,7 @@ float distScene(vec3 p)
 {
 	//p.xz = mod(p.xz, 2.0f) - vec2(1.0f);
 	//return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.01f));
-	return sdBox(p - vec3(0.0f, 0.0f, 0.0f), vec3(0.25f));
+	return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.25f));
 
 
 
@@ -103,7 +103,8 @@ vec3 getNormal(vec3 p)
 
 vec4 chessBoard(vec3 p)
 {
-	vec2 m = mod(p.xz, 0.5f) - vec2(0.05f,0.5f);
+	//vec2 m = mod(p.xz, 0.5f) - vec2(0.05f,0.5f);
+	vec2 m = mod(p.xz, 4.0f) - vec2(2);
 	return m.x * m.y > 0.0f ? vec4(0.1f) : vec4(1.0f);
 }
 
@@ -215,6 +216,7 @@ void main()
 
 	//focalLenght
 	vec3 rayOrigin = vec3(0.0, 0.0, -1.0); 
+
 	//vec3 rayOrigin = vec3(pixelScreenX,pixelScreenY, 0.0); 
 
 	//vec3 rayOrigin = gEyeWorldPos * 1;
@@ -228,8 +230,8 @@ void main()
 
 	//mat4 CamToWorldTR = gWVP * transpose(gView);
 
-	//mat4 CamToWorldTR = transpose(gView);
-	mat4 CamToWorldTR = transpose(gView)*gWVP;
+	mat4 CamToWorldTR = transpose(gView);
+	//mat4 CamToWorldTR = transpose(gView)*gWVP;
 	//mat4 CamToWorldTR = gWVP * transpose(gView);
 
 
@@ -238,7 +240,7 @@ void main()
 	vec3 rayPWorld = vec3(0.0); 
 	
 	//remember perspective is seen from above, dofus
-	vec3 w_p = (-(aspectRatio*2) / 2 ) * CamToWorldTR[0].xyz + (2 / 2) * CamToWorldTR[1].xyz - ((2 / 2) / tan(FovY * 0.5));
+	vec3 w_p = (-(aspectRatio*gScreenSize.x) / 2 ) * CamToWorldTR[0].xyz + (gScreenSize.y / 2) * CamToWorldTR[1].xyz - ((gScreenSize.y / 2) / tan(FovY * 0.5));
 	//vec3 w_p = (-0.5) * CamToWorldTR[0].xyz + (0.5) * CamToWorldTR[1].xyz - (0.5 / tan(FovY * 0.5));
 
 	//vec3 NDCrd = normalize(Px * CamToWorldTR[0].xyz + Py * (-(CamToWorldTR[1].xyz)) + w_p); 
@@ -250,7 +252,8 @@ void main()
 	//CamToWorldTR[3].w = NEAR;
 	//CamToWorldTR[2].xyz = CamToWorldTR[2].xyz * -1;
 
-	CamToWorldTR[2] = -CamToWorldTR[2];
+	CamToWorldTR[2] = CamToWorldTR[2] * -1;
+	//CamToWorldTR = transpose(CamToWorldTR);
 	//rayOrigin = vec3(pixelScreenX, pixelScreenY, focalLenght); 
 	//rayOrigin = vec3(0, 0, -focalLenght); 
 	//rayOrigin = gEyeWorldPos * vec3(0, 0, focalLenght); 
@@ -272,7 +275,7 @@ void main()
 	//rayPWorld = (CamToWorldTR*vec4(vec3(pixelScreenX, pixelScreenY, -1), 0.0)).xyz;
 	//rayPWorld = (CamToWorldTR*vec4(vec3(pixelScreenX, pixelScreenY, -1), 0.0)).xyz;
 	//rayPWorld = (CamToWorldTR*vec4(vec3(Px, Py, -1), 0.0)).xyz;
-	rayPWorld = (CamToWorldTR*vec4(vec3(Px, Py, 0), 0.0)).xyz;
+	rayPWorld = (CamToWorldTR*vec4(vec3(Px, Py, 0.0), 0.0)).xyz;
 
 	//rayPWorld = (vec4(vec3(pixelScreenX, pixelScreenY, -1), 0.0)*CamToWorldTR).xyz;
 
@@ -298,13 +301,16 @@ void main()
 	//vec3 ro = rayOriginWorld - worldDir * focalLenght;
 	//vec3 ro = gEyeWorldPos - (worldDir * vec3(0 , 0 , -focalLenght));
 
-
+	
 	vec3 ro = gEyeWorldPos * 1;
+	//vec3 ro = gEyeWorldPos * rayOriginWorld * focalLenght;
 	//vec3 ro = vec3(0,0,0);
 	//What the fuck, what is it Im not getting!
 	
 	//ro = (ro  * eyeFwd) * focalLenght;
-	ro = ro + normalize(ro) * focalLenght;
+	//ro = gEyeWorldPos + ro;
+	ro = ro  * focalLenght;
+
 
 	//rayOriginWorld
 	float t0;
