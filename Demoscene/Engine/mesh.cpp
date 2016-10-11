@@ -25,6 +25,8 @@ namespace NS_MESH
 		char line[1024] = "";
 		char id[512] = "";
 
+		bool b_groupFirst = true;
+
 		while( fscanf (objFile, "%s", id) > 0)
 		{
 			if(strcmp (id, "v") == 0)
@@ -52,6 +54,7 @@ namespace NS_MESH
 			}
 			if(strcmp ( id, "g") == 0)
 			{
+				//Mesh.m_Pos.size
 				s_Group temp;
 				char nam[50] = "";
 				char mat[50] = "";
@@ -65,8 +68,8 @@ namespace NS_MESH
 
 				Mesh.m_Groups.push_back( temp );
 				
-				cout << "Group: " << temp.group_name << endl;
-				cout << "Material: " << temp.mat << endl << endl;
+				std::cout << "Group: " << temp.group_name << endl;
+				std::cout << "Material: " << temp.mat << endl << endl;
 				
 			}
 			else  //problem
@@ -83,8 +86,11 @@ namespace NS_MESH
 					if(fscanf(objFile, "%i/%i/%i", &FV.m_PID, &FV.m_UID, &FV.m_NID) <= 0)
 					break;
 
+					//fscanf(objFile, "%i/%i/%i", &FV.m_PID, &FV.m_UID, &FV.m_NID);
+					
 					
 					//cout << " pid: " << FV.m_PID << " nid: " << FV.m_NID << endl;
+
 					--FV.m_PID;
 					--FV.m_UID;
 					--FV.m_NID;
@@ -97,11 +103,12 @@ namespace NS_MESH
 					//This is just a primite trying to calculate the midpoint of the triangle
 					//its irrelevant in the indexing
 					VEC3 a, b, c;
+
 					a = Mesh.m_Pos[ F.m_Verts[0].m_PID];
 					b = Mesh.m_Pos[ F.m_Verts[1].m_PID];
 					c = Mesh.m_Pos[ F.m_Verts[2].m_PID];
 					
-					
+
 					//F.m_vNorm.CalcNorm ( a, b, c);
 
 					F.m_vMid.X = ((a.X + b.X + c.X)/3);
@@ -109,7 +116,40 @@ namespace NS_MESH
 					F.m_vMid.Z = ((a.X + b.Z + c.Z)/3);
 
 					//cout << "NOrmal " << F.m_vNorm.X << " " << F.m_vNorm.Y << " " << F.m_vNorm.Z << endl;
-				
+					//4294967295
+					if (F.m_Verts[0].m_NID >= 4294967295 && F.m_Verts[1].m_NID >= 4294967295 && F.m_Verts[2].m_NID >= 4294967295)
+					{
+						VEC3 NewNormal;
+						//Mesh.m_Uvs.push_back(uv);
+						NewNormal.CalcNorm(a, b, c);
+						Mesh.m_Norms.push_back(NewNormal);
+						int NewNormInd = Mesh.m_Norms.size() -1;
+						F.m_Verts[0].m_NID = NewNormInd;
+						F.m_Verts[1].m_NID = NewNormInd;
+						F.m_Verts[2].m_NID = NewNormInd;
+					}
+
+					if (F.m_Verts[0].m_UID >= 4294967295 && F.m_Verts[1].m_UID >= 4294967295 && F.m_Verts[2].m_UID >= 4294967295)
+					{
+						VEC2 fake_uv1, fake_uv2, fake_uv3;
+						//Mesh.m_Uvs.push_back(uv);
+						fake_uv1 = VEC2(0, 1);
+						fake_uv2 = VEC2(1, 1);
+						fake_uv3 = VEC2(1, 0);
+						Mesh.m_Uvs.push_back(fake_uv1); 
+						int NewUvId1 = Mesh.m_Uvs.size() - 1;
+						Mesh.m_Uvs.push_back(fake_uv2);
+						int NewUvId2 = Mesh.m_Uvs.size() - 1;
+						Mesh.m_Uvs.push_back(fake_uv3);
+						int NewUvId3 = Mesh.m_Uvs.size() - 1;
+
+						F.m_Verts[0].m_UID = NewUvId1;
+						F.m_Verts[1].m_UID = NewUvId2;
+						F.m_Verts[2].m_UID = NewUvId3;
+
+					}
+
+
 					Mesh.m_Groups.back().m_Faces.push_back( F );
 
 			} 	

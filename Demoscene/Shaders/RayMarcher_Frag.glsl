@@ -185,10 +185,10 @@ void main()
 	//float pixelScreenX = 2 * NDC.x -1;
 	//float pixelScreenY = 2 * NDC.y -1;
 	float pixelScreenX = (2 * NDC.x -1) * aspectRatio * scale;
-	//float pixelScreenY = 2 * NDC.y -1;
+	//float pixelScreenY = (2 * NDC.y -1) * aspectRatio * scale;
 
 	
-	//float pixelScreenX = 1 - 2 * NDC.x;
+	//float pixelScreenX = (1 - 2 * NDC.x) * scale;
 	float pixelScreenY = (1 - 2 * NDC.y) * scale;
 	//float pixelScreenX = 1 - 2 * NDC.x;
 	//float pixelScreenY = 1 - 2 * NDC.y;
@@ -326,8 +326,9 @@ void main()
 	//float ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
 	float eyeHitZ = 0.0;
 	float ndcDepth = 0.0;
-	float t1 = infPlane(ro, rd, floorNormal, vec3(0, -0.5, 0));
 	
+	//float t1 = infPlane(ro, rd, floorNormal,(CamToWorldTR * vec4(0.0, -0.5, 0.0, 1.0)).xyz);
+	float t1 = infPlane(ro, rd, floorNormal, vec3(0, -0.5, 0));
 	//hmmm
 	//vec3 p = ro + rd * t1;
 	vec3 p = vec3(0.0);
@@ -437,7 +438,6 @@ void main()
 	//NormalOut = w_p;
 	//NormalOut = NDCrd;
 	//NormalOut.xy = NDC.xy;
-	//NormalOut = eyeFwd;
 	//NormalOut = vec3(eyeHitZ,t,dep);
 	//NormalOut = vec3(pixelScreenX, pixelScreenY,-1);
 	//NormalOut = vec3(Px, Py,-1);
