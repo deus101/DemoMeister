@@ -24,9 +24,14 @@ struct s_FaceVertex
 			m_NID = 0;
 		}
 
-		unsigned int m_PID;
-		unsigned int m_UID;
-		unsigned int m_NID;
+
+		//whoops gotta be signed
+		//unsigned int m_PID;
+		//unsigned int m_UID;
+		//unsigned int m_NID;
+		int m_PID;
+		int m_UID;
+		int m_NID;
 
 		//half edge here?
 		// unsigned int m_line
