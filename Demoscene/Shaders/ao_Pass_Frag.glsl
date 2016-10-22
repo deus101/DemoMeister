@@ -85,5 +85,6 @@ void main()
 		occlusion += (sampleDepth >= sample.z ? 1.0 : 0.0) * rangeCheck;           
     }
     occlusion = 1.0f - (occlusion / MAX_KERNELS);
+	
 	FragColor = occlusion;
 }

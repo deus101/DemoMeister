@@ -133,14 +133,14 @@ void main()
 	float AmbientOcculsion = texture(gAoPass, TexCoord ).r;
 
 
-
+	vec3 satan = Normal;
 	//Normal = normalize(Normal);
 	Normal = normalize(Normal * 2.0 - 1.0);
 	Normal = normalize(viewNormal * Normal);
 
 	if(gScreenSize.x == 0.0f)
 	{
-	FragColor = vec4(vec3(AmbientOcculsion), 1.0);
+	FragColor = vec4(vec3(TexCoord,0), 1.0);
 	}
 	else
 	{

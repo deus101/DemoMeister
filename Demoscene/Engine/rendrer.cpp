@@ -242,9 +242,10 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			m3dLoadIdentity44(swp);
 			M3DMatrix44f world;
 			m3dLoadIdentity44(world);
-			
+			m3dMatrixMultiply44(swp, projection, view);
 			Tmp.sNode = lDir;
 			Tmp.sDL = lDir->GetDirLight();
+			//lDir->LightMagic->SetProjectionMatrix
 			m3dCopyMatrix44(Tmp.sW, world);
 			m3dCopyMatrix44(Tmp.sWVP, swp);
 
@@ -391,9 +392,25 @@ void rendrer::RenderSceneCB()
 
 	//Screen spaced Ambient Occulsion pass
 
-	M3DMatrix44f IdentSWP;
+	M3DMatrix44f IdentSWP, ViewProAO;
+	m3dLoadIdentity44(ViewProAO);
 	m3dLoadIdentity44(IdentSWP);
+
+	m3dLoadIdentity44(ModelView);
+
 	AoPass->Enable();
+
+
+
+
+
+	//god im lazy 
+	m3dMatrixMultiply44(ViewProAO, projection, view);
+
+	AoPass->SetWVP(ModelView);
+	//AoPass->SetWorldMatrix(ModelView);
+	AoPass->SetViewMatrix(view);
+	AoPass->SetProjectionMatrix(projection);
 	mgBuffer->BindForAoPass();
 
 
@@ -401,11 +418,10 @@ void rendrer::RenderSceneCB()
 	glActiveTexture(GL_TEXTURE7);
 	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
 
+	//glActiveTexture(GL_TEXTURE7);
+	//glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
+	
 
-	AoPass->SetWVP(IdentSWP);
-	//AoPass->SetWorldMatrix(IdentSWP);
-	AoPass->SetViewMatrix(view);
-	AoPass->SetProjectionMatrix(projection);
 	glDisable(GL_DEPTH_TEST);
 	//glEnable(GL_BLEND);
 	//glDrawBuffer(GL_COLOR_ATTACHMENT0);
@@ -492,10 +508,11 @@ void rendrer::RenderSceneCB()
 	for (vDIT id = beginVisibleDir(); id != endVisibleDir(); ++id) {
 
 		id->sNode->LightMagic->Enable();
-
+		id->sNode->LightMagic->SetProjectionMatrix(projection);
 		mgBuffer->BindForLightPass();
 		//swp
 
+		//id->sNode->LightMagic->SetWVP()
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
 		id->sNode->LightMagic->SetWorldMatrix(id->sW);

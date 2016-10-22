@@ -518,7 +518,7 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/quad.obj", "Mesh/quad.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
 
 
@@ -581,7 +581,7 @@ int main(int argc, char** argv)
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);
 	e_dir.SetWVP(WVP);
-
+	//e_dir.SetProjectionMatrix()
 
 	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
 
@@ -598,14 +598,14 @@ int main(int argc, char** argv)
 	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 
 	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
-	//NS_ENG::model m_fly("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
-	//NS_ENG::model m_fly("Mesh/quad.obj", "Mesh/quad.mtl");
+	NS_ENG::model m_fly("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
+	//NS_ENG::model m_fly("Mesh/suzanne.obj", "Mesh/suzanne.mtl");
 	//NS_ENG::model m_fly("Mesh/HexagonBase.obj", "Mesh/HexagonBase.mtl");
-	//NS_ENG::model m_fly("Mesh/buddha.obj", "Mesh/buddha.mtl");
+	//NS_ENG::model m_fly("Mesh/bunny.obj", "Mesh/bunny.mtl");
 	//NS_ENG::model m_fly("Mesh/buddy.obj", "Mesh/buddy.mtl");
 
 
-	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 
