@@ -11,8 +11,8 @@ static bool sDepth = false;
 static bool sStencil = false;
 static GLFWwindow* s_pWindow = NULL;
 //Buffer = NULL;
-
-
+//TheDisc = NULL;
+world *TheDisc = NULL;
 extern void Sync();
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
@@ -84,7 +84,7 @@ void GLFWBackendTerminate()
 }
 
 
-bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
+bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle, world * globe)
 {
 
 
@@ -139,8 +139,8 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	//}
 
 
-
-
+	
+	TheDisc = globe;
 	//mgBuffer = new GBuffer();
 	//mgBuffer->Init(pWidth, pHeight, s_pWindow);
 	//mGBuffer->Init(500, 500);

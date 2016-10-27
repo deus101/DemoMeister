@@ -15,7 +15,7 @@ namespace NS_SG
 			M3DMatrix44f world;
 			getAbsoluteTransform(world);
 
-			NS_VEC::VEC3 dir(0.5, -0.7, 0.5);
+			NS_VEC::VEC3 dir(0.2, -0.8, 0.0);
 			//NS_VEC::VEC3 dir(-0.5f, -0.5f, -0.5f);
 			dir.NormIt();
 

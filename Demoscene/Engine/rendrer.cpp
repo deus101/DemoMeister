@@ -44,7 +44,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		m3dTranslationMatrix44(ReverseTranslation, -EyeWorldPos.X, -EyeWorldPos.Y, -EyeWorldPos.Z);
 		//m3dTranslationMatrix44(ReverseTranslation, EyeWorldPos.X*-1.0f, EyeWorldPos.Y*-1.0f, EyeWorldPos.Z*-1.0f);
 
-
+		//TheDisc->
 		//there there, hide the shame.
 		/*
 		M3DMatrix44f RotInv, SortaScale, AnotherFuckingIntermediate, CamWorld, CamWorldInv, local, tmpProj, ModelView, ModelView2, TransposedMat, ReverseTranslation, TransposedRot, PreTransposedRot;

@@ -3,7 +3,7 @@
 #include "GeomPacket.h"
 #include "../util.h"
 #include <limits.h>
-
+#include "../Rendrer/context.h"
 using namespace NS_EFF;
 
 
@@ -34,7 +34,6 @@ bool GeomPacket::Init()
 	m_WorldMatrixLocation = GetUniformLocation("gWorld");
 	m_ViewLocation = GetUniformLocation("gView");
 	m_ProjectionLocation = GetUniformLocation("gProjection");
-
 	m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
@@ -80,5 +79,6 @@ void  GeomPacket::SetProjectionMatrix(const M3DMatrix44f& P)
 
 void GeomPacket::SetColorTextureUnit(unsigned int TextureUnit)
 {
+	
 	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
 }

@@ -11,7 +11,8 @@
 #include "mesh.h"
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
-#include "../Rendrer/context.h"
+#include "../util.h"
+//#include "../Rendrer/context.h"
 
 
 namespace NS_ENG{

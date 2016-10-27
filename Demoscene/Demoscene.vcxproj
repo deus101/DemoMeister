@@ -423,6 +423,7 @@
     <ClInclude Include="Engine\Grid.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
+    <ClInclude Include="Worlds\MasterWorld.h" />
     <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />

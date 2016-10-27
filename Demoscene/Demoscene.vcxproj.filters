@@ -263,6 +263,9 @@
     <ClInclude Include="Effect\RayMarcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Worlds\MasterWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">

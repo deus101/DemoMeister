@@ -367,6 +367,9 @@ void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
 		std::cout << "Space Pressed " <<  std::endl;
 	//default:
 	//	m_pGameCamera->OnKeyboard(OgldevKey);
+
+	//else send til world instans
+		//TheDisc->
 	}
 }
 
@@ -413,7 +416,9 @@ int main(int argc, char** argv)
 	FS = false;
 #endif
 
-	bool success = Init(argc, argv, true, false, Xres, Yres, FS, "Deus's Ex Machine");
+	
+	world *fuck = new world();
+	bool success = Init(argc, argv, true, false, Xres, Yres, FS, "Deus's Ex Machine", fuck);
 
 	
 	std::cout << "Result of init windows: " << success << std::endl;
@@ -441,11 +446,11 @@ int main(int argc, char** argv)
 	//scene parser does not work because I suck at boost
 	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
 
+	//I should start with this first in the world class before embaring on a container hell
+	//boost::shared_ptr<NS_SG::composite> scopeOwner(new NS_SG::composite("lader"));
 
-	boost::shared_ptr<NS_SG::composite> o_loader(new NS_SG::composite("lader"));
 
-
-
+	//TheDisc->o_loader = scopeOwner->shared_from_this();
 
 	
 //--------------------Camera 
@@ -486,14 +491,14 @@ int main(int argc, char** argv)
 
 
 	target_kambot->setTarget(pivot_kambot.get());
+	
+	TheDisc->o_loader.get()->addChild(tran_kambot.get());
 
-	o_loader->addChild(tran_kambot.get());
+	
 
-
-
-	ptrCamTran = tran_kambot.get();
-
-
+	//ptrCamTran = tran_kambot.get();
+	//Ugh såklart templates
+	ptrCamTran = dynamic_cast<NS_SG::objTransform*>(TheDisc->o_loader.get()->findNode("tran_kambot").get());
 
 
 
@@ -522,7 +527,9 @@ int main(int argc, char** argv)
 
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
+	//should this be placed in the world class?...nah if it works as intended this should get the
+	// world singelton and the assets and effects effortlessly
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
 
 
 
@@ -606,7 +613,7 @@ int main(int argc, char** argv)
 
 
 	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
-
+	//hmmm best class name or just variable ids for id
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ShowPiece(new NS_SG::objTransform("tran_ShowPiece"));
@@ -636,7 +643,7 @@ int main(int argc, char** argv)
 	tran_sponza->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 	tran_sponza->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
-	o_loader->addChild(tran_sponza.get());
+	TheDisc->o_loader->addChild(tran_sponza.get());
 	
 	
 
@@ -652,7 +659,7 @@ int main(int argc, char** argv)
 
 	tran_sponza->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 
-	o_loader->addChild(tran_sponza.get());
+	TheDisc->o_loader->addChild(tran_sponza.get());
 	
 	*/
 //-------------------------------------me
@@ -691,7 +698,7 @@ int main(int argc, char** argv)
 	
 	t_look->addChild(target_look.get());
 
-	o_loader->addChild(t_look.get());
+	TheDisc->o_loader->addChild(t_look.get());
 	*/
 //-----------------------------Grid
 
@@ -708,7 +715,7 @@ int main(int argc, char** argv)
 
 		Ptr_t_grid = t_grid.get();
 
-		o_loader->addChild(t_grid.get());
+		TheDisc->o_loader->addChild(t_grid.get());
 
 		*/
 
@@ -732,8 +739,8 @@ int main(int argc, char** argv)
 	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
 	tran_Point->addChild(n_point_lys.get());
 	ptrLitPlan = tran_Point.get();
-	o_loader->addChild(tran_Point.get());
-
+	TheDisc->o_loader.get()->addChild(tran_Point.get());
+	
 
 	
 //Light Orange Stalagmite
@@ -768,7 +775,7 @@ int main(int argc, char** argv)
 	tran_Dir->addChild(n_dir_lys.get());
 
 
-	o_loader->addChild(tran_Dir.get());
+	TheDisc->o_loader.get()->addChild(tran_Dir.get());
 	
 
 
@@ -894,20 +901,20 @@ int main(int argc, char** argv)
 	
 
 //------adds node to scene  (should do this when created to help  sort shit out)
-	o_loader->addChild(tran_protagonist.get());
+	TheDisc->o_loader.get()->addChild(tran_protagonist.get());
 
-	//o_loader->addChild()
+	//TheDisc->o_loader->addChild()
 
 	
 	
-	o_loader->addObjectAnime(tran_kambot.get(), CameraSync);
+	TheDisc->o_loader.get()->addObjectAnime(tran_kambot.get(), CameraSync);
 
 
 
-	ptrComp = o_loader.get();
+	ptrComp = TheDisc->o_loader.get();
 
 
-//	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
+//	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
 
 
 

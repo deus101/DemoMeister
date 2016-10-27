@@ -21,6 +21,28 @@ public:
 	base_buffer();
 
 	~base_buffer();
+
+	virtual int Init(unsigned int WindowWidth, unsigned int WindowHeight) { return 0; };
+	virtual void EnablePass(int PassId) {};
+
+
 };
 
 
+class composite_buffer : public base_buffer
+{
+
+
+	
+public:
+
+	composite_buffer(void);
+
+
+
+	void NewBuffer(int);
+
+
+
+
+};
