@@ -29,6 +29,10 @@
 
 //#include "sync.h"
 
+#include "Rendrer\base_buffer.h"
+#include "Rendrer\gbuffer.h"
+#include "Rendrer\aobuffer.h"
+
 #include "SceneGraph\node.h"
 #include "SceneGraph\objTransform.h"
 //#include "Effect\renderPacket.h"
@@ -39,8 +43,8 @@
 
 
 typedef boost::shared_ptr< NS_SG::composite >  compoPointer;
-typedef std::list< NS_EFF::renderPacket* > MasterList_Effects;
-
+typedef std::vector< NS_EFF::renderPacket* > MasterList_Effects;
+typedef std::vector< base_buffer* > MasterList_Passes;
 
 class world
 {
@@ -48,9 +52,10 @@ class world
 
 
 public:
-
-
+	MasterList_Passes BufferContainer;
 	
+	MasterList_Effects EffectPackets;
+
 
 	//remember destructors, carefull with utilizing the constructor before opengl is initialized,
 	//the way its setup no it wont.
@@ -97,7 +102,8 @@ public:
 	//
 	// void keyRelease(int key, int x, int y);
 	//
-
+	unsigned int ResolutionX;
+	unsigned int ResolutionY;
 
 	//void AddCue();
 

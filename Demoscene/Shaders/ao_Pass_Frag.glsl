@@ -87,4 +87,6 @@ void main()
     occlusion = 1.0f - (occlusion / MAX_KERNELS);
 	
 	FragColor = occlusion;
+
+
 }

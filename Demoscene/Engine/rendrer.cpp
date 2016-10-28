@@ -316,11 +316,11 @@ void rendrer::RenderSceneCB()
 
 
 
-	
-	mgBuffer->StartFrame();
+	TheDisc->BufferContainer[0]->EnablePass(0);
+	//mgBuffer->StartFrame();
 	//Geom pass---------------------------------------------
-	mgBuffer->BindForGeomPass();
-
+	//mgBuffer->BindForGeomPass();
+	TheDisc->BufferContainer[0]->EnablePass(1);
 
 	glDepthMask(GL_TRUE);
 	
@@ -411,10 +411,10 @@ void rendrer::RenderSceneCB()
 	//AoPass->SetWorldMatrix(ModelView);
 	AoPass->SetViewMatrix(view);
 	AoPass->SetProjectionMatrix(projection);
-	mgBuffer->BindForAoPass();
+	//mgBuffer->BindForAoPass();
+	TheDisc->BufferContainer[1]->EnablePass(0);
 
-
-
+	//glActiveTexture(GL_TEXTURE5);
 	glActiveTexture(GL_TEXTURE7);
 	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
 
@@ -447,7 +447,8 @@ void rendrer::RenderSceneCB()
 	for (vPITc ip = beginVisiblePoint(); ip != endVisiblePoint(); ++ip) {
 		ip->sNode->NullMagic->Enable();
 
-		mgBuffer->BindForStencilPass();
+		TheDisc->BufferContainer[0]->EnablePass(2);
+		//mgBuffer->BindForStencilPass();
 		//NS_REND::mGBuffer->BindForStencilPass();
 		glEnable(GL_DEPTH_TEST);
 
@@ -476,7 +477,8 @@ void rendrer::RenderSceneCB()
 		//kjøre spotlight her også?
 		ip->sNode->LightMagic->Enable();
 
-		mgBuffer->BindForLightPass();
+		//mgBuffer->BindForLightPass();
+		TheDisc->BufferContainer[0]->EnablePass(3);
 
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 
@@ -509,8 +511,9 @@ void rendrer::RenderSceneCB()
 
 		id->sNode->LightMagic->Enable();
 		id->sNode->LightMagic->SetProjectionMatrix(projection);
-		mgBuffer->BindForLightPass();
-		//swp
+		//mgBuffer->BindForLightPass();
+		TheDisc->BufferContainer[0]->EnablePass(3);
+
 
 		//id->sNode->LightMagic->SetWVP()
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
@@ -535,7 +538,8 @@ void rendrer::RenderSceneCB()
 	//final pass
 	unsigned int w = GetPixelWidth();
 	unsigned int h = GetPixelHeight();
-	mgBuffer->BindForFinalPass();
+	//mgBuffer->BindForFinalPass();
+	TheDisc->BufferContainer[0]->EnablePass(4);
 
 	glBlitFramebuffer(0, 0, w, h,
 		0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_LINEAR);

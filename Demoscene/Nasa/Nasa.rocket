@@ -1,13 +1,13 @@
 <sync rows="128">
 	<tracks>
 		<track name="Lpos.x">
-			<key row="0" interpolation="0" value="0"/>
+			<key row="0" interpolation="0" value="2"/>
 		</track>
 		<track name="Lpos.y">
 			<key row="0" interpolation="0" value="0"/>
 		</track>
 		<track name="Lpos.z">
-			<key row="0" interpolation="0" value="0"/>
+			<key row="0" interpolation="0" value="-2"/>
 		</track>
 		<track name="Ppos.x">
 			<key row="0" interpolation="0" value="0"/>

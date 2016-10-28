@@ -80,7 +80,9 @@ public:
 
 	// should scene/composite hold the pass packets?
 	//                                should this just be name?																																																								
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::RayMarcher * _GeoRayMarch,  NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass), mgBuffer(_GBuffer)
+	//rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::RayMarcher * _GeoRayMarch, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass), mgBuffer(_GBuffer)
+
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_EFF::RayMarcher * _GeoRayMarch,  NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass)
 	{
 
 		unsigned int w = GetPixelWidth();
@@ -180,7 +182,7 @@ private:
 	//Question is what should I do with the packets that does not require a node
 	//I could just create a sorta render component node
 	//another idea might be to give room the buffer class for these and give them the buffer an sorta special method.
-	GBuffer *mgBuffer;
+	//GBuffer *mgBuffer;
 	//std::list< base_buffer> Passes;
 	//Pretty sure I want something like this, Since I'm juggling with various rendertargets I need to 
 	//Fit in getter and setters for the them not to mention a good log output, maybe I should make base_buffer into a composite class.

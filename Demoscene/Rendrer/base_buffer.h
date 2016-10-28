@@ -1,14 +1,38 @@
 #pragma once
 
+
+//#include "../util.h"
+#include <string>
+
+struct Pass_Sample
+{
+
+	Pass_Sample()
+	{
+		name = " ";
+		TextureID = -0;
+		Attachment = -0;
+
+	}
+std::string name;
+int TextureID;
+int Attachment;
+
+
+
+};
+
+
 class base_buffer
 {
 public:
 
+	
+
 	enum TARGET_BUFFERS_TYPE{
 		PASS_GBUFFER,
 		PASS_AOBUFFER,
-		PASS_BLURBUFFER,
-		PASS_LIGHT
+		PASS_BLURBUFFER
 	};
 
 
@@ -18,17 +42,25 @@ public:
 	//virtual void GetSampler();
 
 
-	base_buffer();
+	base_buffer() {};
 
-	~base_buffer();
+	~base_buffer() {};
 
-	virtual int Init(unsigned int WindowWidth, unsigned int WindowHeight) { return 0; };
-	virtual void EnablePass(int PassId) {};
+	virtual bool Init(unsigned int WindowWidth, unsigned int WindowHeight) = 0;
+	virtual void EnablePass(int PassId) = 0;
+	
+	int GetNumberOfSamples() { return Nr_Samples; };
+	void SetNumberOfSamples(int var) { Nr_Samples = var; };
 
+	
+
+protected:
+	GLuint m_fbo;
+	int Nr_Samples;
 
 };
 
-
+/*
 class composite_buffer : public base_buffer
 {
 
@@ -46,3 +78,4 @@ public:
 
 
 };
+*/

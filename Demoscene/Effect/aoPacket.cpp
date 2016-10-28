@@ -180,7 +180,7 @@ void aoPacket::SetPositionTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_posTextureUnitLocation, TextureUnit);
 
-	std::cout << "AO_Packet Position Uniform Location is " << m_posTextureUnitLocation << "Sampler Id is" << TextureUnit << std::endl;
+	std::cout << "AO_Packet Position Uniform Location is " << m_posTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
 }
 
 
@@ -189,7 +189,7 @@ void aoPacket::SetNoiseTextureUnit(unsigned int TextureUnit)
 	
 	glUniform1i(m_NoiseLocation, TextureUnit);
 	//glUniform1i(m_NoiseLocation, m_NoiseLocation);
-	std::cout << "AO_Packet Noise Uniform Location is " << m_NoiseLocation << "Sampler Id is" << TextureUnit << std::endl;
+	std::cout << "AO_Packet Noise Uniform Location is " << m_NoiseLocation << " Sampler Id is " << TextureUnit << std::endl;
 
 }
 
@@ -197,6 +197,6 @@ void aoPacket::SetNoiseTextureUnit(unsigned int TextureUnit)
 void aoPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
-	std::cout << "AO_Packet Normal Uniform Location is " << m_normalTextureUnitLocation << "Sampler Id is" << TextureUnit << std::endl;
+	std::cout << "AO_Packet Normal Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
 
 }

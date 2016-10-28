@@ -4,6 +4,7 @@ smooth in vec2 uv;
 //smooth in vec3 v;
 //smooth in vec3 EP;
 
+//one over
 layout (location = 0) out vec4 WorldPosOut;   
 layout (location = 1) out vec3 DiffuseOut;     
 layout (location = 2) out vec3 NormalOut;  

@@ -13,6 +13,7 @@
 world::world() //public context()
 {
 
+	//BufferContainer.push_back()
 	
 	o_loader = compoPointer(new NS_SG::composite("root"));
 	
@@ -22,6 +23,13 @@ world::world() //public context()
 
 void world::AddPass()
 {
+	GBuffer *temp = new GBuffer();
+	AoBuffer *temp2 = new AoBuffer();
+
+	temp->Init(ResolutionX, ResolutionY);
+	temp2->Init(ResolutionX, ResolutionY);
+	BufferContainer.push_back(temp);
+	BufferContainer.push_back(temp2);
 }
 
 void world::AddNode()

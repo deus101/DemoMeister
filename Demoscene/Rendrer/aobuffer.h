@@ -3,8 +3,10 @@
 #define	AOBUFFER_H
 
 #include "../Math/vec.h"
+#include "base_buffer.h"
 //plan is to inherit base_buffer
-class AOBUFFER
+
+class AoBuffer : public base_buffer
 {
 public:
 	/*
@@ -23,27 +25,23 @@ public:
 		AO_NUM_TEXTURES
 	};
 
-	AOBUFFER();
+	AoBuffer();
 
-	~AOBUFFER();
+	~AoBuffer();
+
+
 	bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 	//bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 
+	void EnablePass(int PassId);
+	//bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
+	void BindForAoPass();
 	//void StartFrame();
 	//void BindForGeomPass();
-	void BindForAoPass();
 	//void BindForStencilPass();
 	//void BindForLightPass();
 	//void BindForFinalPass();
 
-
-	
-private:
-
-	GLuint m_fbo, ao_fbo;
-	
-	//GLuint m_uniforms[GBUFFER_NUM_UNIFORMS];
-	//GLuint m_textures[GBUFFER_NUM_TEXTURES];
 
 	GLuint ao_textures[AO_NUM_TEXTURES];
 
@@ -52,7 +50,15 @@ private:
 	GLuint gb_PosDepth;
 	GLuint gb_Normal;
 	GLuint gb_Noise;
-	
+
+private:
+
+	//GLuint  ao_fbo;
+	//GLuint m_fbo;
+	//GLuint m_uniforms[GBUFFER_NUM_UNIFORMS];
+	//GLuint m_textures[GBUFFER_NUM_TEXTURES];
+
+
 
 };
 

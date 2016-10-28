@@ -141,6 +141,9 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	
 	TheDisc = globe;
+
+	TheDisc->ResolutionX = pWidth;
+	TheDisc->ResolutionY = pHeight;
 	//mgBuffer = new GBuffer();
 	//mgBuffer->Init(pWidth, pHeight, s_pWindow);
 	//mGBuffer->Init(500, 500);

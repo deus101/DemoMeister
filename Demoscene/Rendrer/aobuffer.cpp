@@ -2,13 +2,14 @@
 #include <stdio.h>
 
 #include "../util.h"
+#include "../Rendrer/context.h"
 #include "aobuffer.h"
 
 
-AOBUFFER::AOBUFFER()
+AoBuffer::AoBuffer()
 {
+	//m_fbo = 0;
 	m_fbo = 0;
-	ao_fbo = 0;
 	//m_AoTexture = 0;
 	//m_depthTexture = 0;
 	//m_finalTexture = 0;
@@ -16,16 +17,16 @@ AOBUFFER::AOBUFFER()
 	ZERO_MEM(ao_textures);
 }
 
-AOBUFFER::~AOBUFFER()
+AoBuffer::~AoBuffer()
 {
 	if (m_fbo != 0) {
 		glDeleteFramebuffers(1, &m_fbo);
 
 	}
 
-	//if (m_textures[0] != 0) {
-	//	glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
-	//}
+	if (ao_textures[0] != 0) {
+		glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
+	}
 
 	//if (m_depthTexture != 0) {
 	//	glDeleteTextures(1, &m_depthTexture);
@@ -35,7 +36,7 @@ AOBUFFER::~AOBUFFER()
 	//	glDeleteTextures(1, &m_finalTexture);
 	//}
 }
-bool AOBUFFER::Init(unsigned int WindowWidth, unsigned int WindowHeight)
+bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 
 
@@ -45,11 +46,9 @@ bool AOBUFFER::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glGenFramebuffers(1, &m_fbo);
 
-	glGenFramebuffers(1, &ao_fbo);
-
-	glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 
 
 	glGenTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
@@ -82,24 +81,48 @@ bool AOBUFFER::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 
 
-void AOBUFFER::BindForAoPass()
+void AoBuffer::BindForAoPass()
 {
 
+	GBuffer *test = (GBuffer*)TheDisc->BufferContainer[0];
+
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+	//glClear(GL_COLOR_BUFFER_BIT);
+
+	GLuint faen = test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL];
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL]);
 
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
-	glClear(GL_COLOR_BUFFER_BIT);
 
 
-
-	glActiveTexture(GL_TEXTURE0 );
-	glBindTexture(GL_TEXTURE_2D, gb_PosDepth);
-	glActiveTexture(GL_TEXTURE2 );
-	glBindTexture(GL_TEXTURE_2D, gb_Normal);
-
+	
+	//glActiveTexture(GL_TEXTURE0);
+	////glBindTexture(GL_TEXTURE_2D, gb_PosDepth);
+	//glBindTexture(GL_TEXTURE_2D, 
+	//glActiveTexture(GL_TEXTURE2);
+	//glBindTexture(GL_TEXTURE_2D, gb_Normal);
+	
+	//glActiveTexture(GL_TEXTURE0 );
+	//glBindTexture(GL_TEXTURE_2D, GLuint(5));
+	//glActiveTexture(GL_TEXTURE2 );
+	//glBindTexture(GL_TEXTURE_2D, GLuint(3));
+	//glActiveTexture(GL_TEXTURE7);
+	//glBindTexture(GL_TEXTURE_2D, GLuint(5));
 
 }
 
 
+void AoBuffer::EnablePass(int PassId) {
+
+	switch (PassId) {
+	case 0:
+		this->BindForAoPass();
+		break;
+	}
+
+}

@@ -431,15 +431,15 @@ int main(int argc, char** argv)
 	//std::cout << "Y! : " << pHeight  << std::endl;
 	glViewport(0, 0, (GLsizei)Xres, (GLsizei)Yres);
 
-
+	TheDisc->AddPass();
 
 	//SetupRC();
 	//DO IT! TO IT!
 
-	GBuffer Pass_GBuffer = GBuffer();
+	//GBuffer Pass_GBuffer = GBuffer();
 
 
-	Pass_GBuffer.Init(Xres, Yres);
+	//Pass_GBuffer.Init(Xres, Yres);
 
 
 //--------------scene node that goes into scenerendrer
@@ -529,14 +529,16 @@ int main(int argc, char** argv)
 
 	//should this be placed in the world class?...nah if it works as intended this should get the
 	// world singelton and the assets and effects effortlessly
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
+	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_rm_Pack, &e_ao_Pass);
 
 
 
 	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
 
 	e_geom.Enable();
-	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
+	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX );
+	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX + 1);
 
 	
 	std::cout << "Status of geometry RayMarcher effect is: " << e_rm_Pack.Init() << std::endl;
@@ -548,28 +550,28 @@ int main(int argc, char** argv)
 
 	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl;
 	e_ao_Pass.Enable();
-	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 
 	e_ao_Pass.SetScreenSize(Xres, Yres);
 
 	e_ao_Pass.InitKernel();
 	e_ao_Pass.InitNoise();
 
-	e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	//e_ao_Pass.SetNoiseTextureUnit(GL_TEXTURE5);
+	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
+	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
+	//e_ao_Pass.SetNoiseTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP);
 	//e_ao_Pass.SetNoiseTextureUnit((UINT32)3);
 	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
 
 	e_point.Enable();
 
-	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
-	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
+	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
-	e_point.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
-
+	e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+	//TheDisc->BufferContainer[1]->
 	e_point.SetScreenSize(Xres, Yres);
 	
 	//e_point.SetScreenSize(1600, 900);
@@ -577,11 +579,12 @@ int main(int argc, char** argv)
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
-	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
-	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
+	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
-	e_dir.SetAoTextureUnit(GBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+	e_dir.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+
 	//e_dir.SetScreenSize(1600, 900);
 	e_dir.SetScreenSize(Xres, Yres);
 
@@ -606,13 +609,13 @@ int main(int argc, char** argv)
 
 	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
 	//NS_ENG::model m_fly("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
-	//NS_ENG::model m_fly("Mesh/suzanne.obj", "Mesh/suzanne.mtl");
+	NS_ENG::model m_fly("Mesh/suzanne.obj", "Mesh/suzanne.mtl");
 	//NS_ENG::model m_fly("Mesh/HexagonBase.obj", "Mesh/HexagonBase.mtl");
 	//NS_ENG::model m_fly("Mesh/bunny.obj", "Mesh/bunny.mtl");
 	//NS_ENG::model m_fly("Mesh/buddy.obj", "Mesh/buddy.mtl");
 
 
-	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 	//hmmm best class name or just variable ids for id
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 
