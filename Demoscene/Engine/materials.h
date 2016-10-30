@@ -8,6 +8,9 @@
 #include "../Math/vec.h"
 
 
+
+
+//oh right...I never really made a class for materials...
 namespace NS_MAT
 {
 //using namespace std;
@@ -27,6 +30,7 @@ GLfloat diff[4];
 GLfloat spec[4];
 GLfloat emmi[4];
 GLfloat shiny;
+//not unit.. name...right?
 GLint tUnit;
 
 };
@@ -46,6 +50,6 @@ void LoadMats( const char *param, MATERIALS& Mats);
 
 
 }
-#pragma once
+//#pragma once
 
 #endif

@@ -14,7 +14,7 @@ namespace NS_MAT
 {
 
 	
-
+	//hmm but what about shader jutsu?
 	void LoadMats( const char *param, MATERIALS& Mats)
 	{
 		FILE * mtlFile;

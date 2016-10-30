@@ -7,7 +7,8 @@
 
 #include "../util.h"
 #include "gbuffer.h"
-
+#include "../Rendrer/context.h"
+#include "aobuffer.h"
 GBuffer::GBuffer() 
 {
 	
@@ -205,10 +206,10 @@ void GBuffer::BindForLightPass()
 		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
 	}	
 	//glActiveTexture(GL_TEXTURE3);
-	
-	
-	//glActiveTexture(GL_TEXTURE5);
-	//glBindTexture(GL_TEXTURE_2D, ao_textures[AO_TEXTURE_TYPE_AO_MAP]);
+	//this is stupid, I should store this in the packets
+	AoBuffer *test2 = (AoBuffer*)TheDisc->BufferContainer[1];
+	glActiveTexture(GL_TEXTURE5);
+	glBindTexture(GL_TEXTURE_2D, test2->ao_textures[test2->AO_TEXTURE_TYPE_AO_MAP]);
 
 	//glBindTexture(GL_TEXTURE_2D, m_AoTexture);
 
