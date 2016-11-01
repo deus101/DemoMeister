@@ -36,7 +36,7 @@ void main()
 	if( textureSize( gColorMap, 0).x > 0)
 	{				
 
-	//DiffuseOut      = vec3(LinearDepth(gl_FragCoord.z));
+	//DiffuseOut      = vec3(TexCoord0,0);
 	DiffuseOut      = texture(gColorMap, TexCoord0).xyz;	
 
 	}

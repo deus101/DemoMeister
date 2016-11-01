@@ -24,7 +24,6 @@
 #include "Effect\RayMarcher.h"
 
 
-
 HSTREAM stream;
 
 sync_device *rocket;

@@ -10,6 +10,9 @@ using namespace NS_MESH;
 using namespace NS_MAT;
 
 //arve drawable her
+
+//std::list <model*> classModelList;
+std::list <model*> model::classModelList = std::list <model*>();
 model::model() 
 {
 
@@ -17,10 +20,26 @@ model::model()
 
 
 
-
+//ok its time to remove the material loading from this class 30.10.2016
 model::model(string obj, string mtl) : asset()
 {
 
+	//actually all this is just a test, I have really no reason to do this for this class, finding duplicates is something
+	//id rather do elsewhere....Again completely fucking pointless....well...or is it, if I wanted a function to set up nodes with assets
+	//this might be allright...
+	for (auto iter : model::classModelList) {
+		
+		//cout << "\n Previus file: " << iter->meshy.file_name << endl;
+		if (obj.compare(iter->meshy.file_name) == 0)
+		{
+			//could provide memory leaks
+			cout << "\n Previus file matches: " << iter->meshy.file_name << endl;
+			//hmm maybe what I really want is just to copy the sorted vertex and attribute buffers
+			//A central deopsitory for the mesh struct maybe intead?
+			*this = *iter;
+			return;
+		}
+	}
 	LoadMesh(obj.c_str(), meshy);
 	LoadMats(mtl.c_str(), palette);
 
@@ -180,10 +199,19 @@ model::model(string obj, string mtl) : asset()
 	
 	//this->BufferLog();
 
+	NS_ENG::model::classModelList.push_front(this);
+
+	iter = NS_ENG::model::classModelList.begin();
+
+
+	cout << "\n Number of models: " << NS_ENG::model::classModelList.size() << endl;
+
+
+
 }
 model::~model()
 {
-
+	//classModelList.erase(iter);
 }
 
 

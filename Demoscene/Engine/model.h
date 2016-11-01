@@ -15,6 +15,10 @@
 //#include "../Rendrer/context.h"
 
 
+
+//http://stackoverflow.com/questions/16501419/creating-a-class-with-a-static-member-container-holding-all-instances-of-said-cl
+//Hurm isnt it safer with a composite class?
+
 namespace NS_ENG{
 
 	//AHAAA! JEG KAN GENNE FRA GRUPPE, BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
@@ -56,7 +60,11 @@ namespace NS_ENG{
 
 	class model : public asset
 	{
+	private:
+		std::list <model*>::iterator iter;
 	public:
+		static std::list <model*> classModelList;
+		//heh should be private
 		std::vector<NS_VEC::VEC3> Sort_Pos;
 		std::vector<NS_VEC::VEC3> Sort_Norms;
 		std::vector<NS_VEC::VEC2> Sort_Uvs;
@@ -67,7 +75,6 @@ namespace NS_ENG{
 		std::vector<buffer_Group> Sort_Groups;
 
 
-
 		GLuint vao_model;
 		GLuint vbo_vertices;
 		GLuint vbo_normals;
@@ -76,10 +83,18 @@ namespace NS_ENG{
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
+		//might need later 
+		//model(model const &from)
 		model( std::string obj, std::string mtl);
 		~model();
 		
-		//AAA fuck it!
+		//not sure
+		/*
+		model &operator=(model const &src) {
+			return *this;
+		}
+		*/
+		//AAA fuck it! but not for long
 		GLuint VEC3_DIFF_UNILOC, FLOAT_SPECINT_UNILOC, FLOAT_SPECPOW_UNILOC;
 
 
@@ -90,6 +105,7 @@ namespace NS_ENG{
 
 
 		NS_MESH::MESH meshy;
+		//hmmm should I maybe not care how many instances of palette there is...if only I can ID them?
 		NS_MAT::MATERIALS palette;
 		NS_VEC::VEC3 color;
 
@@ -120,7 +136,6 @@ namespace NS_ENG{
 
 
 	};
-
 	//const void loadBuffer(Model &mModel, renderPacket &mPacket);
 }
 #endif

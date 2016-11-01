@@ -12,6 +12,9 @@
 //	public:
 		//static GLFWwindow* s_pWindow = NULL;
 		//static GBuffer * mGBuffer = 0;
+		
+
+//Ugh...its not a class anymore why is this here?
 		static unsigned int pHeight;
 		static unsigned int pWidth;
 		static bool m_created;

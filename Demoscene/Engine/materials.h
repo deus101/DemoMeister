@@ -8,7 +8,8 @@
 #include "../Math/vec.h"
 
 
-
+//ok so think about changing these parameters per Model Object... or globally  The name itself could do the trick.
+//tempted to add a list of references to all Models using this
 
 //oh right...I never really made a class for materials...
 namespace NS_MAT
@@ -16,6 +17,8 @@ namespace NS_MAT
 //using namespace std;
 //using namespace NS_VEC;
 
+
+//this I need, possibly better to use for argument when constructing ubershader
 struct s_mat
 {
 	s_mat()
@@ -34,7 +37,7 @@ GLfloat shiny;
 GLint tUnit;
 
 };
-
+//replace this with a class
 struct MATERIALS
 {
 	void Clear(void)
@@ -50,6 +53,8 @@ void LoadMats( const char *param, MATERIALS& Mats);
 
 
 }
+
+
 //#pragma once
 
 #endif

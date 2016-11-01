@@ -75,6 +75,10 @@ struct s_Group
 
 struct MESH
 {
+	std::string file_name;
+	std::string file_mat;
+
+
 	std::deque<NS_VEC::VEC3> m_Pos;
 	std::deque<NS_VEC::VEC3> m_Norms;
 	std::deque<NS_VEC::VEC2> m_Uvs;

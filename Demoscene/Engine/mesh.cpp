@@ -21,6 +21,7 @@ namespace NS_MESH
 
 		Mesh.Clear();
 	
+		Mesh.file_name = param;
 		
 		char line[1024] = "";
 		char id[512] = "";
