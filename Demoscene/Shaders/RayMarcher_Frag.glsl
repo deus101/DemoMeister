@@ -212,14 +212,15 @@ void main()
 	mat4 GviewInv = inverse(gView);
 	
 	
-	mat4 CamToWorld = gWVP * GviewInv;
-
+	//mat4 CamToWorld = gView * gWVP;
+	//mat4 CamToWorld = gWVP * GviewInv;
+	//mat4 CamToWorld = gWVP * gView;
 
 	//mat4 CamToWorldTR = gWVP * transpose(gView);
 
 	mat4 CamToWorldTR = transpose(gView);
 	//mat4 CamToWorldTR = transpose(gView)*gWVP;
-	//mat4 CamToWorldTR = gWVP * transpose(gView);
+	mat4 CamToWorld = gWVP * transpose(gView);
 
 
 
@@ -264,9 +265,10 @@ void main()
 	//vec3 ro = gEyeWorldPos + PcameraSpace *  scale;
 	//vec3 ro = PcameraSpace + rayOriginWorld * gEyeWorldPos;
 
-	//vec3 ro = eye; 
+	vec3 ro = gEyeWorldPos; 
 	//vec3 ro = rayOriginWorld + vec3(PixelCamera.x * scale * aspectRatio , PixelCamera.y * scale, scale); 
-	vec3 ro = rayOriginWorld;
+	//vec3 ro = rayOrigin + vec3(PixelCamera.x , PixelCamera.y , 0.1); 
+	//vec3 ro = rayOriginWorld; 
 	
 	
 	//vec3 pre_RD = PcameraSpace + right * PixelCamera.x * scale * aspectRatio + up * PixelCamera.y * scale;
@@ -375,8 +377,10 @@ void main()
 	WorldPosOut.xyz = p;
 	WorldPosOut.w = LinearDepth(dep);
 
-	//WorldPosOut = CamToWorld[2];
-	
+	//WorldPosOut = CamToWorld[3];
+	//WorldPosOut = GviewInv[3];
+	//WorldPosOut = gView[3];
+
 	//WorldPosOut.w = scale;
 	//WorldPosOut.w = projected.z;
 	
@@ -417,5 +421,6 @@ void main()
 	//NormalOut.y = dot(rd,eyeFwd);
 	//NormalOut.z = eyeHitZ;
 	//NormalOut = rd;
+	//NormalOut = ro;
 	//NormalOut = pre_RD;
 }
