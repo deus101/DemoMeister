@@ -384,6 +384,7 @@
     <ClCompile Include="Effect\HeightMapPacket.cpp" />
     <ClCompile Include="Effect\RayMarcher.cpp" />
     <ClCompile Include="Engine\Grid.cpp" />
+    <ClCompile Include="Engine\map.cpp" />
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
     <ClCompile Include="Rendrer\aobuffer.cpp" />
@@ -421,6 +422,7 @@
     <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="Effect\HeightMapPacket.h" />
     <ClInclude Include="Engine\Grid.h" />
+    <ClInclude Include="Engine\map.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
     <ClInclude Include="Worlds\MasterWorld.h" />

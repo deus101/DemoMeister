@@ -7,7 +7,8 @@ using namespace NS_ENG;
 
 using namespace std;
 using namespace NS_MESH;
-using namespace NS_MAT;
+//using namespace NS_MAP;
+//using namespace NS_MAT;
 
 //arve drawable her
 
@@ -40,8 +41,10 @@ model::model(string obj, string mtl) : asset()
 			return;
 		}
 	}
+	NS_ENG::Material::LoadMats(mtl.c_str());
 	LoadMesh(obj.c_str(), meshy);
-	LoadMats(mtl.c_str(), palette);
+	//LoadMats(mtl.c_str(), palette);
+	
 
 
 
@@ -67,7 +70,7 @@ model::model(string obj, string mtl) : asset()
 				};
 				unsigned int index;
 				//unsigned short index;
-			
+				
 
 
 				bool found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
@@ -93,6 +96,7 @@ model::model(string obj, string mtl) : asset()
 
 		}
 		
+		/*
 		for(unsigned int j = 0; j < palette.m_Materials.size(); j++)
 		{
 		cout << "mats :" << j << endl;
@@ -100,9 +104,22 @@ model::model(string obj, string mtl) : asset()
 		{
 		cout << "MAT: " << palette.m_Materials[j].name << " : " << j << endl;
 		meshy.m_Groups[u].matid = j;
+		*/
 
-		break;
-		}
+		//for (unsigned int j = 0; j < NS_ENG::Material::classMaterialList.size(); j++)
+		for (auto  MatIter : NS_ENG::Material::classMaterialList) {
+		{
+			
+			//cout << "mats :" << MatIter.matID << endl;
+			//if (obj.compare(MatIter->meshy.file_name) == 0)
+			if (meshy.m_Groups[u].mat.compare(MatIter.name) == 0)
+			{
+				cout << "MAT: " << MatIter.name << " : " << MatIter.matID << endl;
+				//meshy.m_Groups[u].matid = j;
+				meshy.m_Groups[u].matid = MatIter.matID;
+				//MG.
+			break;
+			}
 
 		}
 
@@ -116,8 +133,10 @@ model::model(string obj, string mtl) : asset()
 		
 
 		//ehm..why did i do this?
-		MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].tUnit;
-		MG.dif = NS_VEC::VEC3(palette.m_Materials[meshy.m_Groups[u].matid].diff[0], palette.m_Materials[meshy.m_Groups[u].matid].diff[1], palette.m_Materials[meshy.m_Groups[u].matid].diff[2]);
+		//only an Material ID should suffice,  There should only be one master list of materials
+
+		//MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].tUnit;
+		//MG.dif = NS_VEC::VEC3(palette.m_Materials[meshy.m_Groups[u].matid].diff[0], palette.m_Materials[meshy.m_Groups[u].matid].diff[1], palette.m_Materials[meshy.m_Groups[u].matid].diff[2]);
 		//if im going to use attributepointers for diffcolor, specular intensity and specular power create  it here
 
 		Sort_Groups.push_back(MG);
@@ -207,6 +226,7 @@ model::model(string obj, string mtl) : asset()
 	cout << "\n Number of models: " << NS_ENG::model::classModelList.size() << endl;
 
 
+}
 
 }
 model::~model()
@@ -244,6 +264,9 @@ void model::Draw()
 
 	//if(VEC3_DIFF_UNILOC == NULL || FLOAT_SPECINT_UNILOC == NULL || FLOAT_SPECPOW_UNILOC == NULL)
 	//{
+
+
+	//MatId...I could add an extra int for the UV buffer so I dont have to fuck around with this.
 	GLint ShaderProg;
 
 	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);

@@ -2,7 +2,7 @@
 #define RENDERPACKET_HPP
 
 #include <iostream>
-#include <list>
+//#include <list>
 #include "../Math/vec.h"
 
 #include "../Engine/asset.h"

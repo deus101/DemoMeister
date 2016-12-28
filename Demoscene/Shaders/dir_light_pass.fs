@@ -48,7 +48,7 @@ uniform PointLight gPointLight;
 uniform SpotLight gSpotLight;
 uniform vec3 gEyeWorldPos;
 uniform float gMatSpecularIntensity = 0.3f;
-uniform float gSpecularPower = 0.2f;
+uniform float gSpecularPower = 0.5f;
 uniform int gLightType;
 uniform vec2 gScreenSize;
 
@@ -119,7 +119,8 @@ out vec4 FragColor;
 
 void main()
 {
-	mat3 viewNormal = transpose(inverse(mat3(gView)));
+	//mat3 viewNormal = transpose(inverse(mat3(gView)));
+	mat3 viewNormal = transpose(mat3(gView));
 	//int draw_mode = 0;
 	//float debug = 1.0f;
 	//vec4 Debugger = vec4(0, 0, 0, 0);
@@ -135,7 +136,7 @@ void main()
 
 	vec3 satan = Normal;
 	//Normal = normalize(Normal);
-	Normal = normalize(Normal * 2.0 - 1.0);
+	//Normal = normalize(Normal * 2.0 - 1.0);
 	Normal = normalize(viewNormal * Normal);
 
 

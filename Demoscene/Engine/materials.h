@@ -5,6 +5,7 @@
 #include <deque> 
 #include <string>
 #include <string.h>
+#include "asset.h"
 #include "../Math/vec.h"
 
 
@@ -12,7 +13,9 @@
 //tempted to add a list of references to all Models using this
 
 //oh right...I never really made a class for materials...
-namespace NS_MAT
+//it makes more sense that if I have a data structure for Mesh I should have one for texture
+//namespace NS_MAT
+namespace NS_ENG 
 {
 //using namespace std;
 //using namespace NS_VEC;
@@ -35,6 +38,7 @@ GLfloat emmi[4];
 GLfloat shiny;
 //not unit.. name...right?
 GLint tUnit;
+GLint matID;
 
 };
 //replace this with a class
@@ -48,9 +52,40 @@ struct MATERIALS
 std::deque<s_mat> m_Materials;
 
 };
+//void LoadMats( const char *param, MATERIALS& Mats);
+class Material : public asset
+{
 
-void LoadMats( const char *param, MATERIALS& Mats);
 
+private:
+	//std::list <Material*>::iterator MatIter;
+	std::list <s_mat>::iterator MatIter;
+public:
+	//static std::list <Material*> classMaterialList;
+	static std::list <s_mat> classMaterialList;
+
+	std::string Mat_Name;
+	GLfloat Mat_Amb[4];
+	GLfloat Mat_Diff[4];
+	GLfloat Mat_Spec[4];
+	GLfloat Mat_Emmi[4];
+	GLfloat Mat_Shiny;
+	//not unit.. name...right?
+	//needs more then just a texture name
+	GLint Mat_TUnit;
+	GLint Mat_MatID;
+
+Material();
+
+static void LoadMats(const char *param);
+
+//hurm sometimes oop makes no sense
+//void Draw();
+//or my fix ideas makes no sense
+
+//MATERIALS& Mats;
+
+};
 
 }
 

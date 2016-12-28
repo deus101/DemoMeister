@@ -12,6 +12,7 @@
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
 #include "../util.h"
+
 //#include "../Rendrer/context.h"
 
 
@@ -106,7 +107,8 @@ namespace NS_ENG{
 
 		NS_MESH::MESH meshy;
 		//hmmm should I maybe not care how many instances of palette there is...if only I can ID them?
-		NS_MAT::MATERIALS palette;
+		//NS_MAT
+		NS_ENG::MATERIALS palette;
 		NS_VEC::VEC3 color;
 
 	private:

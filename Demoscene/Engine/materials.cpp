@@ -6,21 +6,31 @@
 #include <stdio.h>
 #include <iostream>
 
+
+using namespace NS_ENG;
 using namespace std;
 
 
+//namespace NS_MAT
+//namespace NS_ENG
+//{
+std::list <s_mat> Material::classMaterialList = std::list <s_mat>();
+	Material::Material() : asset()
+	{
+		//Mats.Clear();
 
-namespace NS_MAT
-{
+	}
 
-	
+
+	//this should be a static method, and eaach materials object should be stored in the static container as one materials
 	//hmm but what about shader jutsu?
-	void LoadMats( const char *param, MATERIALS& Mats)
+	//void LoadMats(const char *param, MATERIALS& Mats)
+	void Material::LoadMats( const char *param)
 	{
 		FILE * mtlFile;
 		mtlFile = fopen( param , "rb");
 
-		Mats.Clear();
+		//Mats.Clear();
 	
 		
 		char line[1024] = "";
@@ -35,44 +45,61 @@ namespace NS_MAT
 				fscanf(mtlFile, "%79s", nam );
 				mtl.name = nam;
 				//cout << "material name: " << mtl.name << endl;
-				Mats.m_Materials.push_back( mtl );
+				//Mats.m_Materials.push_back( mtl );
+				NS_ENG::Material::classMaterialList.push_back(mtl);
+
+				NS_ENG::Material::classMaterialList.back().matID =  NS_ENG::Material::classMaterialList.size();
 			}
 			if(strcmp (id, "Kd") == 0)
 			{
 				
-				fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().diff[0], &Mats.m_Materials.back().diff[1], &Mats.m_Materials.back().diff[2]);
-				Mats.m_Materials.back().diff[3] = 1.0;
-				
+				fscanf(mtlFile, "%f %f %f", NS_ENG::Material::classMaterialList.back().diff[0], NS_ENG::Material::classMaterialList.back().diff[1], NS_ENG::Material::classMaterialList.back().diff[2]);
+				//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().diff[0], &Mats.m_Materials.back().diff[1], &Mats.m_Materials.back().diff[2]);
+
+				//Mats.m_Materials.back().diff[3] = 1.0;
+				NS_ENG::Material::classMaterialList.back().diff[3] = 1.0;
 					//input[3] = 1.0;
 				//Mats.m_Materials.back().diff = input;
 			}
 			if(strcmp (id, "Ka") == 0)
 			{
 				
-				fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().amb[0], &Mats.m_Materials.back().amb[1], &Mats.m_Materials.back().amb[2]);
-				Mats.m_Materials.back().amb[3] = 1.0;
+				//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().amb[0], &Mats.m_Materials.back().amb[1], &Mats.m_Materials.back().amb[2]);
+				//Mats.m_Materials.back().amb[3] = 1.0;
+				fscanf(mtlFile, "%f %f %f", NS_ENG::Material::classMaterialList.back().amb[0], NS_ENG::Material::classMaterialList.back().amb[1], NS_ENG::Material::classMaterialList.back().amb[2]);
+				NS_ENG::Material::classMaterialList.back().amb[3] = 1.0;
 			}
 			if(strcmp (id, "Ks") == 0)
 			{
 			
-				fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().spec[0], &Mats.m_Materials.back().spec[1], &Mats.m_Materials.back().spec[2]);
-				Mats.m_Materials.back().spec[3] = 1.0;
+				//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().spec[0], &Mats.m_Materials.back().spec[1], &Mats.m_Materials.back().spec[2]);
+				//Mats.m_Materials.back().spec[3] = 1.0;
+				fscanf(mtlFile, "%f %f %f", NS_ENG::Material::classMaterialList.back().spec[0], NS_ENG::Material::classMaterialList.back().spec[1], NS_ENG::Material::classMaterialList.back().spec[2]);
+				NS_ENG::Material::classMaterialList.back().spec[3] = 1.0;
 			}
 			if(strcmp (id, "Ke") == 0)
 			{	
 				NS_VEC::VEC3 c;
-				fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().emmi[0], &Mats.m_Materials.back().emmi[1], &Mats.m_Materials.back().emmi[2]);
-				Mats.m_Materials.back().emmi[3] = 1.0;
+				//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().emmi[0], &Mats.m_Materials.back().emmi[1], &Mats.m_Materials.back().emmi[2]);
+				//Mats.m_Materials.back().emmi[3] = 1.0;
+				fscanf(mtlFile, "%f %f %f", NS_ENG::Material::classMaterialList.back().emmi[0], NS_ENG::Material::classMaterialList.back().emmi[1], NS_ENG::Material::classMaterialList.back().emmi[2]);
+				NS_ENG::Material::classMaterialList.back().emmi[3] = 1.0;
+
 			}
 			if(strcmp (id, "Ns") == 0)
 			{
 				GLfloat shin = 0.0f;
 				fscanf(mtlFile, "%f", &shin);
-				Mats.m_Materials.back().shiny = shin;
+				//Mats.m_Materials.back().shiny = shin;
+				NS_ENG::Material::classMaterialList.back().shiny = shin;
 			}
 			else
 			if (strcmp(id, "map_Kd") == 0)
 			{
+
+				//here we implement a map object...
+
+				//load
 				GLuint tmp_TName = 0;
 				char path[80];
 				fscanf(mtlFile, "%79s", path);
@@ -108,7 +135,9 @@ namespace NS_MAT
 					cout << "There was an error loading the texture" << endl;
 				}
 
-				Mats.m_Materials.back().tUnit = tmp_TName;
+				//Mats.m_Materials.back().tUnit = tmp_TName;
+				NS_ENG::Material::classMaterialList.back().tUnit = tmp_TName;
+
 			}
 
 		}
@@ -116,8 +145,8 @@ namespace NS_MAT
 
 		fclose(mtlFile);
 
-		cout << "NR of materials: " << Mats.m_Materials.size() << endl;
-
+		cout << "NR of materials: " << NS_ENG::Material::classMaterialList.size() << endl;
+		//cout << "NR of materials: " << Mats.m_Materials.size() << endl;
 	}
 
-}
+//}

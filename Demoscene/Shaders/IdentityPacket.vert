@@ -11,6 +11,7 @@ uniform mat4 gView;
 void main()
 {   //vec4 viewPos = gView * gWorld * Position;
     //gl_Position = gView * Position;
-
-    gl_Position = gWVP * vec4(Position.xyz, 1.0);
+	//mat4 bla = gWorld * gView;
+    gl_Position = vec4(Position.xy, 1.0f, 1.0);
+	//gl_Position = bla * vec4(Position.xy, -1.0f, 1.0f);
 }

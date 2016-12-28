@@ -36,7 +36,7 @@ void main()
 	uv = Position.xy;
 	//uv = Position.xy*madd+madd;
 
-	gl_Position =  vec4(Position.xy, -1.0f, 1.0f);
+	gl_Position =  vec4(Position.xy, 0.0f, 1.0f);
 
 	//gl_Position = vec4(Position.xy, 0.0f, 1.0f);
 	

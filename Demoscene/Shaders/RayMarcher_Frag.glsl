@@ -17,7 +17,8 @@ uniform mat4 gView;
 uniform vec2 gScreenSize;
 uniform vec3 gEyeWorldPos;
 
-
+//const bool debug = true; 
+const bool debug = false; 
 
 const float focalLenght = 1.67f; 
 //const float focalLenght = 0.67f; 
@@ -176,13 +177,20 @@ void main()
 	//UV
 	//Pixel.x = gl_FragCoord.x * 2.0 / gScreenSize.x - 1.0;
 	//Pixel.y = gl_FragCoord.y * 2.0 / gScreenSize.y - 1.0;
+	Pixel.x = gl_FragCoord.x;
+	Pixel.y = gl_FragCoord.y;
 
-
-
-	PixelNDC.x =  (gl_FragCoord.x + 0.5) / gScreenSize.x;
-	PixelNDC.y =  (gl_FragCoord.y + 0.5) / gScreenSize.y;
-
-
+	
+	//PixelNDC.x = ( (Pixel.x + 0.5) / gScreenSize.x ) - 0.5;
+	//PixelNDC.y = ( (Pixel.y + 0.5) / gScreenSize.y ) - 0.5;
+	PixelNDC.x = ( (gl_FragCoord.x + 0.5) / gScreenSize.x );
+	PixelNDC.y = ( (gl_FragCoord.y + 0.5) / gScreenSize.y );
+	//PixelNDC.x =  gl_FragCoord.x + 0.5 / gScreenSize.x;
+	//PixelNDC.y =  gl_FragCoord.y + 0.5 / gScreenSize.y;
+	//PixelNDC.x = (gl_FragCoord.x * 2.0) / gScreenSize.x - 1.0;
+	//PixelNDC.y = (gl_FragCoord.y * 2.0) / gScreenSize.y - 1.0;
+	//PixelNDC.x = ((gl_FragCoord.x + 0.5) / (gScreenSize.x * 2.0));
+	//PixelNDC.y = ((gl_FragCoord.y + 0.5) / (gScreenSize.y * 2.0));
 
 	PixelScreen.x = 2 * PixelNDC.x -1;
 	//PixelScreen.x =  1 - 2 * PixelNDC.x;
@@ -194,10 +202,13 @@ void main()
 	//PixelCamera.x = (2 * PixelScreen.x - 1) * aspectRatio * scale;
 	//PixelCamera.y = (1 - 2 * PixelScreen.y) * scale;	
 
-
+	//FovY
 	//Don't fuck this up
+
 	PixelCamera.x = (PixelScreen.x) * scale * aspectRatio;
 	PixelCamera.y = (PixelScreen.y) * scale;
+	//PixelCamera.x = (2 * PixelScreen.x - 1) * scale * aspectRatio;
+	//PixelCamera.y = (2 * PixelScreen.x - 1) * scale;
 
 
 	PcameraSpace = vec3(PixelCamera.x,PixelCamera.y, -1);
@@ -207,44 +218,11 @@ void main()
 	//focalLenght
 	vec3 rayOrigin = vec3(0.0, 0.0, 0.0); 
 	
-
-
-	mat4 GviewInv = inverse(gView);
-	
-	
-	//mat4 CamToWorld = gView * gWVP;
-	//mat4 CamToWorld = gWVP * GviewInv;
-	//mat4 CamToWorld = gWVP * gView;
-
-	//mat4 CamToWorldTR = gWVP * transpose(gView);
-
-	mat4 CamToWorldTR = transpose(gView);
-	//mat4 CamToWorldTR = transpose(gView)*gWVP;
 	mat4 CamToWorld = gWVP * transpose(gView);
 
 
 
-	//vec3 rayPWorld = vec3(0.0); 
-	
-	
 
-	vec3 Asp = CamToWorldTR[2].xyz * -1;
-	//CamToWorldTR[3].xyz = CamToWorldTR[2].xyz * -1;
-
-	//CamToWorldTR[2] = CamToWorldTR[2] * -1;
-	//CamToWorldTR = transpose(CamToWorldTR);
-	//GviewInv[2].xyz = Asp;
-
-	//vec3 eye = -(gView[3].xyz)*mat3(gView);
-	//vec3 eye = (gView[3].xyz)*mat3(gView);
-	
-	//rayPWorld = vec3(0, 0,-1.0) * mat3(CamToWorldTR);
-	
-	
-	//vec3 rayOriginWorld = (  vec4(rayOrigin,1)*GviewInv).xyz;
-	//vec3 rayOriginWorld = (  vec4(rayOrigin,1)*-CamToWorldTR).xyz;
-	
-	//vec3 rayOriginWorld = (  GviewInv * vec4(rayOrigin,1)).xyz;
 	vec3 rayOriginWorld = (  CamToWorld * vec4(rayOrigin,1)).xyz;
 
 	//vec3 rayPWorld = (  vec4(vec3(0, 0,-1.0),0)*GviewInv).xyz;
@@ -253,7 +231,7 @@ void main()
 	vec3 rayPWorld = ( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
 
 
-	//vec3 eyeFwd = normalize(vec3(0,0,-1.0)*mat3(gView));
+
 
 	vec3 worldDir = normalize( rayPWorld - rayOriginWorld);
 	
@@ -265,22 +243,21 @@ void main()
 	//vec3 ro = gEyeWorldPos + PcameraSpace *  scale;
 	//vec3 ro = PcameraSpace + rayOriginWorld * gEyeWorldPos;
 
-	vec3 ro = gEyeWorldPos; 
+	vec3 ro = gEyeWorldPos;
+	//vec3 ro = gEyeWorldPos + vec3(0, 0, -0.1); 
 	//vec3 ro = rayOriginWorld + vec3(PixelCamera.x * scale * aspectRatio , PixelCamera.y * scale, scale); 
 	//vec3 ro = rayOrigin + vec3(PixelCamera.x , PixelCamera.y , 0.1); 
 	//vec3 ro = rayOriginWorld; 
 	
 	
 	//vec3 pre_RD = PcameraSpace + right * PixelCamera.x * scale * aspectRatio + up * PixelCamera.y * scale;
-	vec3 pre_RD =  PcameraSpace;
+	vec3 pre_RD =  PcameraSpace;// + vec3(0, 0, -0.1); 
 
 	//transpose(inverse(mat3(gView)));
 	
-	//vec3 rd = normalize( (gView * vec4(pre_RD,0)).xyz  );
-
 	//this sorta works dont delete and forget you dumb fucker
 	vec3 rd = normalize( (CamToWorld * vec4(pre_RD,0)).xyz  );
-
+	//vec3 rd = pre_RD;
 
 
 	//vec3 rd = normalize( (-scale * PcameraSpace) + right * PixelCamera.x * aspectRatio + up * PixelCamera.y  );
@@ -295,9 +272,6 @@ void main()
 	vec3 floorNormal = vec3(0, 1, 0);
 
 
-
-	//float eyeHitZ = -t0 *dot(normalize(EP),rd);
-	//float ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
 
 
 	float eyeHitZ = 0.0;
@@ -350,15 +324,19 @@ void main()
 
 		//p.y = p.z;
 		//eyeHitZ = -FAR *dot(rd,eyeFwd);
+		//eyeHitZ = -(FAR-0.1) *dot(worldDir,rd);
 		eyeHitZ = -FAR *dot(worldDir,rd);
 		//eyeHitZ = -FAR *dot(normalize(viewForward),rd);
 
 		ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
+		//p = ro + (rd * (FAR-0.1));
 		p = ro + (rd * FAR);
 		//p = (gProjection * vec4(p,1)).xyz;
 		//z = mapTo(t, NEAR, FAR, 1, 0);
 		//normal = vec3(0,-1,0);
+		normal = -getNormal(p);
 		//dep = distance(ro, p) * 20000;
+		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 		//ndcDepth = FAR;
 	}
 
@@ -373,10 +351,24 @@ void main()
 
 	//float zSqrd = z * z;
 	//color = mix(skyColor, color, zSqrd * (3.0f - 2.0f * z)); // Fog
-	
+	//if(PixelScreen.y <= -10 && PixelScreen.y >= 10 )
+	if(debug == true){
+	if(PixelCamera.y >= -0.1  && PixelCamera.y <= 0.1 || PixelCamera.x >= -0.1  && PixelCamera.x <= 0.1 )
+	{
+	WorldPosOut.xyz = vec3(0,0,0);
+	WorldPosOut.xyz = vec3(PixelNDC,PixelScreen.x);
+	WorldPosOut.w = PixelScreen.y;
+	DiffuseOut = vec3(PixelCamera,0);
+	NormalOut =  vec3(Pixel,0);
+	}
+	}
+	else
+	{
 	WorldPosOut.xyz = p;
 	WorldPosOut.w = LinearDepth(dep);
-
+	DiffuseOut = color.xyz;
+	NormalOut = normal;
+	}
 	//WorldPosOut = CamToWorld[3];
 	//WorldPosOut = GviewInv[3];
 	//WorldPosOut = gView[3];
@@ -387,8 +379,10 @@ void main()
 	//DiffuseOut = applyFog(color.xyz,t);
 	//DiffuseOut = vec3(NDC.x, NDC.y,0);
 	//DiffuseOut = vec3(pixelScreenX, pixelScreenY,-1);
+
+	//DiffuseOut = color.xyz;
 	
-	DiffuseOut = color.xyz;
+	//DiffuseOut = applyFog(color.xyz,0.5);
 	//DiffuseOut = vec3(Pixel.x, Pixel.y,0);
 	//DiffuseOut = rayOriginWorld;
 	//DiffuseOut = rayOriginWorld;
@@ -400,11 +394,11 @@ void main()
 	//DiffuseOut = vec3(Pixel.x, Pixel.y,0);
 	
 	//NormalOut = CamToWorldTR[0].xzw;
-	NormalOut = normal;
+	
 	//NormalOut = w_p;
 	//NormalOut = PcameraSpace;
 	//NormalOut = vec3(uv.x, uv.y,0);
-	//NormalOut = vec3(eyeHitZ,t,dep);
+	//NormalOut = vec3(eyeHitZ,t,ndcDepth);
 	//NormalOut = vec3(PixelScreen.x, PixelScreen.y,0);
 	//NormalOut = vec3(uv.x, uv.y,0);
 	//NormalOut = vec3(PixelNDC.x, PixelNDC.y,0);

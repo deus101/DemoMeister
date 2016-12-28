@@ -248,6 +248,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			//lDir->LightMagic->SetProjectionMatrix
 			m3dCopyMatrix44(Tmp.sW, world);
 			m3dCopyMatrix44(Tmp.sWVP, swp);
+			//m3dCopyMatrix44(Tmp.sWVP, view);
 
 
 		}
@@ -519,7 +520,8 @@ void rendrer::RenderSceneCB()
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
 		id->sNode->LightMagic->SetWorldMatrix(id->sW);
-		id->sNode->LightMagic->SetViewMatrix(id->sWVP);
+		//id->sNode->LightMagic->SetViewMatrix(id->sWVP);
+		id->sNode->LightMagic->SetViewMatrix(view);
 		id->sNode->LightMagic->SetProjectionMatrix(projection);
 
 		glDisable(GL_DEPTH_TEST);
