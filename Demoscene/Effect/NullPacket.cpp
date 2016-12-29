@@ -29,8 +29,14 @@ bool NullPacket::Init()
 	}
 
 	m_WVPLocation = GetUniformLocation("gWVP");
+	m_WorldMatrixLocation = GetUniformLocation("gWorld");
+	m_ViewLocation = GetUniformLocation("gView");
+	m_ProjectionLocation = GetUniformLocation("gProjection");
 
-	if (m_WVPLocation == INVALID_UNIFORM_LOCATION) {
+	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
+		m_ViewLocation == INVALID_UNIFORM_LOCATION ||
+			m_ProjectionLocation == INVALID_UNIFORM_LOCATION ||
+			m_ProjectionLocation == INVALID_UNIFORM_LOCATION){
 		return false;
 	}
 
@@ -44,4 +50,23 @@ void NullPacket::SetWVP(const M3DMatrix44f& WVP)
 
 	//glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, (const GLfloat*)WVP);
 }
+void NullPacket::SetWorldMatrix(const M3DMatrix44f& W)
+{
+	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
 
+	glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
+}
+
+
+void  NullPacket::SetViewMatrix(const M3DMatrix44f& V)
+{
+	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
+
+	glUniformMatrix4fv(m_ViewLocation, 1, GL_FALSE, V);
+}
+void  NullPacket::SetProjectionMatrix(const M3DMatrix44f& P)
+{
+	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
+
+	glUniformMatrix4fv(m_ProjectionLocation, 1, GL_FALSE, P);
+}

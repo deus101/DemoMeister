@@ -2,7 +2,7 @@
 
 
 #include "../util.h"
-
+#include "../world.h"
 #include "gbuffer.h"
 #include "callbacks.h"
 //namespace NS_REND
@@ -12,6 +12,9 @@
 //	public:
 		//static GLFWwindow* s_pWindow = NULL;
 		//static GBuffer * mGBuffer = 0;
+		
+
+//Ugh...its not a class anymore why is this here?
 		static unsigned int pHeight;
 		static unsigned int pWidth;
 		static bool m_created;
@@ -30,6 +33,7 @@
 		static GLuint Program;
 
 		//static GBuffer* mgBuffer;
+		extern world * TheDisc;
 
 
 		//context();
@@ -40,7 +44,7 @@
 		//void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
-		bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
+		bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle, world *globe);
 
 
 		void ChangeSize(unsigned int w, unsigned int h);

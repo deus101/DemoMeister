@@ -24,9 +24,14 @@ struct s_FaceVertex
 			m_NID = 0;
 		}
 
-		unsigned int m_PID;
-		unsigned int m_UID;
-		unsigned int m_NID;
+
+		//whoops gotta be signed
+		//unsigned int m_PID;
+		//unsigned int m_UID;
+		//unsigned int m_NID;
+		int m_PID;
+		int m_UID;
+		int m_NID;
 
 		//half edge here?
 		// unsigned int m_line
@@ -70,6 +75,10 @@ struct s_Group
 
 struct MESH
 {
+	std::string file_name;
+	std::string file_mat;
+
+
 	std::deque<NS_VEC::VEC3> m_Pos;
 	std::deque<NS_VEC::VEC3> m_Norms;
 	std::deque<NS_VEC::VEC2> m_Uvs;

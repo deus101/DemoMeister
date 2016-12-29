@@ -16,7 +16,7 @@ bool DirLightPacket::Init()
 		return false;
 	}
 
-	if (!LoadShader(GL_VERTEX_SHADER, "shaders/light_pass.vs")) {
+	if (!LoadShader(GL_VERTEX_SHADER, "shaders/IdentityPacket.vert")) {
 		return false;
 	}
 
@@ -47,6 +47,7 @@ bool DirLightPacket::Init()
 
 void DirLightPacket::SetDirectionalLight(const DirectionalLight& Light)
 {
+
 	glUniform3f(m_dirLightLocation.Color, Light.Color.X, Light.Color.Y, Light.Color.Z);
 	glUniform1f(m_dirLightLocation.AmbientIntensity, Light.AmbientIntensity);
 	NS_VEC::VEC3 Direction = Light.Direction;

@@ -16,6 +16,10 @@
 #include "../Timer.h"
 
 
+//yes I know I need a proper system for passes. 
+#include "../Effect/aoPacket.h"
+#include "../Effect/RayMarcher.h"
+
 
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
 //men er konteinere I namespaces en god ide? 
@@ -44,6 +48,7 @@ namespace NS_ENG
 
 		M3DMatrix44f sTransform;
 		M3DMatrix44f sWVP;
+		
 	};
 
 	
@@ -53,7 +58,7 @@ namespace NS_ENG
 		NS_SG::pointLightNode *sNode;
 		PointLight sPL;
 		M3DMatrix44f sWVP;
-
+		M3DMatrix44f sW;
 
 
 	};
@@ -63,6 +68,8 @@ namespace NS_ENG
 		NS_SG::dirLightNode *sNode;
 		DirectionalLight sDL;
 		M3DMatrix44f sWVP;
+		M3DMatrix44f sW;
+		
 	};
 
 class rendrer : public ICallbacks
@@ -71,15 +78,17 @@ public:
 	Timer Ctan;
 	double currentCtan;
 
+	// should scene/composite hold the pass packets?
+	//                                should this just be name?																																																								
+	//rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::RayMarcher * _GeoRayMarch, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass), mgBuffer(_GBuffer)
 
-	//                                should this just be name?  
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_EFF::RayMarcher * _GeoRayMarch,  NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass)
 	{
 
 		unsigned int w = GetPixelWidth();
 		unsigned int h = GetPixelHeight();
-		mgBuffer = new GBuffer();
-		mgBuffer->Init(w, h);
+		//mgBuffer = new GBuffer();
+		//mgBuffer->Init(w, h);
 
 		M3DMatrix44f inverseView, viewT;
 		m3dLoadIdentity44(view);
@@ -162,10 +171,23 @@ private:
 	NS_SG::camera *kamera;
 	//NS_REND::context *mContext;
 
+	//soo...sooo ashamed...
 	NS_ENG::model *sphere_light;
 	NS_ENG::model *sphere_null;
 	NS_ENG::model *quad;
-	GBuffer *mgBuffer;
+
+	//need better system for this
+	NS_EFF::aoPacket *AoPass;
+	NS_EFF::RayMarcher *GeoRayMarch;
+	//Question is what should I do with the packets that does not require a node
+	//I could just create a sorta render component node
+	//another idea might be to give room the buffer class for these and give them the buffer an sorta special method.
+	//GBuffer *mgBuffer;
+	//std::list< base_buffer> Passes;
+	//Pretty sure I want something like this, Since I'm juggling with various rendertargets I need to 
+	//Fit in getter and setters for the them not to mention a good log output, maybe I should make base_buffer into a composite class.
+
+
 
 	std::list< struct RendrerItem> Visible;
 	typedef std::list< struct RendrerItem>::iterator vIT;
@@ -207,9 +229,10 @@ private:
 
 
 public:
-	M3DMatrix44f view, projection;
-
-
+	M3DMatrix44f view,InvViewRT, projection;
+	NS_VEC::VEC3 EyeWorldPos;
+	GLfloat FOV;
+	
 };
 }
 #endif

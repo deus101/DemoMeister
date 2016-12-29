@@ -16,6 +16,7 @@ public:
 	
 	//virtual void MouseCB(GLFWmousebuttonfun Button, int State, int x, int y) {};
 
+	//kunne kjørt pass klasse metodene her
 
 	//virtual int SyncedRow()
 };

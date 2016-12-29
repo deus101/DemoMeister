@@ -11,8 +11,8 @@ static bool sDepth = false;
 static bool sStencil = false;
 static GLFWwindow* s_pWindow = NULL;
 //Buffer = NULL;
-
-
+//TheDisc = NULL;
+world *TheDisc = NULL;
 extern void Sync();
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
@@ -35,6 +35,8 @@ extern void Sync();
 //
 //
 //}
+
+
 static void RenderSceneCB()
 {
 	s_pCallbacks->RenderSceneCB();
@@ -44,7 +46,7 @@ static void RenderSceneCB()
 static void IdleCB()
 {
 	s_pCallbacks->RenderSceneCB();
-
+	
 }
 
 
@@ -82,7 +84,7 @@ void GLFWBackendTerminate()
 }
 
 
-bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle)
+bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle, world * globe)
 {
 
 
@@ -96,7 +98,6 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 
 	if (glfwInit() != 1) {
-		//ENG_ERROR("Error initializing GLFW");
 		exit(1);
 	}
 
@@ -121,15 +122,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	GLFWmonitor* pMonitor = fs ? glfwGetPrimaryMonitor() : NULL;
 	
 	glfwWindowHint(GLFW_REFRESH_RATE, 60);
-	/*
-	GLFWmonitor* pm = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(pm);
 
-	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-	*/
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
@@ -146,8 +139,11 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	//}
 
 
+	
+	TheDisc = globe;
 
-
+	TheDisc->ResolutionX = pWidth;
+	TheDisc->ResolutionY = pHeight;
 	//mgBuffer = new GBuffer();
 	//mgBuffer->Init(pWidth, pHeight, s_pWindow);
 	//mGBuffer->Init(500, 500);
@@ -179,13 +175,17 @@ void ChangeSize(unsigned int w, unsigned int h)
 
 	ResizeBuffer = true;
 
+
+
 	//context::mGBuffer->Init(w, h);
+
+
+
 }
 //mulig en callback classe her med en app classe
 void ContextRun(ICallbacks* pCallbacks)
 {
 	if (!pCallbacks) {
-		//ENG_ERROR("callbacks not specified");
 		exit(1);
 	}
 
@@ -201,7 +201,6 @@ void ContextRun(ICallbacks* pCallbacks)
 	s_pCallbacks = pCallbacks;
 	InitCallbacks();
 
-	//kansje denne burde være I main eller World.
 	while (!glfwWindowShouldClose(s_pWindow)) {
 
 

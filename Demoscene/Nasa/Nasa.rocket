@@ -1,0 +1,69 @@
+<sync rows="128">
+	<tracks>
+		<track name="Lpos.x">
+			<key row="0" interpolation="0" value="2"/>
+		</track>
+		<track name="Lpos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Lpos.z">
+			<key row="0" interpolation="0" value="-2"/>
+		</track>
+		<track name="Ppos.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Ppos.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Ppos.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Prot.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Prot.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Prot.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Psca.x">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Psca.y">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Psca.z">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Utility">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.Rot.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.Rot.y">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.Rot.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.x">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.y">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="cam.z">
+			<key row="0" interpolation="1" value="5"/>
+			<key row="127" interpolation="0" value="-5"/>
+		</track>
+		<track name="gridFunc">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="part">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+	</tracks>
+	<bookmarks/>
+</sync>

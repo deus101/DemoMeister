@@ -1,6 +1,7 @@
 #include "renderPacket.h"
 
-#include "../util.h"
+
+//#include "../util.h"
 #include "../Engine/asset.h"
 
 //using namespace NS_ENG;

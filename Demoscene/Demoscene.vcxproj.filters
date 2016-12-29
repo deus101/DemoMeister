@@ -39,9 +39,6 @@
     <ClCompile Include="Math\math3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rendrer\buffers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Rendrer\context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +93,24 @@
     <ClCompile Include="Effect\ConeLightPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ProjectedGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\aoPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendrer\base_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendrer\aobuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\RayMarcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -147,9 +162,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math\math3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendrer\buffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendrer\context.h">
@@ -224,6 +236,36 @@
     <ClInclude Include="Effect\ConeLightPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ProjectedGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\OceanPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\oceanNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\aoPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\aoBlurPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendrer\base_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendrer\aobuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\RayMarcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Worlds\MasterWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">
@@ -274,6 +316,12 @@
     <None Include="Mesh\PentagonBase.blend" />
     <None Include="Mesh\PentagonBase.mtl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
+    <None Include="Scene.rocket" />
+    <None Include="Mesh\LazyGreets.mtl" />
+    <None Include="Shaders\ao_Pass_Frag.glsl" />
+    <None Include="Shaders\IdentityPacket.vert" />
+    <None Include="Shaders\RayMarcher_Frag.glsl" />
+    <None Include="Shaders\RayMarcher_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -381,6 +429,8 @@
     <Media Include="bf.mp3">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="AF.mp3" />
+    <Media Include="Mesh\LazyGreets.obj" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\p38.obj.bac.txt">
