@@ -34,7 +34,10 @@ struct SpotLight
     float Cutoff;
 };
 
+//here I will add glsl code automatically
+
 uniform sampler2D gPositionMap;
+//So this will be the MatId
 uniform sampler2D gColorMap;
 uniform sampler2D gNormalMap;
 uniform sampler2D gAoPass;

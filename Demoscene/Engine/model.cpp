@@ -14,6 +14,7 @@ using namespace NS_MESH;
 
 //std::list <model*> classModelList;
 std::list <model*> model::classModelList = std::list <model*>();
+
 model::model() 
 {
 
@@ -86,7 +87,6 @@ model::model(string obj, string mtl) : asset()
 					Sort_Uvs.push_back(meshy.m_Uvs[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_UID]);
 					Sort_Norms.push_back(meshy.m_Norms[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_NID]);
 
-					//unsigned short newindex = (unsigned short)Sort_Pos.size() - 1;
 
 					unsigned int newindex = (unsigned int)Sort_Pos.size() - 1;
 					MG.IBO.push_back(newindex);
@@ -118,7 +118,8 @@ model::model(string obj, string mtl) : asset()
 				//meshy.m_Groups[u].matid = j;
 				meshy.m_Groups[u].matid = MatIter.matID;
 				//MG.
-			break;
+				MG.tex = MatIter.tUnit;
+				break;
 			}
 
 		}
@@ -149,8 +150,8 @@ model::model(string obj, string mtl) : asset()
 	//gl::UseProgram(aContext.Program);
 	//KA FAEN TENKTE JEG PÅ!
 
-	cout << "NR groups: " << Sort_Groups.size() << endl;
-	cout << "VBOs   vertex: " << Sort_Pos.size() << " Norms: " << Sort_Norms.size() << " UVs: " << Sort_Uvs.size() << endl;
+	//cout << "NR groups: " << Sort_Groups.size() << endl;
+	//cout << "VBOs   vertex: " << Sort_Pos.size() << " Norms: " << Sort_Norms.size() << " UVs: " << Sort_Uvs.size() << endl;
 
 	glGenBuffers(1, &vbo_vertices);
 
@@ -171,11 +172,11 @@ model::model(string obj, string mtl) : asset()
 
 	for (unsigned int j = 0; j < Sort_Groups.size(); j++)
 	{
-		cout << "NR of indice for: " << j << " is " << Sort_Groups[j].IBO.size() << endl;
+		//cout << "NR of indice for: " << j << " is " << Sort_Groups[j].IBO.size() << endl;
 		glGenVertexArrays(1, &Sort_Groups[j].vao);
 		glBindVertexArray(Sort_Groups[j].vao);
 
-		cout << "vao ident: " << Sort_Groups[j].vao << endl;
+		//cout << "vao ident: " << Sort_Groups[j].vao << endl;
 		glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -194,7 +195,7 @@ model::model(string obj, string mtl) : asset()
 
 
 
-
+		//wait what? 
 		glGenBuffers(1, &Sort_Groups[j].vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned int), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
@@ -214,7 +215,7 @@ model::model(string obj, string mtl) : asset()
 
 
 
-	cout << "loading done" << endl;
+	//cout << "loading done" << endl;
 	
 	//this->BufferLog();
 
@@ -223,7 +224,7 @@ model::model(string obj, string mtl) : asset()
 	iter = NS_ENG::model::classModelList.begin();
 
 
-	cout << "\n Number of models: " << NS_ENG::model::classModelList.size() << endl;
+	//cout << "\n Number of models: " << NS_ENG::model::classModelList.size() << endl;
 
 
 }
@@ -287,6 +288,7 @@ void model::Draw()
 		if (Sort_Groups[i].tex != NULL)
 		{
 			glActiveTexture(COLOR_TEXTURE_UNIT);
+			//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 		}
 		else

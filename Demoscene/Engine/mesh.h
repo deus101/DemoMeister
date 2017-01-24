@@ -7,7 +7,7 @@
 #include <string.h>
 #include "../Math/vec.h"
 
-
+//should I consider giving this a static container?
 namespace NS_MESH
 {
 	//APPAPPAPAPAA 
@@ -77,7 +77,7 @@ struct MESH
 {
 	std::string file_name;
 	std::string file_mat;
-
+	
 
 	std::deque<NS_VEC::VEC3> m_Pos;
 	std::deque<NS_VEC::VEC3> m_Norms;

@@ -68,8 +68,8 @@ namespace NS_MESH
 				fscanf (objFile, "%s \n", &nam);
 				fscanf (objFile, "%s", &mat);
 				fscanf (objFile, "%s", &mat);
+				
 				temp.mat = mat;
-
 				
 				temp.group_name = nam;
 

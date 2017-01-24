@@ -38,6 +38,9 @@ GLfloat emmi[4];
 GLfloat shiny;
 //not unit.. name...right?
 GLint tUnit;
+//basically to identify the texture
+std::string tPath;
+
 GLint matID;
 
 };

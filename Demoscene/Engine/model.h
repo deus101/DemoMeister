@@ -32,7 +32,9 @@ namespace NS_ENG{
 			IBO.clear();
 		}
 		GLuint vao;
+		//I should have called this IBO
 		GLuint vbo;
+		//And This IBO_Data
 		std::vector<unsigned int> IBO;
 		//std::vector<unsigned short> IBO;
 
@@ -62,6 +64,7 @@ namespace NS_ENG{
 	class model : public asset
 	{
 	private:
+		//Rename to model Iter
 		std::list <model*>::iterator iter;
 	public:
 		static std::list <model*> classModelList;
@@ -76,7 +79,9 @@ namespace NS_ENG{
 		std::vector<buffer_Group> Sort_Groups;
 
 
-		GLuint vao_model;
+		//GLuint vao_model;
+		
+		
 		GLuint vbo_vertices;
 		GLuint vbo_normals;
 		GLuint vbo_uv;
