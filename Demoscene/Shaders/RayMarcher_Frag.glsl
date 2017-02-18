@@ -18,7 +18,7 @@ uniform vec2 gScreenSize;
 uniform vec3 gEyeWorldPos;
 
 //const bool debug = true; 
-const bool debug = false; 
+//const bool debug = false; 
 
 const float focalLenght = 1.67f; 
 //const float focalLenght = 0.67f; 
@@ -303,6 +303,9 @@ void main()
 		color = chessBoard(p);
 
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
+	
+	gl_FragDepth = dep;
+	dep = LinearDepth(dep);
 	}
 	else if(i < raySteps && t0 >= NEAR  && t0 <= FAR) 
 	{
@@ -317,26 +320,37 @@ void main()
 		normal = getNormal(p);
 
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
+	
+	gl_FragDepth = dep;
+	dep = LinearDepth(dep);
 	}
 	else
 	{
-		color = skyColor;
+		//color = skyColor;
 
 		//p.y = p.z;
 		//eyeHitZ = -FAR *dot(rd,eyeFwd);
 		//eyeHitZ = -(FAR-0.1) *dot(worldDir,rd);
-		eyeHitZ = -FAR *dot(worldDir,rd);
+		//eyeHitZ = -FAR *dot(worldDir,rd);
 		//eyeHitZ = -FAR *dot(normalize(viewForward),rd);
 
-		ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
+		//dep = ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
 		//p = ro + (rd * (FAR-0.1));
-		p = ro + (rd * FAR);
+		//p = min(ro + (rd * FAR),FAR);
+		
+		
+		//p = vec3(FAR,FAR,eyeHitZ);
 		//p = (gProjection * vec4(p,1)).xyz;
 		//z = mapTo(t, NEAR, FAR, 1, 0);
 		//normal = vec3(0,-1,0);
-		normal = -getNormal(p);
+		//normal = -getNormal(p);
+		//normal = -rd;
 		//dep = distance(ro, p) * 20000;
-		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
+		
+		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
+		
+		//dep = FAR;
+		gl_FragDepth = FAR;
 		//ndcDepth = FAR;
 	}
 
@@ -345,76 +359,15 @@ void main()
 
 	//gl_FragDepth = ndcDepth;
 	//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
-	gl_FragDepth = dep;
+	//gl_FragDepth = dep;
 	
 
 
-	//float zSqrd = z * z;
-	//color = mix(skyColor, color, zSqrd * (3.0f - 2.0f * z)); // Fog
-	//if(PixelScreen.y <= -10 && PixelScreen.y >= 10 )
-	if(debug == true){
-	if(PixelCamera.y >= -0.1  && PixelCamera.y <= 0.1 || PixelCamera.x >= -0.1  && PixelCamera.x <= 0.1 )
-	{
-	WorldPosOut.xyz = vec3(0,0,0);
-	WorldPosOut.xyz = vec3(PixelNDC,PixelScreen.x);
-	WorldPosOut.w = PixelScreen.y;
-	DiffuseOut = vec3(PixelCamera,0);
-	NormalOut =  vec3(Pixel,0);
-	}
-	}
-	else
-	{
 	WorldPosOut.xyz = p;
-	WorldPosOut.w = LinearDepth(dep);
+	//WorldPosOut.w = LinearDepth(dep);
+	WorldPosOut.w = dep;
 	DiffuseOut = color.xyz;
 	NormalOut = normal;
-	}
-	//WorldPosOut = CamToWorld[3];
-	//WorldPosOut = GviewInv[3];
-	//WorldPosOut = gView[3];
+	
 
-	//WorldPosOut.w = scale;
-	//WorldPosOut.w = projected.z;
-	
-	//DiffuseOut = applyFog(color.xyz,t);
-	//DiffuseOut = vec3(NDC.x, NDC.y,0);
-	//DiffuseOut = vec3(pixelScreenX, pixelScreenY,-1);
-
-	//DiffuseOut = color.xyz;
-	
-	//DiffuseOut = applyFog(color.xyz,0.5);
-	//DiffuseOut = vec3(Pixel.x, Pixel.y,0);
-	//DiffuseOut = rayOriginWorld;
-	//DiffuseOut = rayOriginWorld;
-	//DiffuseOut = rayPWorld;
-	//DiffuseOut = RayDir;
-	//DiffuseOut = worldDir;
-	//DiffuseOut = vec3(PixelNDC.x, PixelNDC.y ,0);
-	//DiffuseOut = vec3(NDC.x, NDC.y,uv.x);
-	//DiffuseOut = vec3(Pixel.x, Pixel.y,0);
-	
-	//NormalOut = CamToWorldTR[0].xzw;
-	
-	//NormalOut = w_p;
-	//NormalOut = PcameraSpace;
-	//NormalOut = vec3(uv.x, uv.y,0);
-	//NormalOut = vec3(eyeHitZ,t,ndcDepth);
-	//NormalOut = vec3(PixelScreen.x, PixelScreen.y,0);
-	//NormalOut = vec3(uv.x, uv.y,0);
-	//NormalOut = vec3(PixelNDC.x, PixelNDC.y,0);
-	//NormalOut = vec3(PixelScreen.x, PixelScreen.y,0);
-	//NormalOut = vec3(aspectRatio, scale,0);
-	//NormalOut = (gView*vec4(rayOrigin,1)).xyz;
-	//NormalOut = normalize((gView*vec4(rayOrigin,1)).xyz + (gView*vec4(vec3(Px, Py, -1.0), 0.0)).xyz);
-	//NormalOut = vec3(gl_FragCoord.xy,0);
-	//NormalOut = vec3(PcameraSpace.xy,0);
-	//NormalOut = PcameraSpace.xyz;
-	//NormalOut = rayOriginWorld;
-	//NormalOut = worldDir;
-	//NormalOut = rayPWorld;
-	//NormalOut.y = dot(rd,eyeFwd);
-	//NormalOut.z = eyeHitZ;
-	//NormalOut = rd;
-	//NormalOut = ro;
-	//NormalOut = pre_RD;
 }

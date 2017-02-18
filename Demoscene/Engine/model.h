@@ -30,6 +30,7 @@ namespace NS_ENG{
 		buffer_Group()
 		{
 			IBO.clear();
+			tex = NULL;
 		}
 		GLuint vao;
 		//I should have called this IBO
@@ -46,7 +47,8 @@ namespace NS_ENG{
 		NS_VEC::VEC3 spec;
 		NS_VEC::VEC3 emi;
 		NS_VEC::VEC3 shiny;
-		GLuint tex;
+		//GLuint tex;
+		GLint tex;
 	};
 
 	struct PackedVertex{

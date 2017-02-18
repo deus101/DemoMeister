@@ -75,6 +75,7 @@ public:
 	GLfloat Mat_Shiny;
 	//not unit.. name...right?
 	//needs more then just a texture name
+	
 	GLint Mat_TUnit;
 	GLint Mat_MatID;
 

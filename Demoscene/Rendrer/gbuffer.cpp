@@ -215,7 +215,7 @@ void GBuffer::BindForLightPass()
 
 }
 
-
+//could not this be in the render procedure
 void GBuffer::BindForFinalPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);

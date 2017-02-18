@@ -105,9 +105,9 @@ model::model(string obj, string mtl) : asset()
 		cout << "MAT: " << palette.m_Materials[j].name << " : " << j << endl;
 		meshy.m_Groups[u].matid = j;
 		*/
-
+		//Sort_Groups.push_back(MG);
 		//for (unsigned int j = 0; j < NS_ENG::Material::classMaterialList.size(); j++)
-		for (auto  MatIter : NS_ENG::Material::classMaterialList) {
+		for (auto  MatIter : NS_ENG::Material::classMaterialList) 
 		{
 			
 			//cout << "mats :" << MatIter.matID << endl;
@@ -119,6 +119,8 @@ model::model(string obj, string mtl) : asset()
 				meshy.m_Groups[u].matid = MatIter.matID;
 				//MG.
 				MG.tex = MatIter.tUnit;
+				//Sort_Groups.back().tex = MatIter.tUnit;
+
 				break;
 			}
 
@@ -229,7 +231,7 @@ model::model(string obj, string mtl) : asset()
 
 }
 
-}
+//}
 model::~model()
 {
 	//classModelList.erase(iter);
@@ -270,6 +272,8 @@ void model::Draw()
 	//MatId...I could add an extra int for the UV buffer so I dont have to fuck around with this.
 	GLint ShaderProg;
 
+
+	//this shit needs to go. 
 	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
 	VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
 	FLOAT_SPECINT_UNILOC = glGetUniformLocation(ShaderProg, "mSpecularInt");
@@ -282,7 +286,7 @@ void model::Draw()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
 	{
-
+		//This shit must be redone to use mat ID and stuff
 		glBindVertexArray(Sort_Groups[i].vao);
 		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
 		if (Sort_Groups[i].tex != NULL)

@@ -90,12 +90,11 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	sDepth = aDepth;
 	sStencil = aStencil;
-
-
+	
+	//GL_CONTEXT_COMPATIBILITY_PROFILE_BIT
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 
 	if (glfwInit() != 1) {
 		exit(1);
@@ -113,8 +112,8 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	glfwSetErrorCallback(ErrorCallback);
 
-
-
+	//context
+	//wglCreateContextAttribsARB()
 	pWidth = aWidth;
 	pHeight = aHeight;
 
@@ -126,13 +125,16 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
+	
 	glfwSetInputMode(s_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	if (!s_pWindow) {
 		exit(1);
 	}
 	glfwMakeContextCurrent(s_pWindow);
 
-
+	glewExperimental = true;
+	
+	//glew
 	int glewErr = glewInit();
 	//if (!glewErr) {
 	//		exit(1);
@@ -188,7 +190,7 @@ void ContextRun(ICallbacks* pCallbacks)
 	if (!pCallbacks) {
 		exit(1);
 	}
-
+	
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);

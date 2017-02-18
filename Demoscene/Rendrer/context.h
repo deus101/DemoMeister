@@ -5,6 +5,10 @@
 #include "../world.h"
 #include "gbuffer.h"
 #include "callbacks.h"
+#include <GL\glew.h>
+#include <GL\wglew.h>
+
+
 //namespace NS_REND
 //{
 //	class context
