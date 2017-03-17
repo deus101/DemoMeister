@@ -10,26 +10,43 @@
 
 namespace NS_ENG
 {
-	class map : public asset
+	class MapAsset : public asset
 	{
 	private:
-		std::list <map*>::iterator MapIter;
+		list <MapAsset*>::iterator MapIter;
 	public:
-		static std::list <map*> classMapList;
+		static list <MapAsset*> classMapList;
 
-	//actually the proper place
-	GLint Mat_TUnit;
 
-	//Location to map
-	string Mat_Path;
+		MapAsset();
+		static GLint LoadMaps(const char *param);
 
+		static MapAsset* RetriveMap(GLint);
+		//~map();
+		//static void LoadMaps(const char *param);
+
+
+		void Draw();
+
+		GLint Map_MapID;
+		//char path[80];
+		//actually the proper place
+		GLint Map_TUnit;
+
+		//Location to map
+		string Map_Path;
+		
+		FREE_IMAGE_FORMAT format;
+		FIBITMAP* bmp_Map;
+
+	//GL_NEAREST or point filtering.
 	//Something something 
 	//NS_VEC::VEC2 
 
 	//There should be more arguments depending on what kind of map it is
-	//for now keep it simple...also should Load* ve a virtual function toed to  asset?
-	//I could use draw for that matter...AAAH BETTER GPUIFY!
-	void LoadMaps(const char *param);
+		//for now keep it simple...also should Load* ve a virtual function toed to  asset?
+		//I could use draw for that matter...AAAH BETTER GPUIFY!
+		//static void LoadMaps(const char *param);
 	};
 
 }

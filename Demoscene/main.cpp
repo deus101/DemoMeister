@@ -123,6 +123,7 @@ static void bass_set_row(void *d, int row)
 	HSTREAM h = *((HSTREAM *)d);
 	QWORD pos = BASS_ChannelSeconds2Bytes(h, row / row_rate);
 	BASS_ChannelSetPosition(h, pos, BASS_POS_BYTE);
+	
 }
 
 static int bass_is_playing(void *d)

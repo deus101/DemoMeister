@@ -30,6 +30,8 @@ namespace NS_MESH
 		bool b_hasUvs = false;
 		bool b_hasNorm = false;
 
+		
+
 		while( fscanf (objFile, "%s", id) > 0)
 		{
 			if(strcmp (id, "v") == 0)

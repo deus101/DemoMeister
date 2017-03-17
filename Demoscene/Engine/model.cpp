@@ -1,5 +1,6 @@
 #include "model.h"
-
+//#include "materials.h"
+#include "map.h"
 #include <iostream>
 //#include "vsGLInfoLib.h"
 
@@ -22,8 +23,8 @@ model::model()
 
 
 
-//ok its time to remove the material loading from this class 30.10.2016
-model::model(string obj, string mtl) : asset()
+//Anything with the static container should not have something todo in a constructor
+model::model(string obj, string mtl, bool UV = true, bool Tangent = true) : asset()
 {
 
 	//actually all this is just a test, I have really no reason to do this for this class, finding duplicates is something
@@ -118,7 +119,10 @@ model::model(string obj, string mtl) : asset()
 				//meshy.m_Groups[u].matid = j;
 				meshy.m_Groups[u].matid = MatIter.matID;
 				//MG.
-				MG.tex = MatIter.tUnit;
+				//map
+				MapAsset *TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+				if(TmpMap != NULL)
+				MG.tex = MapAsset::RetriveMap(MatIter.id_Map)->Map_TUnit;
 				//Sort_Groups.back().tex = MatIter.tUnit;
 
 				break;
@@ -142,12 +146,15 @@ model::model(string obj, string mtl) : asset()
 		//MG.dif = NS_VEC::VEC3(palette.m_Materials[meshy.m_Groups[u].matid].diff[0], palette.m_Materials[meshy.m_Groups[u].matid].diff[1], palette.m_Materials[meshy.m_Groups[u].matid].diff[2]);
 		//if im going to use attributepointers for diffcolor, specular intensity and specular power create  it here
 
+
+		MG.ModelAidChild = meshy.m_Groups[u].Child;
+
 		Sort_Groups.push_back(MG);
 
 
 	}
 
-	
+	ModelAidRoot = meshy.Child;
 	//Husk å generer programmet før dette
 	//gl::UseProgram(aContext.Program);
 	//KA FAEN TENKTE JEG PÅ!
@@ -202,6 +209,32 @@ model::model(string obj, string mtl) : asset()
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned int), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
 		
+
+		
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
+
+		for (unsigned int i = 0; i < 4; i++) {
+			glEnableVertexAttribArray(3 + i);
+			glVertexAttribPointer(3 + i, 4, GL_FLOAT, GL_FALSE, sizeof(s_ModelAid),
+				(const GLvoid*)(sizeof(GLfloat) * i * 4));
+			glVertexAttribDivisor(3 + i, 1);
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_ChildTool);
+
+		for (unsigned int i = 0; i < 4; i++) {
+			glEnableVertexAttribArray(4 + i);
+			glVertexAttribPointer(4 + i, 4, GL_FLOAT, GL_FALSE, sizeof(s_ModelAid),
+				(const GLvoid*)(sizeof(GLfloat) * i * 4));
+			glVertexAttribDivisor(4 + i, 1);
+		}
+		
+
+
+
+
+
+
 	}
 
 
@@ -241,51 +274,32 @@ model::~model()
 
 void model::Draw()
 {
-	////gl::BindVertexArray(vao_model);
-	////Sett opp egne programmer
-	////gl::UseProgram(m_shaderProg);
-	//GLint ModelLoc = gl::GetUniformLocation(m_shaderProg, "M");
-	//if (ModelLoc != -1)
-	//{
-	//	//cout << "In Model found uniform for Model Matrix" << endl;
-	//	//gl::UniformMatrix4fv(ModelLoc, 1, gl::FALSE_, this->Model);
-	//	//"this" i rendrenren henter model matrisen
-	//}
 
-	//GLint DifLoc = gl::GetUniformLocation(m_shaderProg, "Diffuse");
-	//GLint AmbLoc = gl::GetUniformLocation(m_shaderProg, "Ambiant");
-	//GLint SpecLoc = gl::GetUniformLocation(m_shaderProg, "Specular");
-	//GLint ShiLoc = gl::GetUniformLocation(m_shaderProg, "Shininess");
-	
-	//GLint DiffLoc = glGetUniformLocation(m_shaderProg, "mDiffuseCol");
-	//if (ModelLoc != -1)
-	//{
-	//	//cout << "In Model found uniform for Model Matrix" << endl;
-	//	//gl::UniformMatrix4fv(AmbLoc, 1, gl::TRUE_, this->  );
-	//	//"this" i rendrenren henter model matrisen
-	//}
-
-	//if(VEC3_DIFF_UNILOC == NULL || FLOAT_SPECINT_UNILOC == NULL || FLOAT_SPECPOW_UNILOC == NULL)
-	//{
-
-
-	//MatId...I could add an extra int for the UV buffer so I dont have to fuck around with this.
 	GLint ShaderProg;
 
+	//GLuint vbo_BaseTool;
+	//GLuint vbo_ChildTool;
 
 	//this shit needs to go. 
 	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
-	VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
-	FLOAT_SPECINT_UNILOC = glGetUniformLocation(ShaderProg, "mSpecularInt");
-	FLOAT_SPECPOW_UNILOC = glGetUniformLocation(ShaderProg, "mSpecularPow");
+	GLint VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
+	
+	//remember to move to overloaded method
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &ModelAidRoot, GL_DYNAMIC_DRAW);
 
 
-	//}
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
 	{
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_ChildTool);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &Sort_Groups[i].ModelAidChild, GL_DYNAMIC_DRAW);
+
+
+
 		//This shit must be redone to use mat ID and stuff
 		glBindVertexArray(Sort_Groups[i].vao);
 		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
@@ -312,13 +326,26 @@ void model::Draw()
 		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
 
 
+
+
+
+
+
+
+
+
 	}
 	glBindVertexArray(0);
 
 }
 
 
+void model::Draw(int instances)
+{
 
+
+
+}
 
 
 void model::BufferLog()

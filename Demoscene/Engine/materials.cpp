@@ -1,5 +1,6 @@
 #include "materials.h"
-#include "../Libs/FreeImage.h"
+#include "map.h"
+//#include "../Libs/FreeImage.h"
 
 
 #include <algorithm>
@@ -109,7 +110,7 @@ void Material::LoadMats( const char *param)
 
 			fscanf(mtlFile, "%79s", path);
 			string tmp_Path(path);
-
+			/*
 			for (auto MatIter : NS_ENG::Material::classMaterialList) 	
 			{
 
@@ -135,6 +136,8 @@ void Material::LoadMats( const char *param)
 			
 			if (!duplicate)
 			{
+
+
 			FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(path, 0);
 			FIBITMAP* imagen = FreeImage_Load(formato, path);
 
@@ -157,6 +160,7 @@ void Material::LoadMats( const char *param)
 				textura[j * 4 + 3] = pixeles[j * 4 + 3];
 			}
 
+			
 			glGenTextures(1, &tmp_TName);
 			glBindTexture(GL_TEXTURE_2D, tmp_TName);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)textura);
@@ -172,6 +176,11 @@ void Material::LoadMats( const char *param)
 			NS_ENG::Material::classMaterialList.back().tUnit = tmp_TName;
 			NS_ENG::Material::classMaterialList.back().tPath = tmp_Path;
 			}
+			*/
+
+
+			NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(path);
+
 		}
 
 	}

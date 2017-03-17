@@ -157,7 +157,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;SYNC_PLAYER;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glfw-3.1.2.bin.WIN32\include;C:\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <UseFullPaths>true</UseFullPaths>
@@ -168,7 +168,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\Libs;C:\glfw-3.1.2.bin.WIN32\lib-vc2015;C:\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocket-playerd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <LinkStatus>true</LinkStatus>
@@ -273,7 +273,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glfw-3.1.2.bin.WIN32\include;C:\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
@@ -289,7 +289,7 @@
       </EnableCOMDATFolding>
       <OptimizeReferences>
       </OptimizeReferences>
-      <AdditionalLibraryDirectories>.\Libs;C:\glfw-3.1.2.bin.WIN32\lib-vc2015;C:\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>legacy_stdio_definitions.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <LinkStatus>true</LinkStatus>

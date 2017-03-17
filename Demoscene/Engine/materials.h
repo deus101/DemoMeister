@@ -28,7 +28,7 @@ struct s_mat
 	{
 		name = "           ";
 			shiny = 0.0f;
-			tUnit = NULL;
+			id_Map = NULL;
 	}
 std::string name;
 GLfloat amb[4];
@@ -37,7 +37,8 @@ GLfloat spec[4];
 GLfloat emmi[4];
 GLfloat shiny;
 //not unit.. name...right?
-GLint tUnit;
+//GLint tUnit;
+GLint id_Map;
 //basically to identify the texture
 std::string tPath;
 

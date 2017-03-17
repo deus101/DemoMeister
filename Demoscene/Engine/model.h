@@ -38,7 +38,7 @@ namespace NS_ENG{
 		//And This IBO_Data
 		std::vector<unsigned int> IBO;
 		//std::vector<unsigned short> IBO;
-
+		s_ModelAid ModelAidChild;
 
 		//been to long...
 		//VEC3 amb;
@@ -74,13 +74,13 @@ namespace NS_ENG{
 		std::vector<NS_VEC::VEC3> Sort_Pos;
 		std::vector<NS_VEC::VEC3> Sort_Norms;
 		std::vector<NS_VEC::VEC2> Sort_Uvs;
-
+		std::vector<NS_VEC::VEC3> Sort_Tang;
 
 
 
 		std::vector<buffer_Group> Sort_Groups;
 
-
+		s_ModelAid ModelAidRoot;
 		//GLuint vao_model;
 		
 		
@@ -88,26 +88,28 @@ namespace NS_ENG{
 		GLuint vbo_normals;
 		GLuint vbo_uv;
 
+		GLuint vbo_BaseTool;
+		GLuint vbo_ChildTool;
+
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
 		//might need later 
 		//model(model const &from)
-		model( std::string obj, std::string mtl);
+		model( std::string obj, std::string mtl, bool UV = true, bool Tangent = true);
 		~model();
 		
-		//not sure
+
 		/*
 		model &operator=(model const &src) {
 			return *this;
-		}
+		
 		*/
-		//AAA fuck it! but not for long
-		GLuint VEC3_DIFF_UNILOC, FLOAT_SPECINT_UNILOC, FLOAT_SPECPOW_UNILOC;
+
 
 
 		void Draw();
-
+		void Draw(int instances);
 	public:
 
 
