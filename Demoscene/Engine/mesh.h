@@ -74,15 +74,21 @@ struct s_Face
 		MatObjChildTech[3] = 0;
 	}*/
 
-typedef struct s_ModelAid
+struct s_ModelAid
 {
 
-
-	M3DVector4f v4_BB;
-	NS_VEC::QUAT Orientation;
+	s_ModelAid()
+	{
+		m3dLoadVector4(v4_BB_Min, 0.0, 0.0, 0.0, 0.0);
+		m3dLoadVector4(v4_BB_Max, 0.0, 0.0, 0.0, 0.0);
+		m3dLoadVector4(MidPointReach, 0.0, 0.0, 0.0, 0.0);
+		m3dLoadVector4(MatObjChildTech, 0.0, 0.0, 0.0, 0.0);
+	}
+	M3DVector4f v4_BB_Min;
+	M3DVector4f v4_BB_Max;
 	M3DVector4f MidPointReach;
 	M3DVector4f MatObjChildTech;
-
+	//NS_VEC::QUAT Orientation;
 	
 
 };

@@ -12,7 +12,7 @@
 			<key row="127" value="0" interpolation="0"/>
 		</track>
 		<track name="cam.y">
-			<key row="0" value="3" interpolation="1"/>
+			<key row="0" value="2" interpolation="1"/>
 			<key row="64" value="5" interpolation="1"/>
 			<key row="127" value="2" interpolation="0"/>
 		</track>

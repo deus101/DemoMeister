@@ -75,6 +75,8 @@ namespace NS_MESH
 				
 				temp.group_name = nam;
 
+				
+
 				Mesh.m_Groups.push_back( temp );
 				
 				std::cout << "Group: " << temp.group_name << endl;
@@ -135,7 +137,7 @@ namespace NS_MESH
 				}
 				if(F.m_Verts.size() >= 3)
 				{
-
+					VEC3 bb_face_min, bb_face_max;
 					//This is just a primite trying to calculate the midpoint of the triangle
 					//its irrelevant in the indexing
 					VEC3 a, b, c;
@@ -157,6 +159,82 @@ namespace NS_MESH
 					b = Mesh.m_Pos[i_relativeIndicatorPos + F.m_Verts[1].m_PID];
 					c = Mesh.m_Pos[i_relativeIndicatorPos + F.m_Verts[2].m_PID];
 					
+					//minx
+					if (a.X < b.X)
+						if (a.X < c.X)
+							bb_face_min.X = a.X;
+						else
+							bb_face_min.X = c.X;
+					else
+						if (b.X < c.X)
+							bb_face_min.X = b.X;
+						else
+							bb_face_min.X = c.X;
+
+					if (a.Y < b.Y)
+						if (a.Y < c.Y)
+							bb_face_min.Y = a.Y;
+						else
+							bb_face_min.Y = c.Y;
+					else
+						if (b.Y < c.Y)
+							bb_face_min.Y = b.Y;
+						else
+							bb_face_min.Y = c.Y;
+
+					if (a.Z < b.Z)
+						if (a.Z < c.Z)
+							bb_face_min.Z = a.Z;
+						else
+							bb_face_min.Z = c.Z;
+					else
+						if (b.Z < c.Z)
+							bb_face_min.Z = b.Z;
+						else
+							bb_face_min.Z = c.Z;
+				
+
+					//max
+					if (a.X > b.X)
+						if (a.X > c.X)
+							bb_face_max.X = a.X;
+						else
+							bb_face_max.X = c.X;
+					else
+						if (b.X > c.X)
+							bb_face_max.X = b.X;
+						else
+							bb_face_max.X = c.X;
+
+					if (a.Y > b.Y)
+						if (a.Y > c.Y)
+							bb_face_max.Y = a.Y;
+						else
+							bb_face_max.Y = c.Y;
+					else
+						if (b.Y > c.Y)
+							bb_face_max.Y = b.Y;
+						else
+							bb_face_max.Y = c.Y;
+
+					if (a.Z > b.Z)
+						if (a.Z > c.Z)
+							bb_face_max.Z = a.Z;
+						else
+							bb_face_max.Z = c.Z;
+					else
+						if (b.Z > c.Z)
+							bb_face_max.Z = b.Z;
+						else
+							bb_face_max.Z = c.Z;
+
+
+
+
+
+					//Mesh.
+
+
 					F.m_Verts[0].m_PID = F.m_Verts[0].m_PID + i_relativeIndicatorPos;
 					F.m_Verts[1].m_PID = F.m_Verts[1].m_PID + i_relativeIndicatorPos;
 					F.m_Verts[2].m_PID = F.m_Verts[2].m_PID + i_relativeIndicatorPos;
@@ -215,7 +293,11 @@ namespace NS_MESH
 
 					}
 
-
+					//Mesh.m_Groups.back().Child.v4_BB_Min
+					VEC3 tmpMin = m3dGetAllMin(Mesh.m_Groups.back().Child.v4_BB_Min, bb_face_min);
+					VEC3 tmpMax = m3dGetAllMax(Mesh.m_Groups.back().Child.v4_BB_Max, bb_face_max);
+					m3dLoadVector4(Mesh.m_Groups.back().Child.v4_BB_Min, tmpMin.X, tmpMin.Y, tmpMin.Z, 1.0f);
+					m3dLoadVector4(Mesh.m_Groups.back().Child.v4_BB_Max, tmpMax.X, tmpMax.Y, tmpMax.Z, 1.0f);
 					Mesh.m_Groups.back().m_Faces.push_back( F );
 
 			} 	

@@ -24,7 +24,7 @@ model::model()
 
 
 //Anything with the static container should not have something todo in a constructor
-model::model(string obj, string mtl, bool UV = true, bool Tangent = true) : asset()
+model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 {
 
 	//actually all this is just a test, I have really no reason to do this for this class, finding duplicates is something
@@ -124,7 +124,8 @@ model::model(string obj, string mtl, bool UV = true, bool Tangent = true) : asse
 				if(TmpMap != NULL)
 				MG.tex = MapAsset::RetriveMap(MatIter.id_Map)->Map_TUnit;
 				//Sort_Groups.back().tex = MatIter.tUnit;
-
+				meshy.m_Groups[u].Child.MatObjChildTech[0] = MatIter.matID;
+				meshy.m_Groups[u].Child.MatObjChildTech[2] = u;
 				break;
 			}
 
@@ -281,8 +282,8 @@ void model::Draw()
 	//GLuint vbo_ChildTool;
 
 	//this shit needs to go. 
-	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
-	GLint VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
+	//glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
+	//GLint VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
 	
 	//remember to move to overloaded method
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
@@ -303,6 +304,7 @@ void model::Draw()
 		//This shit must be redone to use mat ID and stuff
 		glBindVertexArray(Sort_Groups[i].vao);
 		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
+		/*
 		if (Sort_Groups[i].tex != NULL)
 		{
 			glActiveTexture(COLOR_TEXTURE_UNIT);
@@ -314,7 +316,7 @@ void model::Draw()
 			glUniform3f(VEC3_DIFF_UNILOC,   Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
 
 		}
-
+		*/
 		//Sort_Groups[i].
 		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
 		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);

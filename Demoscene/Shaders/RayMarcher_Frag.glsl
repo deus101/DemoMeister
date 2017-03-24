@@ -8,6 +8,7 @@ smooth in vec2 uv;
 layout (location = 0) out vec4 WorldPosOut;   
 layout (location = 1) out vec3 DiffuseOut;     
 layout (location = 2) out vec3 NormalOut;  
+layout (location = 3) out vec3 UvOut; 
 
 uniform mat4 gWVP;
 uniform mat4 gProjection;

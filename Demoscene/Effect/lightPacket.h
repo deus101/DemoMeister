@@ -22,8 +22,10 @@ namespace NS_EFF{
 		void SetProjectionMatrix(const M3DMatrix44f& P);
 
 		void SetPositionTextureUnit(unsigned int TextureUnit);
+		//void SetIdTextureUnit(unsigned int TextureUnit);
 		void SetColorTextureUnit(unsigned int TextureUnit);
 		void SetNormalTextureUnit(unsigned int TextureUnit);
+		void SetUvTextureUnit(unsigned int TextureUnit);
 		void SetAoTextureUnit(unsigned int TextureUnit);
 		
 		//void SetSSAOTextureUnit(unsigned int TextureUnit);
@@ -43,6 +45,8 @@ namespace NS_EFF{
 		GLuint m_posTextureUnitLocation;
 		GLuint m_normalTextureUnitLocation;
 		GLuint m_colorTextureUnitLocation;
+		GLuint m_IdTextureUnitLocation;
+		GLuint m_UvTextureUnitLocation;
 		GLuint m_AoTextureUnitLocation;
 
 		GLuint m_eyeWorldPosLocation;

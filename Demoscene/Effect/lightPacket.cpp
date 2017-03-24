@@ -22,6 +22,7 @@ bool lightPacket::Init()
 	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
 	m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 	m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
+	m_UvTextureUnitLocation = GetUniformLocation("gUvMap");
 	m_AoTextureUnitLocation = GetUniformLocation("gAoPass");
 
 	m_eyeWorldPosLocation = GetUniformLocation("gEyeWorldPos");
@@ -99,6 +100,13 @@ void lightPacket::SetColorTextureUnit(unsigned int TextureUnit)
 void lightPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
+	std::cout << "Light normal tex Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+
+}
+
+void lightPacket::SetUvTextureUnit(unsigned int TextureUnit)
+{
+	glUniform1i(m_UvTextureUnitLocation, TextureUnit);
 	std::cout << "Light normal tex Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
 
 }

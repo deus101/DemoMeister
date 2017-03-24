@@ -3,13 +3,17 @@
 in vec2 TexCoord0;                                                                  
 in vec3 Normal0;                                                                    
 in vec3 WorldPos0;                                                                  
+in vec4 ModelData;  
+flat in int InstanceID0; 
+
 
 layout (location = 0) out vec4 WorldPosOut;   
 layout (location = 1) out vec3 DiffuseOut;     
 layout (location = 2) out vec3 NormalOut;     
 layout (location = 3) out vec3 TexCoordOut;    
-										
-uniform sampler2D gColorMap;     
+							
+//uniform sampler2D gColorMap;     
+
 uniform vec3 mDiffuseCol;             
 uniform float mSpecularInt;
 uniform float mSpecularPow;  
@@ -33,17 +37,20 @@ void main()
 	WorldPosOut.w = LinearDepth(gl_FragCoord.z);
 	//WorldPosOut.w = gl_FragCoord.z;
 
-	if( textureSize( gColorMap, 0).x > 0)
-	{				
 
+	//DiffuseOut = vec3(InstanceID0 * 20.0, 0.0, 0.0);	
+	//DiffuseOut = vec3(   ModelData.x  , ModelData.z, 0.0);
+	DiffuseOut = vec3(  (ModelData.x / 255)  , 0 / 255,  (ModelData.z / 255));	
+	//if( textureSize( gColorMap, 0).x > 0)
+	//{				
 	//DiffuseOut      = vec3(TexCoord0,0);
-	DiffuseOut      = texture(gColorMap, TexCoord0).xyz;	
-
-	}
-	else
-	{
-	DiffuseOut      = mDiffuseCol;	
-	}
+	//DiffuseOut      = texture(gColorMap, TexCoord0).xyz;	
+	//}
+	//else
+	//{
+	//DiffuseOut      = mDiffuseCol;	
+	//}
+	
 	NormalOut       = normalize(Normal0);					
 	TexCoordOut     = vec3(TexCoord0, 0.0);				
 }

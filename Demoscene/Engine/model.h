@@ -38,7 +38,7 @@ namespace NS_ENG{
 		//And This IBO_Data
 		std::vector<unsigned int> IBO;
 		//std::vector<unsigned short> IBO;
-		s_ModelAid ModelAidChild;
+		NS_MESH::s_ModelAid ModelAidChild;
 
 		//been to long...
 		//VEC3 amb;
@@ -80,7 +80,7 @@ namespace NS_ENG{
 
 		std::vector<buffer_Group> Sort_Groups;
 
-		s_ModelAid ModelAidRoot;
+		NS_MESH::s_ModelAid ModelAidRoot;
 		//GLuint vao_model;
 		
 		

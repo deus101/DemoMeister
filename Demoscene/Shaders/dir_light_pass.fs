@@ -40,6 +40,7 @@ uniform sampler2D gPositionMap;
 //So this will be the MatId
 uniform sampler2D gColorMap;
 uniform sampler2D gNormalMap;
+uniform sampler2D gUvMap;
 uniform sampler2D gAoPass;
 
 uniform mat4 gProjection;
@@ -54,6 +55,15 @@ uniform float gMatSpecularIntensity = 0.3f;
 uniform float gSpecularPower = 0.5f;
 uniform int gLightType;
 uniform vec2 gScreenSize;
+
+//if we run a effect lookup first we can anticipate what paramaters we require
+void LookUpMaterial(int ID, out vec3 MatDiffuse,out vec3 MatSpecular,out float MatEmmi)
+{
+
+
+
+
+}
 
 vec4 CalcLightInternal(BaseLight Light,
 					   vec3 LightDirection,
@@ -131,8 +141,11 @@ void main()
     vec2 TexCoord = CalcTexCoord();
 	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
 	float Depth = texture(gPositionMap, TexCoord).a;
-	vec3 Color = texture(gColorMap, TexCoord).xyz;
+	//material id
+	//vec3 Color = texture(gColorMap, TexCoord).xyz;
+	int MatId = int(texture(gColorMap, TexCoord).x);
     vec3 Normal = texture(gNormalMap, TexCoord).xyz;
+	vec2 Uv = texture(gNormalMap, TexCoord).xy;
 	//vec2 texelSize =  vec2(textureSize(gAoPass, 0));
 	float AmbientOcculsion = texture(gAoPass, TexCoord ).r;
 
@@ -143,6 +156,6 @@ void main()
 	Normal = normalize(viewNormal * Normal);
 
 
-	FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
-
+	//FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
+	FragColor = CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
 }

@@ -88,8 +88,28 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , GL_TEXTURE_2D, m_textures[0], 0);
 	//End of PosDepth
 
+	//GBUFFER_TEXTURE_TYPE_DIFFUSE Should be TYPE_ID
 
-	for (unsigned int i = 1; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
+	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_DIFFUSE]);
+	//GL_RGB8UI                           GL_UNSIGNED_INT
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WindowWidth, WindowHeight, 0, GL_RGBA, GL_FLOAT, NULL);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, GL_TEXTURE_2D, m_textures[0], 0);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_DIFFUSE], 0);
+
+
+
+
+	//loop the rest from 2
+	for (unsigned int i = 2; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 		glBindTexture(GL_TEXTURE_2D, m_textures[i]);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
 
@@ -137,7 +157,8 @@ void GBuffer::StartFrame()
 	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
     
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-	glDrawBuffer(GL_COLOR_ATTACHMENT4);
+	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
+	glDrawBuffer(GL_COLOR_ATTACHMENT5);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -151,7 +172,8 @@ void GBuffer::BindForGeomPass()
 	GLenum DrawBuffers[] = { 
 		GL_COLOR_ATTACHMENT0,
 		GL_COLOR_ATTACHMENT1,
-		GL_COLOR_ATTACHMENT2 };
+		GL_COLOR_ATTACHMENT2,
+		GL_COLOR_ATTACHMENT3 };
 
 	
 	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
@@ -197,7 +219,8 @@ void GBuffer::BindForLightPass()
 	//prob not right
 
 
-	glDrawBuffer(GL_COLOR_ATTACHMENT4);
+	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
+	glReadBuffer(GL_COLOR_ATTACHMENT5);
 	//glDrawBuffer(GL_COLOR_ATTACHMENT1);
 
 
@@ -220,7 +243,8 @@ void GBuffer::BindForFinalPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
-	glReadBuffer(GL_COLOR_ATTACHMENT4);
+	//glReadBuffer(GL_COLOR_ATTACHMENT4);
+	glReadBuffer(GL_COLOR_ATTACHMENT5);
 }
 
 void GBuffer::EnablePass(int PassId) {
