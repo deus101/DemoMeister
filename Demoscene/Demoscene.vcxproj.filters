@@ -298,9 +298,6 @@
     <None Include="Mesh\cube_texture2.mtl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Mesh\ground.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Mesh\hex.mtl">
       <Filter>Resource Files</Filter>
     </None>
@@ -314,7 +311,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Mesh\teapot.FBX" />
-    <None Include="Mesh\newP38.mtl" />
     <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\geometry_grid_pass.gs" />
     <None Include="Mesh\PentagonArm.blend" />
@@ -366,18 +362,6 @@
     <Object Include="Mesh\cube_texture2.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\dodecahedron - Copy.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\dodecahedron.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\ds.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\ground.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
     <Object Include="Mesh\hex.obj">
       <Filter>Resource Files</Filter>
     </Object>
@@ -418,15 +402,6 @@
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\teapot.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\world1.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\world2.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\world3.obj">
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\PentagonArm.obj" />

@@ -107,7 +107,7 @@ void lightPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 void lightPacket::SetUvTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_UvTextureUnitLocation, TextureUnit);
-	std::cout << "Light normal tex Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+	std::cout << "Light Uv Screen tex Uniform Location is " << m_UvTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
 
 }
 

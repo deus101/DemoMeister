@@ -163,7 +163,8 @@ NS_VEC::VEC3 m3dGetAllMax(const M3DVector4f u, const NS_VEC::VEC3 v)
 NS_VEC::VEC3 m3dGetAllMin(const M3DVector4f u, const NS_VEC::VEC3 v)
 {
 	NS_VEC::VEC3 ret;
-	float x, y, z, w, minx,miny,minz;
+	float x, y, z, w;
+	float minx, miny, minz = 9999999.9f;
 	x = u[0];
 	y = u[1];
 	z = u[2];
