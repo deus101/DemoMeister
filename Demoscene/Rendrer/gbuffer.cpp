@@ -61,11 +61,11 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 	glGenTextures(ARRAY_SIZE_IN_ELEMENTS(m_textures), m_textures);
 
-	glGenTextures(1, &m_finalTexture);
+	
 
 	glGenTextures(1, &m_depthTexture);
 
-
+	glGenTextures(1, &m_finalTexture);
 
 
 
@@ -135,8 +135,8 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WindowWidth, WindowHeight, 0, GL_RGB,GL_FLOAT, NULL);
 	//gl::GenerateMipmap(gl::TEXTURE_2D);
 	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
-
+	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT6, GL_TEXTURE_2D, m_finalTexture, 0);
 	
 	GLenum StatusGbuffer = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	printf("FB Status, status: 0x%x\n", StatusGbuffer);
@@ -158,7 +158,8 @@ void GBuffer::StartFrame()
     
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
-	glDrawBuffer(GL_COLOR_ATTACHMENT5);
+	//glDrawBuffer(GL_COLOR_ATTACHMENT5);
+	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -168,12 +169,21 @@ void GBuffer::BindForGeomPass()
 	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
 	//glBindFramebuffer(GL_FRAMEBUFFER,geo_fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-
-	GLenum DrawBuffers[] = { 
+	
+	
+	/*
+		GLenum DrawBuffers[] = { 
 		GL_COLOR_ATTACHMENT0,
 		GL_COLOR_ATTACHMENT1,
 		GL_COLOR_ATTACHMENT2,
 		GL_COLOR_ATTACHMENT3 };
+	*/
+	GLenum DrawBuffers[] = { 
+		GL_COLOR_ATTACHMENT0,
+		GL_COLOR_ATTACHMENT1,
+		GL_COLOR_ATTACHMENT2,
+		GL_COLOR_ATTACHMENT3,
+		GL_COLOR_ATTACHMENT4 };
 
 	
 	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
@@ -220,8 +230,8 @@ void GBuffer::BindForLightPass()
 
 
 	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
-	glReadBuffer(GL_COLOR_ATTACHMENT5);
-	//glDrawBuffer(GL_COLOR_ATTACHMENT1);
+	//glReadBuffer(GL_COLOR_ATTACHMENT5);
+	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
@@ -244,7 +254,8 @@ void GBuffer::BindForFinalPass()
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
 	//glReadBuffer(GL_COLOR_ATTACHMENT4);
-	glReadBuffer(GL_COLOR_ATTACHMENT5);
+	//glReadBuffer(GL_COLOR_ATTACHMENT5);
+	glReadBuffer(GL_COLOR_ATTACHMENT6);
 }
 
 void GBuffer::EnablePass(int PassId) {

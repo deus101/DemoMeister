@@ -537,7 +537,7 @@ int main(int argc, char** argv)
 	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
 
 	e_geom.Enable();
-	e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX );
+	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX );
 	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX + 1);
 
 	
@@ -548,15 +548,7 @@ int main(int argc, char** argv)
 	e_rm_Pack.SetScreenSize(Xres, Yres);
 
 
-	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl;
-	e_ao_Pass.Enable();
-	e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
 
-	e_ao_Pass.SetScreenSize(Xres, Yres);
-
-	e_ao_Pass.InitKernel();
-	e_ao_Pass.InitNoise();
 
 	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
@@ -568,6 +560,7 @@ int main(int argc, char** argv)
 
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	e_point.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
 	e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
@@ -580,13 +573,32 @@ int main(int argc, char** argv)
 
 	e_dir.Enable();
 	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
-	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	
+	//e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+
+	//new sampler
+	e_dir.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
+	
 	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
 	e_dir.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 
 	//e_dir.SetScreenSize(1600, 900);
 	e_dir.SetScreenSize(Xres, Yres);
+
+
+	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl;
+	e_ao_Pass.Enable();
+	e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+
+	e_ao_Pass.SetScreenSize(Xres, Yres);
+
+	e_ao_Pass.InitKernel();
+	e_ao_Pass.InitNoise();
+
+
+
 
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);

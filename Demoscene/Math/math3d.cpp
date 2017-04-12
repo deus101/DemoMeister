@@ -176,7 +176,7 @@ NS_VEC::VEC3 m3dGetAllMin(const M3DVector4f u, const NS_VEC::VEC3 v)
 		minx = v.X;
 		
 	if (y < v.Y)
-		minx = y;
+		miny = y;
 	else
 		miny = v.Y;
 

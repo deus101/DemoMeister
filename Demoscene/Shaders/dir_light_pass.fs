@@ -57,13 +57,13 @@ uniform int gLightType;
 uniform vec2 gScreenSize;
 
 //if we run a effect lookup first we can anticipate what paramaters we require
-void LookUpMaterial(int ID, out vec3 MatDiffuse,out vec3 MatSpecular,out float MatEmmi)
-{
+//void LookUpMaterial(int ID, out vec3 MatDiffuse,out vec3 MatSpecular,out float MatEmmi)
+//{
 
 
 
 
-}
+//}
 
 vec4 CalcLightInternal(BaseLight Light,
 					   vec3 LightDirection,
@@ -142,10 +142,12 @@ void main()
 	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
 	float Depth = texture(gPositionMap, TexCoord).a;
 	//material id
-	//vec3 Color = texture(gColorMap, TexCoord).xyz;
+	vec3 Color = texture(gColorMap, TexCoord).xyz;
 	int MatId = int(texture(gColorMap, TexCoord).x);
+
+
     vec3 Normal = texture(gNormalMap, TexCoord).xyz;
-	vec2 Uv = texture(gNormalMap, TexCoord).xy;
+	vec2 Uv = texture(gUvMap, TexCoord).xy;
 	//vec2 texelSize =  vec2(textureSize(gAoPass, 0));
 	float AmbientOcculsion = texture(gAoPass, TexCoord ).r;
 
@@ -155,7 +157,10 @@ void main()
 	//Normal = normalize(Normal * 2.0 - 1.0);
 	Normal = normalize(viewNormal * Normal);
 
-
+	//FragColor = vec4(Color, 1.0) 
 	//FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
-	FragColor = CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
+	FragColor = vec4(Uv,0.0, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
+	//FragColor = CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
+	//FragColor = vec4(Uv,0.0, 1.0);
+
 }
