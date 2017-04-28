@@ -20,10 +20,12 @@ bool lightPacket::Init()
 	m_ProjectionLocation = GetUniformLocation("gProjection");
 
 	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
-	m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 	m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
 	m_UvTextureUnitLocation = GetUniformLocation("gUvMap");
 	m_AoTextureUnitLocation = GetUniformLocation("gAoPass");
+
+	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
 
 	m_eyeWorldPosLocation = GetUniformLocation("gEyeWorldPos");
 	m_matSpecularIntensityLocation = GetUniformLocation("gMatSpecularIntensity");
@@ -128,4 +130,17 @@ void lightPacket::SetEyeWorldPos(const NS_VEC::VEC3& EyePos)
 void lightPacket::SetScreenSize(unsigned int Width, unsigned int Height)
 {
 	glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+}
+
+
+void lightPacket::SetMaterialMapUnit(unsigned int TextureUnit)
+{
+	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+
+	//Material::GenerateMaterialMap
+
+
+	glUniform1i(m_MaterialMapTextureUnitLocation, TextureUnit);
+
+	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
 }

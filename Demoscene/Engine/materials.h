@@ -67,6 +67,9 @@ private:
 public:
 	//static std::list <Material*> classMaterialList;
 	static std::list <s_mat> classMaterialList;
+	//
+	static GLuint MaterialMapTextureUnit;
+
 
 	std::string Mat_Name;
 	GLfloat Mat_Amb[4];
@@ -84,6 +87,9 @@ Material();
 
 static void LoadMats(const char *param);
 
+static std::string  Shaderfy();
+
+static GLuint GenerateMaterialMap();
 //hurm sometimes oop makes no sense
 //void Draw();
 //or my fix ideas makes no sense

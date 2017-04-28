@@ -28,12 +28,15 @@ class base_buffer
 public:
 
 	
-
+	//I want something that keeps track of the samplers not specific to an fbo
 	enum TARGET_BUFFERS_TYPE{
 		PASS_GBUFFER,
 		PASS_AOBUFFER,
 		PASS_BLURBUFFER
 	};
+
+
+	//I want the buffer objects to keep track of the packets or should it be reverse?
 
 
 	//I could use enums to identify the specific components, but I was wondering if I should create a struct type 

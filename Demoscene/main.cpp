@@ -525,8 +525,8 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
-
-
+	NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
+	
 	//should this be placed in the world class?...nah if it works as intended this should get the
 	// world singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
@@ -559,12 +559,13 @@ int main(int argc, char** argv)
 	e_point.Enable();
 
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
-	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	//e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
 	e_point.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
 	e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	//TheDisc->BufferContainer[1]->
+	e_point.SetMaterialMapUnit(GL_TEXTURE1);
 	e_point.SetScreenSize(Xres, Yres);
 	
 	//e_point.SetScreenSize(1600, 900);
@@ -572,17 +573,18 @@ int main(int argc, char** argv)
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
-	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
+	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION +1);
 	
 	//e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
 
 	//new sampler
-	e_dir.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
+	e_dir.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV + 1);
 	
-	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
+	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL + 1);
 	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
 	e_dir.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
-
+	//e_dir.SetMaterialMapUnit(GBuffer::GBUFFER_NUM_TEXTURES + NS_ENG::Material::GenerateMaterialMap());
+	e_dir.SetMaterialMapUnit(GL_TEXTURE0);
 	//e_dir.SetScreenSize(1600, 900);
 	e_dir.SetScreenSize(Xres, Yres);
 
@@ -626,8 +628,8 @@ int main(int argc, char** argv)
 	//NS_ENG::model m_fly("Mesh/bunny.obj", "Mesh/bunny.mtl");
 	//NS_ENG::model m_fly("Mesh/buddy.obj", "Mesh/buddy.mtl");
 
-
-	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
+	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 	//hmmm best class name or just variable ids for id
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
 
@@ -635,6 +637,10 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::objTransform> cambot_pivot(new NS_SG::objTransform("tran_pivot"));
 
+	//NS_ENG::Material::Shaderfy();
+	//e_dir.Enable();
+	//e_dir.SetMaterialMapUnit(NS_ENG::Material::GenerateMaterialMap());
+	//e_dir.SetMaterialMapUnit(COLOR_TEXTURE_UNIT_INDEX + 10);
 
 	tran_ShowPiece->addChild(mn_ShowPiece.get());
 
@@ -776,7 +782,7 @@ int main(int argc, char** argv)
 
 
 	//Dir Light
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.9, 0.9, 1.0), 0.7f, 0.2f, &e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.8, 0.8, 0.9), 0.3f, 0.2f, &e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	

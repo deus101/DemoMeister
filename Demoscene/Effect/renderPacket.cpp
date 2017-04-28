@@ -24,7 +24,7 @@ renderPacket::~renderPacket()
 }
 bool renderPacket::Init()
 {
-
+	//I want to let my packets keep track of the samplers it needs
 	//opprette bufferne her?
 	m_shaderProg = glCreateProgram();
 

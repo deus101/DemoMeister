@@ -46,7 +46,7 @@ public:
 	GLuint ao_textures[AO_NUM_TEXTURES];
 
 
-	//ReadAttachments
+	//ReadAttachments <- no not Attachment these are textures.
 	GLuint gb_PosDepth;
 	GLuint gb_Normal;
 	GLuint gb_Noise;

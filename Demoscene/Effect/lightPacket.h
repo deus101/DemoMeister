@@ -27,7 +27,7 @@ namespace NS_EFF{
 		void SetNormalTextureUnit(unsigned int TextureUnit);
 		void SetUvTextureUnit(unsigned int TextureUnit);
 		void SetAoTextureUnit(unsigned int TextureUnit);
-		
+		void SetMaterialMapUnit(unsigned int TextureUnit);
 		//void SetSSAOTextureUnit(unsigned int TextureUnit);
 
 		void SetEyeWorldPos(const NS_VEC::VEC3& EyeWorldPos);
@@ -48,7 +48,7 @@ namespace NS_EFF{
 		GLuint m_IdTextureUnitLocation;
 		GLuint m_UvTextureUnitLocation;
 		GLuint m_AoTextureUnitLocation;
-
+		GLuint m_MaterialMapTextureUnitLocation;
 		GLuint m_eyeWorldPosLocation;
 		GLuint m_matSpecularIntensityLocation;
 		GLuint m_matSpecularPowerLocation;

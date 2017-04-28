@@ -8,6 +8,7 @@
 #include "../util.h"
 #include "gbuffer.h"
 #include "../Rendrer/context.h"
+#include "../Engine/materials.h"
 #include "aobuffer.h"
 GBuffer::GBuffer() 
 {
@@ -182,8 +183,8 @@ void GBuffer::BindForGeomPass()
 		GL_COLOR_ATTACHMENT0,
 		GL_COLOR_ATTACHMENT1,
 		GL_COLOR_ATTACHMENT2,
-		GL_COLOR_ATTACHMENT3,
-		GL_COLOR_ATTACHMENT4 };
+		GL_COLOR_ATTACHMENT3
+		 };
 
 	
 	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
@@ -231,11 +232,14 @@ void GBuffer::BindForLightPass()
 
 	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
 	//glReadBuffer(GL_COLOR_ATTACHMENT5);
+	//Don't forget  collor attachments are an FBO thing
 	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
-		glActiveTexture(GL_TEXTURE0 + i);
+		//one as specified in shader
+		glActiveTexture(GL_TEXTURE1 + i);
+		//many from GLGENTex
 		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
 	}	
 	//glActiveTexture(GL_TEXTURE3);
@@ -244,6 +248,10 @@ void GBuffer::BindForLightPass()
 	glActiveTexture(GL_TEXTURE5);
 	glBindTexture(GL_TEXTURE_2D, test2->ao_textures[test2->AO_TEXTURE_TYPE_AO_MAP]);
 
+
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
 	//glBindTexture(GL_TEXTURE_2D, m_AoTexture);
 
 }

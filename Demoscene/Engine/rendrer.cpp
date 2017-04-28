@@ -220,6 +220,8 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			
 			m3dMatrixMultiply44(wvp, vp, w_scaled);
 
+			//m3dCopyMatrix44(Tmp.sWVP, world);
+			//m3dCopyMatrix44(Tmp.sW, w_scaled);
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
 			m3dCopyMatrix44(Tmp.sW, world);
 
@@ -417,7 +419,8 @@ void rendrer::RenderSceneCB()
 	TheDisc->BufferContainer[1]->EnablePass(0);
 
 	//glActiveTexture(GL_TEXTURE5);
-	glActiveTexture(GL_TEXTURE7);
+	//glActiveTexture(GL_TEXTURE9);
+	glActiveTexture(GL_TEXTURE0 + AoPass->NoiseTexure);
 	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
 
 	//glActiveTexture(GL_TEXTURE7);
@@ -524,6 +527,9 @@ void rendrer::RenderSceneCB()
 		//id->sNode->LightMagic->SetViewMatrix(id->sWVP);
 		id->sNode->LightMagic->SetViewMatrix(view);
 		id->sNode->LightMagic->SetProjectionMatrix(projection);
+
+		//glActiveTexture(COLOR_TEXTURE_UNIT_INDEX + 10);
+		//glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
 
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);

@@ -40,9 +40,9 @@ void main()
 
 	//DiffuseOut = vec3(InstanceID0 * 20.0, 0.0, 0.0);	
 	//DiffuseOut = vec3(   ModelData.x  , ModelData.z, 0.0);
-	DiffuseOut = vec3(  (ModelData.x / 255)  , 0 / 255,  (ModelData.z / 255));	
+	DiffuseOut = vec3(  (ModelData.x ) / 10 , 0 ,  (ModelData.z ));	
 	//if( textureSize( gColorMap, 0).x > 0)
-	//{				
+	//{					
 	//DiffuseOut      = vec3(TexCoord0,0);
 	//DiffuseOut      = texture(gColorMap, TexCoord0).xyz;	
 	//}
@@ -52,5 +52,9 @@ void main()
 	//}
 	
 	NormalOut       = normalize(Normal0);					
-	TexCoordOut     = vec3(TexCoord0, 0.0);				
+	//TexCoordOut     = vec3(TexCoord0, 0.0);	
+	//cheap hack	
+	TexCoordOut     = vec3(TexCoord0,floor(ModelData.x+0.1));		
+	//TexCoordOut     = vec3(TexCoord0,2);	
+	//So lightpass gets wrong samnpler but let me just try to see if it works
 }

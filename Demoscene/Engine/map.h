@@ -17,7 +17,15 @@ namespace NS_ENG
 	public:
 		static list <MapAsset*> classMapList;
 
-
+		/*
+		enum MAP_TYPE {
+			MAP_TYPE_,
+			GBUFFER_TEXTURE_TYPE_DIFFUSE,
+			GBUFFER_TEXTURE_TYPE_NORMAL,
+			GBUFFER_TEXTURE_TYPE_UV,
+			GBUFFER_NUM_TEXTURES
+		};
+		*/
 		MapAsset();
 		static GLint LoadMaps(const char *param);
 

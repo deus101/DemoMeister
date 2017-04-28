@@ -307,6 +307,7 @@ void model::Draw()
 		/*
 		if (Sort_Groups[i].tex != NULL)
 		{
+			//if ActivateAlbedoSampler
 			glActiveTexture(COLOR_TEXTURE_UNIT);
 			//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);

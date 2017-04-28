@@ -35,9 +35,13 @@ struct SpotLight
 };
 
 uniform sampler2D gPositionMap;
-uniform sampler2D gColorMap;
+//uniform sampler2D gColorMap;
+uniform sampler2D MaterialMap;
 uniform sampler2D gNormalMap;
+uniform sampler2D gUvMap;
 uniform sampler2D gAoPass;
+
+//uniform sampler2D MaterialMap;
 
 uniform mat4 gProjection;
 uniform mat4 gView;
@@ -53,61 +57,89 @@ uniform int gLightType;
 uniform vec2 gScreenSize;
 
 
+void LookUpMaterial(float ID, out vec4 MatDiffuse,out vec4 MatSpecular)
+{
+//ok this is dumb just crate a custom color texture
+ 
+	float fixID = ID + 0.1;
+  MatDiffuse = vec4( texture(MaterialMap, vec2(0, fixID/9)).xyz,1.0);
+  MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID/9)).xyz,1.0);
+  //MatDiffuse = vec4(texture(MaterialMap, vec2(ID, 0)).xyz,1.0);
+  //MatSpecular = vec4(texture(MaterialMap, vec2(ID, 1)).xyz,1.0);
+
+}
 
 vec4 CalcLightInternal(BaseLight Light,
 					   vec3 LightDirection,
+					   float ID,
 					   vec3 WorldPos,
 					   vec3 Normal,
-					   float AO)
+					   float AO,
+					   float Att)
 {
 
-	vec4 OcculsionFactor = vec4(vec3(0.5 * AO),1.0);
-    vec4 AmbientColor = vec4(Light.Color * Light.AmbientIntensity, 1.0);
-	AmbientColor *= OcculsionFactor;
-    float DiffuseFactor = dot(Normal, -LightDirection);
-
-    vec4 DiffuseColor  = vec4(0, 0, 0, 0);
+    vec4 DiffuseColor  = vec4(0, 0, 0, 0);	
     vec4 SpecularColor = vec4(0, 0, 0, 0);
+	vec3 DiffuseColor1  = vec3(0, 0,  0);	
+    vec3 SpecularColor1 = vec3(0, 0,  0);
+
+	LookUpMaterial(ID,DiffuseColor,SpecularColor);
+	//Light.AmbientIntensity
+	vec3 AmbientColor =  vec3(Light.AmbientIntensity * DiffuseColor.xyz *  AO) ;
+	//AmbientColor *= OcculsionFactor;
+    //float DiffuseFactor = max(dot(Normal, LightDirection),0.0);
+	float DiffuseFactor = dot(Normal, LightDirection);
+	
 
     if (DiffuseFactor > 0.0) {
-        DiffuseColor = vec4(Light.Color, 1.0) * Light.DiffuseIntensity * DiffuseFactor;
-
-        vec3 VertexToEye = normalize(gEyeWorldPos - WorldPos);
+        DiffuseColor1  = Light.DiffuseIntensity * (DiffuseColor.xyz * Light.Color) ;
+        
+		
+		vec3 VertexToEye = normalize(gEyeWorldPos - WorldPos);
         vec3 LightReflect = normalize(reflect(LightDirection, Normal));
         float SpecularFactor = dot(VertexToEye, LightReflect);
         SpecularFactor = pow(SpecularFactor, gSpecularPower);
-        if (SpecularFactor > 0.0) {
-            SpecularColor = vec4(Light.Color, 1.0) * gMatSpecularIntensity * SpecularFactor;
+        
+		
+		if (SpecularFactor > 0.0) {
+            
+			SpecularColor1 = Light.Color * gMatSpecularIntensity;
+			SpecularColor1 *=  SpecularColor.xyz  *SpecularFactor;
         }
     }
-
-    return (AmbientColor + DiffuseColor + SpecularColor);
+	DiffuseColor1 *= Att;
+	SpecularColor1 *= Att;
+    return vec4(AmbientColor += (DiffuseColor1 + SpecularColor1), 1.0 	);
 }
 
-vec4 CalcDirectionalLight(vec3 WorldPos, vec3 Normal,float AO)
+vec4 CalcDirectionalLight(float ID, vec3 WorldPos, vec3 Normal,float AO, float Attenuation)
 {
     return CalcLightInternal(gDirectionalLight.Base,
 							 gDirectionalLight.Direction,
+							 ID,
 							 WorldPos,
 							 Normal,
-							 AO);
+							 AO,
+							 Attenuation);
 }
 
-vec4 CalcPointLight(vec3 WorldPos, vec3 Normal,float AO)
+vec4 CalcPointLight(float ID, vec3 WorldPos, vec3 Normal,float AO)
 {
     vec3 LightDirection = WorldPos - gPointLight.Position;
     float Distance = length(LightDirection);
     LightDirection = normalize(LightDirection);
 
-    vec4 Color = CalcLightInternal(gPointLight.Base, LightDirection, WorldPos, Normal,AO);
-
-    float Attenuation =  gPointLight.Atten.Constant +
+	float Attenuation =  gPointLight.Atten.Constant +
                          gPointLight.Atten.Linear * Distance +
                          gPointLight.Atten.Exp * Distance * Distance;
 
     Attenuation = max(1.0, Attenuation);
 
-    return Color / Attenuation;
+    vec4 Color = CalcLightInternal(gPointLight.Base, LightDirection,ID, WorldPos, Normal,AO,Attenuation);
+
+
+
+    return Color;
 }
 
 
@@ -122,15 +154,19 @@ out vec4 FragColor;
 void main()
 {
 	mat3 viewNormal = transpose(inverse(mat3(gView)));
-
+	
     vec2 TexCoord = CalcTexCoord();
 	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
-	vec3 Color = texture(gColorMap, TexCoord).xyz;
+	//vec3 Color = texture(gColorMap, TexCoord).xyz;
+	vec3 UVMat = texture(gUvMap, TexCoord).xyz;
+	//vec3 Color = texture(MaterialMap, vec2(0,UVMat.z)).xyz;
+	float MatId = texture(gUvMap, TexCoord).z;
 	vec3 Normal = texture(gNormalMap, TexCoord).xyz;
 	float AmbientOcculsion = texture(gAoPass, TexCoord).r;
 
 	Normal = normalize(Normal * 2.0 - 1.0);
 	Normal = normalize(viewNormal * Normal);
 
-    FragColor = vec4(Color, 1.0) * CalcPointLight(WorldPos, Normal,AmbientOcculsion);
+    //FragColor = vec4(Color, 1.0) * CalcPointLight(MatId,WorldPos, Normal,AmbientOcculsion);
+	FragColor = CalcPointLight(MatId,WorldPos, Normal,AmbientOcculsion);
 }

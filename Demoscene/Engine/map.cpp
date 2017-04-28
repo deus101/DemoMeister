@@ -27,7 +27,7 @@ void MapAsset::Draw()
 
 
 }
-
+//employ additional arguments:  type of map, origin
 GLint MapAsset::LoadMaps(const char *param)
 {
 	string tmp_Path(param);
