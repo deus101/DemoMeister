@@ -120,9 +120,14 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 				meshy.m_Groups[u].matid = MatIter.matID;
 				//MG.
 				//map
-				MapAsset *TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+				MapAsset *TmpMap = NULL;
+				TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+				//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
 				if(TmpMap != NULL)
-				MG.tex = MapAsset::RetriveMap(MatIter.id_Map)->Map_TUnit;
+				{
+					MG.tex = TmpMap->Map_TName;
+				}
+				//MG.tex = MapAsset::RetriveMap(MatIter.id_Map)->Map_TUnit
 				//Sort_Groups.back().tex = MatIter.tUnit;
 				meshy.m_Groups[u].Child.MatObjChildTech[0] = MatIter.matID;
 				meshy.m_Groups[u].Child.MatObjChildTech[2] = u;
@@ -143,7 +148,7 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 		//ehm..why did i do this?
 		//only an Material ID should suffice,  There should only be one master list of materials
 
-		//MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].tUnit;
+		//MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].id_Map;
 		//MG.dif = NS_VEC::VEC3(palette.m_Materials[meshy.m_Groups[u].matid].diff[0], palette.m_Materials[meshy.m_Groups[u].matid].diff[1], palette.m_Materials[meshy.m_Groups[u].matid].diff[2]);
 		//if im going to use attributepointers for diffcolor, specular intensity and specular power create  it here
 
@@ -300,24 +305,20 @@ void model::Draw()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &Sort_Groups[i].ModelAidChild, GL_DYNAMIC_DRAW);
 
 
-
+		
 		//This shit must be redone to use mat ID and stuff
 		glBindVertexArray(Sort_Groups[i].vao);
 		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
-		/*
+		
+		//if (Sort_Groups[i].tex != NULL)
 		if (Sort_Groups[i].tex != NULL)
 		{
 			//if ActivateAlbedoSampler
-			glActiveTexture(COLOR_TEXTURE_UNIT);
+			glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::DiffuseMap_UNIT]);
 			//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 		}
-		else
-		{
-			glUniform3f(VEC3_DIFF_UNILOC,   Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
 
-		}
-		*/
 		//Sort_Groups[i].
 		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
 		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);

@@ -1,5 +1,7 @@
 #include "materials.h"
 #include "map.h"
+
+
 //#include "../Libs/FreeImage.h"
 
 
@@ -37,7 +39,7 @@ void Material::LoadMats( const char *param)
 
 	//Mats.Clear();
 	
-		
+	string CurrentMaterial;
 	char line[1024] = "";
 	char id[512] = "";
 	std::cout << "---------MTL:Begin loading materials from:" << param << endl;
@@ -52,6 +54,7 @@ void Material::LoadMats( const char *param)
 			char nam[80] ="";
 			fscanf(mtlFile, "%79s", nam );
 			mtl.name = nam;
+			CurrentMaterial = nam;
 			std::cout << "-material name: " << mtl.name << endl;
 			//Mats.m_Materials.push_back( mtl );
 			NS_ENG::Material::classMaterialList.push_back(mtl);
@@ -115,7 +118,28 @@ void Material::LoadMats( const char *param)
 			string tmp_Path(path);
 
 
-			NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(path);
+
+			//glGenTextures(1, &tmp_TName);
+			//glBindTexture(GL_TEXTURE_2D, tmp_TName);
+			//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)textura);
+			//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			//PathFindFileName
+			FileTextureDesc NewDiffTex;
+
+			NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
+			NewDiffTex.Origin = "LoadMats:" + CurrentMaterial + " From:" + string(param);
+			NewDiffTex.Description = "Use in the Geometry pass Set TextureUnit at Enum DiffuseMap_UNIT ";
+
+			NewDiffTex.Target = GL_TEXTURE_2D;
+			NewDiffTex.Map_Path = tmp_Path;
+			NewDiffTex.internalFormat = GL_RGBA;
+			NewDiffTex.format = GL_RGBA;
+			NewDiffTex.type = GL_UNSIGNED_BYTE;
+			NewDiffTex.filter = GL_NEAREST;
+
+
+
+			NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
 
 		}
 
@@ -235,6 +259,7 @@ GLuint Material::GenerateMaterialMap() {
 		NS_VEC::VEC3 col1Spec(MatIter.spec[0], MatIter.spec[1], MatIter.spec[2]); // rotate around z-axis (in tangent space)
 		rowMaterial.push_back(col1Spec);
 	}
+	//GL_R8
 	glGenTextures(1, &Material::MaterialMapTextureUnit);
 	glBindTexture(GL_TEXTURE_2D, Material::MaterialMapTextureUnit);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 2, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);

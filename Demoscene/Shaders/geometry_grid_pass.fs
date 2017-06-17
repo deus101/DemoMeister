@@ -25,7 +25,7 @@ float LinearDepth(float depth)
     return (2.0 * NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));	
 }
 
-//uniform sampler2D gColorMap;                
+//uniform sampler2D gAbedoMap;                
 
 
 void main()									

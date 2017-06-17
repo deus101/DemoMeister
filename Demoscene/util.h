@@ -15,7 +15,10 @@
 #include <stdio.h>
 #include <cstdlib>
 
+#include <Windows.h>
+#include <Shlwapi.h>
 
+#include <boost/shared_ptr.hpp>
 
 using namespace std;
 void EngError(const char* fn, unsigned int ln, const char* msg);
@@ -24,6 +27,36 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 #define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
+
+enum TypeOfTexture
+{
+	DiffuseMap_UNIT,
+	BumpMap_UNIT,
+	MaterialMap_UNIT,
+
+	GBuffer_WorldPos_UNIT,
+	GBuffer_Albedo_UNIT,
+	GBuffer_Normal_UNIT,
+	GBuffer_UV_UNIT,
+
+	AOBuffer_AO_UNIT,
+	AOBuffer_Blur_UNIT,     
+   
+	Size 
+
+
+};
+
+
+struct EffectStage
+{	
+	int StageValue;
+	GLint TextureUnits[Size] ;
+
+};
+
+typedef boost::shared_ptr< struct EffectStage > EffectStagePtr;
+typedef boost::shared_ptr<const struct EffectStage> EffectStageConstPtr;
 
 struct BaseLight
 {

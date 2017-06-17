@@ -34,13 +34,14 @@ bool RayMarcher::Init()
 	m_ProjectionLocation = GetUniformLocation("gProjection");
 	m_ScreenSizeLoc = GetUniformLocation("gScreenSize");
 	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
-
+	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
 	m_EyeWorldLoc = GetUniformLocation("gEyeWorldPos");
 
 
 	if (//m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_ViewLocation == INVALID_UNIFORM_LOCATION ||
 		m_EyeWorldLoc == INVALID_UNIFORM_LOCATION ||
+		m_MaterialMapTextureUnitLocation == INVALID_UNIFORM_LOCATION ||
 		m_ScreenSizeLoc == INVALID_UNIFORM_LOCATION) {
 		return false;
 	}
@@ -96,6 +97,20 @@ glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
 
 
 */
+
+//should be inherited shared with both lightpacket and Raymarcher
+void RayMarcher::SetMaterialMapUnit(unsigned int TextureUnit)
+{
+	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+
+	//Material::GenerateMaterialMap
+
+
+	glUniform1i(m_MaterialMapTextureUnitLocation, TextureUnit);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
+	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+}
+
 void RayMarcher::SetColorTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_colorTextureUnitLocation, TextureUnit);

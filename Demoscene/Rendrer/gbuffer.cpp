@@ -4,12 +4,13 @@
 //Todo find out how to split this using a pass system for now I'll just get it all in plce for AO
 
 #include <stdio.h>
+#include "../Rendrer/context.h"
 
 #include "../util.h"
 #include "gbuffer.h"
-#include "../Rendrer/context.h"
 #include "../Engine/materials.h"
 #include "aobuffer.h"
+
 GBuffer::GBuffer() 
 {
 	
@@ -57,6 +58,16 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	
 	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
 
+	//NS_ENG::MapAsset::DataTextureDesc test;
+
+	NS_ENG::FboTextureDesc GPosDepthDesc;
+
+	GPosDepthDesc.Origin = "GBuffer";
+	GPosDepthDesc.Description = "RGB: Draws world positions coordinates, A: Draws the distance from camera";
+	GPosDepthDesc.format = GL_RGBA;
+	GPosDepthDesc.type = GL_FLOAT;
+	GPosDepthDesc.filter = GL_NEAREST;
+	GPosDepthDesc.wrap = GL_CLAMP;
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 
 
@@ -73,7 +84,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	
 	
 	
-
+	
 	//Should ditch the entire procedure oh well time to hack samples
 	glBindTexture(GL_TEXTURE_2D, m_textures[0]);
 
@@ -91,7 +102,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 	//GBUFFER_TEXTURE_TYPE_DIFFUSE Should be TYPE_ID
 
-	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_DIFFUSE]);
+	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_ABEDO]);
 	//GL_RGB8UI                           GL_UNSIGNED_INT
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WindowWidth, WindowHeight, 0, GL_RGBA, GL_FLOAT, NULL);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
@@ -104,7 +115,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, GL_TEXTURE_2D, m_textures[0], 0);
 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_DIFFUSE], 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_ABEDO], 0);
 
 
 
@@ -139,6 +150,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT6, GL_TEXTURE_2D, m_finalTexture, 0);
 	
+
 	GLenum StatusGbuffer = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	printf("FB Status, status: 0x%x\n", StatusGbuffer);
 	if (StatusGbuffer != GL_FRAMEBUFFER_COMPLETE) {
@@ -238,7 +250,7 @@ void GBuffer::BindForLightPass()
 
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 		//one as specified in shader
-		glActiveTexture(GL_TEXTURE1 + i);
+		glActiveTexture(GL_TEXTURE0 + i);
 		//many from GLGENTex
 		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
 	}	
@@ -264,6 +276,7 @@ void GBuffer::BindForFinalPass()
 	//glReadBuffer(GL_COLOR_ATTACHMENT4);
 	//glReadBuffer(GL_COLOR_ATTACHMENT5);
 	glReadBuffer(GL_COLOR_ATTACHMENT6);
+
 }
 
 void GBuffer::EnablePass(int PassId) {

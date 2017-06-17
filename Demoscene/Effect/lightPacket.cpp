@@ -20,7 +20,7 @@ bool lightPacket::Init()
 	m_ProjectionLocation = GetUniformLocation("gProjection");
 
 	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
-	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+	m_colorTextureUnitLocation = GetUniformLocation("gAbedoMap");
 	m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
 	m_UvTextureUnitLocation = GetUniformLocation("gUvMap");
 	m_AoTextureUnitLocation = GetUniformLocation("gAoPass");
@@ -86,7 +86,7 @@ void lightPacket::SetPositionTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_posTextureUnitLocation, TextureUnit);
 	std::cout << "Light postex Uniform Location is " << m_posTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT] = TextureUnit;
 }
 
 
@@ -95,7 +95,7 @@ void lightPacket::SetColorTextureUnit(unsigned int TextureUnit)
 	
 	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
 	std::cout << "Light colTex Uniform Location is " << m_colorTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_Albedo_UNIT] = TextureUnit;
 }
 
 
@@ -103,14 +103,14 @@ void lightPacket::SetNormalTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
 	std::cout << "Light normal tex Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_Normal_UNIT] = TextureUnit;
 }
 
 void lightPacket::SetUvTextureUnit(unsigned int TextureUnit)
 {
 	glUniform1i(m_UvTextureUnitLocation, TextureUnit);
 	std::cout << "Light Uv Screen tex Uniform Location is " << m_UvTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_UV_UNIT] = TextureUnit;
 }
 
 void lightPacket::SetAoTextureUnit(unsigned int TextureUnit)
@@ -118,7 +118,7 @@ void lightPacket::SetAoTextureUnit(unsigned int TextureUnit)
 	glUniform1i(m_AoTextureUnitLocation, TextureUnit);
 
 	std::cout << "Light AO Uniform Location is " << m_AoTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::AOBuffer_AO_UNIT] = TextureUnit;
 }
 
 void lightPacket::SetEyeWorldPos(const NS_VEC::VEC3& EyePos)
@@ -141,6 +141,18 @@ void lightPacket::SetMaterialMapUnit(unsigned int TextureUnit)
 
 
 	glUniform1i(m_MaterialMapTextureUnitLocation, TextureUnit);
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
 	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+}
+
+void lightPacket::SetMaterialsCount(unsigned int NrMaterials)
+{
+	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+
+	//Material::GenerateMaterialMap
+
+
+	glUniform1i(m_MaterialMapTextureUnitLocation, NrMaterials);
+
+	std::cout << "Unifor Location for MatCount is " << m_MaterialMapTextureUnitLocation << " Value is " << NrMaterials << std::endl;
 }

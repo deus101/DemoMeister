@@ -20,6 +20,7 @@ namespace NS_EFF {
 
 		void SetProjectionMatrix(const M3DMatrix44f& P);
 
+		void SetMaterialMapUnit(unsigned int TextureUnit);
 
 		void SetColorTextureUnit(unsigned int TextureUnit);
 
@@ -37,6 +38,8 @@ namespace NS_EFF {
 
 		GLuint m_EyeWorldLoc;
 		GLuint m_ScreenSizeLoc;
+
+		GLuint m_MaterialMapTextureUnitLocation;
 
 		GLuint v4_FarNearLocation;
 		GLuint m_colorTextureUnitLocation;

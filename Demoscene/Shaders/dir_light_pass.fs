@@ -38,11 +38,12 @@ struct SpotLight
 
 
 uniform sampler2D MaterialMap;
-uniform sampler2D gPositionMap;
+
 //gColorMap should be diffuseMap
 //uniform sampler2D gColorMap;
 
-
+uniform sampler2D gPositionMap;
+uniform sampler2D gAbedoMap;
 uniform sampler2D gNormalMap;
 uniform sampler2D gUvMap;
 uniform sampler2D gAoPass;
@@ -63,17 +64,21 @@ uniform float gSpecularPower = 8.0f;
 uniform int gLightType;
 uniform vec2 gScreenSize;
 
+
+
 //if we run a effect lookup first we can anticipate what paramaters we require
 //void LookUpMaterial(int ID, out vec3 MatDiffuse,out vec3 MatSpecular,out float MatEmmi)
 void LookUpMaterial(float ID, out vec4 MatDiffuse,out vec4 MatSpecular)
 {
-//ok this is dumb just crate a custom color texture
- 
-	float fixID = ID - 0.1;
-  MatDiffuse = vec4( texture(MaterialMap, vec2(0, fixID/10)).xyz,1.0);
-  MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID/10)).xyz,1.0);
-  //MatDiffuse = vec4(texture(MaterialMap, vec2(ID, 0)).xyz,1.0);
-  //MatSpecular = vec4(texture(MaterialMap, vec2(ID, 1)).xyz,1.0);
+
+	float PZ_MM_Y = 1/textureSize( MaterialMap, 0).y;
+	float fixID = (ID * PZ_MM_Y) * 0.5;
+	MatDiffuse = vec4( texture(MaterialMap, vec2(0, fixID)).xyz,1.0);
+	MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID)).xyz,1.0);
+	//MatDiffuse = vec4( texture(MaterialMap, vec2(0, fixID/10)).xyz,1.0);
+	//MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID/10)).xyz,1.0);
+	//MatDiffuse = vec4(texture(MaterialMap, vec2(ID, 0)).xyz,1.0);
+	//MatSpecular = vec4(texture(MaterialMap, vec2(ID, 1)).xyz,1.0);
 
 }
 	
@@ -188,7 +193,7 @@ void main()
 	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
 	float Depth = texture(gPositionMap, TexCoord).a;
 	//material id
-	//vec3 Color = texture(gUvMap, TexCoord).xyz;
+	vec3 Color = texture(gAbedoMap, TexCoord).xyz;
 
 	//int MatId = int(texture(gUvMap, TexCoord).z);
 	//int MatId = int(texture(gUvMap, TexCoord).z);
@@ -215,9 +220,9 @@ void main()
 	//Normal = normalize(Normal * 2.0 - 1.0);
 	//Normal = normalize(viewNormal * Normal);
 
-	//FragColor = vec4(Color, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
+	FragColor = vec4(Color, 1.0) *  CalcDirectionalLight(MatId,WorldPos, Depth,satan,AmbientOcculsion);
 	//FragColor = Diff * 
-	FragColor =  CalcDirectionalLight(MatId,WorldPos, Depth,satan,AmbientOcculsion);
+	//FragColor =  CalcDirectionalLight(MatId,WorldPos, Depth,satan,AmbientOcculsion);
 	//FragColor = Diff;
 	//FragColor = vec4(WorldPos, 1.0) * CalcDirectionalLight(WorldPos, Normal,AmbientOcculsion);
 	//FragColor = vec4(Normal, 1.0) * 10;

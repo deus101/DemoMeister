@@ -12,7 +12,7 @@
 //boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece
 world::world() //public context()
 {
-
+	
 	//BufferContainer.push_back()
 	
 	o_loader = compoPointer(new NS_SG::composite("root"));

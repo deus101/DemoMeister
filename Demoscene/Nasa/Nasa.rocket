@@ -6,18 +6,17 @@
 		<track name="cam.x">
 			<key interpolation="1" row="0" value="0"/>
 			<key interpolation="1" row="14" value="3"/>
-			<key interpolation="1" row="32" value="5"/>
 			<key interpolation="1" row="64" value="2"/>
 			<key interpolation="1" row="84" value="-5"/>
 			<key interpolation="0" row="127" value="0"/>
 		</track>
 		<track name="cam.y">
-			<key interpolation="1" row="0" value="2"/>
+			<key interpolation="1" row="0" value="1"/>
 			<key interpolation="1" row="64" value="5"/>
 			<key interpolation="0" row="127" value="5"/>
 		</track>
 		<track name="cam.z">
-			<key interpolation="1" row="0" value="6"/>
+			<key interpolation="1" row="0" value="4"/>
 			<key interpolation="0" row="22" value="6"/>
 			<key interpolation="1" row="32" value="2"/>
 			<key interpolation="1" row="48" value="-2"/>
@@ -46,10 +45,10 @@
 			<key interpolation="0" row="0" value="2"/>
 		</track>
 		<track name="Prot.x">
-			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="0" value="-20"/>
 		</track>
 		<track name="Prot.y">
-			<key interpolation="0" row="0" value="0"/>
+			<key interpolation="0" row="0" value="40"/>
 		</track>
 		<track name="Prot.z">
 			<key interpolation="0" row="0" value="0"/>
@@ -64,7 +63,7 @@
 			<key interpolation="0" row="0" value="1"/>
 		</track>
 		<track name="Lpos.x">
-			<key interpolation="0" row="0" value="-1"/>
+			<key interpolation="0" row="0" value="1"/>
 		</track>
 		<track name="Lpos.y">
 			<key interpolation="0" row="0" value="0"/>

@@ -1,13 +1,13 @@
 #pragma once
 
-
+#include <GL\glew.h>
+#include <GL\wglew.h>
 #include "../util.h"
 #include "../world.h"
 #include "gbuffer.h"
 #include "callbacks.h"
-#include <GL\glew.h>
-#include <GL\wglew.h>
 
+#include "../FreeImage.h"
 
 //namespace NS_REND
 //{

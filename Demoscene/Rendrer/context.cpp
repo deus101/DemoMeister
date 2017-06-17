@@ -140,8 +140,10 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	//		exit(1);
 	//}
 
+	GLint max_texture_units, max_combined_texture_units;
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &max_texture_units);
+	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &max_combined_texture_units);
 
-	
 	TheDisc = globe;
 
 	TheDisc->ResolutionX = pWidth;

@@ -27,7 +27,9 @@ namespace NS_EFF{
 		void SetNormalTextureUnit(unsigned int TextureUnit);
 		void SetUvTextureUnit(unsigned int TextureUnit);
 		void SetAoTextureUnit(unsigned int TextureUnit);
+
 		void SetMaterialMapUnit(unsigned int TextureUnit);
+		void SetMaterialsCount(unsigned int MatCount);
 		//void SetSSAOTextureUnit(unsigned int TextureUnit);
 
 		void SetEyeWorldPos(const NS_VEC::VEC3& EyeWorldPos);
@@ -45,10 +47,17 @@ namespace NS_EFF{
 		GLuint m_posTextureUnitLocation;
 		GLuint m_normalTextureUnitLocation;
 		GLuint m_colorTextureUnitLocation;
+
 		GLuint m_IdTextureUnitLocation;
+
+		//I should create a new abstract class for this
+		GLuint m_MaterialMapTextureUnitLocation;
+		GLuint m_NrMaterials;
+
 		GLuint m_UvTextureUnitLocation;
 		GLuint m_AoTextureUnitLocation;
-		GLuint m_MaterialMapTextureUnitLocation;
+
+
 		GLuint m_eyeWorldPosLocation;
 		GLuint m_matSpecularIntensityLocation;
 		GLuint m_matSpecularPowerLocation;

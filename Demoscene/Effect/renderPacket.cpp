@@ -3,7 +3,6 @@
 
 //#include "../util.h"
 #include "../Engine/asset.h"
-
 //using namespace NS_ENG;
 using namespace NS_VEC;
 using namespace NS_EFF;
@@ -17,10 +16,14 @@ renderPacket::renderPacket()
 
 	m_shaderProg = 0;
 
+	m_StageParameters.StageValue = 0;
+	m_StageParamPtr =  EffectStagePtr(&m_StageParameters);
+	m_StageParamConstPtr = EffectStageConstPtr(&m_StageParameters);
+
 }
 renderPacket::~renderPacket()
 {
-
+	delete &m_StageParamPtr;
 }
 bool renderPacket::Init()
 {
@@ -136,6 +139,7 @@ bool renderPacket::Finalize()
 
 void renderPacket::Enable()
 {
+	NS_ENG::asset::SetCurrentStage(m_StageParamConstPtr);
 	glUseProgram(m_shaderProg);
 }
 

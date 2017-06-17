@@ -1,9 +1,11 @@
-#include "world.h"
+
 #include <iostream>
+
 #include "bass.h"
 
 #include "sync.h"
 //world as a scene object and going through a sceneloader?
+
 #include "Rendrer\context.h"
 #include "Engine\rendrer.h"
 #include "Engine\GridPoints.h"
@@ -24,6 +26,8 @@
 #include "Effect\RayMarcher.h"
 
 
+
+#include "world.h"
 HSTREAM stream;
 
 sync_device *rocket;
@@ -525,8 +529,8 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
-	NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
-	
+	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
+	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 	//should this be placed in the world class?...nah if it works as intended this should get the
 	// world singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
@@ -537,7 +541,8 @@ int main(int argc, char** argv)
 	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
 
 	e_geom.Enable();
-	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX );
+	e_geom.SetDiffuseTextureUnit(GL_TEXTURE0);
+	e_geom.SetMaterialMapUnit(GL_TEXTURE2);
 	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX + 1);
 
 	
@@ -559,13 +564,13 @@ int main(int argc, char** argv)
 	e_point.Enable();
 
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
-	//e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_ABEDO);
 	e_point.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
 	e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	//TheDisc->BufferContainer[1]->
-	e_point.SetMaterialMapUnit(GL_TEXTURE1);
+	e_dir.SetMaterialMapUnit(GL_TEXTURE6);
 	e_point.SetScreenSize(Xres, Yres);
 	
 	//e_point.SetScreenSize(1600, 900);
@@ -573,18 +578,18 @@ int main(int argc, char** argv)
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
 
 	e_dir.Enable();
-	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION +1);
+	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	
-	//e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE );
+	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_ABEDO);
 
 	//new sampler
-	e_dir.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV + 1);
+	e_dir.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV );
 	
-	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL + 1);
+	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
 	e_dir.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	//e_dir.SetMaterialMapUnit(GBuffer::GBUFFER_NUM_TEXTURES + NS_ENG::Material::GenerateMaterialMap());
-	e_dir.SetMaterialMapUnit(GL_TEXTURE0);
+	e_dir.SetMaterialMapUnit(GL_TEXTURE6);
 	//e_dir.SetScreenSize(1600, 900);
 	e_dir.SetScreenSize(Xres, Yres);
 

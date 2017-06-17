@@ -34,11 +34,15 @@ bool GeomPacket::Init()
 	m_WorldMatrixLocation = GetUniformLocation("gWorld");
 	m_ViewLocation = GetUniformLocation("gView");
 	m_ProjectionLocation = GetUniformLocation("gProjection");
-	m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+	m_diffuseTextureUnitLocation = GetUniformLocation("A_DiffuseMap");
+	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
+
+	//NS_ENG::Material::
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION ||
-		m_colorTextureUnitLocation == INVALID_UNIFORM_LOCATION) {
+		m_MaterialMapTextureUnitLocation == INVALID_UNIFORM_LOCATION ||
+		m_diffuseTextureUnitLocation == INVALID_UNIFORM_LOCATION) {
 		return false;
 	}
 
@@ -77,8 +81,36 @@ void  GeomPacket::SetProjectionMatrix(const M3DMatrix44f& P)
 	glUniformMatrix4fv(m_ProjectionLocation, 1, GL_FALSE, P);
 }
 
-void GeomPacket::SetColorTextureUnit(unsigned int TextureUnit)
+void GeomPacket::SetDiffuseTextureUnit(unsigned int TextureUnit)
 {
 	
-	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
+	glUniform1i(m_diffuseTextureUnitLocation, TextureUnit);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::DiffuseMap_UNIT] = TextureUnit;
+
+
+}
+
+//should be inherited shared with both lightpacket and Raymarcher
+void GeomPacket::SetMaterialMapUnit(unsigned int TextureUnit)
+{
+	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+
+	//Material::GenerateMaterialMap
+
+
+	glUniform1i(m_MaterialMapTextureUnitLocation, TextureUnit);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
+	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+}
+
+void GeomPacket::SetMaterialsCount(unsigned int MatCount)
+{
+	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
+
+	//Material::GenerateMaterialMap
+
+
+	glUniform1i(m_MaterialMapTextureUnitLocation, MatCount);
+
+	std::cout << "Unifor Location for MatCount is " << m_MaterialMapTextureUnitLocation << " Value is " << MatCount << std::endl;
 }

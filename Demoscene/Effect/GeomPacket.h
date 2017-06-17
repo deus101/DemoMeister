@@ -21,8 +21,11 @@ namespace NS_EFF{
 		void SetProjectionMatrix(const M3DMatrix44f& P);
 
 
-		void SetColorTextureUnit(unsigned int TextureUnit);
+		void SetDiffuseTextureUnit(unsigned int TextureUnit);
+		//void SetBumpTextureUnit(unsigned int TextureUnit);
 
+		void SetMaterialMapUnit(unsigned int TextureUnit);
+		void SetMaterialsCount(unsigned int MatCount);
 
 
 	private:
@@ -35,7 +38,14 @@ namespace NS_EFF{
 		
 		
 		GLuint v4_FarNearLocation;
-		GLuint m_colorTextureUnitLocation;
+		GLuint m_diffuseTextureUnitLocation;
+		GLuint m_bumpTextureUnitLocation;
+
+
+		GLuint m_MaterialMapTextureUnitLocation;
+		GLuint m_NrMaterials;
+
+
 	};
 }
 

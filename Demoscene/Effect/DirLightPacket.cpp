@@ -32,7 +32,7 @@ bool DirLightPacket::Init()
 	m_dirLightLocation.AmbientIntensity = GetUniformLocation("gDirectionalLight.Base.AmbientIntensity");
 	m_dirLightLocation.Direction = GetUniformLocation("gDirectionalLight.Direction");
 	m_dirLightLocation.DiffuseIntensity = GetUniformLocation("gDirectionalLight.Base.DiffuseIntensity");
-
+	
 	if (m_dirLightLocation.AmbientIntensity == INVALID_UNIFORM_LOCATION ||
 		m_dirLightLocation.Color == INVALID_UNIFORM_LOCATION ||
 		m_dirLightLocation.DiffuseIntensity == INVALID_UNIFORM_LOCATION ||

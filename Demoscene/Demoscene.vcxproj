@@ -290,7 +290,7 @@
       <OptimizeReferences>
       </OptimizeReferences>
       <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>legacy_stdio_definitions.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;Shlwapi.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <LinkStatus>true</LinkStatus>
       <Profile>true</Profile>
@@ -383,10 +383,13 @@
     <ClCompile Include="Effect\PointLightPacket.cpp" />
     <ClCompile Include="Effect\HeightMapPacket.cpp" />
     <ClCompile Include="Effect\RayMarcher.cpp" />
+    <ClCompile Include="Engine\asset.cpp" />
+    <ClCompile Include="Engine\FBOTexture.cpp" />
     <ClCompile Include="Engine\Grid.cpp" />
     <ClCompile Include="Engine\map.cpp" />
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
+    <ClCompile Include="Engine\FileTexture.cpp" />
     <ClCompile Include="Rendrer\aobuffer.cpp" />
     <ClCompile Include="Rendrer\base_buffer.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
@@ -421,10 +424,13 @@
     <ClInclude Include="Effect\RayMarcher.h" />
     <ClInclude Include="Engine\asset.h" />
     <ClInclude Include="Effect\HeightMapPacket.h" />
+    <ClInclude Include="Engine\FBOTexture.h" />
     <ClInclude Include="Engine\Grid.h" />
     <ClInclude Include="Engine\map.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
+    <ClInclude Include="Engine\FileTexture.h" />
+    <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Worlds\MasterWorld.h" />
     <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />

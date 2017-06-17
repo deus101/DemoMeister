@@ -8,12 +8,28 @@
 #include "../Engine/asset.h"
 #include "../Math/math3d.h"
 //#include "../Rendrer/context.h"
+
+
 #include "../util.h"
+
 
 namespace NS_EFF{
 
+
+
 	class renderPacket
 	{
+
+
+
+
+
+	/*
+	Struct
+		char*
+		type
+	
+	*/
 
 		//renderPacket(const NS_REND::context &aContext);
 	public:
@@ -45,6 +61,9 @@ namespace NS_EFF{
 
 		GLuint m_shaderProg;
 
+		EffectStage m_StageParameters;
+		EffectStagePtr m_StageParamPtr;
+		EffectStageConstPtr m_StageParamConstPtr;
 	private:
 
 		typedef std::list<GLuint> ShaderObjList;

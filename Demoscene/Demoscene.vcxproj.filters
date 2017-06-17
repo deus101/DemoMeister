@@ -114,6 +114,15 @@
     <ClCompile Include="Engine\map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\asset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FileTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FBOTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -272,6 +281,15 @@
     <ClInclude Include="Engine\map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FreeImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FileTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FBOTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">
@@ -313,9 +331,7 @@
     <None Include="Mesh\teapot.FBX" />
     <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\geometry_grid_pass.gs" />
-    <None Include="Mesh\PentagonArm.blend" />
     <None Include="Mesh\PentagonArm.mtl" />
-    <None Include="Mesh\PentagonBase.blend" />
     <None Include="Mesh\PentagonBase.mtl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
     <None Include="Scene.rocket" />
@@ -374,21 +390,6 @@
     <Object Include="Mesh\p38.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\PLANE.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\plane2.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\plane3.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\planeexp1.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\planenormals.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
     <Object Include="Mesh\pyramid.obj">
       <Filter>Resource Files</Filter>
     </Object>
@@ -433,6 +434,5 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Mesh\PentagonBase.obj" />
-    <Resource Include="Mesh\planehqnorm.obj" />
   </ItemGroup>
 </Project>

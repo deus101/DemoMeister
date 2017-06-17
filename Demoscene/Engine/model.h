@@ -60,7 +60,7 @@ namespace NS_ENG{
 		};
 	};
 
-
+	
 
 
 	class model : public asset
