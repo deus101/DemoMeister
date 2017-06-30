@@ -20,11 +20,14 @@ namespace NS_EFF{
 
 		void SetProjectionMatrix(const M3DMatrix44f& P);
 
-
-		void SetDiffuseTextureUnit(unsigned int TextureUnit);
+		
+		//void SetDiffuseTextureUnit(unsigned int TextureUnit);
+		void SetDiffuseTextureUnit(GLenum TextureUnit);
+		//void SetDiffuseTextureUnit(GLint TextureUnit);
 		//void SetBumpTextureUnit(unsigned int TextureUnit);
 
-		void SetMaterialMapUnit(unsigned int TextureUnit);
+		void SetMaterialMapUnit(GLenum TextureUnit);
+		//void SetMaterialMapUnit(GLint TextureUnit);
 		void SetMaterialsCount(unsigned int MatCount);
 
 
@@ -43,7 +46,7 @@ namespace NS_EFF{
 
 
 		GLuint m_MaterialMapTextureUnitLocation;
-		GLuint m_NrMaterials;
+		GLuint m_MaterialCountUnitLocation;
 
 
 	};

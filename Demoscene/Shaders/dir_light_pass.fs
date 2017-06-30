@@ -37,8 +37,8 @@ struct SpotLight
 //here I will add glsl code automatically
 
 
-uniform sampler2D MaterialMap;
 
+uniform sampler2D MaterialMap;
 //gColorMap should be diffuseMap
 //uniform sampler2D gColorMap;
 
@@ -48,7 +48,8 @@ uniform sampler2D gNormalMap;
 uniform sampler2D gUvMap;
 uniform sampler2D gAoPass;
 
-//uniform sampler2D MaterialMap;
+
+
 
 
 uniform mat4 gProjection;

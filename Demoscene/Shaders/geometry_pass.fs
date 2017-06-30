@@ -12,9 +12,11 @@ layout (location = 1) out vec3 DiffuseOut;
 layout (location = 2) out vec3 NormalOut;     
 layout (location = 3) out vec3 TexCoordOut;    
 
-uniform sampler2D MaterialMap;
-							
+
+uniform sampler2D MaterialMap;							
 uniform sampler2D A_DiffuseMap;     
+
+
 
 uniform vec3 mDiffuseCol;             
 uniform float mSpecularInt;

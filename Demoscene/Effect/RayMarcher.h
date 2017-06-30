@@ -20,9 +20,10 @@ namespace NS_EFF {
 
 		void SetProjectionMatrix(const M3DMatrix44f& P);
 
-		void SetMaterialMapUnit(unsigned int TextureUnit);
+		void SetMaterialMapUnit(GLenum TextureUnit);
 
-		void SetColorTextureUnit(unsigned int TextureUnit);
+		//array
+		void SetColorTextureUnit(GLenum TextureUnit);
 
 		void SetEyeWorldPos(const NS_VEC::VEC3& EyeWorldPos);
 

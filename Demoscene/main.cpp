@@ -382,6 +382,13 @@ void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 int main(int argc, char** argv)
 {
+
+	HMODULE hModule = GetModuleHandleW(NULL);
+	char path[MAX_PATH];
+	GetModuleFileNameA(hModule, path, MAX_PATH);
+
+
+
 	int Xres = 1280;
 	int Yres = 720;
 
@@ -530,7 +537,10 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
 	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
-	NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	
+	NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
+	NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
 	//should this be placed in the world class?...nah if it works as intended this should get the
 	// world singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
@@ -538,46 +548,63 @@ int main(int argc, char** argv)
 
 
 
-	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl;
+	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl << std::endl << std::endl;
 
 	e_geom.Enable();
-	e_geom.SetDiffuseTextureUnit(GL_TEXTURE0);
-	e_geom.SetMaterialMapUnit(GL_TEXTURE2);
+	//e_geom.SetDiffuseTextureUnit(TypeOfTexture::DiffuseMap_UNIT);
+	e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
+	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE2);
+	//e_geom.SetMaterialMapUnit(GLenum(15));
+	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
+	e_geom.SetMaterialMapUnit(GL_TEXTURE6);
 	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX + 1);
 
 	
-	std::cout << "Status of geometry RayMarcher effect is: " << e_rm_Pack.Init() << std::endl;
+	std::cout << "Status of geometry RayMarcher effect is: " << e_rm_Pack.Init() << std::endl << std::endl << std::endl;
 	//ikke gi opp
 	//std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
 	e_rm_Pack.Enable();
 	e_rm_Pack.SetScreenSize(Xres, Yres);
 
-
-
-
+	//GBuffer::GBUFFER_TEXTURE_TYPE_POSITION
+	
+	//e_rm_Pack.SetMaterialMapUnit(GL_TEXTURE6);
+	e_rm_Pack.SetMaterialMapUnit(GL_TEXTURE6);
+	//e_rm_Pack.SetMaterialMapUnit(GL_TEXTURE2);
 	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
 	//e_ao_Pass.SetNoiseTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP);
 	//e_ao_Pass.SetNoiseTextureUnit((UINT32)3);
-	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl;
+	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl << std::endl << std::endl;
 
 	e_point.Enable();
-
+	/*
 	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_ABEDO);
 	e_point.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
 	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
+	*/
+
+	e_point.SetPositionTextureUnit(GL_TEXTURE1);
+	e_point.SetColorTextureUnit(GL_TEXTURE2);
+	e_point.SetUvTextureUnit(GL_TEXTURE3);
+	e_point.SetNormalTextureUnit(GL_TEXTURE4);
+
+
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
-	e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+	//e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+	e_point.SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
-	e_dir.SetMaterialMapUnit(GL_TEXTURE6);
+	e_point.SetMaterialMapUnit(GL_TEXTURE6);
+	//e_dir.SetMaterialMapUnit(15);
 	e_point.SetScreenSize(Xres, Yres);
 	
 	//e_point.SetScreenSize(1600, 900);
 	
-	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl;
+	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl << std::endl << std::endl;
 
 	e_dir.Enable();
+	/*
 	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	
 	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_ABEDO);
@@ -589,16 +616,30 @@ int main(int argc, char** argv)
 	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
 	e_dir.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	//e_dir.SetMaterialMapUnit(GBuffer::GBUFFER_NUM_TEXTURES + NS_ENG::Material::GenerateMaterialMap());
-	e_dir.SetMaterialMapUnit(GL_TEXTURE6);
+	e_dir.SetMaterialMapUnit(GL_TEXTURE0+15));
+	//e_dir.SetMaterialMapUnit(15);
 	//e_dir.SetScreenSize(1600, 900);
+	*/
+	e_dir.SetPositionTextureUnit(GL_TEXTURE1);
+	e_dir.SetColorTextureUnit(GL_TEXTURE2);
+	e_dir.SetUvTextureUnit(GL_TEXTURE3);
+	e_dir.SetNormalTextureUnit(GL_TEXTURE4);
+	//e_point.SetAoTextureUnit(GL_TEXTURE5);
+	//e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+	e_dir.SetAoTextureUnit(GL_TEXTURE5);
+	//TheDisc->BufferContainer[1]->
+	e_dir.SetMaterialMapUnit(GL_TEXTURE6);
+
 	e_dir.SetScreenSize(Xres, Yres);
 
 
-	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl;
-	e_ao_Pass.Enable();
-	e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl << std::endl << std::endl;
 
+	e_ao_Pass.Enable();
+	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	e_ao_Pass.SetPositionTextureUnit(GL_TEXTURE1);
+	e_ao_Pass.SetNormalTextureUnit(GL_TEXTURE4);
 	e_ao_Pass.SetScreenSize(Xres, Yres);
 
 	e_ao_Pass.InitKernel();

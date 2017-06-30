@@ -132,8 +132,9 @@ void aoPacket::InitNoise()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	this->SetNoiseTextureUnit(NoiseTexure);
-
+	//this->SetNoiseTextureUnit(NoiseTexure);
+	//this->SetNoiseTextureUnit(GL_TEXTURE0+15u);
+	this->SetNoiseTextureUnit(GL_TEXTURE7);
 }
 //ugh why dont I virtualize these in the base class
 void aoPacket::SetWVP(const M3DMatrix44f& WVP)
@@ -176,27 +177,35 @@ void aoPacket::SetScreenSize(unsigned int Width, unsigned int Height)
 }
 
 
-void aoPacket::SetPositionTextureUnit(unsigned int TextureUnit)
+void aoPacket::SetPositionTextureUnit(GLenum TextureUnit)
 {
-	glUniform1i(m_posTextureUnitLocation, TextureUnit);
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_posTextureUnitLocation, SamplerID);
 
-	std::cout << "AO_Packet Position Uniform Location is " << m_posTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT] = TextureUnit;
+	std::cout << "AO_Packet Position Uniform Location is " << m_posTextureUnitLocation <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
 }
 
 
-void aoPacket::SetNoiseTextureUnit(unsigned int TextureUnit)
+void aoPacket::SetNoiseTextureUnit(GLenum TextureUnit)
 {
-	
-	glUniform1i(m_NoiseLocation, TextureUnit);
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_NoiseLocation, SamplerID);
 	//glUniform1i(m_NoiseLocation, m_NoiseLocation);
-	std::cout << "AO_Packet Noise Uniform Location is " << m_NoiseLocation << " Sampler Id is " << TextureUnit << std::endl;
-
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::AOBuffer_NOISE] = TextureUnit;
+	std::cout << "AO_Packet Noise Uniform Location is " << m_NoiseLocation <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
 }
 
 
-void aoPacket::SetNormalTextureUnit(unsigned int TextureUnit)
+void aoPacket::SetNormalTextureUnit(GLenum TextureUnit)
 {
-	glUniform1i(m_normalTextureUnitLocation, TextureUnit);
-	std::cout << "AO_Packet Normal Uniform Location is " << m_normalTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	
 
+	glUniform1i(m_normalTextureUnitLocation, SamplerID);
+	std::cout << "AO_Packet Normal Uniform Location is " << m_normalTextureUnitLocation  <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_Normal_UNIT] = TextureUnit;
 }

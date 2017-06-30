@@ -99,19 +99,26 @@ glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
 */
 
 //should be inherited shared with both lightpacket and Raymarcher
-void RayMarcher::SetMaterialMapUnit(unsigned int TextureUnit)
+void RayMarcher::SetMaterialMapUnit(GLenum TextureUnit)
 {
 	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 
 	//Material::GenerateMaterialMap
 
+	int SamplerID = TextureUnit - GL_TEXTURE0;
 
-	glUniform1i(m_MaterialMapTextureUnitLocation, TextureUnit);
+	glUniform1i(m_MaterialMapTextureUnitLocation, SamplerID);
 	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
-	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
 }
 
-void RayMarcher::SetColorTextureUnit(unsigned int TextureUnit)
+void RayMarcher::SetColorTextureUnit(GLenum TextureUnit)
 {
-	glUniform1i(m_colorTextureUnitLocation, TextureUnit);
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_colorTextureUnitLocation, SamplerID);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::DiffuseMap_UNIT] = TextureUnit;
+	std::cout << "Material Map Uniform Location is " << m_colorTextureUnitLocation <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
+
 }

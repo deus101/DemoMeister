@@ -23,7 +23,8 @@ renderPacket::renderPacket()
 }
 renderPacket::~renderPacket()
 {
-	delete &m_StageParamPtr;
+	//m_StageParamPtr.
+	//delete &m_StageParamPtr;
 }
 bool renderPacket::Init()
 {
@@ -131,7 +132,8 @@ bool renderPacket::Finalize()
 		_sleep(10000);
 		return false;
 	}
-	//std::cout << "ShaderObject! : " << m_shaderProg << endl;
+	std::cout << "ShaderObject! : " << m_shaderProg << endl;
+	//glUseProgram(m_shaderProg);
 	return true;
 
 }

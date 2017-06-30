@@ -872,6 +872,10 @@
     <Image Include="Mesh\texture.bmp" />
     <Image Include="Mesh\texture2.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Asset\EffectRepo\Deferred_Geometry_Pass.xml" />
+    <Xml Include="Asset\EffectRepo\Deferred_Raymarching_Geometry_Pass.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

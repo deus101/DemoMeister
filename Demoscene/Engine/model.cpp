@@ -281,13 +281,15 @@ model::~model()
 void model::Draw()
 {
 
-	GLint ShaderProg;
+	
 
 	//GLuint vbo_BaseTool;
 	//GLuint vbo_ChildTool;
 
 	//this shit needs to go. 
+	GLint ShaderProg;
 	//glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
+	
 	//GLint VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
 	
 	//remember to move to overloaded method
@@ -315,6 +317,8 @@ void model::Draw()
 		{
 			//if ActivateAlbedoSampler
 			glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::DiffuseMap_UNIT]);
+			//glActiveTexture(TypeOfTexture::DiffuseMap_UNIT);
+
 			//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 		}

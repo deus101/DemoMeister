@@ -421,7 +421,8 @@ void rendrer::RenderSceneCB()
 	//glActiveTexture(GL_TEXTURE5);
 	//glActiveTexture(GL_TEXTURE9);
 	//FEIL FEIL FEIL!!
-	glActiveTexture(GL_TEXTURE0 + AoPass->NoiseTexure);
+	//glActiveTexture(TypeOfTexture::AOBuffer_NOISE);
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::AOBuffer_NOISE]);
 	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
 
 	//glActiveTexture(GL_TEXTURE7);

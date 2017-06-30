@@ -435,4 +435,8 @@
   <ItemGroup>
     <Resource Include="Mesh\PentagonBase.obj" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Asset\EffectRepo\Deferred_Geometry_Pass.xml" />
+    <Xml Include="Asset\EffectRepo\Deferred_Raymarching_Geometry_Pass.xml" />
+  </ItemGroup>
 </Project>

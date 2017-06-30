@@ -30,11 +30,13 @@ namespace NS_EFF {
 
 
 
-		void SetPositionTextureUnit(unsigned int TextureUnit);
-		void SetNormalTextureUnit(unsigned int TextureUnit);
-		void SetNoiseTextureUnit(unsigned int TextureUnit);
+		//void SetPositionTextureUnit(unsigned int TextureUnit);
+		//void SetNormalTextureUnit(unsigned int TextureUnit);
+		//void SetNoiseTextureUnit(unsigned int TextureUnit);
 
-
+		void SetPositionTextureUnit(GLenum TextureUnit);
+		void SetNormalTextureUnit(GLenum TextureUnit);
+		void SetNoiseTextureUnit(GLenum TextureUnit);
 
 
 		void InitKernel();

@@ -247,22 +247,44 @@ void GBuffer::BindForLightPass()
 	//Don't forget  collor attachments are an FBO thing
 	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 
-
+	/*
 	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
 		//one as specified in shader
-		glActiveTexture(GL_TEXTURE0 + i);
+		//glActiveTexture(GL_TEXTURE0 + i);
+		glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
 		//many from GLGENTex
 		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
-	}	
+	}*/
+
+	
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
+	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION]);
+	
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_Albedo_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_Albedo_UNIT);
+	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_ABEDO]);
+
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_Normal_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_Normal_UNIT);
+	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_NORMAL]);
+
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_UV_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_UV_UNIT);
+	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_UV]);
+
 	//glActiveTexture(GL_TEXTURE3);
 	//this is stupid, I should store this in the packets
 	AoBuffer *test2 = (AoBuffer*)TheDisc->BufferContainer[1];
-	glActiveTexture(GL_TEXTURE5);
+	//glActiveTexture(GL_TEXTURE5);
+	
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::AOBuffer_AO_UNIT]);
+	//glActiveTexture(TypeOfTexture::AOBuffer_AO_UNIT);
 	glBindTexture(GL_TEXTURE_2D, test2->ao_textures[test2->AO_TEXTURE_TYPE_AO_MAP]);
 
 
-
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
+	//glActiveTexture(TypeOfTexture::MaterialMap_UNIT);
 	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
 	//glBindTexture(GL_TEXTURE_2D, m_AoTexture);
 

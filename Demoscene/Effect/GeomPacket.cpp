@@ -36,7 +36,7 @@ bool GeomPacket::Init()
 	m_ProjectionLocation = GetUniformLocation("gProjection");
 	m_diffuseTextureUnitLocation = GetUniformLocation("A_DiffuseMap");
 	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
-
+	m_MaterialCountUnitLocation = GetUniformLocation("MaterialMap");
 	//NS_ENG::Material::
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
@@ -81,26 +81,36 @@ void  GeomPacket::SetProjectionMatrix(const M3DMatrix44f& P)
 	glUniformMatrix4fv(m_ProjectionLocation, 1, GL_FALSE, P);
 }
 
-void GeomPacket::SetDiffuseTextureUnit(unsigned int TextureUnit)
+
+//void GeomPacket::SetDiffuseTextureUnit(unsigned int TextureUnit)
+void GeomPacket::SetDiffuseTextureUnit(GLenum TextureUnit)
 {
-	
-	glUniform1i(m_diffuseTextureUnitLocation, TextureUnit);
+	GLint ShaderProg;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
+
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_diffuseTextureUnitLocation, SamplerID);
 	this->m_StageParamPtr->TextureUnits[TypeOfTexture::DiffuseMap_UNIT] = TextureUnit;
-
-
+	std::cout << "Diffuse Map Uniform Location is " << m_MaterialMapTextureUnitLocation << 
+		" Textureunit: " << TextureUnit << " SamplerID: "<< SamplerID <<std::endl;
+	//typeid(TextureUnit).name()
 }
 
 //should be inherited shared with both lightpacket and Raymarcher
-void GeomPacket::SetMaterialMapUnit(unsigned int TextureUnit)
+void GeomPacket::SetMaterialMapUnit(GLenum TextureUnit)
 {
+	
 	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 
 	//Material::GenerateMaterialMap
 
+	GLint ShaderProg;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
 
-	glUniform1i(m_MaterialMapTextureUnitLocation, TextureUnit);
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_MaterialMapTextureUnitLocation, SamplerID);
 	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
-	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation << " Sampler Id is " << TextureUnit << std::endl;
+	std::cout << "Material Map  Uniform Location: " << m_MaterialMapTextureUnitLocation << " Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
 }
 
 void GeomPacket::SetMaterialsCount(unsigned int MatCount)
@@ -110,7 +120,7 @@ void GeomPacket::SetMaterialsCount(unsigned int MatCount)
 	//Material::GenerateMaterialMap
 
 
-	glUniform1i(m_MaterialMapTextureUnitLocation, MatCount);
+	glUniform1i(m_MaterialCountUnitLocation, MatCount);
 
-	std::cout << "Unifor Location for MatCount is " << m_MaterialMapTextureUnitLocation << " Value is " << MatCount << std::endl;
+	std::cout << "Unifor Location for MatCount is " << m_MaterialCountUnitLocation << " Value is " << MatCount << std::endl;
 }

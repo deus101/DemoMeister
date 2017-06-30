@@ -290,7 +290,7 @@ void main()
 		ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
 		normal = floorNormal;
 		color = chessBoard(p);
-		matID = 6;
+		matID = 3;
 		//color = vec4(3 / 255);
 		puv = CalcUV(  p, normal, 32.0 ).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
@@ -308,7 +308,7 @@ void main()
 		eyeHitZ = -t *dot(worldDir,rd);
 		ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
 		//color = vec4(1 / 255);
-		matID = 5; 
+		matID = 4; 
 		normal = getNormal(p);
 		puv = CalcUV(  p, normal, 32.0 ).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;

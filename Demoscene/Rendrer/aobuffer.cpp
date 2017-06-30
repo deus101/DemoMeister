@@ -92,15 +92,20 @@ void AoBuffer::BindForAoPass()
 	//glClear(GL_COLOR_BUFFER_BIT);
 
 	GLuint faen = test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL];
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL]);
-
-
-
-
 	
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
+	//glActiveTexture(GL_TEXTURE2);
+	//glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL]);
+
+
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
+	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
+
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_Normal_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_Normal_UNIT);
+	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL]);
 	//glActiveTexture(GL_TEXTURE0);
 	////glBindTexture(GL_TEXTURE_2D, gb_PosDepth);
 	//glBindTexture(GL_TEXTURE_2D, 

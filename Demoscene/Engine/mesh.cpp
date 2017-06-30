@@ -123,7 +123,8 @@ namespace NS_MESH
 					
 					//b_RelativeIndex = true;
 					//cout << " pid: " << FV.m_PID << " nid: " << FV.m_NID << endl;
-
+					if (b_RelativeIndex != true && FV.m_PID < 1)
+						b_RelativeIndex = true;
 
 					if(b_RelativeIndex != true)
 					{ 

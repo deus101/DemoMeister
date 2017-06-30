@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <cstdlib>
+#include <typeinfo>
 
 #include <Windows.h>
 #include <Shlwapi.h>
@@ -30,6 +31,7 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 enum TypeOfTexture
 {
+	ActiveTexture,
 	DiffuseMap_UNIT,
 	BumpMap_UNIT,
 	MaterialMap_UNIT,
@@ -39,6 +41,7 @@ enum TypeOfTexture
 	GBuffer_Normal_UNIT,
 	GBuffer_UV_UNIT,
 
+	AOBuffer_NOISE,
 	AOBuffer_AO_UNIT,
 	AOBuffer_Blur_UNIT,     
    
@@ -49,10 +52,12 @@ enum TypeOfTexture
 
 
 struct EffectStage
-{	
+{
+	//GL_TEXTURE1
 	int StageValue;
-	GLint TextureUnits[Size] ;
-
+	//GLint TextureUnits[Size];
+	GLenum TextureUnits[Size];
+	//GLUint TextureUnits[Size];
 };
 
 typedef boost::shared_ptr< struct EffectStage > EffectStagePtr;
