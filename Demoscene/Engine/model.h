@@ -11,12 +11,18 @@
 #include "mesh.h"
 #include "materials.h"
 #include "../Effect/GeomPacket.h"
-#include "../Rendrer/context.h"
+#include "../util.h"
 
+//#include "../Rendrer/context.h"
+
+
+
+//http://stackoverflow.com/questions/16501419/creating-a-class-with-a-static-member-container-holding-all-instances-of-said-cl
+//Hurm isnt it safer with a composite class?
 
 namespace NS_ENG{
 
-	//AHAAA! JEG KAN GENERE FRA GRUPPENE BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
+	//AHAAA! JEG KAN GENNE FRA GRUPPE, BUFFER GRUPPENE TIL MODDELEN FLERE NODER! 
 	//Alt ligger på på plass! og model noden trenger jo bare å kjøre addchildren eller gi den til faren
 
 	struct buffer_Group
@@ -24,12 +30,15 @@ namespace NS_ENG{
 		buffer_Group()
 		{
 			IBO.clear();
+			tex = NULL;
 		}
 		GLuint vao;
+		//I should have called this IBO
 		GLuint vbo;
+		//And This IBO_Data
 		std::vector<unsigned int> IBO;
 		//std::vector<unsigned short> IBO;
-
+		NS_MESH::s_ModelAid ModelAidChild;
 
 		//been to long...
 		//VEC3 amb;
@@ -38,7 +47,8 @@ namespace NS_ENG{
 		NS_VEC::VEC3 spec;
 		NS_VEC::VEC3 emi;
 		NS_VEC::VEC3 shiny;
-		GLuint tex;
+		//GLuint tex;
+		GLint tex;
 	};
 
 	struct PackedVertex{
@@ -50,44 +60,64 @@ namespace NS_ENG{
 		};
 	};
 
-
+	
 
 
 	class model : public asset
 	{
+	private:
+		//Rename to model Iter
+		std::list <model*>::iterator iter;
 	public:
+		static std::list <model*> classModelList;
+		//heh should be private
 		std::vector<NS_VEC::VEC3> Sort_Pos;
 		std::vector<NS_VEC::VEC3> Sort_Norms;
 		std::vector<NS_VEC::VEC2> Sort_Uvs;
-
+		std::vector<NS_VEC::VEC3> Sort_Tang;
 
 
 
 		std::vector<buffer_Group> Sort_Groups;
 
-
-
-		GLuint vao_model;
+		NS_MESH::s_ModelAid ModelAidRoot;
+		//GLuint vao_model;
+		
+		
 		GLuint vbo_vertices;
 		GLuint vbo_normals;
 		GLuint vbo_uv;
 
+		GLuint vbo_BaseTool;
+		GLuint vbo_ChildTool;
+
 		//should be grouped per face..so array....
 		GLuint vbo_indices;
 		model();
-		model( std::string obj, std::string mtl);
+		//might need later 
+		//model(model const &from)
+		model( std::string obj, std::string mtl, bool UV = true, bool Tangent = true);
 		~model();
+		
+
+		/*
+		model &operator=(model const &src) {
+			return *this;
+		
+		*/
 
 
 
 		void Draw();
-
+		void Draw(int instances);
 	public:
 
 
 
 		NS_MESH::MESH meshy;
-		NS_MAT::MATERIALS palette;
+		//hmmm should I maybe not care how many instances of palette there is...if only I can ID them?
+		//NS_MAT
+		NS_ENG::MATERIALS palette;
 		NS_VEC::VEC3 color;
 
 	private:
@@ -117,7 +147,6 @@ namespace NS_ENG{
 
 
 	};
-
 	//const void loadBuffer(Model &mModel, renderPacket &mPacket);
 }
 #endif

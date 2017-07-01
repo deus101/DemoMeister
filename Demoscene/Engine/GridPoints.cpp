@@ -1,6 +1,6 @@
 ﻿#include "GridPoints.h"
 
-
+//Should rename this to CellPoints
 using namespace NS_ENG;
 
 //since we only deal with quadratics we only need one argument for size
@@ -32,7 +32,8 @@ GridPoints::GridPoints(int GridSize_X, int GridSize_Y, float CellSize, NS_VEC::V
 			float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 
 			//just for testing //r+g+b
-			CellAttrib.push_back(CellAttributes(NS_VEC::VEC2(xpos, ypos), NS_VEC::VEC3(r, g, b), r + g + b));
+			CellAttrib.push_back(CellAttributes(NS_VEC::VEC2(xpos, ypos), NS_VEC::VEC3(r, g, b), 0.1f));
+			//CellAttrib.push_back(CellAttributes(NS_VEC::VEC2(xpos, ypos), NS_VEC::VEC3(r, g, b), r + g + b));
 
 			//CellAttrib.push_back(CellAttributes(NS_VEC::VEC2(xpos, ypos), col, 0.01f));
 					i--;

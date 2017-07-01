@@ -31,7 +31,7 @@ bool HeightMapPacket::Init()
 	m_WorldMatrixLocation = GetUniformLocation("gWorld");
 	m_WVPLocation = GetUniformLocation("gWVP");
 	f_halfSizLocation = GetUniformLocation("halfSize");
-	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+	//m_colorTextureUnitLocation = GetUniformLocation("gAbedoMap");
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION || 

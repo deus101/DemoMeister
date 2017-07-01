@@ -39,9 +39,6 @@
     <ClCompile Include="Math\math3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rendrer\buffers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Rendrer\context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +93,36 @@
     <ClCompile Include="Effect\ConeLightPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ProjectedGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\aoPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendrer\base_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendrer\aobuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\RayMarcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\asset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FileTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FBOTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -147,9 +174,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math\math3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendrer\buffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendrer\context.h">
@@ -224,6 +248,48 @@
     <ClInclude Include="Effect\ConeLightPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ProjectedGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\OceanPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraph\oceanNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\aoPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\aoBlurPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendrer\base_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendrer\aobuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\RayMarcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Worlds\MasterWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FileTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FBOTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Mesh\38p.mtl">
@@ -250,9 +316,6 @@
     <None Include="Mesh\cube_texture2.mtl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Mesh\ground.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Mesh\hex.mtl">
       <Filter>Resource Files</Filter>
     </None>
@@ -266,14 +329,17 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Mesh\teapot.FBX" />
-    <None Include="Mesh\newP38.mtl" />
     <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\geometry_grid_pass.gs" />
-    <None Include="Mesh\PentagonArm.blend" />
     <None Include="Mesh\PentagonArm.mtl" />
-    <None Include="Mesh\PentagonBase.blend" />
     <None Include="Mesh\PentagonBase.mtl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
+    <None Include="Scene.rocket" />
+    <None Include="Mesh\LazyGreets.mtl" />
+    <None Include="Shaders\ao_Pass_Frag.glsl" />
+    <None Include="Shaders\IdentityPacket.vert" />
+    <None Include="Shaders\RayMarcher_Frag.glsl" />
+    <None Include="Shaders\RayMarcher_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -312,18 +378,6 @@
     <Object Include="Mesh\cube_texture2.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\dodecahedron - Copy.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\dodecahedron.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\ds.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\ground.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
     <Object Include="Mesh\hex.obj">
       <Filter>Resource Files</Filter>
     </Object>
@@ -334,21 +388,6 @@
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\p38.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\PLANE.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\plane2.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\plane3.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\planeexp1.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\planenormals.obj">
       <Filter>Resource Files</Filter>
     </Object>
     <Object Include="Mesh\pyramid.obj">
@@ -366,21 +405,14 @@
     <Object Include="Mesh\teapot.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\world1.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\world2.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\world3.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
     <Object Include="Mesh\PentagonArm.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="AF.mp3" />
+    <Media Include="Mesh\LazyGreets.obj" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\p38.obj.bac.txt">
@@ -402,6 +434,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Mesh\PentagonBase.obj" />
-    <Resource Include="Mesh\planehqnorm.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Asset\EffectRepo\Deferred_Geometry_Pass.xml" />
+    <Xml Include="Asset\EffectRepo\Deferred_Raymarching_Geometry_Pass.xml" />
   </ItemGroup>
 </Project>

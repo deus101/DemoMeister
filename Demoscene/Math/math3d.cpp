@@ -126,6 +126,76 @@ double m3dGetDistanceSquared3(const M3DVector3d u, const M3DVector3d v)
 	return (x + y + z);
 	}
 
+//void m3dGetAllMax(M3DVector4f u, const M3DVector4f v);
+//void m3dGetAllMin(M3DVector4f u, const M3DVector4f v);
+
+NS_VEC::VEC3 m3dGetAllMax(const M3DVector4f u, const NS_VEC::VEC3 v)
+{
+	NS_VEC::VEC3 ret;
+	float x, y, z, w, maxx, maxy, maxz;
+	x = u[0];
+	y = u[1];
+	z = u[2];
+	w = u[3];
+
+	if (x > v.X)
+		maxx = x;
+	else
+		maxx = v.X;
+
+	if (y > v.Y)
+		maxy = y;
+	else
+		maxy = v.Y;
+
+	if (z > v.Z)
+		maxz = z;
+	else
+		maxz = v.Z;
+
+
+	ret = NS_VEC::VEC3(maxx, maxy, maxz);
+
+	return ret;
+
+}
+
+NS_VEC::VEC3 m3dGetAllMin(const M3DVector4f u, const NS_VEC::VEC3 v)
+{
+	NS_VEC::VEC3 ret;
+	float x, y, z, w;
+	float minx, miny, minz = 9999999.9f;
+	x = u[0];
+	y = u[1];
+	z = u[2];
+	w = u[3];
+
+	if (x < v.X)
+		minx = x;
+	else
+		minx = v.X;
+		
+	if (y < v.Y)
+		miny = y;
+	else
+		miny = v.Y;
+
+	if (z < v.Z)
+		minz = z;
+	else
+		minz = v.Z;
+
+
+	ret = NS_VEC::VEC3(minx, miny, minz);
+
+	return ret;
+
+
+}
+
+
+
+
 #define A(row,col)  a[(col<<2)+row]
 #define B(row,col)  b[(col<<2)+row]
 #define P(row,col)  product[(col<<2)+row]
@@ -749,7 +819,7 @@ void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vL
 	//Orientation[11] = -m3dDotProduct3(z, vLookFrom);
 	//Orientation[11] = -1.0f;
 
-	Orientation[12] = m3dDotProduct3(x, vLookFrom);
+	Orientation[12] = -m3dDotProduct3(x, vLookFrom);
 	Orientation[13] = -m3dDotProduct3(y, vLookFrom);
 	Orientation[14] = -m3dDotProduct3(z, vLookFrom);
 	//Orientation[12] = 0.0f;
@@ -794,7 +864,6 @@ void m3dLookAt(M3DMatrix44f mat, const M3DVector3f vLookat, const M3DVector3f vL
 	m3dRotationMatrix44(rot, m3dDegToRad(roll), 0.0f, 1.0f, 0.0f);
 	//m3dTransposeMatrix44(OrientationT, Orientation);
 	m3dMatrixMultiply44(mat, rot, Orientation );
-
 	//m3dCopyMatrix44(mat, Orientation);
 
 }

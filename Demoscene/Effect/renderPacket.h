@@ -2,21 +2,34 @@
 #define RENDERPACKET_HPP
 
 #include <iostream>
-#include <list>
+//#include <list>
 #include "../Math/vec.h"
-//#include "mesh.h"
-//#include "shaders.h"
-//#include "../Engine/model.h"
+
 #include "../Engine/asset.h"
 #include "../Math/math3d.h"
-#include "../Rendrer/context.h"
-//#include <glload/gl_3_3.hpp>
+//#include "../Rendrer/context.h"
+
+
+#include "../util.h"
 
 
 namespace NS_EFF{
 
+
+
 	class renderPacket
 	{
+
+
+
+
+
+	/*
+	Struct
+		char*
+		type
+	
+	*/
 
 		//renderPacket(const NS_REND::context &aContext);
 	public:
@@ -48,6 +61,9 @@ namespace NS_EFF{
 
 		GLuint m_shaderProg;
 
+		EffectStage m_StageParameters;
+		EffectStagePtr m_StageParamPtr;
+		EffectStageConstPtr m_StageParamConstPtr;
 	private:
 
 		typedef std::list<GLuint> ShaderObjList;

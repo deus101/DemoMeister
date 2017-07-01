@@ -170,6 +170,10 @@ inline void	m3dCopyVector4(M3DVector4f dst, const M3DVector4f src) { memcpy(dst,
 inline void	m3dCopyVector4(M3DVector4d dst, const M3DVector4d src) { memcpy(dst, src, sizeof(M3DVector4d)); }
 
 
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Add Vectors (r, a, b) r = a + b
 inline void m3dAddVectors2(M3DVector2f r, const M3DVector2f a, const M3DVector2f b)
@@ -312,7 +316,12 @@ inline double m3dGetMagnitudeSquared3(const M3DVector3d u) { return u[0]*u[0] + 
 inline float m3dGetMagnitude3(const M3DVector3f u) { return sqrtf(m3dGetMagnitudeSquared3(u)); }
 inline double m3dGetMagnitude3(const M3DVector3d u) { return sqrt(m3dGetMagnitudeSquared3(u)); }
 
-	
+//u is compare and modify
+void m3dGetAllMax(const M3DVector4f u, const M3DVector4f v);
+void m3dGetAllMin(const M3DVector4f u, const M3DVector4f v);
+
+NS_VEC::VEC3 m3dGetAllMax(const M3DVector4f u, const NS_VEC::VEC3 v);
+NS_VEC::VEC3 m3dGetAllMin(const M3DVector4f u, const NS_VEC::VEC3 v);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Matrix functions

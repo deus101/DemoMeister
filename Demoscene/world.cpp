@@ -1,44 +1,70 @@
 
 #include "world.h"
-#include <iostream>
+//#include <iostream>
 
-#define DegToRad 0.01745329f
+//#define DegToRad 0.01745329f
 
-GLfloat turn = 0.0;
-GLuint VertexArrayID;
+//GLfloat turn = 0.0;
+//GLuint VertexArrayID;
 
 //HSTREAM stream;
 
-
+//boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece
 world::world() //public context()
 {
-
+	
+	//BufferContainer.push_back()
+	
+	o_loader = compoPointer(new NS_SG::composite("root"));
+	
+	//o_loader->addChild(new NS_SG::objTransform("Test"));
 
 }
 
-
-
-void world::DrawStage()
+void world::AddPass()
 {
+	GBuffer *temp = new GBuffer();
+	AoBuffer *temp2 = new AoBuffer();
 
-
+	temp->Init(ResolutionX, ResolutionY);
+	temp2->Init(ResolutionX, ResolutionY);
+	BufferContainer.push_back(temp);
+	BufferContainer.push_back(temp2);
 }
 
-
-
-
-void world::HyperHex()
+void world::AddNode()
 {
+}
 
+void world::AddEffect()
+{
+}
 
+void world::AddAsset()
+{
+}
 
-	GLfloat S;
-	GLfloat h;
+void world::RetriveAsset()
+{
+}
 
+void world::AddMaterial()
+{
+}
 
+void world::RetriveMaterial()
+{
+}
+
+void world::HackerSpace()
+{
 }
 
 
+
+
+
+//hmm Maybe needed
 void world::AfterInit()
 {
 
@@ -73,6 +99,7 @@ void world::AfterInit()
 
 
 }
+/*
 void world::InitLights()
 {
 
@@ -86,4 +113,4 @@ void world::RenderScene()
 
 
 }
-
+*/
