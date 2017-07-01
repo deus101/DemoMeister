@@ -275,9 +275,6 @@
     <ClInclude Include="Effect\RayMarcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Worlds\MasterWorld.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -288,6 +285,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\FBOTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Productions\WCD_1.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -340,6 +340,8 @@
     <None Include="Shaders\IdentityPacket.vert" />
     <None Include="Shaders\RayMarcher_Frag.glsl" />
     <None Include="Shaders\RayMarcher_vert.glsl" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="Asset\GlobalShaderVault\hg_sdf.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

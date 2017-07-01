@@ -11,20 +11,33 @@ using namespace NS_EFF;
 //renderPacket::renderPacket(const NS_REND::context &aContext)
 renderPacket::renderPacket()
 {
- //gi den shaderne
-	//m_shaderProg = aContext.Program;
+
+	//typedef boost::shared_ptr< struct EffectStage > EffectStagePtr;
+	//typedef boost::shared_ptr<const struct EffectStage> EffectStageConstPtr;
+
 
 	m_shaderProg = 0;
 
 	m_StageParameters.StageValue = 0;
-	m_StageParamPtr =  EffectStagePtr(&m_StageParameters);
-	m_StageParamConstPtr = EffectStageConstPtr(&m_StageParameters);
+	
+	m_StageParamPtr = boost::make_shared<EffectStage>(m_StageParameters);
+
+	m_StageParamConstPtr = boost::const_pointer_cast<const  EffectStage>(m_StageParamPtr);
 
 }
 renderPacket::~renderPacket()
 {
 	//m_StageParamPtr.
 	//delete &m_StageParamPtr;
+	//NS_ENG::asset::CurrentStage.
+	//delete &this->m_StageParameters;
+	//NS_ENG::asset::SetCurrentStage(NULL);
+	//NS_ENG::asset::SetCurrentStage(m_StageParamConstPtr);
+	//this->m_StageParamConstPtr.unique();
+	//this->m_StageParamConstPtr.owner_before()
+	//delete m_StageParamPtr;
+	//delete this->m_StageParameters
+
 }
 bool renderPacket::Init()
 {

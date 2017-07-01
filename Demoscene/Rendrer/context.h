@@ -37,7 +37,7 @@
 		static GLuint Program;
 
 		//static GBuffer* mgBuffer;
-		extern world * TheDisc;
+		extern DemoMeister * TheDisc;
 
 
 		//context();
@@ -48,7 +48,7 @@
 		//void Init(int argc, char** arg, bool aDepth, bool aStencil);
 		//static HGLRC InitWindow(unsigned int Width, unsigned int Height, bool fs, const char* aTitle);
 
-		bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle, world *globe);
+		bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int Width, unsigned int Height, bool fs, const char* aTitle, DemoMeister *globe);
 
 
 		void ChangeSize(unsigned int w, unsigned int h);

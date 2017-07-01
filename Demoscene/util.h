@@ -20,7 +20,7 @@
 #include <Shlwapi.h>
 
 #include <boost/shared_ptr.hpp>
-
+#include <boost/make_shared.hpp>
 using namespace std;
 void EngError(const char* fn, unsigned int ln, const char* msg);
 void EngFileError(const char* fn, unsigned int ln, const char* fmsg);

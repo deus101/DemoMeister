@@ -214,11 +214,12 @@ void main()
 	mat4 CamToWorld = gWVP * transpose(gView);
 
 
-	vec3 rayOriginWorld = (  CamToWorld * vec4(rayOrigin,1)).xyz;
+        //vec3 rayOriginWorld = (  CamToWorld * vec4(rayOrigin,1)).xyz;
+        vec3 rayOriginWorld = vec4(  CamToWorld * vec4(rayOrigin,1)).xyz;
 
 
-	vec3 rayPWorld = ( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
-
+        //vec3 rayPWorld = ( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
+        vec3 rayPWorld = vec4( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
 
 
 
@@ -241,7 +242,8 @@ void main()
 	//transpose(inverse(mat3(gView)));
 	
 	//this sorta works dont delete and forget you dumb fucker
-	vec3 rd = normalize( (CamToWorld * vec4(pre_RD,0)).xyz  );
+        //vec3 rd = normalize( (CamToWorld * vec4(pre_RD,0)).xyz  );
+        vec3 rd = normalize( vec4(CamToWorld * vec4(pre_RD,0)).xyz  );
 	//vec3 rd = pre_RD;
 
 

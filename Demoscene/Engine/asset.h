@@ -14,7 +14,7 @@ namespace NS_ENG{
 	
 		
 	class asset
-	{//the Extern world class might ugly, an  idea might be create an constructor here that takes in a reference to a world class 
+	{//the Extern DemoMeister class might ugly, an  idea might be create an constructor here that takes in a reference to a DemoMeister class 
 	
 	//protected:
 		//static EffectStageConstPtr CurrentStage;

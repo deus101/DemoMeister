@@ -10,7 +10,7 @@
 //HSTREAM stream;
 
 //boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece
-world::world() //public context()
+DemoMeister::DemoMeister() //public context()
 {
 	
 	//BufferContainer.push_back()
@@ -21,7 +21,7 @@ world::world() //public context()
 
 }
 
-void world::AddPass()
+void DemoMeister::AddPass()
 {
 	GBuffer *temp = new GBuffer();
 	AoBuffer *temp2 = new AoBuffer();
@@ -32,31 +32,31 @@ void world::AddPass()
 	BufferContainer.push_back(temp2);
 }
 
-void world::AddNode()
+void DemoMeister::AddNode()
 {
 }
 
-void world::AddEffect()
+void DemoMeister::AddEffect()
 {
 }
 
-void world::AddAsset()
+void DemoMeister::AddAsset()
 {
 }
 
-void world::RetriveAsset()
+void DemoMeister::RetriveAsset()
 {
 }
 
-void world::AddMaterial()
+void DemoMeister::AddMaterial()
 {
 }
 
-void world::RetriveMaterial()
+void DemoMeister::RetriveMaterial()
 {
 }
 
-void world::HackerSpace()
+void DemoMeister::HackerSpace()
 {
 }
 
@@ -65,7 +65,7 @@ void world::HackerSpace()
 
 
 //hmm Maybe needed
-void world::AfterInit()
+void DemoMeister::AfterInit()
 {
 
 
@@ -100,7 +100,7 @@ void world::AfterInit()
 
 }
 /*
-void world::InitLights()
+void DemoMeister::InitLights()
 {
 
 
@@ -108,7 +108,7 @@ void world::InitLights()
 
 
 
-void world::RenderScene()
+void DemoMeister::RenderScene()
 {
 
 

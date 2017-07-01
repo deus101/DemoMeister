@@ -46,7 +46,7 @@ typedef boost::shared_ptr< NS_SG::composite >  compoPointer;
 typedef std::vector< NS_EFF::renderPacket* > MasterList_Effects;
 typedef std::vector< base_buffer* > MasterList_Passes;
 
-class world
+class DemoMeister
 {
 
 
@@ -60,7 +60,7 @@ public:
 	//remember destructors, carefull with utilizing the constructor before opengl is initialized,
 	//the way its setup no it wont.
 
-	world();
+	DemoMeister();
 
 	//all these should be virtual
 	void AddPass();
@@ -77,7 +77,7 @@ public:
 	void RetriveMaterial();
 
 	//I want something to check for duplicates, materials and textures(materials can be different but use the same)
-	//at some point this might be what I need the world class for, a hackers space so I dont have to create a class for
+	//at some point this might be what I need the DemoMeister class for, a hackers space so I dont have to create a class for
 	//everything like procedural textures.
 
 

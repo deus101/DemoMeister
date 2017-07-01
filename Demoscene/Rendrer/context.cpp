@@ -12,7 +12,7 @@ static bool sStencil = false;
 static GLFWwindow* s_pWindow = NULL;
 //Buffer = NULL;
 //TheDisc = NULL;
-world *TheDisc = NULL;
+DemoMeister *TheDisc = NULL;
 extern void Sync();
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
@@ -52,7 +52,7 @@ static void IdleCB()
 
  void InitCallbacks()
 {
-	//I'm beginning to think I should utilize the world class
+	//I'm beginning to think I should utilize the DemoMeister class
 
 	//glutDisplayFunc(RenderSceneCB);
 	//glutIdleFunc(IdleCB);
@@ -84,7 +84,7 @@ void GLFWBackendTerminate()
 }
 
 
-bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle, world * globe)
+bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle, DemoMeister * globe)
 {
 
 

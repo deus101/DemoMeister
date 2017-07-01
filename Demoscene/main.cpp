@@ -4,7 +4,7 @@
 #include "bass.h"
 
 #include "sync.h"
-//world as a scene object and going through a sceneloader?
+//DemoMeister as a scene object and going through a sceneloader?
 
 #include "Rendrer\context.h"
 #include "Engine\rendrer.h"
@@ -372,7 +372,7 @@ void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
 	//default:
 	//	m_pGameCamera->OnKeyboard(OgldevKey);
 
-	//else send til world instans
+	//else send til DemoMeister instans
 		//TheDisc->
 	}
 }
@@ -428,7 +428,7 @@ int main(int argc, char** argv)
 #endif
 
 	
-	world *fuck = new world();
+	DemoMeister *fuck = new DemoMeister();
 	bool success = Init(argc, argv, true, false, Xres, Yres, FS, "Deus's Ex Machine", fuck);
 
 	
@@ -457,7 +457,7 @@ int main(int argc, char** argv)
 	//scene parser does not work because I suck at boost
 	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
 
-	//I should start with this first in the world class before embaring on a container hell
+	//I should start with this first in the DemoMeister class before embaring on a container hell
 	//boost::shared_ptr<NS_SG::composite> scopeOwner(new NS_SG::composite("lader"));
 
 
@@ -541,8 +541,8 @@ int main(int argc, char** argv)
 	
 	NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
 	NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
-	//should this be placed in the world class?...nah if it works as intended this should get the
-	// world singelton and the assets and effects effortlessly
+	//should this be placed in the DemoMeister class?...nah if it works as intended this should get the
+	// DemoMeister singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
 	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_rm_Pack, &e_ao_Pass);
 
@@ -604,22 +604,7 @@ int main(int argc, char** argv)
 	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl << std::endl << std::endl;
 
 	e_dir.Enable();
-	/*
-	e_dir.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
 	
-	e_dir.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_ABEDO);
-
-	//new sampler
-	e_dir.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV );
-	
-	e_dir.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
-	//e_dir.SetAoTextureUnit(GL_TEXTURE5);
-	e_dir.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
-	//e_dir.SetMaterialMapUnit(GBuffer::GBUFFER_NUM_TEXTURES + NS_ENG::Material::GenerateMaterialMap());
-	e_dir.SetMaterialMapUnit(GL_TEXTURE0+15));
-	//e_dir.SetMaterialMapUnit(15);
-	//e_dir.SetScreenSize(1600, 900);
-	*/
 	e_dir.SetPositionTextureUnit(GL_TEXTURE1);
 	e_dir.SetColorTextureUnit(GL_TEXTURE2);
 	e_dir.SetUvTextureUnit(GL_TEXTURE3);
@@ -683,11 +668,6 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::objTransform> cambot_pivot(new NS_SG::objTransform("tran_pivot"));
 
-	//NS_ENG::Material::Shaderfy();
-	//e_dir.Enable();
-	//e_dir.SetMaterialMapUnit(NS_ENG::Material::GenerateMaterialMap());
-	//e_dir.SetMaterialMapUnit(COLOR_TEXTURE_UNIT_INDEX + 10);
-
 	tran_ShowPiece->addChild(mn_ShowPiece.get());
 
 	Ptr_t_ShowPiece = tran_ShowPiece.get();
@@ -698,38 +678,6 @@ int main(int argc, char** argv)
 
 	
 
-//------------UnderGround Scene
-
-	
-	/*
-	NS_ENG::model m_sponza("Mesh/sponza.obj", "Mesh/sponza.mtl");
-	boost::shared_ptr<NS_SG::modelNode> mn_sponza(new NS_SG::modelNode("Scene_sponza", &m_sponza, &e_geom));
-
-	boost::shared_ptr<NS_SG::objTransform> tran_sponza(new NS_SG::objTransform("tran_sponza"));
-	tran_sponza->addChild(mn_sponza.get());
-	tran_sponza->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
-	tran_sponza->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-
-	TheDisc->o_loader->addChild(tran_sponza.get());
-	
-	
-
-	
-	NS_ENG::model m_sponza("Mesh/sti.obj", "Mesh/sti.mtl");
-	//NS_ENG::model m_sponza("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
-	boost::shared_ptr<NS_SG::modelNode> mn_sponza(new NS_SG::modelNode("Scene_sponza", &m_sponza, &e_geom));
-
-	boost::shared_ptr<NS_SG::objTransform> tran_sponza(new NS_SG::objTransform("tran_sponza"));
-	tran_sponza->addChild(mn_sponza.get());
-	//tran_sponza->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
-	tran_sponza->setScale(NS_VEC::VEC3(0.1f, 0.1f, 0.1f));
-
-	tran_sponza->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
-
-	TheDisc->o_loader->addChild(tran_sponza.get());
-	
-	*/
-//-------------------------------------me
 
 
 	//NS_ENG::model m_protagonist("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
@@ -807,24 +755,6 @@ int main(int argc, char** argv)
 	tran_Point->addChild(n_point_lys.get());
 	ptrLitPlan = tran_Point.get();
 	TheDisc->o_loader.get()->addChild(tran_Point.get());
-	
-
-	
-//Light Orange Stalagmite
-
-	
-	//tran_Point2->addChild(tran_Point.get());
-
-
-//Light Indigo Stalagmite
-
-
-
-//Light Violet Stalagmite
-
-
-	
-
 
 
 	//Dir Light
@@ -901,59 +831,7 @@ int main(int argc, char** argv)
 	lit_Pos_X = sync_get_track(rocket, "Lpos.x");
 	lit_Pos_Y = sync_get_track(rocket, "Lpos.y");
 	lit_Pos_Z = sync_get_track(rocket, "Lpos.z");
-	/*
-	e_1_6_Rot_X = sync_get_track(rocket,"e_1_6_rX");
-	e_1_6_Rot_Y = sync_get_track(rocket,"e_1_6_rY");
-	e_1_6_Rot_Z = sync_get_track(rocket,"e_1_6_rZ");
 
-	e_1_04_Rot_X = sync_get_track(rocket,"e_1_04_rX");
-	e_1_04_Rot_Y = sync_get_track(rocket,"e_1_04_rY");
-	e_1_04_Rot_Z = sync_get_track(rocket,"e_1_04_rZ");
-
-	e_1_08_Rot_X = sync_get_track(rocket,"e_1_08_rX");
-	e_1_08_Rot_Y = sync_get_track(rocket,"e_1_08_rY");
-	e_1_08_Rot_Z = sync_get_track(rocket,"e_1_08_rZ");
-
-	e_2_10_Rot_X = sync_get_track(rocket,"e_2_10_rX");
-	e_2_10_Rot_Y = sync_get_track(rocket,"e_2_10_rY");
-	e_2_10_Rot_Z = sync_get_track(rocket,"e_2_10_rZ");
-
-	e_2_02_Rot_X = sync_get_track(rocket,"e_2_02_rX");
-	e_2_02_Rot_Y = sync_get_track(rocket,"e_2_02_rY");
-	e_2_02_Rot_Z = sync_get_track(rocket,"e_2_02_rZ");
-
-	e_3_02_Rot_X = sync_get_track(rocket,"e_3_02_rX");
-	e_3_02_Rot_Y = sync_get_track(rocket,"e_3_02_rY");
-	e_3_02_Rot_Z = sync_get_track(rocket,"e_3_02_rZ");
-
-	e_3_10_Rot_X = sync_get_track(rocket,"e_3_10_rX");
-	e_3_10_Rot_Y = sync_get_track(rocket,"e_3_10_rY");
-	e_3_10_Rot_Z = sync_get_track(rocket,"e_3_10_rZ");
-
-	e_4_04_Rot_X = sync_get_track(rocket,"e_4_04_rX");
-	e_4_04_Rot_Y = sync_get_track(rocket,"e_4_04_rY");
-	e_4_04_Rot_Z = sync_get_track(rocket,"e_4_04_rZ");
-
-	e_4_08_Rot_X = sync_get_track(rocket,"e_4_08_rX");
-	e_4_08_Rot_Y = sync_get_track(rocket,"e_4_08_rY");
-	e_4_08_Rot_Z = sync_get_track(rocket,"e_4_08_rZ");
-
-
-	e_4_02_Rot_X = sync_get_track(rocket,"e_4_02_rX");
-	e_4_02_Rot_Y = sync_get_track(rocket,"e_4_02_rY");
-	e_4_02_Rot_Z = sync_get_track(rocket,"e_4_02_rZ");
-
-	e_2_08_Rot_X = sync_get_track(rocket,"e_2_08_rX");
-	e_2_08_Rot_Y = sync_get_track(rocket,"e_2_08_rY");
-	e_2_08_Rot_Z = sync_get_track(rocket,"e_2_08_rZ");
-	
-	ArmPos_X = sync_get_track(rocket,"armPos_X");
-	ArmPos_Y = sync_get_track(rocket,"armPos_Y");
-	ArmPos_Z = sync_get_track(rocket,"armPos_Z");
-	*/
-
-
-	
 
 	gridDrop = sync_get_track(rocket, "gridFunc");
 

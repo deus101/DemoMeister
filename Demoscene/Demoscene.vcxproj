@@ -431,7 +431,7 @@
     <ClInclude Include="Engine\GridPoints.h" />
     <ClInclude Include="Engine\FileTexture.h" />
     <ClInclude Include="FreeImage.h" />
-    <ClInclude Include="Worlds\MasterWorld.h" />
+    <ClInclude Include="Productions\WCD_1.cpp" />
     <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
@@ -483,7 +483,9 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Asset\GlobalShaderVault\hg_sdf.glsl" />
     <None Include="bf.ogg" />
+    <None Include="ClassDiagram.cd" />
     <None Include="Mesh\38p.mtl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
