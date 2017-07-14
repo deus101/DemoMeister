@@ -35,6 +35,7 @@ const float rayEpsilon = 0.001f;
 
 const float PI = 3.141592653589793238462643383;
 
+#include  "hd_sdf.glsl"
 
 vec2 spherical(vec3 d) {
 	return vec2( acos(d.z), atan(d.y,d.x) );

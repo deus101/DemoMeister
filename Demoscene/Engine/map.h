@@ -4,7 +4,7 @@
 
 #include "asset.h"
 
-//#include "../Effect/GeomPacket.h"
+//#include "../ShaderFu/GeomPacket.h"
 //
 //#include "../Libs/FreeImage.h"
 #include "../FreeImage.h"
@@ -29,9 +29,9 @@ namespace NS_ENG
 	{
 		e_CategoryType MapCategory;
 		GLenum Target;
-		string Name;
-		string Origin;
-		string Description;
+		std::string Name;
+		std::string Origin;
+		std::string Description;
 		GLenum format;
 		GLenum type;
 		GLint internalFormat;
@@ -66,7 +66,7 @@ namespace NS_ENG
 
 	struct FileTextureDesc : public TextureDesc
 	{
-		string Map_Path;
+		std::string Map_Path;
 	public:
 		FileTextureDesc() : TextureDesc()
 			, Map_Path("")
@@ -140,10 +140,10 @@ namespace NS_ENG
 
 	private:
 		//list <MapAsset>::iterator MapIter;
-		list <boost::shared_ptr<  MapAsset >>::iterator MapIter;
+		std::list <boost::shared_ptr<  MapAsset >>::iterator MapIter;
 	public:
 		//static list <MapAsset*> classMapList;
-		static list<boost::shared_ptr<  MapAsset >> classMapList;
+		static std::list<boost::shared_ptr<  MapAsset >> classMapList;
 
 		//typedef enum MAP_TYPE;
 

@@ -4,7 +4,7 @@
 #include "assetNode.h"
 //#include "shaders.h"
 #include "../Engine/model.h"
-#include "../Effect/GeomPacket.h"
+#include "../ShaderFu/GeomPacket.h"
 
 
 namespace NS_SG{

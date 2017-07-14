@@ -1,6 +1,6 @@
 #pragma once
 #include "lightNode.h"
-#include "../Effect/DirLightPacket.h"
+#include "../ShaderFu/DirLightPacket.h"
 namespace NS_SG
 {
 	class dirLightNode : public lightNode

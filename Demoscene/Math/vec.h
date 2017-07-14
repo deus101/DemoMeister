@@ -66,7 +66,8 @@ namespace NS_VEC
 		void NormIt (void);
 
 	};
-	//ikke glem homogeniser funksjonen
+
+
 	class VEC4
 	{
 	public:

@@ -17,8 +17,8 @@
 
 
 //yes I know I need a proper system for passes. 
-#include "../Effect/aoPacket.h"
-#include "../Effect/RayMarcher.h"
+#include "../ShaderFu/aoPacket.h"
+#include "../ShaderFu/RayMarcher.h"
 
 
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...

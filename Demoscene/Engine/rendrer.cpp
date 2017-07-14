@@ -357,10 +357,10 @@ void rendrer::RenderSceneCB()
 
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 		
-		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*> (iv->gpuEff);
-		NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
-		NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
-		
+		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*>(iv->gpuEff);
+		//NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
+		//NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
+		/*
 		if (hmapEff != NULL)
 		{
 			hmapEff->Enable();
@@ -368,6 +368,7 @@ void rendrer::RenderSceneCB()
 			hmapEff->SetWorldMatrix(iv->sTransform);
 			hmapEff->SetHalfSize();
 		}
+		*/
 		if (geoEff != NULL)
 		{
 			geoEff->Enable();
@@ -376,12 +377,12 @@ void rendrer::RenderSceneCB()
 			geoEff->SetViewMatrix(view);
 			geoEff->SetProjectionMatrix(projection);
 		}
-
+		/*
 		if (gridAss != NULL)
 		{
 			gridAss->SetDelta(deltaCtan);
 		}
-
+		*/
 		
 		iv->gpuIn->Draw();
 		

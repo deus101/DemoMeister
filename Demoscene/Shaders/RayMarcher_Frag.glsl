@@ -63,13 +63,45 @@ float sdBox(vec3 p, vec3 size)
 	return min(max(d.x, max(d.y, d.z)), 0.0f) + udBox(p, size);
 }
 
+void pR(inout vec2 p, float a) {
+	p = cos(a)*p + sin(a)*vec2(p.y, -p.x);
+}
+
+float pModPolar(inout vec2 p, float repetitions) {
+	float angle = 2*PI/repetitions;
+	float a = atan(p.y, p.x) + angle/2.;
+	float r = length(p);
+	float c = floor(a/angle);
+	a = mod(a,angle) - angle/2.;
+	p = vec2(cos(a), sin(a))*r;
+	// For an odd number of repetitions, fix cell index of the cell in -x direction
+	// (cell index would be e.g. -5 and 5 in the two halves of the cell):
+	if (abs(c) >= (repetitions/2)) c = abs(c);
+	return c;
+}
 
 float distScene(vec3 p)
 {
-	//p.xz = mod(p.xz, 2.0f) - vec2(1.0f);
+	//p.xz = mod(p.xz, 3.0f) - vec2(0.0f);
+	//p.xz = mod(p.xz, 4.0f) - vec2(-4.0f);
+	//p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+	p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+
+	//float c = pModPolar(p.xz , 6);
+
+	
 	//return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.01f));
-	float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
-	float s_box =  sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
+	//float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
+	//float s_box =  sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
+	
+	///p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+
+	//pR(p.xz,c);
+	float s_sphere = sdSphere(p - vec3(0.0f, 2.0f, 0.0f), 5.0);
+	float s_box =  sdBox(p - vec3(0.0f, 2.0f, 0.0f), vec3(4.0f));
+	//return sdSphere( (p - vec3(0.0f, 2.0f, 0.0f))-vec3(2.0f,0.0f,2.0f), 4.0);
+	//float s_sphere = sdSphere(p - vec3(2.0f, 2.0f, 2.0f), 5.0);
+	//float s_box =  sdBox(p - vec3(2.0f, 2.0f, 2.0f), vec3(4.0f));
 
 	//return max(s_box, s_sphere);
 	return max(-s_sphere, s_box);

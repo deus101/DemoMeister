@@ -298,6 +298,10 @@ void model::Draw()
 
 
 
+	glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
+
+	glBindTexture(GL_TEXTURE_2D, Material::GenerateMaterialMap());
+
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
@@ -312,7 +316,14 @@ void model::Draw()
 		glBindVertexArray(Sort_Groups[i].vao);
 		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
 		
-		//if (Sort_Groups[i].tex != NULL)
+
+		//Sort_Groups[i].
+
+
+
+
+
+		//13.07  is allways null
 		if (Sort_Groups[i].tex != NULL)
 		{
 			//if ActivateAlbedoSampler

@@ -230,7 +230,7 @@ composite *NS_SG::parseScene(const std::string filename)
 	try
 	{
 		if (!doc.LoadFile(filename.c_str()))
-			cout << "shit";
+			std::cout << "shit";
 			//throw  std::string(doc.GetErrorStr1());
 
 		SceneParser sceneParser(composed.get(), filename);
@@ -258,6 +258,6 @@ composite *NS_SG::parseScene(const std::string filename)
 	catch (const std::string &str)
 	{
 		delete composed.get();
-		cout << "!Failed to parse " + filename + " : " + str + "\n";
+		std::cout << "!Failed to parse " + filename + " : " + str + "\n";
 	}
 }

@@ -57,24 +57,6 @@
     <ClCompile Include="Engine\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effect\GeomPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\renderPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\lightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\DirLightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\PointLightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\NullPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,19 +66,10 @@
     <ClCompile Include="SceneGraph\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effect\HeightMapPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GridPoints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Effect\ConeLightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\ProjectedGrid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\aoPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Rendrer\base_buffer.cpp">
@@ -106,9 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\RayMarcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\map.cpp">
@@ -121,6 +91,39 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\FBOTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ShaderItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\aoPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\ConeLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DirLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\GeomPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\HeightMapPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\lightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\NullPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\PointLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\RayMarcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\renderPacket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,25 +200,7 @@
     <ClInclude Include="Engine\asset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\GeomPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\renderPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Math\matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\lightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\DirLightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\PointLightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\NullPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneGraph\dirLightNode.h">
@@ -236,31 +221,16 @@
     <ClInclude Include="SceneGraph\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\HeightMapPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GridPoints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneGraph\gridNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\ConeLightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\ProjectedGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\OceanPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SceneGraph\oceanNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\aoPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\aoBlurPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendrer\base_buffer.h">
@@ -270,9 +240,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\RayMarcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\map.h">
@@ -287,7 +254,49 @@
     <ClInclude Include="Engine\FBOTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Productions\WCD_1.cpp">
+    <ClInclude Include="Engine\ShaderItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\aoBlurPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\aoPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\ConeLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DirLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\GeomPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\HeightMapPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\lightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\NullPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\OceanPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\PointLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\RayMarcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\renderPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

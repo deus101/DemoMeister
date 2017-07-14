@@ -8,7 +8,8 @@
 #include <algorithm>
 #include <stdio.h>
 #include <iostream>
-
+#include <boost\filesystem.hpp>
+//#include <Shlwapi.h>
 
 using namespace NS_ENG;
 using namespace std;
@@ -35,7 +36,7 @@ Material::Material() : asset()
 void Material::LoadMats( const char *param)
 {
 	FILE * mtlFile;
-	mtlFile = fopen( param , "rb");
+	fopen_s(&mtlFile, param , "rb");
 
 	//Mats.Clear();
 	
@@ -44,7 +45,7 @@ void Material::LoadMats( const char *param)
 	char id[512] = "";
 	std::cout << "---------MTL:Begin loading materials from:" << param << endl;
 	int NrMatFile = 0;
-	while( fscanf(mtlFile, "%s", id) > 0)
+	while( fscanf_s(mtlFile, "%s", id, sizeof(id)) > 0)
 	{
 
 		if(strcmp (id, "newmtl") == 0)
@@ -52,7 +53,7 @@ void Material::LoadMats( const char *param)
 			NrMatFile++;
 			s_mat mtl;
 			char nam[80] ="";
-			fscanf(mtlFile, "%79s", nam );
+			fscanf_s(mtlFile, "%79s", nam ,sizeof(nam));
 			mtl.name = nam;
 			CurrentMaterial = nam;
 			std::cout << "-material name: " << mtl.name << endl;
@@ -64,8 +65,8 @@ void Material::LoadMats( const char *param)
 		if(strcmp (id, "Kd") == 0)
 		{
 				
-			fscanf(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().diff[0], &NS_ENG::Material::classMaterialList.back().diff[1], &NS_ENG::Material::classMaterialList.back().diff[2]);
-			//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().diff[0], &Mats.m_Materials.back().diff[1], &Mats.m_Materials.back().diff[2]);
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().diff[0], &NS_ENG::Material::classMaterialList.back().diff[1], &NS_ENG::Material::classMaterialList.back().diff[2]);
+			//fscanf_s(mtlFile, "%f %f %f", &Mats.m_Materials.back().diff[0], &Mats.m_Materials.back().diff[1], &Mats.m_Materials.back().diff[2]);
 
 			//Mats.m_Materials.back().diff[3] = 1.0;
 			NS_ENG::Material::classMaterialList.back().diff[3] = 1.0;
@@ -75,32 +76,32 @@ void Material::LoadMats( const char *param)
 		if(strcmp (id, "Ka") == 0)
 		{
 				
-			//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().amb[0], &Mats.m_Materials.back().amb[1], &Mats.m_Materials.back().amb[2]);
+			//fscanf_s(mtlFile, "%f %f %f", &Mats.m_Materials.back().amb[0], &Mats.m_Materials.back().amb[1], &Mats.m_Materials.back().amb[2]);
 			//Mats.m_Materials.back().amb[3] = 1.0;
-			fscanf(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().amb[0], &NS_ENG::Material::classMaterialList.back().amb[1], &NS_ENG::Material::classMaterialList.back().amb[2]);
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().amb[0], &NS_ENG::Material::classMaterialList.back().amb[1], &NS_ENG::Material::classMaterialList.back().amb[2]);
 			NS_ENG::Material::classMaterialList.back().amb[3] = 1.0;
 		}
 		if(strcmp (id, "Ks") == 0)
 		{
 			
-			//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().spec[0], &Mats.m_Materials.back().spec[1], &Mats.m_Materials.back().spec[2]);
+			//fscanf_s(mtlFile, "%f %f %f", &Mats.m_Materials.back().spec[0], &Mats.m_Materials.back().spec[1], &Mats.m_Materials.back().spec[2]);
 			//Mats.m_Materials.back().spec[3] = 1.0;
-			fscanf(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().spec[0], &NS_ENG::Material::classMaterialList.back().spec[1], &NS_ENG::Material::classMaterialList.back().spec[2]);
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().spec[0], &NS_ENG::Material::classMaterialList.back().spec[1], &NS_ENG::Material::classMaterialList.back().spec[2]);
 			NS_ENG::Material::classMaterialList.back().spec[3] = 1.0;
 		}
 		if(strcmp (id, "Ke") == 0)
 		{	
 			NS_VEC::VEC3 c;
-			//fscanf(mtlFile, "%f %f %f", &Mats.m_Materials.back().emmi[0], &Mats.m_Materials.back().emmi[1], &Mats.m_Materials.back().emmi[2]);
+			//fscanf_s(mtlFile, "%f %f %f", &Mats.m_Materials.back().emmi[0], &Mats.m_Materials.back().emmi[1], &Mats.m_Materials.back().emmi[2]);
 			//Mats.m_Materials.back().emmi[3] = 1.0;
-			fscanf(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().emmi[0], &NS_ENG::Material::classMaterialList.back().emmi[1], &NS_ENG::Material::classMaterialList.back().emmi[2]);
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().emmi[0], &NS_ENG::Material::classMaterialList.back().emmi[1], &NS_ENG::Material::classMaterialList.back().emmi[2]);
 			NS_ENG::Material::classMaterialList.back().emmi[3] = 1.0;
 
 		}
 		if(strcmp (id, "Ns") == 0)
 		{
 			GLfloat shin = 0.0f;
-			fscanf(mtlFile, "%f", &shin);
+			fscanf_s(mtlFile, "%f", &shin);
 			//Mats.m_Materials.back().shiny = shin;
 			NS_ENG::Material::classMaterialList.back().shiny = shin;
 		}
@@ -110,12 +111,12 @@ void Material::LoadMats( const char *param)
 			//here we implement a map object...
 			bool duplicate = false;
 			//load
-			GLuint tmp_TName;
+			//GLuint tmp_TName;
 				
 			char path[80];
 
-			fscanf(mtlFile, "%79s", path);
-			string tmp_Path(path);
+			fscanf_s (mtlFile, "%79s", path, sizeof(path));
+			//string tmp_S_Path(path);
 
 
 
@@ -125,13 +126,23 @@ void Material::LoadMats( const char *param)
 			//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			//PathFindFileName
 			FileTextureDesc NewDiffTex;
+			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
 
-			NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
+			boost::filesystem::path tmp_Path = boost::filesystem::path(path);
+
+			
+
+			//NewDiffTex.Name = string("DiffuseTex:") + boost::filesystem::path(path).filename().string();
+			NewDiffTex.Name = string("DiffuseTex: ") + tmp_Path.filename().string();
+
+			
+
+			
 			NewDiffTex.Origin = "LoadMats:" + CurrentMaterial + " From:" + string(param);
 			NewDiffTex.Description = "Use in the Geometry pass Set TextureUnit at Enum DiffuseMap_UNIT ";
 
 			NewDiffTex.Target = GL_TEXTURE_2D;
-			NewDiffTex.Map_Path = tmp_Path;
+			NewDiffTex.Map_Path = tmp_Path.string();
 			NewDiffTex.internalFormat = GL_RGBA;
 			NewDiffTex.format = GL_RGBA;
 			NewDiffTex.type = GL_UNSIGNED_BYTE;
@@ -172,7 +183,8 @@ std::string Material::Shaderfy() {
 	//in the forward rendering...well forward as it gets with a deferred rendrer...but then we dont have to bother adding 
 	//boundless textures that might be cumbersome to handle and instead focus on the physical based properties and add their maps 
 	//to be boundless as it gets to the lightning stage
-	float matInfo[12];
+	
+	//float matInfo[12];
 
 
 
@@ -258,6 +270,10 @@ GLuint Material::GenerateMaterialMap() {
 
 		NS_VEC::VEC3 col1Spec(MatIter.spec[0], MatIter.spec[1], MatIter.spec[2]); // rotate around z-axis (in tangent space)
 		rowMaterial.push_back(col1Spec);
+
+
+
+
 	}
 	//GL_R8
 	glGenTextures(1, &Material::MaterialMapTextureUnit);

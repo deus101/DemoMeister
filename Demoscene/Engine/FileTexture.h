@@ -20,7 +20,7 @@ public:
 	void Draw();
 	~FileTexture() {};
 
-	string Map_Path;
+	std::string Map_Path;
 
 
 	FREE_IMAGE_FORMAT format;

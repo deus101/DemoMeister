@@ -76,7 +76,7 @@ int FileTexture::Init(FileTextureDesc* FileTexMeta)
 	GLenum huboError = glGetError();
 	if (huboError) {
 
-		std::cout << "There was an error loading the texture" << endl;
+		std::cout << "There was an error loading the texture" << std::endl;
 
 	}
 	

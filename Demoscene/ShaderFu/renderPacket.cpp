@@ -145,7 +145,7 @@ bool renderPacket::Finalize()
 		_sleep(10000);
 		return false;
 	}
-	std::cout << "ShaderObject! : " << m_shaderProg << endl;
+	std::cout << "ShaderObject! : " << m_shaderProg << std::endl;
 	//glUseProgram(m_shaderProg);
 	return true;
 

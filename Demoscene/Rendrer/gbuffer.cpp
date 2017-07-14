@@ -198,6 +198,8 @@ void GBuffer::BindForGeomPass()
 		GL_COLOR_ATTACHMENT3
 		 };
 
+
+
 	
 	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
 }

@@ -10,7 +10,7 @@
 
 #include "mesh.h"
 #include "materials.h"
-#include "../Effect/GeomPacket.h"
+#include "../ShaderFu/GeomPacket.h"
 #include "../util.h"
 
 //#include "../Rendrer/context.h"

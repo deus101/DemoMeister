@@ -9,20 +9,21 @@
 
 #include "../FreeImage.h"
 
-//namespace NS_REND
-//{
-//	class context
-//	{
-//	public:
-		//static GLFWwindow* s_pWindow = NULL;
-		//static GBuffer * mGBuffer = 0;
-		
 
-//Ugh...its not a class anymore why is this here?
-		static unsigned int pHeight;
-		static unsigned int pWidth;
-		static bool m_created;
+
+
+
+
+		extern unsigned int pHeight;
+		extern unsigned int pWidth;
+		extern bool m_created;
 		
+		extern bool sDepth;
+		extern bool sStencil;
+		extern GLFWwindow* s_pWindow;
+
+
+		extern DeploymentOrganizer Squiddy;
 		//static double deltaTime;
 		//static double currentTime;
 
@@ -36,8 +37,11 @@
 		//static HGLRC SharedContex;
 		static GLuint Program;
 
+
 		//static GBuffer* mgBuffer;
 		extern DemoMeister * TheDisc;
+
+
 
 
 		//context();

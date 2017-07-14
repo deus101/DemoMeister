@@ -174,7 +174,8 @@
       <LinkStatus>true</LinkStatus>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Move runtime libs</Message>
@@ -226,7 +227,8 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy runtime libs</Message>
@@ -258,7 +260,8 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy runtime libs</Message>
@@ -272,7 +275,7 @@
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
@@ -289,14 +292,15 @@
       </EnableCOMDATFolding>
       <OptimizeReferences>
       </OptimizeReferences>
-      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;E:\3rdPartyTools\boost_1_63_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>legacy_stdio_definitions.lib;Shlwapi.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <LinkStatus>true</LinkStatus>
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy runtime libs</Message>
@@ -375,14 +379,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Effect\aoPacket.cpp" />
-    <ClCompile Include="Effect\ConeLightPacket.cpp" />
-    <ClCompile Include="Effect\DirLightPacket.cpp" />
-    <ClCompile Include="Effect\lightPacket.cpp" />
-    <ClCompile Include="Effect\NullPacket.cpp" />
-    <ClCompile Include="Effect\PointLightPacket.cpp" />
-    <ClCompile Include="Effect\HeightMapPacket.cpp" />
-    <ClCompile Include="Effect\RayMarcher.cpp" />
+    <ClCompile Include="ShaderFu\aoPacket.cpp" />
+    <ClCompile Include="ShaderFu\ConeLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DirLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\lightPacket.cpp" />
+    <ClCompile Include="ShaderFu\NullPacket.cpp" />
+    <ClCompile Include="ShaderFu\PointLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\HeightMapPacket.cpp" />
+    <ClCompile Include="ShaderFu\RayMarcher.cpp" />
     <ClCompile Include="Engine\asset.cpp" />
     <ClCompile Include="Engine\FBOTexture.cpp" />
     <ClCompile Include="Engine\Grid.cpp" />
@@ -390,6 +394,7 @@
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
     <ClCompile Include="Engine\FileTexture.cpp" />
+    <ClCompile Include="Engine\ShaderItem.cpp" />
     <ClCompile Include="Rendrer\aobuffer.cpp" />
     <ClCompile Include="Rendrer\base_buffer.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
@@ -401,37 +406,39 @@
     <ClCompile Include="SceneGraph\composite.cpp" />
     <ClCompile Include="Rendrer\context.cpp" />
     <ClCompile Include="Rendrer\gbuffer.cpp" />
-    <ClCompile Include="Effect\GeomPacket.cpp" />
+    <ClCompile Include="ShaderFu\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\materials.cpp" />
     <ClCompile Include="Math\math3d.cpp" />
     <ClCompile Include="Engine\mesh.cpp" />
     <ClCompile Include="Engine\model.cpp" />
     <ClCompile Include="SceneGraph\node.cpp" />
-    <ClCompile Include="Effect\renderPacket.cpp" />
+    <ClCompile Include="ShaderFu\renderPacket.cpp" />
     <ClCompile Include="Engine\rendrer.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Effect\aoPacket.h" />
-    <ClInclude Include="Effect\ConeLightPacket.h" />
-    <ClInclude Include="Effect\DirLightPacket.h" />
-    <ClInclude Include="Effect\aoBlurPass.h" />
-    <ClInclude Include="Effect\lightPacket.h" />
-    <ClInclude Include="Effect\NullPacket.h" />
-    <ClInclude Include="Effect\OceanPacket.h" />
-    <ClInclude Include="Effect\PointLightPacket.h" />
-    <ClInclude Include="Effect\RayMarcher.h" />
+    <ClInclude Include="ShaderFu\aoPacket.h" />
+    <ClInclude Include="ShaderFu\ConeLightPacket.h" />
+    <ClInclude Include="ShaderFu\DirLightPacket.h" />
+    <ClInclude Include="ShaderFu\aoBlurPass.h" />
+    <ClInclude Include="ShaderFu\lightPacket.h" />
+    <ClInclude Include="ShaderFu\NullPacket.h" />
+    <ClInclude Include="ShaderFu\OceanPacket.h" />
+    <ClInclude Include="ShaderFu\PointLightPacket.h" />
+    <ClInclude Include="ShaderFu\RayMarcher.h" />
     <ClInclude Include="Engine\asset.h" />
-    <ClInclude Include="Effect\HeightMapPacket.h" />
+    <ClInclude Include="ShaderFu\HeightMapPacket.h" />
     <ClInclude Include="Engine\FBOTexture.h" />
     <ClInclude Include="Engine\Grid.h" />
     <ClInclude Include="Engine\map.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
     <ClInclude Include="Engine\FileTexture.h" />
+    <ClInclude Include="Engine\ShaderItem.h" />
     <ClInclude Include="FreeImage.h" />
-    <ClInclude Include="Productions\WCD_1.cpp" />
+    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h" />
+    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.cpp" />
     <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
@@ -443,7 +450,7 @@
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />
     <ClInclude Include="Rendrer\gbuffer.h" />
-    <ClInclude Include="Effect\GeomPacket.h" />
+    <ClInclude Include="ShaderFu\GeomPacket.h" />
     <ClInclude Include="SceneGraph\dirLightNode.h" />
     <ClInclude Include="SceneGraph\lightNode.h" />
     <ClInclude Include="SceneGraph\oceanNode.h" />
@@ -458,7 +465,7 @@
     <ClInclude Include="SceneGraph\modelNode.h" />
     <ClInclude Include="SceneGraph\node.h" />
     <ClInclude Include="SceneGraph\objTransform.h" />
-    <ClInclude Include="Effect\renderPacket.h" />
+    <ClInclude Include="ShaderFu\renderPacket.h" />
     <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sync.h" />

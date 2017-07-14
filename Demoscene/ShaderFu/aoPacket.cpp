@@ -107,7 +107,7 @@ void aoPacket::InitKernel()
 
 	//glUniform3fv(m_KernelLocation, KERNEL_SIZE, (const GLfloat*)&kernel[0]);
 	for (GLuint i = 0; i < 64; ++i) {
-		glUniform3fv(GetUniformLocation(string("gKernel[" + std::to_string(i) + "]").c_str()), 1, (const GLfloat*)&kernel[i]);
+		glUniform3fv(GetUniformLocation(std::string("gKernel[" + std::to_string(i) + "]").c_str()), 1, (const GLfloat*)&kernel[i]);
 
 	}
 }

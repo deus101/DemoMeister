@@ -8,8 +8,8 @@
 
 #include "mesh.h"
 #include "materials.h"
-#include "../Effect/GeomPacket.h"
-#include "../Effect/HeightMapPacket.h"
+#include "../ShaderFu/GeomPacket.h"
+#include "../ShaderFu/HeightMapPacket.h"
 #include "../Rendrer/context.h"
 
 

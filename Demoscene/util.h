@@ -15,19 +15,39 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <typeinfo>
+#include <set>
 
-#include <Windows.h>
-#include <Shlwapi.h>
+//#include <Windows.h>
+//#include <Shlwapi.h>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
-using namespace std;
+#include <boost/filesystem.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/foreach.hpp>
+//using namespace std; JESUS!
 void EngError(const char* fn, unsigned int ln, const char* msg);
 void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 
 #define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
+
+
+struct DeploymentOrganizer
+{
+	std::string m_file;              
+	
+	std::set<std::string> Resource_Paths;
+	//std::set<boost::filesystem::path> Resource_Paths;
+	void load(const std::string &filename);
+	void save(const std::string &filename);
+
+	boost::filesystem::path HumbleIni;
+};
+
+
+
 
 enum TypeOfTexture
 {
@@ -133,7 +153,7 @@ struct SpotLight : public PointLight
 #define INVALID_OGL_VALUE 0xffffffff
 
 
-//hold øye på dette
+//slett dette
 #define COLOR_TEXTURE_UNIT              GL_TEXTURE0
 #define COLOR_TEXTURE_UNIT_INDEX        0
 #define SHADOW_TEXTURE_UNIT             GL_TEXTURE1

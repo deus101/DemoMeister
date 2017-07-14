@@ -39,7 +39,7 @@
 #include "SceneGraph\camera.h"
 #include "SceneGraph\composite.h"
 //#include "SceneGraph\modelNode.h"
-#include "Effect\renderPacket.h"
+#include "ShaderFu\renderPacket.h"
 
 
 typedef boost::shared_ptr< NS_SG::composite >  compoPointer;
@@ -62,6 +62,8 @@ public:
 
 	DemoMeister();
 
+
+
 	//all these should be virtual
 	void AddPass();
 
@@ -71,9 +73,11 @@ public:
 
 	//This is one of the main reasons Im doing this, I want a material system
 	void AddAsset();
+
 	void RetriveAsset();
 	//This is one of the main reasons Im doing this, I want a material system
 	void AddMaterial();
+
 	void RetriveMaterial();
 
 	//I want something to check for duplicates, materials and textures(materials can be different but use the same)
@@ -82,13 +86,13 @@ public:
 
 
 	//with an id argument perhaps, thinking gnu rocket should sync up here
-	void HackerSpace();
+	virtual void HackerSpace();
 
 
 
 	//either initialization of passes, packets and loading on models can be done on the fly
 	//void PreInit();
-	void AfterInit();
+	virtual void AfterInit();
 	//I could set the soundtrack setup here but leave that for later
 
 //private:

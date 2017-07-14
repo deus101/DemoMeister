@@ -5,15 +5,23 @@
 //using namespace NS_REND;
 
 static ICallbacks* s_pCallbacks = NULL;
-//mGBuffer =  GBuffer;
-//mGBuffer = NULL;
-static bool sDepth = false;
-static bool sStencil = false;
-static GLFWwindow* s_pWindow = NULL;
-//Buffer = NULL;
-//TheDisc = NULL;
+
+
+bool sDepth = false;
+bool sStencil = false;
+GLFWwindow* s_pWindow = NULL;
+
+
+unsigned int pHeight = 0;
+unsigned int pWidth = 0;
+bool m_created = false;
+
+
+DeploymentOrganizer Squiddy;
 DemoMeister *TheDisc = NULL;
 extern void Sync();
+
+
 //static unsigned int pHeight = 0;
 //static unsigned int pWidth = 0;
 //static bool m_created;

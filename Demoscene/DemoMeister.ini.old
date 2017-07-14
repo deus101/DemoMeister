@@ -1,0 +1,9 @@
+[DeployEditBuild]
+MainProjectPath=Key1
+ProductionName=Key2
+ProductionFolder=Key3
+
+[AssetPaths]
+GlobalAssets=Key1
+ProductionAssets=Key2
+ExternalAssets=Key3

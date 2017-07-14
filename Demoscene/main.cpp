@@ -1,6 +1,8 @@
+//BOOST_ALL_NO_LIB
+
 
 #include <iostream>
-
+//#include <boost/filesystem.hpp>
 #include "bass.h"
 
 #include "sync.h"
@@ -22,8 +24,8 @@
 //NS_ENG::rendrer *mRender = NULL;
 
 //eh
-#include "Effect\aoPacket.h"
-#include "Effect\RayMarcher.h"
+#include "ShaderFu\aoPacket.h"
+#include "ShaderFu\RayMarcher.h"
 
 
 
@@ -92,7 +94,7 @@ NS_SG::objTransform *Ptr_t_grid;
 
 NS_SG::gridNode *ptrGridNode;
 
-
+ 
 
 
 NS_SG::objTransform * Ptr_t_ShowPiece;
@@ -378,7 +380,7 @@ void KeyboardCB(GLFWwindow* window, int key, int scancode, int action, int mods)
 }
 
 
-
+ 
 
 int main(int argc, char** argv)
 {
@@ -387,8 +389,22 @@ int main(int argc, char** argv)
 	char path[MAX_PATH];
 	GetModuleFileNameA(hModule, path, MAX_PATH);
 
+	boost::filesystem::path RunLocation(path);
 
 
+	
+	//Squiddy.load(RunLocation.remove_filename().std::string());
+
+	Squiddy.load(path);
+
+
+	//#ifndef SYNC_PLAYER
+	//ProjectDir
+	//#define ProgramFolder @ProjectDir
+	//#endif
+	//boost::b
+	
+	//boost::filesystem::path Asset(ProgramFolder);
 	int Xres = 1280;
 	int Yres = 720;
 
@@ -398,17 +414,17 @@ int main(int argc, char** argv)
 	
 	for (int i = 0; i < argc; i++)
 	{
-		string Argument = argv[i];
+		std::string Argument = argv[i];
 
 		if (Argument.compare("-X") == 0)
 		{
-			string s_X = argv[i + 1];
+			std::string s_X = argv[i + 1];
 			Xres = stoi(s_X);
 
 		}
 		if (Argument.compare("-Y") == 0)
 		{
-			string s_Y = argv[i + 1];
+			std::string s_Y = argv[i + 1];
 			Yres = stoi(s_Y);
 		}
 		if (Argument.compare("-FS") == 0)
@@ -436,36 +452,12 @@ int main(int argc, char** argv)
 
 
 
-	//1600 900
-
-	//std::cout << "X! : " << pWidth  << std::endl;
-	//std::cout << "Y! : " << pHeight  << std::endl;
 	glViewport(0, 0, (GLsizei)Xres, (GLsizei)Yres);
 
 	TheDisc->AddPass();
 
 	//SetupRC();
 	//DO IT! TO IT!
-
-	//GBuffer Pass_GBuffer = GBuffer();
-
-
-	//Pass_GBuffer.Init(Xres, Yres);
-
-
-//--------------scene node that goes into scenerendrer
-	//scene parser does not work because I suck at boost
-	//NS_SG::composite  *test_Loader = NS_SG::parseScene("TestScene.xml");
-
-	//I should start with this first in the DemoMeister class before embaring on a container hell
-	//boost::shared_ptr<NS_SG::composite> scopeOwner(new NS_SG::composite("lader"));
-
-
-	//TheDisc->o_loader = scopeOwner->shared_from_this();
-
-	
-//--------------------Camera 
-	//1 for nowf
 
 
 	boost::shared_ptr<NS_SG::camera> kambot(new NS_SG::camera("kambot"));
@@ -475,17 +467,8 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
 	boost::shared_ptr<NS_SG::objTransform> pivot_kambot(new NS_SG::objTransform("pivot_kambot"));
 
-	//lol why didnt I go through with it?
-	//boost::shared_ptr<NS_SG::objTransform> cambot_pivot(new NS_SG::objTransform("tran_pivot"));
-
-
-	//target_kambot->setTarget(mn_protoganist.get());
-
+	
 	target_kambot->addChild(kambot.get());
-	//target_kambot->addChild(target_pivot.get());
-
-	//target_pivot->addChild(kambot.get());
-
 
 
 

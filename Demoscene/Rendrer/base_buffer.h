@@ -3,7 +3,7 @@
 #include "../Engine/map.h"
 
 #include "../util.h"
-#include "../Effect/renderPacket.h"
+#include "../ShaderFu/renderPacket.h"
 
 #include <string>
 
