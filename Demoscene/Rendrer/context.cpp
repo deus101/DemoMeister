@@ -2,6 +2,11 @@
 #include <iostream>
 #include <stdio.h>
 
+//#include <GLFW/glfw3.h>
+//#include <GL\wglew.h>
+//#include <GL\glew.h>
+//#include <GL\wglew.h>
+
 //using namespace NS_REND;
 
 static ICallbacks* s_pCallbacks = NULL;
@@ -131,6 +136,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	glfwWindowHint(GLFW_REFRESH_RATE, 60);
 
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+	//glfwWindowHint(GLFw, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
 	

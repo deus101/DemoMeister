@@ -29,7 +29,7 @@ const float focalLenght = 1.67f;
 
 const float NEAR = 0.1f;
 const float FAR = 50.0f;
-
+//const float FAR = 100.0f;
 const int raySteps		= 64;
 const float rayEpsilon = 0.001f;
 
@@ -325,6 +325,8 @@ void main()
 		normal = floorNormal;
 		color = chessBoard(p);
 		matID = 3;
+
+
 		//color = vec4(3 / 255);
 		puv = CalcUV(  p, normal, 32.0 ).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;

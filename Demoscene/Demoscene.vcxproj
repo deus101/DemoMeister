@@ -38,7 +38,7 @@
     <ProjectGuid>{B4F2D6D2-EC74-4589-8699-11E54DBB4207}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Demoscene</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,6 +140,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -275,13 +276,13 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
       <UseFullPaths>true</UseFullPaths>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
@@ -379,26 +380,28 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ShaderFu\aoPacket.cpp" />
-    <ClCompile Include="ShaderFu\ConeLightPacket.cpp" />
-    <ClCompile Include="ShaderFu\DirLightPacket.cpp" />
-    <ClCompile Include="ShaderFu\lightPacket.cpp" />
-    <ClCompile Include="ShaderFu\NullPacket.cpp" />
-    <ClCompile Include="ShaderFu\PointLightPacket.cpp" />
-    <ClCompile Include="ShaderFu\HeightMapPacket.cpp" />
-    <ClCompile Include="ShaderFu\RayMarcher.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPipeMother.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\ArrayMap.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\aoPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\ConeLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\DirLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\lightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\NullPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\PointLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\HeightMapPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\RayMarcher.cpp" />
     <ClCompile Include="Engine\asset.cpp" />
-    <ClCompile Include="Engine\FBOTexture.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\FBOTexture.cpp" />
     <ClCompile Include="Engine\Grid.cpp" />
-    <ClCompile Include="Engine\map.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\map.cpp" />
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
-    <ClCompile Include="Engine\FileTexture.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\FileTexture.cpp" />
     <ClCompile Include="Engine\ShaderItem.cpp" />
     <ClCompile Include="Rendrer\aobuffer.cpp" />
     <ClCompile Include="Rendrer\base_buffer.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
-    <ClCompile Include="SceneGraph\tinyxml2.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="SceneGraph\camera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -406,7 +409,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClCompile Include="SceneGraph\composite.cpp" />
     <ClCompile Include="Rendrer\context.cpp" />
     <ClCompile Include="Rendrer\gbuffer.cpp" />
-    <ClCompile Include="ShaderFu\GeomPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\materials.cpp" />
     <ClCompile Include="Math\math3d.cpp" />
@@ -418,23 +421,25 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShaderFu\aoPacket.h" />
-    <ClInclude Include="ShaderFu\ConeLightPacket.h" />
-    <ClInclude Include="ShaderFu\DirLightPacket.h" />
-    <ClInclude Include="ShaderFu\aoBlurPass.h" />
-    <ClInclude Include="ShaderFu\lightPacket.h" />
-    <ClInclude Include="ShaderFu\NullPacket.h" />
-    <ClInclude Include="ShaderFu\OceanPacket.h" />
-    <ClInclude Include="ShaderFu\PointLightPacket.h" />
-    <ClInclude Include="ShaderFu\RayMarcher.h" />
+    <ClInclude Include="ShaderFu\DeferredPipeMother.h" />
+    <ClInclude Include="Engine\AssetMapClasses\ArrayMap.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\aoPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\ConeLightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\DirLightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\aoBlurPass.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\lightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\NullPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\OceanPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\PointLightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\RayMarcher.h" />
     <ClInclude Include="Engine\asset.h" />
-    <ClInclude Include="ShaderFu\HeightMapPacket.h" />
-    <ClInclude Include="Engine\FBOTexture.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\HeightMapPacket.h" />
+    <ClInclude Include="Engine\AssetMapClasses\FBOTexture.h" />
     <ClInclude Include="Engine\Grid.h" />
-    <ClInclude Include="Engine\map.h" />
+    <ClInclude Include="Engine\AssetMapClasses\map.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
-    <ClInclude Include="Engine\FileTexture.h" />
+    <ClInclude Include="Engine\AssetMapClasses\FileTexture.h" />
     <ClInclude Include="Engine\ShaderItem.h" />
     <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h" />
@@ -450,13 +455,13 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />
     <ClInclude Include="Rendrer\gbuffer.h" />
-    <ClInclude Include="ShaderFu\GeomPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\GeomPacket.h" />
     <ClInclude Include="SceneGraph\dirLightNode.h" />
     <ClInclude Include="SceneGraph\lightNode.h" />
     <ClInclude Include="SceneGraph\oceanNode.h" />
     <ClInclude Include="SceneGraph\pointLightNode.h" />
     <ClInclude Include="SceneGraph\sceneparser.h" />
-    <ClInclude Include="SceneGraph\tinyxml2.h" />
+    <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Engine\materials.h" />
     <ClInclude Include="Math\math3d.h" />
@@ -490,7 +495,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Asset\GlobalShaderVault\hg_sdf.glsl" />
+    <None Include="Assets\GlobalShaderVault\hg_sdf.glsl" />
     <None Include="bf.ogg" />
     <None Include="ClassDiagram.cd" />
     <None Include="Mesh\38p.mtl">
@@ -613,6 +618,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\teapot.FBX" />
+    <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Scene.rocket" />
     <None Include="Shaders\ao_Pass_Frag.glsl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
@@ -801,6 +807,10 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
     </Object>
+    <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </None>
     <Resource Include="Mesh\PentagonBase.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
@@ -880,10 +890,16 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
   <ItemGroup>
     <Image Include="Mesh\texture.bmp" />
     <Image Include="Mesh\texture2.bmp" />
+    <Image Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\cave2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Asset\EffectRepo\Deferred_Geometry_Pass.xml" />
-    <Xml Include="Asset\EffectRepo\Deferred_Raymarching_Geometry_Pass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_Blur_AOPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_SSAO_AOPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Point_LightPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Raymarching_GeometryPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

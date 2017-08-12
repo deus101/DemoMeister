@@ -17,8 +17,8 @@
 
 
 //yes I know I need a proper system for passes. 
-#include "../ShaderFu/aoPacket.h"
-#include "../ShaderFu/RayMarcher.h"
+#include "../ShaderFu/DeferredPackets/aoPacket.h"
+#include "../ShaderFu/DeferredPackets/RayMarcher.h"
 
 
 //rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
@@ -77,7 +77,7 @@ class rendrer : public ICallbacks
 public:
 	Timer Ctan;
 	double currentCtan;
-
+	//DemoMeister test;
 	// should scene/composite hold the pass packets?
 	//                                should this just be name?																																																								
 	//rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::RayMarcher * _GeoRayMarch, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass), mgBuffer(_GBuffer)
@@ -90,7 +90,7 @@ public:
 		//mgBuffer = new GBuffer();
 		//mgBuffer->Init(w, h);
 
-		M3DMatrix44f inverseView, viewT;
+		//M3DMatrix44f inverseView, viewT;
 		m3dLoadIdentity44(view);
 		kamera->getProjection(projection);
 		//kamera->getAbsoluteTransform(view);

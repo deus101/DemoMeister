@@ -6,7 +6,7 @@
 #include "modelNode.h"
 
 
-#include "tinyxml2.h"
+#include "../tinyxml2.h"
 
 using namespace NS_SG;
 using namespace tinyxml2;

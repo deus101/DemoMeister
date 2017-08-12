@@ -18,6 +18,8 @@ namespace NS_SG{
 				{
 				}
 
+
+
 			virtual NodeType getType() { return NODE_CAMERA; }
 
 			void setFov(float fov)
@@ -82,7 +84,8 @@ namespace NS_SG{
 			mutable M3DMatrix44f projection;
 			mutable bool         projection_dirty;
 
-
+			//mutable M3DMatrix44f projection;
+			//mutable bool         projection_dirty;
 
 
 		};

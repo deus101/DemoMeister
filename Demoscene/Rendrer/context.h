@@ -1,9 +1,21 @@
 #pragma once
 
+
+/* <windef.h> and <gl.h>*/
+
+
 #include <GL\glew.h>
-#include <GL\wglew.h>
+
+
+#include <GLFW/glfw3.h>
+
+//#include <GL\wglew.h>
+
 #include "../util.h"
+
 #include "../world.h"
+
+
 #include "gbuffer.h"
 #include "callbacks.h"
 
@@ -23,7 +35,7 @@
 		extern GLFWwindow* s_pWindow;
 
 
-		extern DeploymentOrganizer Squiddy;
+		//extern DeploymentOrganizer Squiddy;
 		//static double deltaTime;
 		//static double currentTime;
 
@@ -35,7 +47,7 @@
 		static int Glu_Window;
 
 		//static HGLRC SharedContex;
-		static GLuint Program;
+		//static GLuint Program;
 
 
 		//static GBuffer* mgBuffer;

@@ -277,7 +277,7 @@ void GBuffer::BindForLightPass()
 
 	//glActiveTexture(GL_TEXTURE3);
 	//this is stupid, I should store this in the packets
-	AoBuffer *test2 = (AoBuffer*)TheDisc->BufferContainer[1];
+	AoBuffer *test2 = (AoBuffer*)TheDisc->MasterList_Buffers[1];
 	//glActiveTexture(GL_TEXTURE5);
 	
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::AOBuffer_AO_UNIT]);

@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../Engine/map.h"
+//#include "../Engine/map.h"
+#include "../Engine/AssetMapClasses/map.h"
+
 
 #include "../util.h"
 #include "../ShaderFu/renderPacket.h"

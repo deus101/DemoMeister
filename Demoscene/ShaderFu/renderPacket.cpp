@@ -107,7 +107,7 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 		glGetShaderInfoLog(ShaderObj, 2048, NULL, infoLog);
 		fprintf(stderr, "epic Vertex #%d ffffail!\n", ShaderObj);
 		fprintf(stderr, "%s\n", infoLog);
-		_sleep(10000);
+		Sleep(10000);
 		return false;
 	}
 
@@ -129,7 +129,7 @@ bool renderPacket::Finalize()
 		glGetProgramInfoLog(m_shaderProg, 2048, NULL, infoLog);
 
 		fprintf(stderr, "%s\n", infoLog);
-		_sleep(10000);
+		Sleep(10000);
 		return false;
 	}
 
@@ -142,7 +142,7 @@ bool renderPacket::Finalize()
 		glGetProgramInfoLog(m_shaderProg, 2048, NULL, infoLog);
 
 		fprintf(stderr, "%s\n", infoLog);
-		_sleep(10000);
+		Sleep(10000);
 		return false;
 	}
 	std::cout << "ShaderObject! : " << m_shaderProg << std::endl;

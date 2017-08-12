@@ -63,9 +63,6 @@
     <ClCompile Include="SceneGraph\sceneparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SceneGraph\tinyxml2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GridPoints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,49 +78,58 @@
     <ClCompile Include="Engine\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\asset.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\FileTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\FBOTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ShaderItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderFu\aoPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\ConeLightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\DirLightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\GeomPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\HeightMapPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\lightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\NullPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\PointLightPacket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFu\RayMarcher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderFu\renderPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AssetMapClasses\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AssetMapClasses\FBOTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AssetMapClasses\FileTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AssetMapClasses\ArrayMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPipeMother.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\ConeLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\aoPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\DirLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\GeomPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\HeightMapPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\lightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\NullPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\PointLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFu\DeferredPackets\RayMarcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,9 +224,6 @@
     <ClInclude Include="SceneGraph\sceneparser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SceneGraph\tinyxml2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GridPoints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -242,16 +245,7 @@
     <ClInclude Include="Engine\Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FreeImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\FileTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\FBOTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ShaderItem.h">
@@ -263,40 +257,58 @@
     <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderFu\aoBlurPass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\aoPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\ConeLightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\DirLightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\GeomPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\HeightMapPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\lightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\NullPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\OceanPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\PointLightPacket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFu\RayMarcher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderFu\renderPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssetMapClasses\map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssetMapClasses\FBOTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssetMapClasses\FileTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssetMapClasses\ArrayMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPipeMother.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\aoBlurPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\ConeLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\aoPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\DirLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\GeomPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\HeightMapPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\lightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\NullPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\OceanPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\PointLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFu\DeferredPackets\RayMarcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -350,7 +362,9 @@
     <None Include="Shaders\RayMarcher_Frag.glsl" />
     <None Include="Shaders\RayMarcher_vert.glsl" />
     <None Include="ClassDiagram.cd" />
-    <None Include="Asset\GlobalShaderVault\hg_sdf.glsl" />
+    <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
+    <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj" />
+    <None Include="Assets\GlobalShaderVault\hg_sdf.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
@@ -442,12 +456,20 @@
     <Image Include="Mesh\texture2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\cave2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Mesh\PentagonBase.obj" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Asset\EffectRepo\Deferred_Geometry_Pass.xml" />
-    <Xml Include="Asset\EffectRepo\Deferred_Raymarching_Geometry_Pass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Raymarching_GeometryPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_Blur_AOPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_SSAO_AOPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Point_LightPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
   </ItemGroup>
 </Project>

@@ -1,12 +1,14 @@
 #include "util.h"
 #include <iostream>
 #include <fstream>
-#ifdef WIN32
+
+/*
+#ifdef _WIN32
 #include <Windows.h>
 #else
 #include <sys/time.h>
 #endif
-
+*/
 #include <boost/typeof/typeof.hpp>
 
 void EngError(const char* pFileName, unsigned int line, const char* pError)
@@ -56,47 +58,72 @@ void DeploymentOrganizer::load(const std::string &filename)
 
 	boost::property_tree::read_ini(HumbleIni.string(), pt);
 
-	// Get filename and store it in m_file variable. Note that 
-	// we specify a path to the value using notation where keys 
-	// are separated with dots (different separator may be used 
-	// if keys themselves contain dots). If debug.filename key is 
-	// not found, exception is thrown.
-	
-
-	// Get debug level and store it in m_level variable. This is 
-	// another version of get method: if debug.level key is not 
-	// found, it will return default value (specified by second 
-	// parameter) instead of throwing. Type of the value extracted 
-	// is determined by type of second parameter, so we can simply 
-	// write get(...) instead of get<int>(...).
-	//m_level = pt.get("debug.level", 0);
-
-	//pt.operator!=
-	// Iterate over debug.modules section and store all found 
-	// modules in m_modules set. get_child() function returns a 
-	// reference to child at specified path; if there is no such 
-	// child, it throws. Property tree iterator can be used in 
-	// the same way as standard container iterator. Category 
-	// is bidirectional_iterator.
-	//BOOST_FOREACH(ptree::value_type &v, boost::filesystem::path(pt.get_child("MainProjectPath")));
-	//boost::property_tree::ptree::value_type &v
-	//ptree subtree = (boost::property_tree::ptree) pt;
 
 	//BOOST_FOREACH(ptree::value_type each, pt)
 	BOOST_FOREACH(ptree::value_type each, pt.get_child("DeployEditBuild."))
 	{
 		//Resource_Paths.insert(boost::filesystem::path(each.second.data()) );
-		Resource_Paths.insert(each.second.data());
+		
+		std::cout << each.first.data() << " : " << each.second.data() << std::endl;
 
+		Resource_Paths.insert(each.second.data());
+		//Resource_Paths.insert()
 	}
 	//ptree::value_type& const v,
 	//	std::basic_ostream< std::string> >> pt.begin()
 	//Resource_Paths.insert(boost::filesystem::path(v.second.data()));
 	//Resource_Paths.insert(v.second.data());
-	m_file = pt.get<std::string>("DeployEditBuild.MainProjectPath");
+	ProjectFolder = pt.get<std::string>("DeployEditBuild.MainProjectPath");
+	ProductionName = pt.get<std::string>("DeployEditBuild.ProductionName");
+	ProductioFolder = pt.get<std::string>("DeployEditBuild.ProductionFolder");
+	
+	//boost::filesystem::
+	//AssetGlobal = boost::filesystem::path(std::string(ProjectFolder + "/" + ProductioFolder +))
+	AssetGlobal = boost::filesystem::path(ProjectFolder);
+	AssetGlobal.append("Assets");
+
+
+	AssetProduction = boost::filesystem::path(ProjectFolder);
+	AssetProduction.append("Productions");
+	AssetProduction.append(ProductioFolder);
+	AssetProduction.append("ProductionVault");
+
+
+
+	boost::filesystem::recursive_directory_iterator iter(AssetProduction), eod;
+
+	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
+		if (is_directory(i)) {
+			std::cout << i.string() << std::endl;
+
+		}
+		else if (is_regular_file(i)) {
+			std::cout << "--" << i.filename().string() << std::endl;
+
+		}
+	}
+
+
+	//boost::filesystem::recursive_directory_iterator iter(AssetGlobal), eod;
+	iter = boost::filesystem::recursive_directory_iterator(AssetGlobal);
+
+	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
+		if (is_directory(i)) {
+			std::cout << i.string() << std::endl;
+
+		}
+		else if (is_regular_file(i)) {
+			std::cout << "--" << i.filename().string() << std::endl;
+
+		}
+	}
+
+
+
+	
 }
 
-void DeploymentOrganizer::save(const std::string &filename)
+void DeploymentOrganizer::save()
 {
 
 	// Create empty property tree object
@@ -121,5 +148,43 @@ void DeploymentOrganizer::save(const std::string &filename)
 
 	// Write property tree to XML file
 	//write_xml(filename, pt);
+
+}
+
+void DeploymentOrganizer::deploy()
+{
+
+
+}
+
+
+std::string DeploymentOrganizer::FindAndRegister(const std::string &Item)
+{
+	//if no we are looking for Model Folders most likely
+	boost::filesystem::path File(Item);
+	//bool HasExtension = boost::filesystem::has_extension() (Item);
+	bool HasExtension = File.has_extension();
+
+	std::string FileExtension = boost::filesystem::extension(Item);
+		
+	
+
+	
+
+	if (Util_CurrentFolder == NULL)
+	{
+		Util_CurrentFolder = AssetProduction;
+	}
+
+	boost::filesystem::recursive_directory_iterator iter(Util_CurrentFolder), eod;
+
+	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
+		if (is_regular_file(i)) {
+			//cout << i.string() << endl;
+			if (i.filename().compare(File) == true)
+				return i.string();
+		}
+	}
+	//Util_CurrentFolder.
 
 }

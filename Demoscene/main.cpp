@@ -9,27 +9,32 @@
 //DemoMeister as a scene object and going through a sceneloader?
 
 #include "Rendrer\context.h"
+
+
 #include "Engine\rendrer.h"
 #include "Engine\GridPoints.h"
 #include "SceneGraph\gridNode.h"
+
+
 
 #include "SceneGraph\sceneparser.h"
 #include "SceneGraph\assetNode.h"
 #include "SceneGraph\modelNode.h"
 #include "SceneGraph\dirLightNode.h"
 #include "SceneGraph\pointLightNode.h"
-#include "SceneGraph\dirLightNode.h"
 #include "SceneGraph\targetNode.h"
 //NS_REND::context *mContext = NULL;
 //NS_ENG::rendrer *mRender = NULL;
 
 //eh
-#include "ShaderFu\aoPacket.h"
-#include "ShaderFu\RayMarcher.h"
+#include "ShaderFu\DeferredPackets\aoPacket.h"
+#include "ShaderFu\DeferredPackets\RayMarcher.h"
 
 
 
-#include "world.h"
+//#include "world.h"
+#include "Productions\WCD_1_HackSpace\WCD_1.h"
+
 HSTREAM stream;
 
 sync_device *rocket;
@@ -409,7 +414,7 @@ int main(int argc, char** argv)
 	int Yres = 720;
 
 	bool FS = false;
-
+	//bool FS = true;
 	//mContext = new NS_REND::context();
 	
 	for (int i = 0; i < argc; i++)
@@ -443,8 +448,10 @@ int main(int argc, char** argv)
 	FS = false;
 #endif
 
-	
-	DemoMeister *fuck = new DemoMeister();
+	//FS = true;
+	//DemoMeister *fuck = new DemoMeister();
+
+	DemoMeister *fuck = new WCD();
 	bool success = Init(argc, argv, true, false, Xres, Yres, FS, "Deus's Ex Machine", fuck);
 
 	
@@ -455,6 +462,8 @@ int main(int argc, char** argv)
 	glViewport(0, 0, (GLsizei)Xres, (GLsizei)Yres);
 
 	TheDisc->AddPass();
+
+
 
 	//SetupRC();
 	//DO IT! TO IT!
@@ -470,19 +479,13 @@ int main(int argc, char** argv)
 	
 	target_kambot->addChild(kambot.get());
 
-
-
-
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
 
-
 	tran_kambot->addChild(pivot_kambot.get());
+
 	tran_kambot->addChild(target_kambot.get());
 	
-	
-
 	pivot_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -1.0f));
-
 
 	target_kambot->setTarget(pivot_kambot.get());
 	
@@ -513,9 +516,15 @@ int main(int argc, char** argv)
 
 	NS_EFF::RayMarcher e_rm_Pack = NS_EFF::RayMarcher();
 
+
 	//GET RID OF THIS!!!!
 	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
+
+
+	//boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
+	//boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
+	
 	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
@@ -569,7 +578,7 @@ int main(int argc, char** argv)
 	*/
 
 	e_point.SetPositionTextureUnit(GL_TEXTURE1);
-	e_point.SetColorTextureUnit(GL_TEXTURE2);
+	e_point.SetAbedoTextureUnit(GL_TEXTURE2);
 	e_point.SetUvTextureUnit(GL_TEXTURE3);
 	e_point.SetNormalTextureUnit(GL_TEXTURE4);
 
@@ -589,7 +598,7 @@ int main(int argc, char** argv)
 	e_dir.Enable();
 	
 	e_dir.SetPositionTextureUnit(GL_TEXTURE1);
-	e_dir.SetColorTextureUnit(GL_TEXTURE2);
+	e_dir.SetAbedoTextureUnit(GL_TEXTURE2);
 	e_dir.SetUvTextureUnit(GL_TEXTURE3);
 	e_dir.SetNormalTextureUnit(GL_TEXTURE4);
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
@@ -618,7 +627,7 @@ int main(int argc, char** argv)
 
 	M3DMatrix44f WVP;
 	m3dLoadIdentity44(WVP);
-	e_dir.SetWVP(WVP);
+	//e_dir.SetWVP(WVP);
 	//e_dir.SetProjectionMatrix()
 
 	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
@@ -732,7 +741,9 @@ int main(int argc, char** argv)
 	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
 
 	//Cavern Follow Light
-	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.7f, 1.0f, 0.7f), 0.8f, 0.2f, 1.0f, 0.09f, 0.032f, &e_point, &e_null));
+	//boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.9f, 0.05f, 0.05f), 0.8f, 0.2f, 1.0f, 0.35f, 0.032f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.54f, 0.89f, 0.63f), 0.6f, 0.2f, 1.0f, 0.7f, 0.6f, &e_point, &e_null));
+
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
 	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
 	tran_Point->addChild(n_point_lys.get());

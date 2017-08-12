@@ -84,7 +84,7 @@ bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 void AoBuffer::BindForAoPass()
 {
 
-	GBuffer *test = (GBuffer*)TheDisc->BufferContainer[0];
+	GBuffer *test = (GBuffer*)TheDisc->MasterList_Buffers[0];
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

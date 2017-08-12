@@ -1,6 +1,6 @@
 #include "model.h"
 //#include "materials.h"
-#include "map.h"
+#include "AssetMapClasses/map.h"
 #include <iostream>
 //#include "vsGLInfoLib.h"
 
@@ -27,9 +27,15 @@ model::model()
 model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 {
 
+
+
+
 	//actually all this is just a test, I have really no reason to do this for this class, finding duplicates is something
 	//id rather do elsewhere....Again completely fucking pointless....well...or is it, if I wanted a function to set up nodes with assets
 	//this might be allright...
+
+
+
 	for (auto iter : model::classModelList) {
 		
 		//cout << "\n Previus file: " << iter->meshy.file_name << endl;
@@ -43,6 +49,8 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 			return;
 		}
 	}
+
+
 	NS_ENG::Material::LoadMats(mtl.c_str());
 	LoadMesh(obj.c_str(), meshy);
 	//LoadMats(mtl.c_str(), palette);
@@ -298,9 +306,9 @@ void model::Draw()
 
 
 
-	glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
+	//glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
 
-	glBindTexture(GL_TEXTURE_2D, Material::GenerateMaterialMap());
+	//glBindTexture(GL_TEXTURE_2D, Material::GenerateMaterialMap());
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -344,7 +352,7 @@ void model::Draw()
 		
 		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
 
-
+		//nvogl gives exception error every second run
 
 
 

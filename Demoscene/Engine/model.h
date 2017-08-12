@@ -10,7 +10,9 @@
 
 #include "mesh.h"
 #include "materials.h"
-#include "../ShaderFu/GeomPacket.h"
+
+//obviusly this wont work if I want to be forward and deferred, but fuck it
+#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 #include "../util.h"
 
 //#include "../Rendrer/context.h"
@@ -68,6 +70,7 @@ namespace NS_ENG{
 	private:
 		//Rename to model Iter
 		std::list <model*>::iterator iter;
+		//std::list <model*>::iterator classModelIter;
 	public:
 		static std::list <model*> classModelList;
 		//heh should be private

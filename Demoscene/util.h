@@ -5,10 +5,15 @@
 
 #include "math/math3d.h"
 #include "math/vec.h"
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <sys/time.h>
+#endif
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 #include <stdlib.h>
@@ -24,7 +29,10 @@
 #include <boost/make_shared.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/xml_parser.hpp>
 #include <boost/foreach.hpp>
+
+
 //using namespace std; JESUS!
 void EngError(const char* fn, unsigned int ln, const char* msg);
 void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
@@ -34,20 +42,42 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
 
 
+
+
+//used as a singleton on Extern Squiddy
 struct DeploymentOrganizer
 {
-	std::string m_file;              
 	
+	std::string ProjectFolder;              
+	std::string ProductionName;
+	std::string ProductioFolder;
+
 	std::set<std::string> Resource_Paths;
+
+
+	
 	//std::set<boost::filesystem::path> Resource_Paths;
 	void load(const std::string &filename);
-	void save(const std::string &filename);
+	void save();
+	void deploy();
+
+
+	std::string FindAndRegister(const std::string &Item);
 
 	boost::filesystem::path HumbleIni;
+
+	boost::filesystem::path AssetGlobal;
+	boost::filesystem::path AssetProduction;
+
+	boost::filesystem::path ReleaseFolder;
+
+	boost::filesystem::path Util_CurrentFolder;
+	//boost::filesystem::path HumbleIni;
+
 };
 
 
-
+extern DeploymentOrganizer Squiddy;
 
 enum TypeOfTexture
 {
@@ -69,6 +99,17 @@ enum TypeOfTexture
 
 
 };
+
+/*
+char* AssetCategoryPath[3][3]{ {"Materials", "Models","Shaders",
+
+
+
+	
+	}
+}
+
+*/
 
 
 struct EffectStage
