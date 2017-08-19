@@ -23,7 +23,8 @@ namespace NS_ENG{
 	public:
 		virtual void Draw() = 0;
 
-		
+		//OK, it does not make much sense why this should be here.
+		//or maybe...
 		static EffectStageConstPtr CurrentStage;
 		static void SetCurrentStage(EffectStageConstPtr newLookUp) {
 			CurrentStage = newLookUp;

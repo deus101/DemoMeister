@@ -58,13 +58,15 @@ bool renderPacket::Init()
 bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 {
 	
+	GLint success;
+	GLint shaderLength = 0;
+
 	std::cout << fileName << std::endl;
 	const GLchar *glslStringPtr[1];
-	GLint success;
-
+	
 
 	GLchar *shaderText = NULL;
-	GLint shaderLength = 0;
+	
 	FILE *fp;
 
 
@@ -89,12 +91,13 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 	if (shaderText == NULL)
 		return false;
 
+	glslStringPtr[0] = shaderText;
+
 	GLuint ShaderObj = glCreateShader(ShaderType);
 
 	m_shaderObjList.push_back(ShaderObj);
 
-	glslStringPtr[0] = shaderText;
-
+	
 	glShaderSource(ShaderObj, 1, glslStringPtr, NULL);
 
 

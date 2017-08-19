@@ -12,7 +12,7 @@
 #include "../../FreeImage.h"
 #include "../../util.h"
 
-//
+
 
 
 
@@ -150,7 +150,7 @@ namespace NS_ENG
 
 		//typedef enum MAP_TYPE;
 
-
+		//https://stackoverflow.com/questions/3106206/template-object-as-static-member-of-the-template-class
 		public:
 
 		MapAsset();

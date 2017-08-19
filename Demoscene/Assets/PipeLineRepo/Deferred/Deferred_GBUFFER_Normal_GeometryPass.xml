@@ -3,14 +3,12 @@
   
   
   <Base_Shaders vertex="1" geometry="0" fragment="1">
-    <Base_Vert Path=".\Assets\GlobalShaderVault\Deferred\Geometry\Geometry_Mesh_Pass_Vert.glsl"
+    <Base_Vert Path="Geometry_Mesh_Pass_Vert.glsl"
            Target=".\Shader\Geometry_Mesh_Pass_Vert.glsl">
     
-
     </Base_Vert>
-    <Base_Frag Path=".\Assets\GlobalShaderVault\Deferred\Geometry\Geometry_Mesh_Pass_Frag.glsl"
+    <Base_Frag Path="Geometry_Mesh_Pass_Frag.glsl"
                Target=".\Shader\Geometry_Mesh_Pass_Frag.glsl">
-    
     
     </Base_Frag>
   </Base_Shaders>

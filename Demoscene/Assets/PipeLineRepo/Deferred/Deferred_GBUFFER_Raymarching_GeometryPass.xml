@@ -3,13 +3,13 @@
 
 
   <Base_Shaders vertex="1" geometry="0" fragment="1">
-    <Base_Vert Path=".\Assets\GlobalShaderVault\Deferred\Geometry\Geometry_Raymarcher_Pass_Vert.glsl"
+    <Base_Vert Path="Geometry_Raymarcher_Pass_Vert.glsl"
            Target=".\Shader\Geometry_Raymarcher_Pass_Vert.glsl">
 
     </Base_Vert>
-    <Base_Frag Path=".\Assets\GlobalShaderVault\Deferred\Geometry\Geometry_Raymarcher_Pass_Frag.glsl"
+    <Base_Frag Path="Geometry_Raymarcher_Pass_Frag.glsl"
                Target=".\Shader\Geometry_Raymarcher_Pass_Frag.glsl">
-      <Include_Component Name="SDF_Bounds" Path=".\Assets\GlobalShaderVault\hd_sdf.glsl" Marker="#meld hg_sdf.glsl"/>
+      <Include_Component Name="SDF_Bounds" Path="hd_sdf.glsl" Marker="#MELD hg_sdf.glsl"/>
     </Base_Frag>
   </Base_Shaders>
 

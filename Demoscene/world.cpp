@@ -53,6 +53,57 @@ int PassItemnator::load(const std::string &filename)
 	//PassItem::read_xml(HumbleXML.string(), PassData);
 
 
+	tinyxml2::XMLElement *el_BaseShaders = el_PassInfo->FirstChildElement();
+
+	
+
+	hasVertexShader = el_BaseShaders->BoolAttribute("vertex");
+	hasGeometryShader = el_BaseShaders->BoolAttribute("geometry");
+	hasFragmentShader = el_BaseShaders->BoolAttribute("fragment");
+
+	el_BaseShaders = el_BaseShaders->FirstChildElement();
+	if (hasVertexShader) {
+		
+
+		if(0  == std::string("Base_Vert").compare(el_BaseShaders->Value()))
+		{ 
+			this->VertexCode = new NS_ENG::NS_SHADER::BaseShaderItem(
+				
+				Squiddy.FindAndRegister( el_BaseShaders->Attribute("Path")),
+					el_BaseShaders->Attribute("Target"), NS_ENG::NS_SHADER::BaseVertex
+			);
+		
+		}
+
+	}
+
+	if (hasGeometryShader) {
+		el_BaseShaders = el_BaseShaders->NextSiblingElement();
+
+		if (0 == std::string("Base_Geom").compare(el_BaseShaders->Value()))
+		{
+			this->GeometryCode = new NS_ENG::NS_SHADER::BaseShaderItem(
+
+				Squiddy.FindAndRegister(el_BaseShaders->Attribute("Path")),
+				el_BaseShaders->Attribute("Target"), NS_ENG::NS_SHADER::BaseGeometry);
+
+		}
+	}	
+	if (hasFragmentShader) {
+		el_BaseShaders = el_BaseShaders->NextSiblingElement();
+
+		if (0 == std::string("Base_Frag").compare(el_BaseShaders->Value()))
+		{
+			this->FragmentCode = new NS_ENG::NS_SHADER::BaseShaderItem(
+
+				Squiddy.FindAndRegister(el_BaseShaders->Attribute("Path")),
+				el_BaseShaders->Attribute("Target"), NS_ENG::NS_SHADER::BaseFragment);
+
+		}
+
+	}
+
+
 
 
 
@@ -90,11 +141,13 @@ void DemoMeister::AddPass()
 {
 	GBuffer *temp = new GBuffer();
 	AoBuffer *temp2 = new AoBuffer();
-	
+	//boost::shared_ptr < MapAsset >(new FileTexture)
 	temp->Init(ResolutionX, ResolutionY);
 	temp2->Init(ResolutionX, ResolutionY);
-	MasterList_Buffers.push_back(temp);
-	MasterList_Buffers.push_back(temp2);
+	MasterList_Buffers.push_back(sp_Buffer(temp));
+	MasterList_Buffers.push_back(sp_Buffer(temp2));
+
+
 }
 
 
@@ -102,11 +155,11 @@ void DemoMeister::AddPass()
 void DemoMeister::AddPass(const std::string &filename)
 {
 	
-	MasterList_Passes.push_back(new PassItemnator());
+	MasterList_Passes.push_back(sp_PassItemnator(new PassItemnator()));
 	
 	MasterList_Passes.back()->load(filename);
 
-
+	//MasterList_Passes.back()->
 
 
 
@@ -114,11 +167,62 @@ void DemoMeister::AddPass(const std::string &filename)
 
 void DemoMeister::AddNode()
 {
+
 }
 
-void DemoMeister::AddEffect()
+
+
+size_t  DemoMeister::AddEffect(const std::string &Type,const std::string &Name)
 {
+	size_t idx = false;
+	//Prototype names, Todo: look in declaration for links for possible solutions now just get on with it.
+	if(Type.compare("GeomPacket") == 0)
+	{
+	
+	
+	}
+
+
+	return idx;
+
 }
+
+
+size_t  DemoMeister::RetriveEffectID(const std::string &Type, const std::string &Name)
+{
+	size_t idx;
+	for (std::vector<sp_RenderPacket>::iterator iter = this->MasterList_Packets.begin(); iter != this->MasterList_Packets.end(); iter++)
+	{
+
+		*(*iter);
+	}
+
+	return false;
+	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
+
+}
+
+//Yes I should use template A few different versions of Retrive and use the Container Type,
+//Maybe even the concrete type as return
+
+//Would that mean these has to be static methods?
+//Might as well actually, would be nice to have direct call to the containers in BaseBuffer
+//But the architecture(mess) I made means it really should not have public acces to those.
+
+
+sp_RenderPacket  DemoMeister::RetriveEffect(size_t idx)
+{
+
+	//there are better ways then this.
+	if (this->MasterList_Packets.size() <= idx)
+		return NULL;
+
+	return this->MasterList_Packets.at(idx);
+
+	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
+
+}
+
 
 void DemoMeister::AddAsset()
 {

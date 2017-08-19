@@ -48,7 +48,8 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 	bool duplicate = false;
 	GLint R_MapId = -1;
 
-
+	//GAH! Fuck it! I can't derail on optimasation, get it working
+	//https://stackoverflow.com/questions/2236482/data-structure-that-maps-unique-id-to-an-object
 	for (auto MapIter : NS_ENG::MapAsset::classMapList)
 	{
 		if (ToCreate->Name.compare(MapIter->Base_Data.Name) == 0)
@@ -105,6 +106,8 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 
 
 	
+	//I sorely need a more durable and conscice ID, what more it should store a direct access index.
+    //http://en.cppreference.com/w/cpp/types/ptrdiff_t
 	NS_ENG::MapAsset::classMapList.back()->Map_MapID = NS_ENG::MapAsset::classMapList.size();
 	//NS_ENG::MapAsset::classMapList.push_back(tmp_TexMap);
 	//NS_ENG::MapAsset::classMapList.back().Map_MapID = NS_ENG::MapAsset::classMapList.size();
@@ -127,13 +130,12 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 
 
 }
-//retrives MapAsset with MapId
-//MapAsset* MapAsset::RetriveMap(GLint idx)
-//MapAssetPtr MapAsset::RetriveMap(GLint idx)
+
+
 MapAsset* MapAsset::RetriveMap(GLint idx)
 {
 
-	//return NS_ENG::map::classMapList
+	
 	for (auto MapIter : NS_ENG::MapAsset::classMapList)
 	{
 		if (MapIter->Map_MapID == idx)

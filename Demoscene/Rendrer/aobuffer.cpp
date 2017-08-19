@@ -84,7 +84,7 @@ bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 void AoBuffer::BindForAoPass()
 {
 
-	GBuffer *test = (GBuffer*)TheDisc->MasterList_Buffers[0];
+	GBuffer *test = (GBuffer*)TheDisc->MasterList_Buffers[0].get();
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -93,6 +93,8 @@ void AoBuffer::BindForAoPass()
 
 	GLuint faen = test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL];
 	
+
+
 	//glActiveTexture(GL_TEXTURE0);
 	//glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
 	//glActiveTexture(GL_TEXTURE2);

@@ -443,7 +443,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="Engine\ShaderItem.h" />
     <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h" />
-    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.cpp" />
+    <ClCompile Include="Productions\WCD_1_HackSpace\WCD_1.cpp" />
     <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
@@ -496,6 +496,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GlobalShaderVault\hg_sdf.glsl" />
+    <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
+    <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
     <None Include="bf.ogg" />
     <None Include="ClassDiagram.cd" />
     <None Include="Mesh\38p.mtl">
@@ -895,10 +897,14 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
   <ItemGroup>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_Blur_AOPass.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_SSAO_AOPass.xml" />
-    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Point_LightPass.xml" />
-    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Raymarching_GeometryPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Raymarching_GeometryPass.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

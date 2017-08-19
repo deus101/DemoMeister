@@ -12,7 +12,7 @@
 
 #include "../util.h"
 
-
+#include "../Engine/ShaderItem.h"
 namespace NS_EFF{
 
 
@@ -35,6 +35,7 @@ namespace NS_EFF{
 	public:
 		renderPacket();
 
+
 		virtual ~renderPacket();
 
 
@@ -48,12 +49,17 @@ namespace NS_EFF{
 
 		void Enable();
 
-	
+		void SetName(std::string arg);
+		std::string GetName();
 
 	protected:
 
+		std::string EffectName;
+		std::string EffectType;
+
 		bool LoadShader(GLenum ShaderType, const char *fileName);
 		bool Finalize();
+
 
 		GLint GetUniformLocation(const char* pUniformName);
 
@@ -65,7 +71,16 @@ namespace NS_EFF{
 		EffectStagePtr m_StageParamPtr;
 		EffectStageConstPtr m_StageParamConstPtr;
 
+		std::string PassName;
+		int PassIndex;
+		//std::size_t PassIndex;
+		
+		
 		bool b_Custom_GLSL_Targets;
+
+		//NS_ENG::NS_SHADER::ShaderItem *ParsedVertexCode, *ParsedGeometryCode, *ParsedFragmentCode;
+		NS_ENG::NS_SHADER::ShaderItemPtr ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
+
 
 		boost::filesystem::path Vertex_Target, Geometry_Target, Fragment_Target;
 

@@ -11,11 +11,18 @@ using namespace NS_EFF;
 
 GeomPacket::GeomPacket()
 {
+	renderPacket::EffectName =
+	renderPacket::EffectName = "GeomPacket";
+
 }
 
 bool GeomPacket::Init()
 {
 	if (!renderPacket::Init()) {
+		return false;
+	}
+
+	if (!DeferredPipeMother::Init()) {
 		return false;
 	}
 

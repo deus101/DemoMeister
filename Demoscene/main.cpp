@@ -463,7 +463,7 @@ int main(int argc, char** argv)
 
 	TheDisc->AddPass();
 
-
+	TheDisc->PreInit();
 
 	//SetupRC();
 	//DO IT! TO IT!

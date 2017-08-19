@@ -14,6 +14,8 @@ namespace NS_EFF {
 		DeferredPipeMother();
 		~DeferredPipeMother();
 
+		bool RecivePassHandshake();
+
 		virtual bool Init();
 
 		void SetWVP(const M3DMatrix44f& WVP);

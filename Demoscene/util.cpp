@@ -171,7 +171,7 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string &Item)
 
 	
 
-	if (Util_CurrentFolder == NULL)
+	if (Util_CurrentFolder.empty() == true)
 	{
 		Util_CurrentFolder = AssetProduction;
 	}
@@ -181,10 +181,27 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string &Item)
 	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
 		if (is_regular_file(i)) {
 			//cout << i.string() << endl;
-			if (i.filename().compare(File) == true)
+			if (i.filename().compare(File) == 0)
+			{ 
 				return i.string();
+			}
 		}
 	}
-	//Util_CurrentFolder.
+
+	Util_CurrentFolder = AssetGlobal;
+
+	//boost::filesystem::recursive_directory_iterator iter(Util_CurrentFolder), eod;
+	iter = boost::filesystem::recursive_directory_iterator(AssetGlobal);
+
+	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
+		if (is_regular_file(i)) {
+			//cout << i.string() << endl;
+			if (i.filename().compare(File) == 0)
+			{
+				return i.string();
+			}
+		}
+	}
+
 
 }

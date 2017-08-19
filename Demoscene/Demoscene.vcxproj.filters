@@ -132,6 +132,9 @@
     <ClCompile Include="tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Productions\WCD_1_HackSpace\WCD_1.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -249,9 +252,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ShaderItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h">
