@@ -202,6 +202,7 @@ public:
 
 	sp_RenderPacket RetriveEffect(size_t idx);
 
+	sp_RenderPacket RetriveEffect(const std::string &TypeName, const std::string &Name);
 
 	size_t RetrivePassID(const std::string &TypeName, const std::string &Name);
 

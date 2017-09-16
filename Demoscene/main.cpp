@@ -481,7 +481,7 @@ int main(int argc, char** argv)
 
 	std::cout << "Result of init windows: " << success << std::endl;
 
-
+	//AAAAAAAAAAAAAALLLLLLLLLLLLL THIS NEEEEEEEEEEEEDS TO FUCKING GO!
 
 	glViewport(0, 0, (GLsizei)Xres, (GLsizei)Yres);
 
@@ -537,7 +537,7 @@ int main(int argc, char** argv)
 	NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
 
 
-	NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
+	//NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
 
 	//NS_EFF::RayMarcher e_rm_Pack = NS_EFF::RayMarcher();
 
@@ -577,16 +577,13 @@ int main(int argc, char** argv)
 	size_t DirPassIdx;
 	DirPassIdx = TheDisc->RetriveEffectID("DirlightPacket", "LightPacket_DirLights_Default");
 
-
-
-
+	//I CURSE YOU FROM THE MAIN!
+	NS_EFF::aoPacket *e_ao_Pass = boost::static_pointer_cast<NS_EFF::aoPacket>(TheDisc->RetriveEffect("aoPacket", "AOPacket_Default")).get();
 	//NS_EFF::RayMarcher *test(dynamic_cast<NS_EFF::RayMarcher*>(TheDisc->RetriveEffect(GeomRayTestIdx).get()));
 	NS_EFF::RayMarcher *test = boost::static_pointer_cast<NS_EFF::RayMarcher>(TheDisc->RetriveEffect(GeomRayTestIdx)).get();
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),
-		test, &e_ao_Pass);
-
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), test, e_ao_Pass);
 
 	//std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl << std::endl << std::endl;
 	TheDisc->InitEffects("", "", 0);
@@ -595,6 +592,8 @@ int main(int argc, char** argv)
 	//NS_EFF::GeomPacket *test1(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get()));
 	NS_EFF::GeomPacket *test1 = boost::static_pointer_cast<NS_EFF::GeomPacket>(TheDisc->RetriveEffect(GeomTestIdx)).get();
 
+
+	//fuck
 
 	NS_EFF::NullPacket *e_null = boost::static_pointer_cast<NS_EFF::NullPacket>(TheDisc->RetriveEffect(NullPassIdx)).get();
 	NS_EFF::PointLightPacket *e_point = boost::static_pointer_cast<NS_EFF::PointLightPacket>(TheDisc->RetriveEffect(PointPassIdx)).get();
@@ -674,17 +673,17 @@ int main(int argc, char** argv)
 	e_dir->SetScreenSize(Xres, Yres);
 
 
-	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl << std::endl << std::endl;
+	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass->Init() << std::endl << std::endl << std::endl;
 
-	e_ao_Pass.Enable();
-	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	e_ao_Pass.SetPositionTextureUnit(GL_TEXTURE1);
-	e_ao_Pass.SetNormalTextureUnit(GL_TEXTURE4);
-	e_ao_Pass.SetScreenSize(Xres, Yres);
+	e_ao_Pass->Enable();
+	//e_ao_Pass->SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
+	//e_ao_Pass->SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
+	e_ao_Pass->SetPositionTextureUnit(GL_TEXTURE1);
+	e_ao_Pass->SetNormalTextureUnit(GL_TEXTURE4);
+	e_ao_Pass->SetScreenSize(Xres, Yres);
 
-	e_ao_Pass.InitKernel();
-	e_ao_Pass.InitNoise();
+	e_ao_Pass->InitKernel();
+	e_ao_Pass->InitNoise();
 
 
 

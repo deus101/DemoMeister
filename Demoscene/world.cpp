@@ -445,6 +445,23 @@ sp_RenderPacket  DemoMeister::RetriveEffect(size_t idx)
 	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
 
 }
+sp_RenderPacket  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string & Name)
+{
+
+
+	size_t idx = this->RetriveEffectID(TypeName, Name);
+	//there are better ways then this.
+	if (this->MasterList_Packets.size() < idx || idx == 0)
+		return NULL;
+	//Should put the idx in an assert.
+
+
+	//return this->MasterList_Packets.at(idx);
+	return this->MasterList_Packets.at(idx - 1);
+	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
+
+}
+
 
 size_t DemoMeister::RetrivePassID(const std::string & TypeName, const std::string & Name)
 {
@@ -466,6 +483,48 @@ size_t DemoMeister::RetrivePassID(const std::string & TypeName, const std::strin
 
 	return idx;
 }
+
+
+/* ugh...sorry i was drunk and tired...and again 3 seperate getters per! 3 seperater containers for 3 seperate classes......I'M AN IDIOT!
+sp_b  DemoMeister::RetrivePass(const std::string & TypeName, const std::string & Name)
+{
+
+
+	size_t idx = this->RetriveEffectID(TypeName, Name);
+	//there are better ways then this.
+	if (this->MasterList_Packets.size() < idx || idx == 0)
+		return NULL;
+	//Should put the idx in an assert.
+
+
+	//return this->MasterList_Packets.at(idx);
+	return this->MasterList_Packets.at(idx - 1);
+	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
+
+}
+*/
+
+
+/* TEMPLATE YOU MOTHER FUCKER! Getters and setters are for the WEAK! especially with 3 containers containing 3 seperate classes!
+
+sp_RenderPacket  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string & Name)
+{
+
+
+size_t idx = this->RetriveEffectID(TypeName, Name);
+//there are better ways then this.
+if (this->MasterList_Packets.size() < idx || idx == 0)
+return NULL;
+//Should put the idx in an assert.
+
+
+//return this->MasterList_Packets.at(idx);
+return this->MasterList_Packets.at(idx - 1);
+//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
+
+}
+*/
+
 
 sp_PassItemnator DemoMeister::RetrivePass(size_t idx)
 {
