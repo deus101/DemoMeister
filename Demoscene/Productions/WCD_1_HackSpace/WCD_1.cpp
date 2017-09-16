@@ -22,11 +22,39 @@ void WCD::PreInit() {
 
 
 	this->AddPass(Squiddy.FindAndRegister("Deferred_GBUFFER_Raymarching_GeometryPass.xml"));
+
+	
+	this->AddPass(Squiddy.FindAndRegister("Deferred_AOBUFFER_SSAO_AOPass.xml"));
+
+	this->AddPass(Squiddy.FindAndRegister("Deferred_GBUFFER_Stencil_LightPass.xml"));
+
+
+	this->AddPass(Squiddy.FindAndRegister("Deferred_GBUFFER_Point_LightPass.xml"));
+
+	this->AddPass(Squiddy.FindAndRegister("Deferred_GBUFFER_Dir_LightPass.xml"));
+
+	
+
+
 }
 
 void WCD::Init() {
-	return;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	return;
 }
 
 void WCD::AfterInit(){

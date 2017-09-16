@@ -21,7 +21,7 @@
 #include <cstdlib>
 #include <typeinfo>
 #include <set>
-
+#include <map>
 //#include <Windows.h>
 //#include <Shlwapi.h>
 
@@ -33,6 +33,7 @@
 #include <boost/foreach.hpp>
 
 
+
 //using namespace std; JESUS!
 void EngError(const char* fn, unsigned int ln, const char* msg);
 void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
@@ -41,6 +42,67 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 #define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
 
+template <class T> void* constructor() { return (void*)new T(); }
+/*
+struct factory
+{
+	typedef void*(*constructor_t)();
+	typedef std::map<std::string, constructor_t> map_type;
+	map_type m_classes;
+
+	template <class T>
+	void register_class(std::string const& n)
+	{
+		m_classes.insert(std::make_pair(n, &constructor<T>));
+	}
+
+	void* construct(std::string const& n)
+	{
+		map_type::iterator i = m_classes.find(n);
+		if (i == m_classes.end()) return 0; // or throw or whatever you want
+		return i->second();
+	}
+};
+
+factory g_factory;
+
+#define REGISTER_CLASS(n) g_factory.register_class<n>(#n)
+*/
+#include <vector>
+/*
+
+template<typename T>
+class X
+{
+    public:
+        T const& operator[](std::size_t index) const    {return const_cast<X&>(*this)[index];}
+        T&       operator[](std::size_t index)          {return data[index];}
+        void        remove(std::size_t index)           {unused.push_back(index);}
+
+        
+		std::size_t insert(T  value);
+    private:
+        std::vector<T>                  data;
+        std::vector<std::size_t>        unused;
+};
+
+template<typename T>
+std::size_t X<T>::insert(T  value)
+{
+    if (unused.empty())
+    {
+        data.push_back(value);
+        return data.size() - 1;
+    }
+    std::size_t result  = unused.back();
+    unused.pop_back();
+    data[result]    = value;
+    return result;
+}
+
+*/
+
+
 
 
 
@@ -48,6 +110,10 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 struct DeploymentOrganizer
 {
 	
+
+
+
+
 	std::string ProjectFolder;              
 	std::string ProductionName;
 	std::string ProductioFolder;
@@ -111,11 +177,30 @@ char* AssetCategoryPath[3][3]{ {"Materials", "Models","Shaders",
 
 */
 
+enum e_InstructionActors {
+	Self, Rendrer, PassInit, BufferInit, AssetInit, EffectInit,RocketInit,TransFormNode,AssetNode
+
+
+
+
+};
+
+struct PipelineTask {
+	e_InstructionActors target;
+	std::string TarType, TarName;
+	int TarID;
+	e_InstructionActors Supplicant;
+	std::string SupType, SupName;
+	int SupID;
+	std::string PropertyName;
+	float Return;
+
+};
 
 struct EffectStage
 {
-	//GL_TEXTURE1
-	int StageValue;
+	bool bReqComplete;
+	int iStageValue;
 	//GLint TextureUnits[Size];
 	GLenum TextureUnits[Size];
 	//GLUint TextureUnits[Size];

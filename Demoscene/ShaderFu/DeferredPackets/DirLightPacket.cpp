@@ -8,6 +8,8 @@ using namespace NS_EFF;
 
 DirLightPacket::DirLightPacket()
 {
+	renderPacket::EffectName = "DirLightPacket";
+	renderPacket::EffectType = "DirLightPacket";
 
 }
 

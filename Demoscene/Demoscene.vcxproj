@@ -140,7 +140,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -495,7 +495,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\GlobalShaderVault\hg_sdf.glsl" />
+    <None Include="Assets\GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
+    <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
     <None Include="bf.ogg" />

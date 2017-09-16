@@ -13,7 +13,7 @@ namespace NS_SG{
 				node(name),
 				fov(60.0f), 
 				aspect(16.0f / 9),
-				znear(0.1f), zfar(50.0f),
+				znear(0.1f), zfar(100.0f), //zfar(50.0f),
 				projection_dirty(true)
 				{
 				}

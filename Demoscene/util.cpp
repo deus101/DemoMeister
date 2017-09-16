@@ -9,7 +9,7 @@
 #include <sys/time.h>
 #endif
 */
-#include <boost/typeof/typeof.hpp>
+//#include <boost/typeof/typeof.hpp>
 
 void EngError(const char* pFileName, unsigned int line, const char* pError)
 {
@@ -37,7 +37,7 @@ void EngFileError(const char* pFileName, unsigned int line, const char* pFileErr
 
 void DeploymentOrganizer::load(const std::string &filename)
 {
-
+	
 	HumbleIni = boost::filesystem::path(filename.c_str());
 	HumbleIni.remove_leaf();
 	HumbleIni.append("DemoMeister.ini");
@@ -157,8 +157,7 @@ void DeploymentOrganizer::deploy()
 
 }
 
-
-std::string DeploymentOrganizer::FindAndRegister(const std::string &Item)
+std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
 {
 	//if no we are looking for Model Folders most likely
 	boost::filesystem::path File(Item);
@@ -203,5 +202,5 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string &Item)
 		}
 	}
 
-
+	return std::string("");
 }

@@ -52,6 +52,8 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		m3dCopyMatrix44(view, CamWorld);
 		cammy->getProjection(tmpProj);
 		m3dCopyMatrix44(projection, tmpProj);
+
+
 		//cammy->ge
 
 		//PIVVOT PIVVOT BRUK DEN TARGETNODEN!

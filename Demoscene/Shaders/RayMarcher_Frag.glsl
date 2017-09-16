@@ -10,6 +10,9 @@ layout (location = 1) out vec3 DiffuseOut;
 layout (location = 2) out vec3 NormalOut;  
 layout (location = 3) out vec3 UvOut; 
 
+uniform sampler2D MaterialMap;
+
+
 uniform mat4 gWVP;
 uniform mat4 gProjection;
 uniform mat4 gView;

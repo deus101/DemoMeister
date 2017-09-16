@@ -8,6 +8,9 @@ using namespace NS_EFF;
 
 PointLightPacket::PointLightPacket()
 {
+	renderPacket::EffectName = "PointLightPacket";
+	renderPacket::EffectType = "PointLightPacket";
+
 }
 
 bool PointLightPacket::Init()

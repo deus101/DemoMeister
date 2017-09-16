@@ -10,6 +10,8 @@ layout(location = 1) out vec3 DiffuseOut;
 layout(location = 2) out vec3 NormalOut;
 layout(location = 3) out vec3 UvOut;
 
+uniform sampler2D MaterialMap;
+
 uniform mat4 gWVP;
 uniform mat4 gProjection;
 uniform mat4 gView;
@@ -28,14 +30,14 @@ const float focalLenght = 1.67f;
 
 
 const float NEAR = 0.1f;
-const float FAR = 50.0f;
+const float FAR = 100.0f;
 
 const int raySteps = 64;
 const float rayEpsilon = 0.001f;
 
 const float PI = 3.141592653589793238462643383;
 
-#MELD "hd_sdf.glsl"
+#include hg_sdf.glsl
 
 vec2 spherical(vec3 d) {
 	return vec2(acos(d.z), atan(d.y, d.x));
@@ -67,13 +69,16 @@ float sdBox(vec3 p, vec3 size)
 
 float distScene(vec3 p)
 {
+	p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+	//p.xz = pModGrid2(p.xz, vec2(8.0)) - vec2(4.0f);
+	//p.xz = pModMirror2(p.xz, vec2(8.0)) - vec2(4.0f);
 	//p.xz = mod(p.xz, 2.0f) - vec2(1.0f);
 	//return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.01f));
-	float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
-	float s_box = sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
-
+	//float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
+	//float s_box = sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
+	 return fHexagonCircumcircle(p - vec3(0.0f, -0.5f, 0.0f), vec2(3.5f, 0.5f));
 	//return max(s_box, s_sphere);
-	return max(-s_sphere, s_box);
+	//return max(-s_sphere, s_box);
 }
 
 
@@ -319,8 +324,8 @@ void main()
 	}
 	else
 	{
-		//color = skyColor;
-
+		color = skyColor;
+		matID = 1;
 		//p.y = p.z;
 		//eyeHitZ = -FAR *dot(rd,eyeFwd);
 		//eyeHitZ = -(FAR-0.1) *dot(worldDir,rd);
@@ -328,10 +333,17 @@ void main()
 		//eyeHitZ = -FAR *dot(normalize(viewForward),rd);
 
 		//dep = ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
-		//p = ro + (rd * (FAR-0.1));
+		//p = ro + (rd * (FAR-1.6));
+		p = ro + (rd * (FAR ));
 		//p = min(ro + (rd * FAR),FAR);
 
-
+		eyeHitZ = -t *dot(worldDir, rd);
+		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
+		//color = vec4(1 / 255);
+		matID = 5;
+		normal = getNormal(p);
+		puv = CalcUV(p, normal, 32.0).xy;
+		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 		//p = vec3(FAR,FAR,eyeHitZ);
 		//p = (gProjection * vec4(p,1)).xyz;
 		//z = mapTo(t, NEAR, FAR, 1, 0);
@@ -339,10 +351,15 @@ void main()
 		//normal = -getNormal(p);
 		//normal = -rd;
 		//dep = distance(ro, p) * 20000;
-
+		//gl_FragDepth = ndcDepth;
+		//gl_FragDepth = dep;
+		//dep = LinearDepth(dep);
+		//gl_FragDepth = dep;
+		//dep = distance(ro, p);
 		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 
 		//dep = FAR;
+		//gl_FragDepth = dep;
 		gl_FragDepth = FAR;
 		//ndcDepth = FAR;
 	}

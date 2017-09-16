@@ -22,7 +22,19 @@
 #include "SceneGraph\camera.h"
 #include "SceneGraph\composite.h"
 //#include "SceneGraph\modelNode.h"
+
+/*SG*/
+
+
+
+
+
+
 #include "ShaderFu\renderPacket.h"
+#include "ShaderFu\DeferredPackets\aoPacket.h"
+#include "ShaderFu\DeferredPackets\RayMarcher.h"
+
+
 #include "Engine\ShaderItem.h"
 //namespace PassItem = boost::property_tree;
 #include "tinyxml2.h"
@@ -38,6 +50,22 @@ public:
 	int load(const std::string &filename);
 	void save();
 	void deploy();
+
+	void SetName(std::string arg) { Name = arg; }
+	
+	
+	std::string GetName() { return Name; }
+	
+	//NS_ENG::NS_SHADER::ShaderItemPtr GetShaderComposition(GLenum Type)
+	NS_ENG::NS_SHADER::BaseShaderItemPtr GetShaderComposition(GLenum Type) { 
+		if(hasVertexShader && Type == GL_VERTEX_SHADER)
+			return VertexCode;
+		if (hasGeometryShader && Type == GL_GEOMETRY_SHADER)
+			return GeometryCode;
+		if (hasFragmentShader  && Type == GL_FRAGMENT_SHADER)
+			return FragmentCode;
+
+	}
 	//std::string GetParsed
 
 private:
@@ -48,9 +76,11 @@ private:
 	boost::filesystem::path AssetProduction;
 	boost::filesystem::path ReleaseFolder;
 	//NS_ENG::NS_SHADER::ShaderItem *VertexCode, *GeometryCode, *FragmentCode;
-	NS_ENG::NS_SHADER::BaseShaderItem *VertexCode, *GeometryCode, *FragmentCode;
+	//NS_ENG::NS_SHADER::BaseShaderItem *VertexCode, *GeometryCode, *FragmentCode;
 
-	//NS_ENG::NS_SHADER::ShaderItem VertexCode, GeometryCode, FragmentCode;
+	//NS_ENG::NS_SHADER::ShaderItemPtr VertexCode, GeometryCode, FragmentCode;
+	NS_ENG::NS_SHADER::BaseShaderItemPtr VertexCode, GeometryCode, FragmentCode;
+
 
 public:
 	std::string Name;
@@ -79,21 +109,15 @@ public:
 };
 
 
-//this isnt nessescary
-typedef boost::shared_ptr< NS_SG::composite >  compoPointer;
+
+
 
 typedef boost::shared_ptr< NS_EFF::renderPacket >  sp_RenderPacket;
 typedef boost::shared_ptr< base_buffer >  sp_Buffer;
 typedef boost::shared_ptr< PassItemnator >  sp_PassItemnator;
-//needs boost-fu
-//typedef std::vector< NS_EFF::renderPacket* > vec_EffectPackets;
-//typedef std::vector< base_buffer* > vec_BufferContainer;
-//typedef std::vector< PassItemnator* > vec_PassDefinitions;
 
-//might need to make a special template class.
-typedef std::vector< sp_RenderPacket > vec_EffectPackets;
-typedef std::vector< sp_Buffer > vec_BufferContainer;
-typedef std::vector< sp_PassItemnator > vec_PassDefinitions;
+typedef boost::shared_ptr< NS_EFF::RayMarcher >  sp_RaymarchPacket;
+typedef boost::shared_ptr< NS_EFF::GeomPacket >  sp_GeomPacket;
 
 
 //Not just a lazy singleton.
@@ -142,14 +166,14 @@ public:
 	//If the Name and Type(better just make it Name) allready exsist, its index is returned.
 	//Just remember to catch them.
 	//int AddEffect(std::string Type, std::string Name);
-	size_t  AddEffect(const std::string& Type, const std::string& Name);
+	size_t  AddEffect(const std::string& TypeName, const std::string& Name);
+	//Should rename to AddPacket
 
+	size_t  AddBuffer(const std::string& TypeName, const std::string& Name);
 
 	//Strings for now, these are used for initialization anyway so speed is no issue.
 	//things are gonna get confusing pretty quick however. Which Is why I plan to use a prototype pattern 
 	//and a quantifiable identifier. 
-
-	
 	//This is one of the main reasons Im doing this, I want a material system
 	void AddAsset();
 
@@ -161,7 +185,7 @@ public:
 	//Use default argument for both of these, error if both are not filled in.
 	//The way I'm doing it now you only need one instance of each RenderPacket so type would be enough.
 	//However even though I've gone to the trouble making them individual packets can be repurpused depending on the pass
-	size_t RetriveEffectID(const std::string &Type, const std::string &Name);
+	size_t RetriveEffectID(const std::string &TypeName, const std::string &Name);
 	//http://boost-spirit.com/dl_more/fusion_v2/libs/fusion/doc/html/fusion/container/map.html
 	//https://stackoverflow.com/questions/4195100/templates-for-setters-and-getters
 	//http://www.boost.org/doc/libs/1_62_0/doc/html/boost_typeindex/getting_started.html
@@ -173,21 +197,40 @@ public:
 	//Eh pass by reference.
 
 	//sp_RenderPacket RetriveEffect(const std::string &Type, const std::string &Name);
+
+
+
 	sp_RenderPacket RetriveEffect(size_t idx);
 
 
+	size_t RetrivePassID(const std::string &TypeName, const std::string &Name);
 
-	//I allready have static class factory methods for most Assets.
-	//But could still be usefull.  Maybe it can maintain the shoddy container.
 
-	//Ah yes, I can use these to implement changes I want in the asset.
-	//again this can become stupid complicated why am i doing this!
-	//This would work with a model-view-controller
+
+	sp_PassItemnator RetrivePass(size_t idx);
+
+	sp_PassItemnator RetrivePass(const std::string &TypeName, const std::string &Name);
+
+
+
+	//These really should be templated  
+	size_t RetriveBufferID(const std::string &Type, const std::string &Name);
+
+	
+	sp_Buffer RetriveBuffer(size_t idx);
+
+
 	void RetriveAsset();
 
 	void RetriveMaterial();
 
-	//Mesh o
+
+	//Actually it all should start with the first material.
+	bool InitEffects(const std::string &Type , const std::string &Name, size_t idx);
+
+	void InitBuffers();
+
+	//Mesh 
 
 	//Model
 
@@ -200,12 +243,6 @@ public:
 	//I want something to check for duplicates, materials and textures(materials can be different but use the same)
 	//at some point this might be what I need the DemoMeister class for, a hackers space so I dont have to create a class for
 	//everything like procedural textures.
-
-	//either initialization of passes, packets and loading on models can be done on the fly
-	//virtual void PreInit() = 0;
-	//virtual void Init() = 0;
-	//virtual void AfterInit() = 0;
-	//I could set the soundtrack setup here but leave that for later
 
 	//with an id argument perhaps, thinking gnu rocket should sync up here
 	//virtual void HackerSpace() = 0;
@@ -220,19 +257,22 @@ public:
 	virtual void HackerSpace() = 0;
 
 
-//private:
-	//containers for textures, assets, packets, buffers,
-
-
 
 //Should be private, need Getters and prototypes
 public:
+	typedef std::vector< sp_RenderPacket > vec_EffectPackets;
+	typedef std::vector< sp_Buffer > vec_BufferContainer;
+	typedef std::vector< sp_PassItemnator > vec_PassDefinitions;
+
+
 	vec_BufferContainer  MasterList_Buffers;
 
 	vec_EffectPackets MasterList_Packets;
 
 	vec_PassDefinitions  MasterList_Passes;
 	//int WindowID;
+
+
 	boost::shared_ptr<NS_SG::composite>  o_loader;
 	//boost::weak_ptr<NS_SG::node>  anchor;
 	//NS_SG::composite o_loader;

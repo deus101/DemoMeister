@@ -11,8 +11,9 @@ using namespace NS_EFF;
 
 GeomPacket::GeomPacket()
 {
-	renderPacket::EffectName =
+	//renderPacket::EffectName =
 	renderPacket::EffectName = "GeomPacket";
+	renderPacket::EffectType = "GeomPacket";
 
 }
 

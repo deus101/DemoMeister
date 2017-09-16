@@ -364,7 +364,10 @@
     <None Include="ClassDiagram.cd" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj" />
-    <None Include="Assets\GlobalShaderVault\hg_sdf.glsl" />
+    <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
+    <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
+    <None Include="Assets\GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
+    <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">

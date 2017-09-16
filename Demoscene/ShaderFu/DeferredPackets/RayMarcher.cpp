@@ -7,6 +7,8 @@ using namespace NS_EFF;
 
 RayMarcher::RayMarcher()
 {
+	renderPacket::EffectName = "RayMarcher";
+	renderPacket::EffectType = "RayMarcher";
 }
 
 bool RayMarcher::Init()
@@ -15,6 +17,10 @@ bool RayMarcher::Init()
 		return false;
 	}
 	
+	if (!DeferredPipeMother::Init()) {
+		return false;
+	}
+
 	if (!LoadShader(GL_VERTEX_SHADER, "Shaders/RayMarcher_vert.glsl")) {
 		return false;
 	}

@@ -10,6 +10,12 @@ AoBuffer::AoBuffer()
 {
 	//m_fbo = 0;
 	m_fbo = 0;
+	Nr_LocalPasses = 1;
+
+	this->RegionalPassList.clear();
+	this->LocalPassProperties.clear();
+	this->LocalPassProperties.resize(Nr_LocalPasses);
+	//ZERO_MEM(this->LocalPassProperties.clear());
 	//m_AoTexture = 0;
 	//m_depthTexture = 0;
 	//m_finalTexture = 0;
@@ -27,7 +33,7 @@ AoBuffer::~AoBuffer()
 	if (ao_textures[0] != 0) {
 		glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
 	}
-
+	this->LocalPassProperties.clear();
 	//if (m_depthTexture != 0) {
 	//	glDeleteTextures(1, &m_depthTexture);
 	//}

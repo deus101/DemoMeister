@@ -51,6 +51,8 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 	}
 
 
+
+
 	NS_ENG::Material::LoadMats(mtl.c_str());
 	LoadMesh(obj.c_str(), meshy);
 	//LoadMats(mtl.c_str(), palette);

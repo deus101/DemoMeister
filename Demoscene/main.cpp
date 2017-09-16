@@ -16,13 +16,14 @@
 #include "SceneGraph\gridNode.h"
 
 
-
+/*SG*/
 #include "SceneGraph\sceneparser.h"
 #include "SceneGraph\assetNode.h"
 #include "SceneGraph\modelNode.h"
 #include "SceneGraph\dirLightNode.h"
 #include "SceneGraph\pointLightNode.h"
 #include "SceneGraph\targetNode.h"
+
 //NS_REND::context *mContext = NULL;
 //NS_ENG::rendrer *mRender = NULL;
 
@@ -34,6 +35,11 @@
 
 //#include "world.h"
 #include "Productions\WCD_1_HackSpace\WCD_1.h"
+
+
+
+
+
 
 HSTREAM stream;
 
@@ -338,7 +344,7 @@ void ChangeSize(int w, int h)
 {
 
 
-	ChangeSize(w, h);
+	//ChangeSize(w, h);
 	//GLfloat fAspect;
 
 	//if (h == 0)
@@ -397,9 +403,27 @@ int main(int argc, char** argv)
 	boost::filesystem::path RunLocation(path);
 
 
-	
+	/*
 	//Squiddy.load(RunLocation.remove_filename().std::string());
+	REGISTER_CLASS(NS_EFF::GeomPacket);
+	REGISTER_CLASS(NS_EFF::DeferredPipeMother);
+	REGISTER_CLASS(NS_EFF::RayMarcher);
+	REGISTER_CLASS(NS_EFF::lightPacket);
 
+
+	REGISTER_CLASS(NS_EFF::DirLightPacket);
+	REGISTER_CLASS(NS_EFF::PointLightPacket);
+	REGISTER_CLASS(NS_EFF::aoPacket);
+	REGISTER_CLASS(NS_EFF::renderPacket);
+	
+	
+	
+	//REGISTER_CLASS(NS_ENG::Material);
+	//REGISTER_CLASS(base_buffer);
+	REGISTER_CLASS(AoBuffer);
+	REGISTER_CLASS(GBuffer);
+
+	*/
 	Squiddy.load(path);
 
 
@@ -408,7 +432,7 @@ int main(int argc, char** argv)
 	//#define ProgramFolder @ProjectDir
 	//#endif
 	//boost::b
-	
+
 	//boost::filesystem::path Asset(ProgramFolder);
 	int Xres = 1280;
 	int Yres = 720;
@@ -416,7 +440,7 @@ int main(int argc, char** argv)
 	bool FS = false;
 	//bool FS = true;
 	//mContext = new NS_REND::context();
-	
+
 	for (int i = 0; i < argc; i++)
 	{
 		std::string Argument = argv[i];
@@ -437,10 +461,10 @@ int main(int argc, char** argv)
 			FS = true;
 		}
 	}
-	
+
 	//overide remember to remove
 	std::cout << "Initialising at resolution " << Xres << "X" << Yres << "  Fullscreen: " << FS << std::endl;
-	
+
 
 #ifndef SYNC_PLAYER
 	Xres = 1280;
@@ -454,7 +478,7 @@ int main(int argc, char** argv)
 	DemoMeister *fuck = new WCD();
 	bool success = Init(argc, argv, true, false, Xres, Yres, FS, "Deus's Ex Machine", fuck);
 
-	
+
 	std::cout << "Result of init windows: " << success << std::endl;
 
 
@@ -476,22 +500,23 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::targetTransform> target_kambot(new NS_SG::targetTransform("target_kambot"));
 	boost::shared_ptr<NS_SG::objTransform> pivot_kambot(new NS_SG::objTransform("pivot_kambot"));
 
-	
+
 	target_kambot->addChild(kambot.get());
-
+	
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
-
+	
 	tran_kambot->addChild(pivot_kambot.get());
 
 	tran_kambot->addChild(target_kambot.get());
-	
+
 	pivot_kambot->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -1.0f));
 
 	target_kambot->setTarget(pivot_kambot.get());
-	
+
 	TheDisc->o_loader.get()->addChild(tran_kambot.get());
 
-	
+	//kambot->setZNear(0.1);
+
 
 	//ptrCamTran = tran_kambot.get();
 	//Ugh såklart templates
@@ -499,22 +524,22 @@ int main(int argc, char** argv)
 
 
 
-//-------------------The effects packets 
-	NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
+	//-------------------The effects packets 
+	//NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
 
 
-	NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
+	//NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
 
-	NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
+	//NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
 
-	NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
+	//NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 
 	NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
 
 
 	NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
 
-	NS_EFF::RayMarcher e_rm_Pack = NS_EFF::RayMarcher();
+	//NS_EFF::RayMarcher e_rm_Pack = NS_EFF::RayMarcher();
 
 
 	//GET RID OF THIS!!!!
@@ -524,90 +549,129 @@ int main(int argc, char** argv)
 
 	//boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
 	//boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
-	
+
 	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
 	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
 	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
 	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
-	
+
 	NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
 	NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
 	//should this be placed in the DemoMeister class?...nah if it works as intended this should get the
 	// DemoMeister singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_rm_Pack, &e_ao_Pass);
+	size_t GeomTestIdx;
+	GeomTestIdx = TheDisc->RetriveEffectID("GeomPacket", "Geometry_Default");
+
+	size_t GeomRayTestIdx;
+	GeomRayTestIdx = TheDisc->RetriveEffectID("RayMarcher", "Geometry_RayMarch_Default");
+
+	
+	size_t NullPassIdx;
+	NullPassIdx = TheDisc->RetriveEffectID("NullPacket", "LightPacket_Pointlight_Stencil");
+
+	size_t PointPassIdx;
+	PointPassIdx = TheDisc->RetriveEffectID("PointLightPacket", "LightPacket_Pointlight_Default");
+
+	size_t DirPassIdx;
+	DirPassIdx = TheDisc->RetriveEffectID("DirlightPacket", "LightPacket_DirLights_Default");
 
 
 
-	std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl << std::endl << std::endl;
 
-	e_geom.Enable();
+	//NS_EFF::RayMarcher *test(dynamic_cast<NS_EFF::RayMarcher*>(TheDisc->RetriveEffect(GeomRayTestIdx).get()));
+	NS_EFF::RayMarcher *test = boost::static_pointer_cast<NS_EFF::RayMarcher>(TheDisc->RetriveEffect(GeomRayTestIdx)).get();
+
+
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),
+		test, &e_ao_Pass);
+
+
+	//std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl << std::endl << std::endl;
+	TheDisc->InitEffects("", "", 0);
+
+
+	//NS_EFF::GeomPacket *test1(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get()));
+	NS_EFF::GeomPacket *test1 = boost::static_pointer_cast<NS_EFF::GeomPacket>(TheDisc->RetriveEffect(GeomTestIdx)).get();
+
+
+	NS_EFF::NullPacket *e_null = boost::static_pointer_cast<NS_EFF::NullPacket>(TheDisc->RetriveEffect(NullPassIdx)).get();
+	NS_EFF::PointLightPacket *e_point = boost::static_pointer_cast<NS_EFF::PointLightPacket>(TheDisc->RetriveEffect(PointPassIdx)).get();
+
+	
+
+	NS_EFF::DirLightPacket *e_dir = boost::static_pointer_cast<NS_EFF::DirLightPacket>(TheDisc->RetriveEffect(DirPassIdx)).get();
+
+
+
+
+	test1->Enable();
+	test1->SetDiffuseTextureUnit(GL_TEXTURE1);
+
+	//test1->
+	test1->SetMaterialMapUnit(GL_TEXTURE6);
+	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->Enable());
+	//e_geom.Enable();
 	//e_geom.SetDiffuseTextureUnit(TypeOfTexture::DiffuseMap_UNIT);
-	e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
+	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
+	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->SetDiffuseTextureUnit(GL_TEXTURE1));
 	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE2);
 	//e_geom.SetMaterialMapUnit(GLenum(15));
 	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
-	e_geom.SetMaterialMapUnit(GL_TEXTURE6);
+	//e_geom.SetMaterialMapUnit(GL_TEXTURE6);
+	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->SetMaterialMapUnit(GL_TEXTURE6));
 	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX + 1);
 
-	
-	std::cout << "Status of geometry RayMarcher effect is: " << e_rm_Pack.Init() << std::endl << std::endl << std::endl;
+
+	//std::cout << "Status of geometry RayMarcher effect is: " << e_rm_Pack.Init() << std::endl << std::endl << std::endl;
 	//ikke gi opp
 	//std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
-	e_rm_Pack.Enable();
-	e_rm_Pack.SetScreenSize(Xres, Yres);
-
-	//GBuffer::GBUFFER_TEXTURE_TYPE_POSITION
+	//e_rm_Pack.Enable();
 	
-	//e_rm_Pack.SetMaterialMapUnit(GL_TEXTURE6);
-	e_rm_Pack.SetMaterialMapUnit(GL_TEXTURE6);
-	//e_rm_Pack.SetMaterialMapUnit(GL_TEXTURE2);
-	//e_ao_Pass.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
-	//e_ao_Pass.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
-	//e_ao_Pass.SetNoiseTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP);
-	//e_ao_Pass.SetNoiseTextureUnit((UINT32)3);
-	std::cout << "Status of point light effect is: " << e_point.Init() << std::endl << std::endl << std::endl;
+	//Enable();
+	test->Enable();
+	test->SetScreenSize(Xres, Yres);
+	test->SetMaterialMapUnit(GL_TEXTURE6);
 
-	e_point.Enable();
-	/*
-	e_point.SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION );
-	e_point.SetColorTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_ABEDO);
-	e_point.SetUvTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_UV);
-	e_point.SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL );
-	*/
-
-	e_point.SetPositionTextureUnit(GL_TEXTURE1);
-	e_point.SetAbedoTextureUnit(GL_TEXTURE2);
-	e_point.SetUvTextureUnit(GL_TEXTURE3);
-	e_point.SetNormalTextureUnit(GL_TEXTURE4);
+	//std::cout << "Status of point light effect is: " << e_point->Init() << std::endl << std::endl << std::endl;
 
 
-	//e_point.SetAoTextureUnit(GL_TEXTURE5);
-	//e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
-	e_point.SetAoTextureUnit(GL_TEXTURE5);
+
+	e_point->Enable();
+
+
+	e_point->SetPositionTextureUnit(GL_TEXTURE1);
+	e_point->SetAbedoTextureUnit(GL_TEXTURE2);
+	e_point->SetUvTextureUnit(GL_TEXTURE3);
+	e_point->SetNormalTextureUnit(GL_TEXTURE4);
+
+
+	//e_point->SetAoTextureUnit(GL_TEXTURE5);
+	//e_point->SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
+	e_point->SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
-	e_point.SetMaterialMapUnit(GL_TEXTURE6);
+	e_point->SetMaterialMapUnit(GL_TEXTURE6);
 	//e_dir.SetMaterialMapUnit(15);
-	e_point.SetScreenSize(Xres, Yres);
+	e_point->SetScreenSize(Xres, Yres);
 	
 	//e_point.SetScreenSize(1600, 900);
 	
-	std::cout << "Status of dir light effect is: " << e_dir.Init() << std::endl << std::endl << std::endl;
+	//std::cout << "Status of dir light effect is: " << e_dir->Init() << std::endl << std::endl << std::endl;
 
-	e_dir.Enable();
+	e_dir->Enable();
 	
-	e_dir.SetPositionTextureUnit(GL_TEXTURE1);
-	e_dir.SetAbedoTextureUnit(GL_TEXTURE2);
-	e_dir.SetUvTextureUnit(GL_TEXTURE3);
-	e_dir.SetNormalTextureUnit(GL_TEXTURE4);
+	e_dir->SetPositionTextureUnit(GL_TEXTURE1);
+	e_dir->SetAbedoTextureUnit(GL_TEXTURE2);
+	e_dir->SetUvTextureUnit(GL_TEXTURE3);
+	e_dir->SetNormalTextureUnit(GL_TEXTURE4);
 	//e_point.SetAoTextureUnit(GL_TEXTURE5);
 	//e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
-	e_dir.SetAoTextureUnit(GL_TEXTURE5);
+	e_dir->SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
-	e_dir.SetMaterialMapUnit(GL_TEXTURE6);
+	e_dir->SetMaterialMapUnit(GL_TEXTURE6);
 
-	e_dir.SetScreenSize(Xres, Yres);
+	e_dir->SetScreenSize(Xres, Yres);
 
 
 	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass.Init() << std::endl << std::endl << std::endl;
@@ -630,7 +694,7 @@ int main(int argc, char** argv)
 	//e_dir.SetWVP(WVP);
 	//e_dir.SetProjectionMatrix()
 
-	std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
+	//std::cout << "Status of null effect is: " << e_null.Init() << std::endl;
 
 
 
@@ -654,7 +718,7 @@ int main(int argc, char** argv)
 	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
 	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 	//hmmm best class name or just variable ids for id
-	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, &e_geom));
+	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, test1));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ShowPiece(new NS_SG::objTransform("tran_ShowPiece"));
 
@@ -742,7 +806,7 @@ int main(int argc, char** argv)
 
 	//Cavern Follow Light
 	//boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.9f, 0.05f, 0.05f), 0.8f, 0.2f, 1.0f, 0.35f, 0.032f, &e_point, &e_null));
-	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.54f, 0.89f, 0.63f), 0.6f, 0.2f, 1.0f, 0.7f, 0.6f, &e_point, &e_null));
+	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.54f, 0.89f, 0.63f), 0.6f, 0.2f, 1.0f, 0.7f, 0.6f, e_point, e_null));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
 	tran_Point->setPosition(NS_VEC::VEC3(0.0f, 2.0f, 0.0f));
@@ -752,7 +816,7 @@ int main(int argc, char** argv)
 
 
 	//Dir Light
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.8, 0.8, 0.9), 0.3f, 0.2f, &e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.8, 0.8, 0.9), 0.3f, 0.2f, e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 	
@@ -792,7 +856,7 @@ int main(int argc, char** argv)
 	rocket = sync_create_device("nasa");
 	if (!rocket)
 		std::cout << "failed to open device" << "  at sync" << std::endl;
-
+	
 #ifndef SYNC_PLAYER
 	if (sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT))
 		std::cout << "failed to connect to host" << std::endl;

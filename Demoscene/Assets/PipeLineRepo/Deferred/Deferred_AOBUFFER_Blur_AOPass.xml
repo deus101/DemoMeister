@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pass name="AOBUFFER_BLUR_PASS" packet="BlurPacket" packetInstance="AOPacket_Default" PassValue="200" Buffer="AOBuffer" BufferLocalPass="1">
+
+
+  <Base_Shaders vertex="1" geometry="0" fragment="1">
+    <Base_Vert Path="IdentityPacket_Frame_Vert.glsl"
+           Target=".\Shader\Geometry_Mesh_Pass_Vert.glsl">
+    </Base_Vert>
+    <Base_Frag Path="ao_Pass_Frag.glsl"
+               Target=".\Shader\Geometry_Mesh_Pass_Frag.glsl">
+    </Base_Frag>
+  </Base_Shaders>
+
+
+</pass>

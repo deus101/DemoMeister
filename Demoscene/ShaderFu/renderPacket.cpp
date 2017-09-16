@@ -2,11 +2,12 @@
 
 
 //#include "../util.h"
-#include "../Engine/asset.h"
+//#include "../Engine/asset.h"
 //using namespace NS_ENG;
 using namespace NS_VEC;
 using namespace NS_EFF;
 
+#include "../Rendrer/context.h"
 //I should go back to using context class/objects
 //renderPacket::renderPacket(const NS_REND::context &aContext)
 renderPacket::renderPacket()
@@ -14,11 +15,18 @@ renderPacket::renderPacket()
 
 	//typedef boost::shared_ptr< struct EffectStage > EffectStagePtr;
 	//typedef boost::shared_ptr<const struct EffectStage> EffectStageConstPtr;
-
-
+	EffectType = "";
+	EffectName = "";
+	
+	PassName = "";
+	PassIndex = 0;
+	this->PassLinked = false;
+	ParsedVertexCode = NULL;
+	ParsedGeometryCode = NULL;
+	ParsedFragmentCode = NULL;
 	m_shaderProg = 0;
 
-	m_StageParameters.StageValue = 0;
+	m_StageParameters.iStageValue = 0;
 	
 	m_StageParamPtr = boost::make_shared<EffectStage>(m_StageParameters);
 
@@ -50,6 +58,22 @@ bool renderPacket::Init()
 		fprintf(stderr, "Error creating shader program\n");
 		return false;
 	}
+	//ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
+	if (this->PassLinked)
+	{
+		sp_PassItemnator tmp_SP_Pass;
+		tmp_SP_Pass = TheDisc->RetrivePass(this->PassIndex);
+
+		if (tmp_SP_Pass->hasVertexShader == true)
+			this->ParsedVertexCode = tmp_SP_Pass->GetShaderComposition(GL_VERTEX_SHADER);
+		if (tmp_SP_Pass->hasGeometryShader == true)
+			this->ParsedGeometryCode = tmp_SP_Pass->GetShaderComposition(GL_GEOMETRY_SHADER);
+		if (tmp_SP_Pass->hasFragmentShader == true)
+			this->ParsedFragmentCode = tmp_SP_Pass->GetShaderComposition(GL_FRAGMENT_SHADER);
+
+	}
+
+
 	return true;
 
 }
@@ -60,16 +84,39 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 	
 	GLint success;
 	GLint shaderLength = 0;
+	//NS_ENG::NS_SHADER::ShaderItemPtr CurrShader;
+	NS_ENG::NS_SHADER::BaseShaderItemPtr CurrShader;
 
-	std::cout << fileName << std::endl;
+
 	const GLchar *glslStringPtr[1];
-	
+	const GLchar *glslArray;
 
 	GLchar *shaderText = NULL;
 	
 	FILE *fp;
 
+	bool inMemory = false;
+	
+	if (ShaderType == GL_VERTEX_SHADER && this->ParsedVertexCode != NULL)
+	{
+		CurrShader = this->ParsedVertexCode;
+		inMemory = true;
+	}
+	if (ShaderType == GL_GEOMETRY_SHADER && this->ParsedGeometryCode != NULL)
+	{
+		CurrShader = this->ParsedGeometryCode;
+		inMemory = true;
+	}
+	if (ShaderType == GL_FRAGMENT_SHADER && this->ParsedFragmentCode != NULL)
+	{
+		CurrShader = this->ParsedFragmentCode;
+		inMemory = true;
+	}
+	
+		std::cout << fileName << std::endl;
 
+	if(inMemory == false)
+	{ 
 	fp = fopen(fileName, "r");
 	if (fp != NULL)
 	{
@@ -87,17 +134,35 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 		fclose(fp);
 	}
 
-
 	if (shaderText == NULL)
 		return false;
 
 	glslStringPtr[0] = shaderText;
 
+
+	}
+	else
+	{
+		//CurrShader->
+		CurrShader->Load();
+
+		//shaderText = (GLchar *)malloc(CurrShader->GetSize);
+		glslArray = (const GLchar *)CurrShader->GetString()->c_str();
+		glslStringPtr[0] = glslArray;
+		//return true;
+
+	}
+
+
+
+
+
+
 	GLuint ShaderObj = glCreateShader(ShaderType);
 
 	m_shaderObjList.push_back(ShaderObj);
 
-	
+	//glShaderSource()
 	glShaderSource(ShaderObj, 1, glslStringPtr, NULL);
 
 
@@ -159,6 +224,71 @@ void renderPacket::Enable()
 {
 	NS_ENG::asset::SetCurrentStage(m_StageParamConstPtr);
 	glUseProgram(m_shaderProg);
+}
+
+
+//void NS_EFF::renderPacket::SetName(std::string arg)
+void renderPacket::SetName(std::string arg)
+{
+	EffectName = arg;
+}
+//std::string NS_EFF::renderPacket::GetName()
+std::string renderPacket::GetName()
+{
+	return EffectName;
+}
+
+//Gonna go lazy at the moment
+void renderPacket::SetType(std::string arg)
+{
+	EffectType = arg;
+}
+
+std::string renderPacket::GetType()
+{
+	return EffectType;
+}
+
+void renderPacket::SetStageValue(int val)
+{
+	m_StageParameters.iStageValue = val;
+}
+
+int renderPacket::GetStageValue()
+{
+	return m_StageParameters.iStageValue;
+}
+
+void renderPacket::SetPassIndex(std::size_t val)
+{
+	this->PassIndex = val;
+}
+
+void renderPacket::SetPassName(std::string arg)
+{
+	
+	this->PassName = arg;
+}
+
+bool NS_EFF::renderPacket::PacketPassHandshake()
+{
+	this->PassLinked = false;
+	size_t tmp_PIDX;
+	tmp_PIDX = TheDisc->RetrivePassID("", this->PassName);
+
+	std::string tmp_PName;
+	tmp_PName = TheDisc->RetrivePass(tmp_PIDX)->GetName();
+
+	if (this->PassName.compare(tmp_PName) == 0)
+	{
+		this->PassIndex = tmp_PIDX;
+		this->PassLinked = true;
+	}
+
+
+	return this->PassLinked;
+
+
 }
 
 

@@ -8,7 +8,7 @@
 #include "../ShaderFu/renderPacket.h"
 
 #include <string>
-
+#include <list>
 //#include "../FreeImage.h"
 struct Pass_Sample
 {
@@ -28,6 +28,16 @@ int Attachment;
 
 };
 
+struct S_PassDependencies {
+	std::string PassName;
+	int PassIDX;
+	int PassValue;
+};
+
+struct S_LocalBuffer {
+	std::list<S_PassDependencies*> LocalDependencyList;
+	int PassRangeMin, PassRangeMax;
+};
 
 class base_buffer
 {
@@ -80,15 +90,28 @@ public:
 	virtual bool Init(unsigned int WindowWidth, unsigned int WindowHeight) = 0;
 	virtual void EnablePass(int PassId) = 0;
 	
+
+	void SetName(std::string arg) { BufferName = arg; }
+	std::string GetName() { return BufferName; }
+
+	
+	void SetType(std::string arg) { BufferType = arg; }
+	std::string GetType() { return BufferType; }
+
 	int GetNumberOfSamples() { return Nr_Samples; };
 	void SetNumberOfSamples(int var) { Nr_Samples = var;};
 
 	
 
 protected:
+	std::string BufferName;
+	std::string BufferType;
+	std::list<S_PassDependencies> RegionalPassList;
+	std::list<S_LocalBuffer> LocalPassProperties;
 	GLuint m_fbo;
 	int Nr_Samples;
-
+	size_t Nr_LocalPasses;
+	//S_LocalBuffer LocalPasses[];
 };
 
 /*

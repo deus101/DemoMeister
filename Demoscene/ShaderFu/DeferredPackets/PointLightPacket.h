@@ -11,7 +11,7 @@ namespace NS_EFF{
 
 		PointLightPacket();
 
-		bool Init();
+		virtual bool Init();
 
 		void SetPointLight(const PointLight& Lights);
 

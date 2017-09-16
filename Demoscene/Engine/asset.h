@@ -23,6 +23,10 @@ namespace NS_ENG{
 	public:
 		virtual void Draw() = 0;
 
+		//virtual void SetParamaters() = 0;
+
+		//virtual void Load() = 0;
+
 		//OK, it does not make much sense why this should be here.
 		//or maybe...
 		static EffectStageConstPtr CurrentStage;

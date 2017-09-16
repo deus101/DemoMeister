@@ -8,6 +8,7 @@ using namespace NS_EFF;
 
 aoPacket::aoPacket()
 {
+	//REGISTER_CLASS(DeferredPipeMother);
 }
 
 

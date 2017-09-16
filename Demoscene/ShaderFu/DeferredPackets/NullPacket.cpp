@@ -8,6 +8,8 @@ using namespace NS_EFF;
 
 NullPacket::NullPacket()
 {
+	renderPacket::EffectName = "NullPacket";
+	renderPacket::EffectType = "NullPacket";
 }
 
 bool NullPacket::Init()

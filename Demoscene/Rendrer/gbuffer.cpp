@@ -15,6 +15,12 @@ GBuffer::GBuffer()
 {
 	
 	m_fbo = 0;
+
+	Nr_LocalPasses = 5;
+
+	this->RegionalPassList.clear();
+	this->LocalPassProperties.clear();
+	this->LocalPassProperties.resize(Nr_LocalPasses);
 	//geo_fbo = 0;
 	//light_fbo = 0;
 	//m_fbo = 0;

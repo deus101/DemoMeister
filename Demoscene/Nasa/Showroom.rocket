@@ -4,7 +4,7 @@
 			<key interpolation="0" row="0" value="0"/>
 		</track>
 		<track name="cam.x">
-			<key interpolation="1" row="0" value="4"/>
+			<key interpolation="1" row="0" value="0"/>
 			<key interpolation="1" row="14" value="5"/>
 			<key interpolation="1" row="64" value="2"/>
 			<key interpolation="1" row="84" value="-3"/>
@@ -18,7 +18,7 @@
 			<key interpolation="0" row="480" value="4"/>
 		</track>
 		<track name="cam.y">
-			<key interpolation="1" row="0" value="3"/>
+			<key interpolation="1" row="0" value="2"/>
 			<key interpolation="1" row="64" value="2"/>
 			<key interpolation="0" row="127" value="2"/>
 			<key interpolation="1" row="152" value="2"/>

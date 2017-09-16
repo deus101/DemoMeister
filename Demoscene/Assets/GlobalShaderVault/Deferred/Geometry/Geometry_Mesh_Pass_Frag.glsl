@@ -21,7 +21,8 @@ uniform float mSpecularInt;
 uniform float mSpecularPow;
 
 const float NEAR = 0.1f;
-const float FAR = 50.0f;
+//const float FAR = 50.0f;
+const float FAR = 100.0f;
 
 float LinearDepth(float depth)
 {

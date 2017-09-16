@@ -3,11 +3,16 @@
 #include "asset.h"
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <boost/iostreams/stream.hpp>
+#include "boost/tuple/tuple.hpp"
+#include <typeinfo> 
+
 namespace NS_ENG
 {
 	namespace NS_SHADER
 	{
 
+
+		/*
 		enum TypeOfShader
 		{
 			BaseVertex, BaseGeometry, BaseFragment,
@@ -15,33 +20,84 @@ namespace NS_ENG
 			MaterialFetchVertex, MaterialFetchGeometry, MaterialFetchFragment,
 			TextureFetchVertex, TextureFetchGeometry, TextureFetchFragment
 		};
+		*/
 
-		//char Tags[3][4] = {{"#Include"}}
-		//typedef boost::shared_ptr< FileTexture> FileTexturePtr;
 
-		//typedef boost::shared_ptr<const  FileTexture> FileTextureConstPtr;
+		/*
+		enum ShaderUtilityType
+		{
+			BaseVertex, IncludeVertex, MaterialFetchVertex, TextureFetchVertex,
+			BaseGeometry, IncludeGeometry, MaterialFetchGeometry, TextureFetchGeometry,
+			BaseFragment, IncludeFragment, MaterialFetchFragment, TextureFetchFragment,
+		};
+		
+
+		enum ShaderUtilityType
+		{
+			Base, Include, MaterialFetch, TextureFetch,
+
+		};
+		*/
+		enum ShaderUtilityType
+		{
+			Base, Include
+
+		};
+	
+		//They are within a name space, still.
+
+		//these should go to their respective classes
 		typedef boost::shared_ptr< class ShaderItem > ShaderItemPtr;
+		typedef boost::shared_ptr< class BaseShaderItem > BaseShaderItemPtr;
+		typedef boost::shared_ptr< class IncludeComponentItem > IncludeComponentItemPtr;
 
-		typedef std::deque< ShaderItemPtr > herd;
+		//typedef std::list< ShaderItem* > Nodes;
+		typedef std::list< ShaderItemPtr > ShaderContainerPtr;
 
+		//const std::type_info *Test[] = { &typeid(BaseShaderItem), &typeid(IncludeComponentItem) };
 
 		class ShaderItem : public asset {
 
 		public:
-
-			ShaderItem(const std::string &filePath, const std::string &deployPath, TypeOfShader type);
 			ShaderItem();
+			ShaderItem(GLenum _ShaderType ,const std::string &filePath, const std::string &deployPath, ShaderUtilityType type);
+			
 
-			//int Init();
+			void Load();
+			
+			void Save();
+			void Deploy();
+
+
 			void Draw();
 			~ShaderItem() {};
 
-			std::string GetString();
+
+
+			void RetriveCharArray(GLchar** SharerChar);
+
+			std::string *GetString();
 			std::vector<std::string>  GetStringLines();
 
-			std::vector<const GLchar*> veccstr;
+			std::vector<std::string*> GetCopyShader();
 
+			void CopyShaderPerLine(std::string*);
+			
+			size_t GetSize() { return TotalSize; };
+			size_t GetLines() { return TotalLines; };
+
+		//private:
+		protected:
+			size_t TotalSize;
+			size_t TotalLines;
+
+			bool IsLoaded;
+
+			std::vector<const GLchar*> veccstr;
+		
 			std::vector<std::string> ShaderLines;
+
+			std::vector<std::string*> CopyShader;
 
 			std::string ShaderText;
 
@@ -50,9 +106,32 @@ namespace NS_ENG
 			boost::filesystem::path ReleaseFolder;
 
 			GLenum ShaderType;
+			ShaderUtilityType UtilityType;
 
 		};
 	
+		class IncludeComponentItem : public ShaderItem
+		{
+
+
+
+		public:
+
+			//CompositeShader(const std::string &filePath, const std::string &deployPath, TypeOfShader);
+			IncludeComponentItem( std::string _Marker) : ShaderItem(), Marker(_Marker)
+			{};
+			//IncludeComponentItem(GLenum _ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type, std::string _Marker) : ShaderItem(_ShaderType, filePath, deployPath, Type), Marker(_Marker){};
+			IncludeComponentItem(GLenum _ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type, std::string _Marker);
+			
+
+			std::string Load(std::vector<std::string> &ParentShader);
+
+			std::string Marker;
+			size_t Start, Stop;
+		private:
+			//ShaderContainerPtr ShaderSourceComponents;
+
+		};
 
 	
 		class CompositeShader : public ShaderItem
@@ -64,10 +143,20 @@ namespace NS_ENG
 
 			//CompositeShader(const std::string &filePath, const std::string &deployPath, TypeOfShader);
 			CompositeShader();
-			void AddShader(const std::string &filePath, const std::string &deployPath, TypeOfShader type);
+			CompositeShader(GLenum _ShaderType , const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type)
+				: ShaderItem(_ShaderType, filePath, deployPath, Type) { };
+			
 
+			//void AddShader(const std::string &filePath, const std::string &deployPath, TypeOfShader type);
+			void AddShader(ShaderItemPtr &newItem);
+			
+		//private:
+		protected:
+
+			ShaderContainerPtr ShaderSourceComponents;
 
 		};
+
 
 		class BaseShaderItem : public CompositeShader
 		{
@@ -77,9 +166,14 @@ namespace NS_ENG
 		public:
 
 			BaseShaderItem(void);
-			BaseShaderItem(const std::string &filePath, const std::string &deployPath, TypeOfShader type);
-			void AddShader(const std::string &filePath, const std::string &deployPath, TypeOfShader type);
+			BaseShaderItem(GLenum _ShaderType ,const std::string &filePath, const std::string &deployPath, ShaderUtilityType type);
+			//void AddShader(GLenum _ShaderType, const std::string &filePath, const std::string &Name, ShaderUtilityType type, std::string marker_id);
+			void AddShader(GLenum _ShaderType , std::string filePath,  std::string Name, ShaderUtilityType type,std::string marker_id);
 
+			void Load();
+		private:
+			//Tuple_List Vec_Markers;
+			//std::vector<std::string> ShaderLines;
 
 		};
 		

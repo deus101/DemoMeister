@@ -21,18 +21,8 @@ namespace NS_EFF{
 	{
 
 
-
-
-
-	/*
-	Struct
-		char*
-		type
-	
-	*/
-
-		//renderPacket(const NS_REND::context &aContext);
 	public:
+		//renderPacket(const std::string &name) : EffectName(name) { assert(name.length() > 0); }
 		renderPacket();
 
 
@@ -49,8 +39,22 @@ namespace NS_EFF{
 
 		void Enable();
 
+		
 		void SetName(std::string arg);
 		std::string GetName();
+
+		//Terrible 
+		void SetType(std::string arg);
+		std::string GetType();
+
+		void SetStageValue(int val);
+		int GetStageValue();
+
+		void SetPassIndex(std::size_t val);
+		void SetPassName(std::string arg);
+
+		bool PacketPassHandshake();
+
 
 	protected:
 
@@ -71,16 +75,20 @@ namespace NS_EFF{
 		EffectStagePtr m_StageParamPtr;
 		EffectStageConstPtr m_StageParamConstPtr;
 
+
 		std::string PassName;
-		int PassIndex;
-		//std::size_t PassIndex;
+		//int PassIndex;
+		std::size_t PassIndex;
 		
+		bool PassLinked;
 		
 		bool b_Custom_GLSL_Targets;
 
 		//NS_ENG::NS_SHADER::ShaderItem *ParsedVertexCode, *ParsedGeometryCode, *ParsedFragmentCode;
-		NS_ENG::NS_SHADER::ShaderItemPtr ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
+		//NS_ENG::NS_SHADER::ShaderItemPtr ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
+		NS_ENG::NS_SHADER::BaseShaderItemPtr ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
 
+		//sp_PassItemnator
 
 		boost::filesystem::path Vertex_Target, Geometry_Target, Fragment_Target;
 

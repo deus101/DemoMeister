@@ -3,6 +3,8 @@
 #ifndef DIRLIGHTPACKET_HPP
 #define	DIRLIGHTPACKET_HPP
 
+#include "../renderPacket.h"
+#include "../DeferredPipeMother.h"
 #include "lightPacket.h"
 //#include "lights_common.h"
 namespace NS_EFF{

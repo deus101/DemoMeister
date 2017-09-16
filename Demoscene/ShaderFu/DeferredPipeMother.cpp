@@ -4,6 +4,7 @@ using namespace NS_EFF;
 
 DeferredPipeMother::DeferredPipeMother()
 {
+	
 }
 
 
@@ -14,8 +15,8 @@ DeferredPipeMother::~DeferredPipeMother()
 
 bool DeferredPipeMother::Init()
 {
-
-
+	
+	
 	return true;
 }
 
