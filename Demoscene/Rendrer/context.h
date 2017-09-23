@@ -4,7 +4,7 @@
 /* <windef.h> and <gl.h>*/
 
 
-#include <GL\glew.h>
+#include <GL/glew.h>
 
 
 #include <GLFW/glfw3.h>
@@ -20,10 +20,6 @@
 #include "callbacks.h"
 
 #include "../FreeImage.h"
-
-
-
-
 
 
 		extern unsigned int pHeight;

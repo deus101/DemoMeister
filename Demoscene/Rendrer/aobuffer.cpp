@@ -42,6 +42,8 @@ AoBuffer::~AoBuffer()
 	//	glDeleteTextures(1, &m_finalTexture);
 	//}
 }
+
+
 bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 

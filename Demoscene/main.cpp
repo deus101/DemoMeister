@@ -44,6 +44,8 @@
 HSTREAM stream;
 
 sync_device *rocket;
+sync_device *rocket1;
+
 
 const struct sync_track *plane_Pos_X, *plane_Pos_Y, *plane_Pos_Z, *plane_Rot_X, *plane_Rot_Y, *plane_Rot_Z, *plane_Sca_X, *plane_Sca_Y, *plane_Sca_Z;
 const struct sync_track *lit_Pos_X, *lit_Pos_Y, *lit_Pos_Z;
@@ -366,7 +368,7 @@ void ChangeSize(int w, int h)
 }
 
 
-
+factory g_factory;
 
 void SetupRC()
 {
@@ -401,8 +403,10 @@ int main(int argc, char** argv)
 	GetModuleFileNameA(hModule, path, MAX_PATH);
 
 	boost::filesystem::path RunLocation(path);
-
-
+#define REGISTER_CLASS(n) g_factory.register_class<n>(#n)
+	REGISTER_CLASS(NS_EFF::GeomPacket);
+	REGISTER_CLASS(AoBuffer);
+	REGISTER_CLASS(GBuffer);
 	/*
 	//Squiddy.load(RunLocation.remove_filename().std::string());
 	REGISTER_CLASS(NS_EFF::GeomPacket);
@@ -415,9 +419,9 @@ int main(int argc, char** argv)
 	REGISTER_CLASS(NS_EFF::PointLightPacket);
 	REGISTER_CLASS(NS_EFF::aoPacket);
 	REGISTER_CLASS(NS_EFF::renderPacket);
-	
-	
-	
+
+
+
 	//REGISTER_CLASS(NS_ENG::Material);
 	//REGISTER_CLASS(base_buffer);
 	REGISTER_CLASS(AoBuffer);
@@ -502,9 +506,9 @@ int main(int argc, char** argv)
 
 
 	target_kambot->addChild(kambot.get());
-	
+
 	tran_kambot->setPosition(NS_VEC::VEC3(0.0f, 4.0f, 4.0f));
-	
+
 	tran_kambot->addChild(pivot_kambot.get());
 
 	tran_kambot->addChild(target_kambot.get());
@@ -558,6 +562,9 @@ int main(int argc, char** argv)
 
 	NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
 	NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
+
+
+
 	//should this be placed in the DemoMeister class?...nah if it works as intended this should get the
 	// DemoMeister singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
@@ -567,7 +574,7 @@ int main(int argc, char** argv)
 	size_t GeomRayTestIdx;
 	GeomRayTestIdx = TheDisc->RetriveEffectID("RayMarcher", "Geometry_RayMarch_Default");
 
-	
+
 	size_t NullPassIdx;
 	NullPassIdx = TheDisc->RetriveEffectID("NullPacket", "LightPacket_Pointlight_Stencil");
 
@@ -593,12 +600,19 @@ int main(int argc, char** argv)
 	NS_EFF::GeomPacket *test1 = boost::static_pointer_cast<NS_EFF::GeomPacket>(TheDisc->RetriveEffect(GeomTestIdx)).get();
 
 
-	//fuck
 
+	std::string f1 = "NS_EFF::GeomPacket";
+	std::string f2 = "Geometry_Default";
+
+	NS_EFF::GeomPacket *test2 = TheDisc->RetriveEffect<NS_EFF::GeomPacket>(f1, f2);
+
+	//NS_EFF::GeomPacket
+	//fuck
+	//test2->
 	NS_EFF::NullPacket *e_null = boost::static_pointer_cast<NS_EFF::NullPacket>(TheDisc->RetriveEffect(NullPassIdx)).get();
 	NS_EFF::PointLightPacket *e_point = boost::static_pointer_cast<NS_EFF::PointLightPacket>(TheDisc->RetriveEffect(PointPassIdx)).get();
 
-	
+
 
 	NS_EFF::DirLightPacket *e_dir = boost::static_pointer_cast<NS_EFF::DirLightPacket>(TheDisc->RetriveEffect(DirPassIdx)).get();
 
@@ -627,7 +641,7 @@ int main(int argc, char** argv)
 	//ikke gi opp
 	//std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
 	//e_rm_Pack.Enable();
-	
+
 	//Enable();
 	test->Enable();
 	test->SetScreenSize(Xres, Yres);
@@ -653,13 +667,13 @@ int main(int argc, char** argv)
 	e_point->SetMaterialMapUnit(GL_TEXTURE6);
 	//e_dir.SetMaterialMapUnit(15);
 	e_point->SetScreenSize(Xres, Yres);
-	
+
 	//e_point.SetScreenSize(1600, 900);
-	
-	//std::cout << "Status of dir light effect is: " << e_dir->Init() << std::endl << std::endl << std::endl;
+
+
 
 	e_dir->Enable();
-	
+
 	e_dir->SetPositionTextureUnit(GL_TEXTURE1);
 	e_dir->SetAbedoTextureUnit(GL_TEXTURE2);
 	e_dir->SetUvTextureUnit(GL_TEXTURE3);
@@ -673,7 +687,7 @@ int main(int argc, char** argv)
 	e_dir->SetScreenSize(Xres, Yres);
 
 
-	std::cout << "Status of Ambien Occulsion effect/pass is: " << e_ao_Pass->Init() << std::endl << std::endl << std::endl;
+
 
 	e_ao_Pass->Enable();
 	//e_ao_Pass->SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
@@ -702,7 +716,7 @@ int main(int argc, char** argv)
 //-------------Greets Assets
 
 
-	
+
 	//plane add as child later on the dodo	1
 
 	//NS_ENG::model m_fly("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
@@ -731,7 +745,7 @@ int main(int argc, char** argv)
 	tran_ShowPiece->setPosition(NS_VEC::VEC3(0.0f, 0.0f, 0.0f));
 	tran_ShowPiece->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 
-	
+
 
 
 
@@ -747,14 +761,14 @@ int main(int argc, char** argv)
 
 	boost::shared_ptr<NS_SG::objTransform> tran_protagonist(new NS_SG::objTransform("tran_protoganist"));
 	tran_protagonist->setPosition(NS_VEC::VEC3(0.0f, -1.0f, 0.0f));
-	
+
 
 
 	ptrTranProt = tran_protagonist.get();
-	
+
 
 	tran_protagonist->addChild(tran_ShowPiece.get());
-	
+
 	/*
 	boost::shared_ptr<NS_SG::targetTransform> target_look(new NS_SG::targetTransform("tar_look"));
 	boost::shared_ptr<NS_SG::objTransform> t_look(new NS_SG::objTransform("t_look"));
@@ -765,46 +779,46 @@ int main(int argc, char** argv)
 	t_look->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -5.0f));
 	t_look->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
 	target_look->setTarget(tran_protagonist.get());
-	
+
 	t_look->addChild(target_look.get());
 
 	TheDisc->o_loader->addChild(t_look.get());
 	*/
-//-----------------------------Grid
+	//-----------------------------Grid
 
 
-	/*
-		boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
-		t_grid->setPosition(NS_VEC::VEC3(0, 1, 0));
-		NS_ENG::GridPoints m_grid10x10(90, 90, 1.0f);
-		boost::shared_ptr<NS_SG::gridNode> mn_grid(new NS_SG::gridNode("grid", &m_grid10x10, &e_hmap));
-		
-		ptrGridNode = mn_grid.get();
+		/*
+			boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
+			t_grid->setPosition(NS_VEC::VEC3(0, 1, 0));
+			NS_ENG::GridPoints m_grid10x10(90, 90, 1.0f);
+			boost::shared_ptr<NS_SG::gridNode> mn_grid(new NS_SG::gridNode("grid", &m_grid10x10, &e_hmap));
 
-		t_grid->addChild(mn_grid.get());
+			ptrGridNode = mn_grid.get();
 
-		Ptr_t_grid = t_grid.get();
+			t_grid->addChild(mn_grid.get());
 
-		TheDisc->o_loader->addChild(t_grid.get());
+			Ptr_t_grid = t_grid.get();
 
-		*/
+			TheDisc->o_loader->addChild(t_grid.get());
 
-
-
+			*/
 
 
 
 
 
 
-//------------------Lights
 
 
 
-	//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
+			//------------------Lights
 
-	//Cavern Follow Light
-	//boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.9f, 0.05f, 0.05f), 0.8f, 0.2f, 1.0f, 0.35f, 0.032f, &e_point, &e_null));
+
+
+				//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
+
+				//Cavern Follow Light
+				//boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.9f, 0.05f, 0.05f), 0.8f, 0.2f, 1.0f, 0.35f, 0.032f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.54f, 0.89f, 0.63f), 0.6f, 0.2f, 1.0f, 0.7f, 0.6f, e_point, e_null));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));
@@ -818,11 +832,11 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.8, 0.8, 0.9), 0.3f, 0.2f, e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
-	
-	
-	
 
-	
+
+
+
+
 	tran_Dir->setPosition(NS_VEC::VEC3(0.0f, 10.0f, 30.0f));
 
 
@@ -830,13 +844,13 @@ int main(int argc, char** argv)
 
 
 	TheDisc->o_loader.get()->addChild(tran_Dir.get());
-	
 
 
 
 
-	
-//---------load music into bass	
+
+
+	//---------load music into bass	
 	if (!BASS_Init(-1, 44100, 0, 0, 0))
 		std::cout << "failed to init bass" << std::endl;
 	//stream = BASS_StreamCreateFile(false, "bf.ogg", 0, 0,
@@ -847,21 +861,34 @@ int main(int argc, char** argv)
 
 
 
-//----------create rocket device
-	//Should be up at first
-	//const char *cstr = ".";
-	//const char *cstr = "\\Nasa";
-	//std::cout << "Opening rocket at " << cstr[0] + "sync" << std::endl;
-	rocket = sync_create_device("nasa");
+	//----------create rocket device
+		//Should be up at first
+		//const char *cstr = ".";
+		//const char *cstr = "\\Nasa";
+		//std::cout << "Opening rocket at " << cstr[0] + "sync" << std::endl;
+
+
+			//std::string PathForFaen = 
+		//boost::filesystem::path Test222(Squiddy.FindAndRegister("NASA"));
+		//std::string PathForFaen = std::string(Test222.remove_filename().string());
+		//rocket1 = sync_create_device(PathForFaen.c_str());
+		//boost::filesystem::path test52 = boost::filesystem::path(std::string("C:/Users/Deus/Source/Repos/DemoEngine/Demoscene/Productions/WCD_1_HackSpace/ProductionVault/NASA"));
+		//rocket1 = sync_create_device( test52.normalize().string().c_str() );
+	LPCSTR NasaPath[] = { "c:/users/deus/source/repos/demoengine/demoscene/productions/wcd_1_hackspace/productionvault/nasa\0" };
+
+	rocket = sync_create_device(NasaPath[0]);
 	if (!rocket)
 		std::cout << "failed to open device" << "  at sync" << std::endl;
 	
 #ifndef SYNC_PLAYER
 	if (sync_connect(rocket, "localhost", SYNC_DEFAULT_PORT))
 		std::cout << "failed to connect to host" << std::endl;
-#endif
+
 	
- 	
+	
+	//if (sync_connect(rocket1, "localhost", SYNC_DEFAULT_PORT))
+		//std::cout << "failed to connect to host" << std::endl;
+#endif
 	TrackPart = sync_get_track(rocket, "part");
 
 	cam_Pos_X = sync_get_track(rocket, "cam.x"),
@@ -926,7 +953,8 @@ int main(int argc, char** argv)
 //#ifndef SYNC_PLAYER
 //	sync_save_tracks(rocket);
 //#endif
-
+	sync_save_tracks(rocket);
+	
 	sync_destroy_device(rocket);
 	return 0;
 }

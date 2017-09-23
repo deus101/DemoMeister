@@ -474,5 +474,7 @@
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Point_LightPass.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
+    <Xml Include="Assets\GlobalMaterialVault\Stone\Seamless.xml" />
+    <Xml Include="Assets\GlobalMaterialVault\Stone\Deferred.xml" />
   </ItemGroup>
 </Project>

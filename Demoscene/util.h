@@ -4,7 +4,7 @@
 
 
 #include "math/math3d.h"
-#include "math/vec.h"
+//#include "math/vec.h"
 //#include <GLFW/glfw3.h>
 
 #ifdef _WIN32
@@ -42,8 +42,9 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 #define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
 
-template <class T> void* constructor() { return (void*)new T(); }
+
 /*
+template <class T> void* constructor() { return (void*)new T(); }
 struct factory
 {
 	typedef void*(*constructor_t)();
@@ -294,4 +295,3 @@ struct SpotLight : public PointLight
 #define MOTION_TEXTURE_UNIT_INDEX       5
 
 #endif	
-

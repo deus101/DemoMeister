@@ -15,7 +15,7 @@
 			<key interpolation="1" row="0" value="1"/>
 			<key interpolation="1" row="64" value="2"/>
 			<key interpolation="0" row="127" value="2"/>
-			<key interpolation="0" row="136" value="20"/>
+			<key interpolation="0" row="136" value="10"/>
 		</track>
 		<track name="cam.z">
 			<key interpolation="1" row="0" value="4"/>
@@ -31,9 +31,9 @@
 			<key interpolation="0" row="0" value="20"/>
 			<key interpolation="1" row="56" value="20"/>
 			<key interpolation="0" row="74" value="40"/>
-			<key interpolation="1" row="104" value="40"/>
+			<key interpolation="1" row="104" value="20"/>
 			<key interpolation="0" row="127" value="20"/>
-			<key interpolation="0" row="136" value="30"/>
+			<key interpolation="0" row="136" value="15"/>
 		</track>
 		<track name="cam.Rot.y">
 			<key interpolation="1" row="0" value="0"/>
@@ -58,7 +58,8 @@
 			<key interpolation="0" row="0" value="0"/>
 		</track>
 		<track name="Prot.y">
-			<key interpolation="1" row="0" value="0"/>
+			<key interpolation="1" row="0" value="180"/>
+			<key interpolation="0" row="58" value="180"/>
 			<key interpolation="0" row="241" value="400"/>
 		</track>
 		<track name="Prot.z">

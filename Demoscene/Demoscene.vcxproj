@@ -896,6 +896,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <Image Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\cave2.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\GlobalMaterialVault\Stone\Deferred.xml" />
+    <Xml Include="Assets\GlobalMaterialVault\Stone\Seamless.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_Blur_AOPass.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_SSAO_AOPass.xml" />
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml">

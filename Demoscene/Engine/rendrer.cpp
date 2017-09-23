@@ -213,9 +213,14 @@ void rendrer::RenderSceneCB()
 	//float test = GetDeltaTime();
 	//double testD = GetDeltaTimeD();
 
+	//
+
 	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
+
+
+
 
 	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN! MATH3D IS SHIT!
 	M3DMatrix44f world;

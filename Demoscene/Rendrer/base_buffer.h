@@ -9,6 +9,8 @@
 
 #include <string>
 #include <list>
+
+
 //#include "../FreeImage.h"
 struct Pass_Sample
 {
@@ -39,56 +41,21 @@ struct S_LocalBuffer {
 	int PassRangeMin, PassRangeMax;
 };
 
-class base_buffer
-{
+class base_buffer{
+
 public:
-/*
-#define COLOR_TEXTURE_UNIT              GL_TEXTURE0
-#define COLOR_TEXTURE_UNIT_INDEX        0
-#define SHADOW_TEXTURE_UNIT             GL_TEXTURE1
-#define SHADOW_TEXTURE_UNIT_INDEX       1
-#define NORMAL_TEXTURE_UNIT             GL_TEXTURE2
-#define NORMAL_TEXTURE_UNIT_INDEX       2
-#define RANDOM_TEXTURE_UNIT             GL_TEXTURE3
-#define RANDOM_TEXTURE_UNIT_INDEX       3
-#define DISPLACEMENT_TEXTURE_UNIT       GL_TEXTURE4
-#define DISPLACEMENT_TEXTURE_UNIT_INDEX 4
-#define MOTION_TEXTURE_UNIT             GL_TEXTURE5
-#define MOTION_TEXTURE_UNIT_INDEX       5
-*/
-	
-	//I want something that keeps track of the samplers not specific to an fbo
-	enum TARGET_BUFFERS_TYPE{
-		PASS_GBUFFER,
-		PASS_AOBUFFER,
-		PASS_BLURBUFFER
-	};
 
+	virtual ~base_buffer() {};
 
-	/*
-	struct FBODesc
-	
-	
-	struct SamplerDesc
-	
-	
-	*/
+	virtual base_buffer *clone() const = 0;
 
-	//I want the buffer objects to keep track of the packets or should it be reverse?
-
-
-	//I could use enums to identify the specific components, but I was wondering if I should create a struct type 
-	//that has all the relevant informations for binding...and to get a proper overview 
-	//virtual void SetAttachments();
-	//virtual void GetSampler();
-
-
-	base_buffer() {};
-
-	~base_buffer() {};
 
 	virtual bool Init(unsigned int WindowWidth, unsigned int WindowHeight) = 0;
 	virtual void EnablePass(int PassId) = 0;
+
+	
+	
+	//virtual boost::shared_ptr<base_buffer> clone() const = 0;
 	
 
 	void SetName(std::string arg) { BufferName = arg; }
@@ -101,7 +68,13 @@ public:
 	int GetNumberOfSamples() { return Nr_Samples; };
 	void SetNumberOfSamples(int var) { Nr_Samples = var;};
 
-	
+	enum TARGET_BUFFERS_TYPE
+	{
+		PASS_GBUFFER,
+		PASS_AOBUFFER,
+		PASS_BLURBUFFER
+	};
+
 
 protected:
 	std::string BufferName;
@@ -114,22 +87,18 @@ protected:
 	//S_LocalBuffer LocalPasses[];
 };
 
-/*
-class composite_buffer : public base_buffer
-{
 
-
-	
+template <typename ConcreteBuffer>
+class Buffer_CRTP : public base_buffer {
 public:
-
-	composite_buffer(void);
-
-
-
-	void NewBuffer(int);
-
-
-
-
+	virtual base_buffer *clone()const {
+		return  new ConcreteBuffer(static_cast<ConcreteBuffer const&>(*this));
+	}
 };
-*/
+
+
+//#define Derive_Buffer_CRTP(Type) class Type: public Buffer_CRTP<Type>
+
+
+//Derive_Buffer_CRTP(AoBuffer) {};
+//Derive_Buffer_CRTP(GBuffer) {};

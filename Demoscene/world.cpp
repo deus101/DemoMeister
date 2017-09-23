@@ -79,10 +79,13 @@ int PassItemnator::load(const std::string &filename)
 
 	}
 
+	//DemoMeister::g_factory.construct(this->PacketType);
+
+
 	size_t BufferIndex;
 	BufferIndex = TheDisc->AddBuffer(this->BufferType, this->BufferType);
 
-
+	
 	//template <class g_factory.construct(this->BufferType> <)>(BufferIndex);
 	//sp_Buffer Tmp_Buffer_Ptr = TheDisc->RetriveBuffer<sp_Buffer>(BufferIndex);
 
@@ -251,13 +254,13 @@ DemoMeister::~DemoMeister() //public context()
 
 void DemoMeister::AddPass()
 {
-	GBuffer *temp = new GBuffer();
-	AoBuffer *temp2 = new AoBuffer();
+	//GBuffer *temp = new GBuffer();
+	//AoBuffer *temp2 = new AoBuffer();
 	//boost::shared_ptr < MapAsset >(new FileTexture)
-	temp->Init(ResolutionX, ResolutionY);
-	temp2->Init(ResolutionX, ResolutionY);
-	MasterList_Buffers.push_back(sp_Buffer(temp));
-	MasterList_Buffers.push_back(sp_Buffer(temp2));
+	//temp->Init(ResolutionX, ResolutionY);
+	//temp2->Init(ResolutionX, ResolutionY);
+	//MasterList_Buffers.push_back(sp_Buffer(temp));
+	//MasterList_Buffers.push_back(sp_Buffer(temp2));
 
 
 }
@@ -376,6 +379,16 @@ size_t DemoMeister::AddBuffer(const std::string & TypeName, const std::string & 
 	if (idx == false)
 	{
 
+		base_buffer* TemplateObject = (base_buffer*)(g_factory.construct(TypeName));
+
+		//MasterList_Buffers.push_back(*(TemplateObject->clone()));
+		//MasterList_Buffers.push_back(sp_Buffer((*TemplateObject->clone())));
+		MasterList_Buffers.push_back(sp_Buffer((TemplateObject->clone())));
+		MasterList_Buffers.back()->SetName(Name);
+		MasterList_Buffers.back()->Init(ResolutionX, ResolutionY);
+		idx = MasterList_Buffers.size();
+
+		/*
 		if (TypeName.compare("GBuffer") == 0)
 		{
 
@@ -392,6 +405,8 @@ size_t DemoMeister::AddBuffer(const std::string & TypeName, const std::string & 
 			MasterList_Buffers.back()->SetName(Name);
 			idx = MasterList_Buffers.size();
 		}
+		*/
+
 	}
 	return idx;
 }
@@ -433,7 +448,7 @@ size_t  DemoMeister::RetriveEffectID(const std::string &TypeName, const std::str
 
 sp_RenderPacket  DemoMeister::RetriveEffect(size_t idx)
 {
-
+	
 	//there are better ways then this.
 	if (this->MasterList_Packets.size() < idx || idx == 0)
 		return NULL;
@@ -445,6 +460,41 @@ sp_RenderPacket  DemoMeister::RetriveEffect(size_t idx)
 	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
 
 }
+
+
+
+
+/*
+template <class T>
+T*  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string & Name)
+{
+
+
+	size_t idx = this->RetriveEffectID(TypeName, Name);
+	//there are better ways then this.
+	if (this->MasterList_Packets.size() < idx || idx == 0)
+		return NULL;
+	//Should put the idx in an assert.
+
+
+	//DemoMeister::g_factory.construct(TypeName);
+	
+
+	T* Test = boost::static_pointer_cast<DemoMeister::g_factory.construct(TypeName)>this->MasterList_Packets.at(idx - 1);
+
+	//return boost::static_pointer_cast<DemoMeister::g_factory.construct(TypeName)>this->MasterList_Packets.at(idx - 1);
+
+	return boost::static_pointer_cast<T*>(this->MasterList_Packets.at(idx - 1).get());
+	//boost::static_pointer_cast<NS_EFF::RayMarcher>
+	//return this->MasterList_Packets.at(idx - 1);
+	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
+
+}
+*/
+
+
+
+
 sp_RenderPacket  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string & Name)
 {
 
@@ -488,7 +538,7 @@ size_t DemoMeister::RetrivePassID(const std::string & TypeName, const std::strin
 /* ugh...sorry i was drunk and tired...and again 3 seperate getters per! 3 seperater containers for 3 seperate classes......I'M AN IDIOT!
 sp_b  DemoMeister::RetrivePass(const std::string & TypeName, const std::string & Name)
 {
-
+VARIDIC!
 
 	size_t idx = this->RetriveEffectID(TypeName, Name);
 	//there are better ways then this.
@@ -605,6 +655,8 @@ void DemoMeister::RetriveMaterial()
 */
 //bool DemoMeister::InitEffects(const std::string & Type = "", const std::string & Name = "", size_t idx = 0)
 
+//https://en.wikipedia.org/wiki/Variadic_template#C.2B.2B11
+//Must have
 
 bool DemoMeister::InitEffects(const std::string &TypeName = "", const std::string &Name = "", size_t idx = 0)
 {

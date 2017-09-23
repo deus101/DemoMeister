@@ -162,7 +162,9 @@ void Material::LoadMats( const char *param)
 			//0 Diffuse Forward_Diffuse
 			//1 Bump
 			NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
-
+			//What I would do in the future, is to enact a Rule through a static functions and the LoadMaps or any other Static Asset Loader
+			//would be instructed for that call to create the right Asset and set the right properties.
+			//this would work well when I want to prepare a model but with different materials at its objects, those could be set with a string or with xml
 		}
 
 	}

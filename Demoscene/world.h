@@ -3,14 +3,14 @@
 
 
 //#include "Rendrer\gbuffer.h"
-#include "util.h"
+
 //#include "Rendrer\context.h"
 
 #include "bass.h"
 
 #include "sync.h"
 
-
+#include "util.h"
 
 #include "Rendrer\base_buffer.h"
 #include "Rendrer\gbuffer.h"
@@ -113,6 +113,7 @@ public:
 
 
 typedef boost::shared_ptr< NS_EFF::renderPacket >  sp_RenderPacket;
+//typedef boost::shared_ptr< base_buffer >  sp_Buffer;
 typedef boost::shared_ptr< base_buffer >  sp_Buffer;
 typedef boost::shared_ptr< PassItemnator >  sp_PassItemnator;
 
@@ -120,9 +121,48 @@ typedef boost::shared_ptr< NS_EFF::RayMarcher >  sp_RaymarchPacket;
 typedef boost::shared_ptr< NS_EFF::GeomPacket >  sp_GeomPacket;
 
 
+template <class T> void* constructor() { return (void*)new T(); }
+struct factory
+{
+	typedef void*(*constructor_t)();
+	typedef std::map<std::string, constructor_t> map_type;
+	map_type m_classes;
+
+	template <class T>
+	void register_class(std::string const& n)
+	{
+		m_classes.insert(std::make_pair(n, &constructor<T>));
+	}
+
+	void* construct(std::string const& n)
+	{
+		map_type::iterator i = m_classes.find(n);
+		if (i == m_classes.end()) return 0; // or throw or whatever you want
+		return i->second();
+	}
+};
+extern factory g_factory;
+//#define REGISTER_CLASS(n) g_factory.register_class<n>(#n)
+
+
+
 //Not just a lazy singleton.
 class DemoMeister //would inheriting from the Composite/Root Node be a good idea?
 {
+
+
+
+
+
+//public:
+
+
+
+
+
+
+
+
 
 //All Initialisation data, custom or no clutters up the main or where ever.
 //For each prod I'm working on I'll create a template in the Production Folder with a 
@@ -202,7 +242,28 @@ public:
 
 	sp_RenderPacket RetriveEffect(size_t idx);
 
+
+	//template <class T>
+	//boost::shared_ptr<T> getParent() const {
+	//	return boost::dynamic_pointer_cast<T>(parent.lock());
+	//}
+	template <class T>
+	T* RetriveEffect(const std::string &TypeName, const std::string &Name) {
+
+		size_t idx = this->RetriveEffectID(TypeName, Name);
+		//there are better ways then this.
+		if (this->MasterList_Packets.size() < idx || idx == 0)
+			return NULL;
+
+	
+
+		return &*(boost::static_pointer_cast<T>(this->MasterList_Packets.at(idx - 1)));
+	}
+
+
 	sp_RenderPacket RetriveEffect(const std::string &TypeName, const std::string &Name);
+
+
 
 	size_t RetrivePassID(const std::string &TypeName, const std::string &Name);
 

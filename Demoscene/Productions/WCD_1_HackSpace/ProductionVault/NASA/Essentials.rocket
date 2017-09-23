@@ -34,6 +34,22 @@
 			<key interpolation="1" row="641" value="2"/>
 			<key interpolation="0" row="652" value="8"/>
 		</track>
+		<track name="cam.Rot.x">
+			<key interpolation="0" row="0" value="20"/>
+			<key interpolation="1" row="56" value="20"/>
+			<key interpolation="0" row="74" value="40"/>
+			<key interpolation="1" row="104" value="40"/>
+			<key interpolation="1" row="127" value="20"/>
+			<key interpolation="0" row="152" value="20"/>
+			<key interpolation="1" row="216" value="20"/>
+			<key interpolation="1" row="272" value="30"/>
+			<key interpolation="1" row="304" value="50"/>
+			<key interpolation="2" row="336" value="10"/>
+			<key interpolation="1" row="344" value="-40"/>
+			<key interpolation="0" row="352" value="10"/>
+			<key interpolation="1" row="642" value="10"/>
+			<key interpolation="0" row="656" value="10"/>
+		</track>
 		<track name="cam.z">
 			<key interpolation="1" row="0" value="7"/>
 			<key interpolation="1" row="22" value="4"/>
@@ -55,22 +71,6 @@
 			<key interpolation="1" row="639" value="80"/>
 			<key interpolation="0" row="811" value="200"/>
 		</track>
-		<track name="cam.Rot.x">
-			<key interpolation="0" row="0" value="20"/>
-			<key interpolation="1" row="56" value="20"/>
-			<key interpolation="0" row="74" value="40"/>
-			<key interpolation="1" row="104" value="40"/>
-			<key interpolation="1" row="127" value="20"/>
-			<key interpolation="0" row="152" value="20"/>
-			<key interpolation="1" row="216" value="20"/>
-			<key interpolation="1" row="272" value="30"/>
-			<key interpolation="1" row="304" value="50"/>
-			<key interpolation="2" row="336" value="10"/>
-			<key interpolation="1" row="344" value="-40"/>
-			<key interpolation="0" row="352" value="10"/>
-			<key interpolation="1" row="642" value="10"/>
-			<key interpolation="0" row="656" value="10"/>
-		</track>
 		<track name="cam.Rot.y">
 			<key interpolation="1" row="0" value="0"/>
 			<key interpolation="0" row="127" value="-360"/>
@@ -78,6 +78,7 @@
 			<key interpolation="0" row="216" value="-180"/>
 			<key interpolation="1" row="464" value="-180"/>
 			<key interpolation="0" row="480" value="0"/>
+			<key interpolation="0" row="619" value="180"/>
 		</track>
 		<track name="cam.Rot.z">
 			<key interpolation="0" row="0" value="0"/>
