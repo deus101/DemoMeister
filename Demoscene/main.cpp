@@ -874,9 +874,10 @@ int main(int argc, char** argv)
 		//rocket1 = sync_create_device(PathForFaen.c_str());
 		//boost::filesystem::path test52 = boost::filesystem::path(std::string("C:/Users/Deus/Source/Repos/DemoEngine/Demoscene/Productions/WCD_1_HackSpace/ProductionVault/NASA"));
 		//rocket1 = sync_create_device( test52.normalize().string().c_str() );
-	LPCSTR NasaPath[] = { "c:/users/deus/source/repos/demoengine/demoscene/productions/wcd_1_hackspace/productionvault/nasa\0" };
+	//LPCSTR NasaPath[] = { "c:/users/deus/source/repos/demoengine/demoscene/productions/wcd_1_hackspace/productionvault/nasa\0" };
 
-	rocket = sync_create_device(NasaPath[0]);
+	//rocket = sync_create_device(NasaPath[0]);
+	rocket = sync_create_device("NASA");
 	if (!rocket)
 		std::cout << "failed to open device" << "  at sync" << std::endl;
 	
@@ -953,7 +954,7 @@ int main(int argc, char** argv)
 //#ifndef SYNC_PLAYER
 //	sync_save_tracks(rocket);
 //#endif
-	sync_save_tracks(rocket);
+	
 	
 	sync_destroy_device(rocket);
 	return 0;

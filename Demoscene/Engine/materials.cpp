@@ -11,7 +11,8 @@
 #include <iostream>
 #include <boost\filesystem.hpp>
 //#include <Shlwapi.h>
-
+#include <boost/tokenizer.hpp>
+#include <boost/algorithm/string.hpp>
 using namespace NS_ENG;
 using namespace std;
 
@@ -117,7 +118,7 @@ void Material::LoadMats( const char *param)
 		}
 		else if (strcmp(id, "map_Kd") == 0)
 		{
-
+			//"map_bump"
 			//here we implement a map object...
 			bool duplicate = false;
 			//load
@@ -135,14 +136,44 @@ void Material::LoadMats( const char *param)
 			FileTextureDesc NewDiffTex;
 			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
 
-			boost::filesystem::path tmp_Path = boost::filesystem::path(path);
+			//boost::filesystem::path tmp_Path = boost::filesystem::path(path);
+			
+			boost::filesystem::path tmp_Path = boost::filesystem::path(Squiddy.FindAndRegister(path));
 
 			
+
+			
+			boost::filesystem::path fileName = tmp_Path.filename();
+			boost::filesystem::path Folder = tmp_Path.parent_path();
+
+
+			vector<string> tokens;
+
+			boost::split(tokens, fileName.string(), boost::is_any_of("_"));
+			
+			/*
+			boost::char_separator<char> sep("_");
+
+			boost::tokenizer< boost::char_separator<char> > tokens(fileName.string(), sep);
+			//= "";
+			
+			//tokens.assign()
+			std::string TagValue = "";
+			//std::list< struct PointLightItem>::iterator
+
+			//tokenizer::const_iterator()
+			boost::tokenizer< boost::char_separator<char>>::iterator tok_it = tokens.begin();
+			
+
+			std::string Tag(tok_it->data());
+			*/
+
+
+
+
 
 			//NewDiffTex.Name = string("DiffuseTex:") + boost::filesystem::path(path).filename().string();
 			NewDiffTex.Name = string("DiffuseTex: ") + tmp_Path.filename().string();
-
-			
 
 			
 			NewDiffTex.Origin = "LoadMats: " + CurrentMaterial + " From:" + string(param);

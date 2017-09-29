@@ -1,5 +1,5 @@
 
-#include "world.h"
+//#include "world.h"
 #include "Rendrer\context.h"
 //#include <iostream>
 

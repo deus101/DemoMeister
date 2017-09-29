@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="DeployDebug|Win32">
       <Configuration>DeployDebug</Configuration>
       <Platform>Win32</Platform>
@@ -41,18 +33,6 @@
     <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -98,12 +78,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -123,13 +97,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -141,6 +108,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExcludePath>Include\um;$(ExcludePath)</ExcludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -151,56 +120,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;SYNC_PLAYER;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>
-      </AdditionalUsingDirectories>
-      <UseFullPaths>true</UseFullPaths>
-      <MultiProcessorCompilation>
-      </MultiProcessorCompilation>
-      <EnablePREfast>false</EnablePREfast>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocket-playerd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <Profile>true</Profile>
-      <LinkStatus>true</LinkStatus>
-    </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
-$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Move runtime libs</Message>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;_LIB;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
-      <UseFullPaths>true</UseFullPaths>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\Libs\x64;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <Profile>true</Profile>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -403,9 +322,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
-    <ClCompile Include="SceneGraph\camera.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="SceneGraph\camera.cpp" />
     <ClCompile Include="SceneGraph\composite.cpp" />
     <ClCompile Include="Rendrer\context.cpp" />
     <ClCompile Include="Rendrer\gbuffer.cpp" />
@@ -484,8 +401,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
   <ItemGroup>
     <Media Include="AF.mp3" />
     <Media Include="bf.mp3">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -502,8 +417,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <None Include="bf.ogg" />
     <None Include="ClassDiagram.cd" />
     <None Include="Mesh\38p.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -512,8 +425,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\38ps.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -522,8 +433,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\bench.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -532,8 +441,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\corridor.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -542,8 +449,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\corridor_Scene.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -552,8 +457,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\corridor_Scene_Scene.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -562,8 +465,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\cube_texture.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -572,8 +473,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\cube_texture2.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -582,8 +481,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\hex.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -595,8 +492,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\p38.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -605,8 +500,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\p38.obj.bac">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -614,31 +507,21 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="Mesh\PentagonArm.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Mesh\PentagonBase.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
+    <None Include="Mesh\PentagonArm.mtl" />
+    <None Include="Mesh\PentagonBase.mtl" />
     <None Include="Mesh\teapot.FBX" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Scene.rocket" />
     <None Include="Shaders\ao_Pass_Frag.glsl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
-    <None Include="Shaders\geometry_grid_pass.gs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Shaders\geometry_grid_pass.vs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
+    <None Include="Shaders\geometry_grid_pass.gs" />
+    <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\IdentityPacket.vert" />
     <None Include="Shaders\RayMarcher_Frag.glsl" />
     <None Include="Shaders\RayMarcher_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -648,8 +531,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <FileType>Document</FileType>
     </Object>
     <Object Include="Mesh\38ps.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -658,8 +539,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\bench.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -668,8 +547,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cor.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -678,8 +555,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cornomtl.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -688,8 +563,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cornor.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -698,8 +571,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\corridor.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -708,8 +579,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\corridor_Scene.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -718,8 +587,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\corridor_Scene_Scene.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -728,8 +595,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cube.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -738,8 +603,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cube_texture.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -748,8 +611,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cube_texture2.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -758,8 +619,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\hex.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -768,8 +627,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\hexagon.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -778,8 +635,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\humanoid_tri.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -792,11 +647,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Media>
     <Object Include="Mesh\p38.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -805,7 +657,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\PentagonArm.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -815,7 +666,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <FileType>Document</FileType>
     </None>
     <Resource Include="Mesh\PentagonBase.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
@@ -825,8 +675,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</DeploymentContent>
     </Resource>
     <Object Include="Mesh\pyramid.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -835,8 +683,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\sd.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -845,8 +691,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\tea.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -855,8 +699,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\tea2.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -865,8 +707,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\teapot.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -877,8 +717,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\p38.obj.bac.txt">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>

@@ -11,7 +11,7 @@
 #include "sync.h"
 
 #include "util.h"
-
+#include "Engine\asset.h"
 #include "Rendrer\base_buffer.h"
 #include "Rendrer\gbuffer.h"
 #include "Rendrer\aobuffer.h"

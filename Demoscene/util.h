@@ -2,10 +2,11 @@
 #ifndef UTIL_HPP
 #define	UTIL_HPP
 
-
+//#include "world.h"
 #include "math/math3d.h"
 //#include "math/vec.h"
 //#include <GLFW/glfw3.h>
+
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -33,8 +34,10 @@
 #include <boost/foreach.hpp>
 
 
+//extern DemoMeister * TheDisc;
 
-//using namespace std; JESUS!
+/*
+//not being used
 void EngError(const char* fn, unsigned int ln, const char* msg);
 void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
@@ -43,31 +46,7 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
 
 
-/*
-template <class T> void* constructor() { return (void*)new T(); }
-struct factory
-{
-	typedef void*(*constructor_t)();
-	typedef std::map<std::string, constructor_t> map_type;
-	map_type m_classes;
 
-	template <class T>
-	void register_class(std::string const& n)
-	{
-		m_classes.insert(std::make_pair(n, &constructor<T>));
-	}
-
-	void* construct(std::string const& n)
-	{
-		map_type::iterator i = m_classes.find(n);
-		if (i == m_classes.end()) return 0; // or throw or whatever you want
-		return i->second();
-	}
-};
-
-factory g_factory;
-
-#define REGISTER_CLASS(n) g_factory.register_class<n>(#n)
 */
 #include <vector>
 /*

@@ -11,6 +11,9 @@
 */
 //#include <boost/typeof/typeof.hpp>
 
+
+/*
+//Its not being used
 void EngError(const char* pFileName, unsigned int line, const char* pError)
 {
 #ifdef WIN32
@@ -33,7 +36,7 @@ void EngFileError(const char* pFileName, unsigned int line, const char* pFileErr
 	fprintf(stderr, "%s:%d: unable to open file `%s`\n", pFileName, line, pFileError);
 #endif    
 }
-
+*/
 
 void DeploymentOrganizer::load(const std::string &filename)
 {
