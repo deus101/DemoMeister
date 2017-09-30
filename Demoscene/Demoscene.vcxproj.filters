@@ -19,6 +19,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{68099e17-d1a8-4f86-a20b-8bbbb2969d44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{54854334-843d-442b-9405-68eb2009fdfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -361,7 +364,6 @@
     <None Include="Shaders\IdentityPacket.vert" />
     <None Include="Shaders\RayMarcher_Frag.glsl" />
     <None Include="Shaders\RayMarcher_vert.glsl" />
-    <None Include="ClassDiagram.cd" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
