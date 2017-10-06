@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-shit",
+      "appliesTo": "Demoscene/shit.pnws",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-Demoscene",
+      "appliesTo": "Demoscene/Demoscene.rc",
+      "type": "launch"
+    }
+  ]
+}

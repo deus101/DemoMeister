@@ -547,21 +547,43 @@ int main(int argc, char** argv)
 
 
 	//GET RID OF THIS!!!!
-	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	//boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
+	//boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
 
 
+	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model(Squiddy.FindAndRegister("sphere.obj").c_str(), "sphere.mtl"));
+	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model(Squiddy.FindAndRegister("sphere.obj").c_str(), "sphere.mtl"));
 	//boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
 	//boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
 
-	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model( "Mesh/quad_test.obj", "Mesh/quad_test.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
 
+	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
+
+	
+	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model(Squiddy.FindAndRegister("UVQuad.obj").c_str(), "UVQuad.mtl"));
 	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
 	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
+	
+	//NS_ENG::model()
+	//NS_ENG::model m_fly(Squiddy.FindAndRegister("GlobalModelVault/Poly/Mitsuba/mitsuba-sphere.obj"), Squiddy.FindAndRegister("GlobalModelVault/Poly/Mitsuba/mitsuba.mtl"));
+	
+	
+	
+	//#O#inside#MN#Deferred_Stone#O#case#MN#Deferred_Brick
+	
+	
 
-	NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
-	NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
+	//NS_ENG::Material::LoadMats(Squiddy.FindAndRegister("GlobalMaterialVault/Brick/Brick.mtl").c_str());
+	NS_ENG::Material::LoadMats(Squiddy.FindAndRegister("Brick.mtl").c_str());
+
+
+
+	NS_ENG::model m_fly(Squiddy.FindAndRegister("mitsuba-sphere.obj"), "#G#inside#MN#Deferred_Stone#G#case#MN#Deferred_Brick");
+
+	//NS_ENG::model m_fly(Squiddy.FindAndRegister("mitsuba-sphere.obj"), Squiddy.FindAndRegister("mitsuba.mtl"));
+
+	//NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
+	//NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
 
 
 
@@ -731,6 +753,9 @@ int main(int argc, char** argv)
 	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
 	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
 	//hmmm best class name or just variable ids for id
+
+
+	//NS_ENG::model::
 	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, test1));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ShowPiece(new NS_SG::objTransform("tran_ShowPiece"));

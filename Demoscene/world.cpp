@@ -20,7 +20,7 @@
 #include "SceneGraph\targetNode.h"
 
 
-
+#include <boost/make_shared.hpp>
 PassItemnator::PassItemnator() {
 
 

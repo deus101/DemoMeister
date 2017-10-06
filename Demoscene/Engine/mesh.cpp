@@ -29,17 +29,30 @@ namespace NS_MESH
 		bool b_RelativeIndex = false;
 		bool b_hasUvs = false;
 		bool b_hasNorm = false;
-
 		
+		
+	
 
 		while( fscanf_s (objFile, "%s", id, sizeof(id)) > 0)
 		{
+
+			if (strcmp(id, "mtllib") == 0)
+			{
+				char mtlPath[50] = "";
+				
+				fscanf_s(objFile, "%s \n", &mtlPath, sizeof(mtlPath));
+				
+				Mesh.file_mat = string(mtlPath);
+
+				
+
+			}
 			if(strcmp (id, "v") == 0)
 			{
 				VEC3 v; 
 				fscanf_s (objFile, "%f %f %f", &v.X, &v.Y, &v.Z);
 
-
+				
 				Mesh.m_Pos.push_back(v);
 
 			}
@@ -82,9 +95,15 @@ namespace NS_MESH
 				{
 					fscanf_s(objFile, "%s \n", &mat, sizeof(mat));
 					temp.mat = mat;
+					
+					
 				}
 				Mesh.m_Groups.push_back( temp );
 				
+				
+				
+
+
 				std::cout << "Group: " << temp.group_name << endl;
 				std::cout << "Material: " << temp.mat << endl << endl;
 

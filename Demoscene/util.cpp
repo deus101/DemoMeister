@@ -178,14 +178,28 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
 		Util_CurrentFolder = AssetProduction;
 	}
 
-	boost::filesystem::recursive_directory_iterator iter(Util_CurrentFolder), eod;
+	//Util_CurrentFolder.append(Item).is_complete()
+	//boost::filesystem::path local_Check = Util_CurrentFolder.append(Item);
+	
+	boost::filesystem::path local_Check( Util_CurrentFolder);
+	local_Check.append(Item);
+	if (boost::filesystem::exists(local_Check))
+	{ 
+		return local_Check.string();
+	}
+
+
+	boost::filesystem::recursive_directory_iterator iter(AssetProduction), eod;
 
 	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
 		if (is_regular_file(i)) {
 			//cout << i.string() << endl;
 			if (i.filename().compare(File) == 0)
 			{ 
+				Util_CurrentFolder = i.parent_path();
 				return i.string();
+				
+
 			}
 		}
 	}
@@ -200,6 +214,7 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
 			//cout << i.string() << endl;
 			if (i.filename().compare(File) == 0)
 			{
+				Util_CurrentFolder = i.parent_path();
 				return i.string();
 			}
 		}

@@ -394,7 +394,7 @@ namespace NS_VEC
 
 }
 
+#pragma once
 
 
-//#pragma once
 #endif

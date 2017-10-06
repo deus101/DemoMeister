@@ -17,6 +17,8 @@
 #ifndef _WIN32
 #include <unistd.h>
 #endif
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <cstdlib>
@@ -27,13 +29,14 @@
 //#include <Shlwapi.h>
 
 #include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
+//#include <boost/make_shared.hpp>
+
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/foreach.hpp>
 
-
+#include <vector>
 //extern DemoMeister * TheDisc;
 
 /*
@@ -48,7 +51,7 @@ void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 
 */
-#include <vector>
+
 /*
 
 template<typename T>
@@ -259,18 +262,4 @@ struct SpotLight : public PointLight
 #define INVALID_OGL_VALUE 0xffffffff
 
 
-//slett dette
-#define COLOR_TEXTURE_UNIT              GL_TEXTURE0
-#define COLOR_TEXTURE_UNIT_INDEX        0
-#define SHADOW_TEXTURE_UNIT             GL_TEXTURE1
-#define SHADOW_TEXTURE_UNIT_INDEX       1
-#define NORMAL_TEXTURE_UNIT             GL_TEXTURE2
-#define NORMAL_TEXTURE_UNIT_INDEX       2
-#define RANDOM_TEXTURE_UNIT             GL_TEXTURE3
-#define RANDOM_TEXTURE_UNIT_INDEX       3
-#define DISPLACEMENT_TEXTURE_UNIT       GL_TEXTURE4
-#define DISPLACEMENT_TEXTURE_UNIT_INDEX 4
-#define MOTION_TEXTURE_UNIT             GL_TEXTURE5
-#define MOTION_TEXTURE_UNIT_INDEX       5
-
-#endif	
+#endif

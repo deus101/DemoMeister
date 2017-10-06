@@ -8,6 +8,8 @@ using namespace NS_VEC;
 using namespace NS_EFF;
 
 #include "../Rendrer/context.h"
+
+#include <boost/make_shared.hpp>
 //I should go back to using context class/objects
 //renderPacket::renderPacket(const NS_REND::context &aContext)
 renderPacket::renderPacket()
