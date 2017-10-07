@@ -133,7 +133,7 @@ void Material::LoadMats( const char *param)
 
 
 
-			FileTextureDesc NewDiffTex;
+			
 			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
 
 			//boost::filesystem::path tmp_Path = boost::filesystem::path(path);
@@ -171,7 +171,7 @@ void Material::LoadMats( const char *param)
 
 
 
-
+			FileTextureDesc NewDiffTex;
 			//NewDiffTex.Name = string("DiffuseTex:") + boost::filesystem::path(path).filename().string();
 			NewDiffTex.Name = string("DiffuseTex: ") + tmp_Path.filename().string();
 
@@ -326,8 +326,8 @@ GLuint Material::GenerateMaterialMap() {
 		rowMaterial.push_back(col1Spec);
 
 		//need SamplerId
-		//NS_VEC::VEC3 MapLocMapIdEffectId(1, MatIter.id_Map, MatIter.shiny); // rotate around z-axis (in tangent space)
-		//rowMaterial.push_back(MapLocMapIdEffectId);
+		NS_VEC::VEC3 MapLocMapIdEffectId(1, MatIter.id_Map, MatIter.shiny); // rotate around z-axis (in tangent space)
+		rowMaterial.push_back(MapLocMapIdEffectId);
 
 		//first value confirming Diffuse texture is assigned to material, 0 is no 1 is simple direct Loaded Texture, 2 is ArrayTexture
 		//Second is a meta sampler ID, though each vec will deffine the type of texture, this will specify the sampler in question
@@ -342,8 +342,8 @@ GLuint Material::GenerateMaterialMap() {
 	//GL_R8
 	glGenTextures(1, &Material::MaterialMapTextureUnit);
 	glBindTexture(GL_TEXTURE_2D, Material::MaterialMapTextureUnit);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 2, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 3, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 2, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 3, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

@@ -23,6 +23,7 @@ namespace NS_ENG
 		FILE_TEXTURE,
 		FBO_TEXTURE,
 		DATA_TEXTURE,
+		ARRAY_TEXTURE
 	} e_CategoryType;
 
 
@@ -130,6 +131,27 @@ namespace NS_ENG
 
 	};
 
+
+	struct ArrayTextureDesc : public TextureDesc
+	{
+	public:
+		ArrayTextureDesc()
+			: TextureDesc()
+		{
+			MapCategory = MAP_TYPE::ARRAY_TEXTURE;
+		}
+
+		ArrayTextureDesc(const TextureDesc & B)
+			: TextureDesc(B)
+		{
+			MapCategory = MAP_TYPE::ARRAY_TEXTURE;
+		}
+
+		//GLint  wrap;
+		//GLint  filter;
+		//string Map_Path;
+
+	};
 
 	//typedef boost::shared_ptr< class MapAsset& > MapAssetPtr;
 	//typedef boost::shared_ptr<const class MapAsset& > MapAssetConstPtr;

@@ -355,8 +355,6 @@
     <None Include="Mesh\teapot.FBX" />
     <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\geometry_grid_pass.gs" />
-    <None Include="Mesh\PentagonArm.mtl" />
-    <None Include="Mesh\PentagonBase.mtl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
     <None Include="Scene.rocket" />
     <None Include="Mesh\LazyGreets.mtl" />
@@ -435,7 +433,6 @@
     <Object Include="Mesh\teapot.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="Mesh\PentagonArm.obj" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bf.mp3">
@@ -464,9 +461,6 @@
     <Image Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\cave2.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Mesh\PentagonBase.obj" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />

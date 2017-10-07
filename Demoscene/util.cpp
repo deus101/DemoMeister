@@ -2,15 +2,8 @@
 #include <iostream>
 #include <fstream>
 
-/*
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <sys/time.h>
-#endif
-*/
-//#include <boost/typeof/typeof.hpp>
 
+#include "Rendrer\context.h"
 
 /*
 //Its not being used

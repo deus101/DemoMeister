@@ -2,6 +2,8 @@
 #ifndef UTIL_HPP
 #define	UTIL_HPP
 
+//#include "Rendrer\context.h"
+
 //#include "world.h"
 #include "math/math3d.h"
 //#include "math/vec.h"
@@ -84,7 +86,6 @@ std::size_t X<T>::insert(T  value)
 }
 
 */
-
 
 
 

@@ -8,7 +8,8 @@
 #include "sync.h"
 //DemoMeister as a scene object and going through a sceneloader?
 
-#include "Rendrer\context.h"
+#include "util.h"
+//#include "Rendrer\context.h"
 
 
 #include "Engine\rendrer.h"

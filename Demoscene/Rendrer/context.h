@@ -13,6 +13,11 @@
 
 #include "../util.h"
 
+//#include "../math/math3d.h"
+
+//#include "../Engine/asset.h"
+
+
 #include "../world.h"
 
 
@@ -28,7 +33,7 @@
 		
 		extern bool sDepth;
 		extern bool sStencil;
-		extern GLFWwindow* s_pWindow;
+		//extern GLFWwindow* s_pWindow;
 
 
 		//extern DeploymentOrganizer Squiddy;
