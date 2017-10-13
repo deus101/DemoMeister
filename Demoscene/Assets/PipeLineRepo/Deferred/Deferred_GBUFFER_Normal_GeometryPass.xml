@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pass name="Gbuffer_Forward" packet="GeomPacket" packetInstance="Geometry_Default" PassValue="100" Buffer="GBuffer" BufferLocalPass="1">
+  
+  
+  <Base_Shaders vertex="1" geometry="0" fragment="1">
+    <Base_Vert Path="Geometry_Mesh_Pass_Vert.glsl"
+           Target=".\Shader\Geometry_Mesh_Pass_Vert.glsl">
+    
+    </Base_Vert>
+    <Base_Frag Path="Geometry_Mesh_Pass_Frag.glsl"
+               Target=".\Shader\Geometry_Mesh_Pass_Frag.glsl">
+    </Base_Frag>
+  </Base_Shaders>
+  
+  
+</pass>

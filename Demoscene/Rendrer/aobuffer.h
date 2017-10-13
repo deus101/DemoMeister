@@ -4,32 +4,28 @@
 
 #include "../Math/vec.h"
 #include "base_buffer.h"
+
+
 //plan is to inherit base_buffer
 
-class AoBuffer : public base_buffer
+//#define Derive_Buffer_CRTP(Type) class Type: public Buffer_CRTP<Type>
+//class AoBuffer : public base_buffer
+//Derive_Buffer_CRTP(AoBuffer)
+
+class AoBuffer : public Buffer_CRTP<AoBuffer>
 {
 public:
-	/*
-	enum PRIMITIVE_COLOR_INPUT {
-		GBUFFER_MATERIAL_DIF_UNILOC,
-		GBUFFER_MATERIAL_SPECINT_UNILOC,
-		GBUFFER_MATERIAL_SPECPOW_UNILOC,
-		GBUFFER_NUM_UNIFORMS
-	};
-	*/
 
-	enum AO_TEXTURE_TYPE {
-		AO_TEXTURE_TYPE_AO_MAP,
-		//AO_TEXTURE_TYPE_NOISE,
-		//AO_TEXTURE_TYPE_NORMAL,
-		AO_NUM_TEXTURES
-	};
 
 	AoBuffer();
 
 	~AoBuffer();
 
 
+	/*~AoBuffer()
+	{
+	}
+	*/
 	bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 	//bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 
@@ -41,6 +37,13 @@ public:
 	//void BindForStencilPass();
 	//void BindForLightPass();
 	//void BindForFinalPass();
+
+	enum AO_TEXTURE_TYPE {
+		AO_TEXTURE_TYPE_AO_MAP,
+		//AO_TEXTURE_TYPE_NOISE,
+		//AO_TEXTURE_TYPE_NORMAL,
+		AO_NUM_TEXTURES
+	};
 
 
 	GLuint ao_textures[AO_NUM_TEXTURES];

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pass name="Gbuffer_Stencil" packet="NullPacket" packetInstance="LightPacket_Pointlight_Stencil" PassValue="200" Buffer="GBuffer" BufferLocalPass="2">
+  <!---->requirements>
+  <!---->/requirements>
+  <Base_Shaders vertex="1" geometry="0" fragment="1">
+    <Base_Vert Path="IdentityPacket_Geometry_Vert.glsl"
+           Target=".\Shader\IdentityPacket_Geometry_Vert.glsl">
+    </Base_Vert>
+    <Base_Frag Path="Null_Technique_Pass_fragment.glsl"
+               Target=".\Shader\Null_Technique_Pass_fragment.glsl">
+    </Base_Frag>
+  </Base_Shaders>
+
+</pass>

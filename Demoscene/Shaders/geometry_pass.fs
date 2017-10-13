@@ -13,8 +13,9 @@ layout (location = 2) out vec3 NormalOut;
 layout (location = 3) out vec3 TexCoordOut;    
 
 
+//Remember to load these before drawing
 uniform sampler2D MaterialMap;							
-uniform sampler2D A_DiffuseMap;     
+uniform sampler2D A_DiffuseMap;
 
 
 
@@ -34,7 +35,9 @@ float LinearDepth(float depth)
 
 void LookUpMaterial(float ID, out vec4 MatDiffuse,out vec4 MatSpecular)
 {
+	
 
+	
 	float PZ_MM_Y = 1/textureSize( MaterialMap, 0).y;
 	float fixID = (ID * PZ_MM_Y) * 0.5;
 	MatDiffuse = vec4( texture(MaterialMap, vec2(0, fixID)).xyz,1.0);
@@ -70,7 +73,10 @@ void main()
 	if( textureSize( A_DiffuseMap, 0).x > 0)
 	{					
 	DiffuseOut      = vec3(TexCoord0,0);
+
 	DiffuseOut      = texture(A_DiffuseMap, TexCoord0).xyz;	
+
+
 	}
 	else
 	{

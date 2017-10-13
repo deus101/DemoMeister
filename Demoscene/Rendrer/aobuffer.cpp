@@ -10,6 +10,12 @@ AoBuffer::AoBuffer()
 {
 	//m_fbo = 0;
 	m_fbo = 0;
+	Nr_LocalPasses = 1;
+
+	this->RegionalPassList.clear();
+	this->LocalPassProperties.clear();
+	this->LocalPassProperties.resize(Nr_LocalPasses);
+	//ZERO_MEM(this->LocalPassProperties.clear());
 	//m_AoTexture = 0;
 	//m_depthTexture = 0;
 	//m_finalTexture = 0;
@@ -27,7 +33,7 @@ AoBuffer::~AoBuffer()
 	if (ao_textures[0] != 0) {
 		glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
 	}
-
+	this->LocalPassProperties.clear();
 	//if (m_depthTexture != 0) {
 	//	glDeleteTextures(1, &m_depthTexture);
 	//}
@@ -36,6 +42,8 @@ AoBuffer::~AoBuffer()
 	//	glDeleteTextures(1, &m_finalTexture);
 	//}
 }
+
+
 bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 
@@ -84,7 +92,7 @@ bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 void AoBuffer::BindForAoPass()
 {
 
-	GBuffer *test = (GBuffer*)TheDisc->BufferContainer[0];
+	GBuffer *test = (GBuffer*)TheDisc->MasterList_Buffers[0].get();
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -93,6 +101,8 @@ void AoBuffer::BindForAoPass()
 
 	GLuint faen = test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL];
 	
+
+
 	//glActiveTexture(GL_TEXTURE0);
 	//glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
 	//glActiveTexture(GL_TEXTURE2);

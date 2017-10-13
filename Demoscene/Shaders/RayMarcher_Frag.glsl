@@ -10,6 +10,9 @@ layout (location = 1) out vec3 DiffuseOut;
 layout (location = 2) out vec3 NormalOut;  
 layout (location = 3) out vec3 UvOut; 
 
+uniform sampler2D MaterialMap;
+
+
 uniform mat4 gWVP;
 uniform mat4 gProjection;
 uniform mat4 gView;
@@ -29,7 +32,7 @@ const float focalLenght = 1.67f;
 
 const float NEAR = 0.1f;
 const float FAR = 50.0f;
-
+//const float FAR = 100.0f;
 const int raySteps		= 64;
 const float rayEpsilon = 0.001f;
 
@@ -63,13 +66,45 @@ float sdBox(vec3 p, vec3 size)
 	return min(max(d.x, max(d.y, d.z)), 0.0f) + udBox(p, size);
 }
 
+void pR(inout vec2 p, float a) {
+	p = cos(a)*p + sin(a)*vec2(p.y, -p.x);
+}
+
+float pModPolar(inout vec2 p, float repetitions) {
+	float angle = 2*PI/repetitions;
+	float a = atan(p.y, p.x) + angle/2.;
+	float r = length(p);
+	float c = floor(a/angle);
+	a = mod(a,angle) - angle/2.;
+	p = vec2(cos(a), sin(a))*r;
+	// For an odd number of repetitions, fix cell index of the cell in -x direction
+	// (cell index would be e.g. -5 and 5 in the two halves of the cell):
+	if (abs(c) >= (repetitions/2)) c = abs(c);
+	return c;
+}
 
 float distScene(vec3 p)
 {
-	//p.xz = mod(p.xz, 2.0f) - vec2(1.0f);
+	//p.xz = mod(p.xz, 3.0f) - vec2(0.0f);
+	//p.xz = mod(p.xz, 4.0f) - vec2(-4.0f);
+	//p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+	p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+
+	//float c = pModPolar(p.xz , 6);
+
+	
 	//return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.01f));
-	float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
-	float s_box =  sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
+	//float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
+	//float s_box =  sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
+	
+	///p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
+
+	//pR(p.xz,c);
+	float s_sphere = sdSphere(p - vec3(0.0f, 2.0f, 0.0f), 5.0);
+	float s_box =  sdBox(p - vec3(0.0f, 2.0f, 0.0f), vec3(4.0f));
+	//return sdSphere( (p - vec3(0.0f, 2.0f, 0.0f))-vec3(2.0f,0.0f,2.0f), 4.0);
+	//float s_sphere = sdSphere(p - vec3(2.0f, 2.0f, 2.0f), 5.0);
+	//float s_box =  sdBox(p - vec3(2.0f, 2.0f, 2.0f), vec3(4.0f));
 
 	//return max(s_box, s_sphere);
 	return max(-s_sphere, s_box);
@@ -214,11 +249,12 @@ void main()
 	mat4 CamToWorld = gWVP * transpose(gView);
 
 
-	vec3 rayOriginWorld = (  CamToWorld * vec4(rayOrigin,1)).xyz;
+        //vec3 rayOriginWorld = (  CamToWorld * vec4(rayOrigin,1)).xyz;
+        vec3 rayOriginWorld = vec4(  CamToWorld * vec4(rayOrigin,1)).xyz;
 
 
-	vec3 rayPWorld = ( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
-
+        //vec3 rayPWorld = ( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
+        vec3 rayPWorld = vec4( CamToWorld * vec4(vec3(0, 0,-1.0),0)).xyz;
 
 
 
@@ -241,7 +277,8 @@ void main()
 	//transpose(inverse(mat3(gView)));
 	
 	//this sorta works dont delete and forget you dumb fucker
-	vec3 rd = normalize( (CamToWorld * vec4(pre_RD,0)).xyz  );
+        //vec3 rd = normalize( (CamToWorld * vec4(pre_RD,0)).xyz  );
+        vec3 rd = normalize( vec4(CamToWorld * vec4(pre_RD,0)).xyz  );
 	//vec3 rd = pre_RD;
 
 
@@ -291,6 +328,8 @@ void main()
 		normal = floorNormal;
 		color = chessBoard(p);
 		matID = 3;
+
+
 		//color = vec4(3 / 255);
 		puv = CalcUV(  p, normal, 32.0 ).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;

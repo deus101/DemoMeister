@@ -1,7 +1,11 @@
 #include "model.h"
 //#include "materials.h"
-#include "map.h"
+#include "AssetMapClasses/map.h"
 #include <iostream>
+
+#include <boost\tokenizer.hpp>
+#include <boost\algorithm\string.hpp>
+#include <boost\algorithm\string\regex.hpp> 
 //#include "vsGLInfoLib.h"
 
 using namespace NS_ENG;
@@ -27,30 +31,72 @@ model::model()
 model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 {
 
+
+
+
 	//actually all this is just a test, I have really no reason to do this for this class, finding duplicates is something
 	//id rather do elsewhere....Again completely fucking pointless....well...or is it, if I wanted a function to set up nodes with assets
 	//this might be allright...
+	bool IsClone = false;
+	bool NewPaint = false;
+	bool SpecialInstructions = false;
+
+	if (mtl.c_str()[0] == '#')
+		SpecialInstructions = true;
+
 	for (auto iter : model::classModelList) {
 		
 		//cout << "\n Previus file: " << iter->meshy.file_name << endl;
 		if (obj.compare(iter->meshy.file_name) == 0)
 		{
 			//could provide memory leaks
-			cout << "\n Previus file matches: " << iter->meshy.file_name << endl;
+			cout << "\n Found Model Object with same mesh: " << iter->meshy.file_name << endl;
 			//hmm maybe what I really want is just to copy the sorted vertex and attribute buffers
 			//A central deopsitory for the mesh struct maybe intead?
 			*this = *iter;
+
+			//actually its not really a clone at all, should fix that.
+			IsClone = true;
+
+
+			if (mtl.empty() == false  && this->meshy.file_mat.compare(mtl) != 0)
+			{
+				
+
+				break;
+			}
+			else
+			{
 			return;
+			}
 		}
+
 	}
-	NS_ENG::Material::LoadMats(mtl.c_str());
+
+
+	NewPaint = true;
+
+	if(!IsClone)
+	{ 
 	LoadMesh(obj.c_str(), meshy);
 	//LoadMats(mtl.c_str(), palette);
 	
 
+	std::string M_files = Squiddy.FindAndRegister(meshy.file_mat);
 
+
+	if(M_files.compare("None") != 0)
+	{
+	NS_ENG::Material::LoadMats(M_files.c_str());
+	}
 
 	Sort_Groups.clear();
+	}
+	//meshy.
+
+
+
+	
 
 	map<PackedVertex, unsigned int> VertexToOutIndex;
 
@@ -59,7 +105,13 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 
 		buffer_Group MG;
 
+		//We are gonna make sure these are filled, even if we have a new material at hand we will allways load the original;
+		MG.ObjName = meshy.m_Groups[u].group_name;
+		MG.MatName = MG.OriginalMat = meshy.m_Groups[u].mat;
+		MG.ObjectID = u;
 
+		if(!IsClone)
+		{
 
 		for (unsigned int j = 0; j < meshy.m_Groups[u].m_Faces.size(); j++)
 		{
@@ -96,6 +148,10 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 			}
 
 		}
+
+		}
+
+		//continue with adding or repainting materials
 		
 		/*
 		for(unsigned int j = 0; j < palette.m_Materials.size(); j++)
@@ -108,55 +164,145 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 		*/
 		//Sort_Groups.push_back(MG);
 		//for (unsigned int j = 0; j < NS_ENG::Material::classMaterialList.size(); j++)
-		for (auto  MatIter : NS_ENG::Material::classMaterialList) 
+
+		if(NewPaint == true && IsClone == true )
 		{
-			
-			//cout << "mats :" << MatIter.matID << endl;
-			//if (obj.compare(MatIter->meshy.file_name) == 0)
-			if (meshy.m_Groups[u].mat.compare(MatIter.name) == 0)
-			{
-				cout << "MAT: " << MatIter.name << " : " << MatIter.matID << endl;
-				//meshy.m_Groups[u].matid = j;
-				meshy.m_Groups[u].matid = MatIter.matID;
-				//MG.
-				//map
-				MapAsset *TmpMap = NULL;
-				TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
-				//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
-				if(TmpMap != NULL)
-				{
-					MG.tex = TmpMap->Map_TName;
-				}
-				//MG.tex = MapAsset::RetriveMap(MatIter.id_Map)->Map_TUnit
-				//Sort_Groups.back().tex = MatIter.tUnit;
-				meshy.m_Groups[u].Child.MatObjChildTech[0] = MatIter.matID;
-				meshy.m_Groups[u].Child.MatObjChildTech[2] = u;
-				break;
-			}
+
+
+		boost::char_separator<char> sep("#G#");
+
+		boost::tokenizer< boost::char_separator<char> > tokens(mtl, sep);
+
+		
+
+		std::string TagValue = "";
+
+
+		//boost::char_separator<char> sep("#G#");
+
+		boost::tokenizer< boost::char_separator<char>>::iterator tok_it = tokens.begin();
+
+
+		
+		for (auto iter : model::classModelList)
+		{ 
+
+		std::string Tag(tok_it->data());
+
+		boost::char_separator<char> sep2("#MN#");
+
+		boost::tokenizer< boost::char_separator<char>>::iterator tok_sec = tokens.begin();
+
+		//std::string MatStr = "";
+		std::string Obj(tok_sec->data());
+		tok_sec++;
+
+
+		std::string MatStr(tok_sec->data());
+
+
+		SetMaterial(MG, Obj, MatStr);
 
 		}
 
-		//MG.amb = palette.m_Materials[ meshy.m_Groups[u].matid ].amb;
-		//MG.dif = palette.m_Materials[ meshy.m_Groups[u].matid ].diff;
-		//MG.emi = palette.m_Materials[ meshy.m_Groups[u].matid ].emmi;
-		//MG.spec = palette.m_Materials[ meshy.m_Groups[u].matid].shiny
-		//palette.m
-		//cout << "group color is :" << u << endl;
-		//meshy.m_Pos.
-		
-
-		//ehm..why did i do this?
-		//only an Material ID should suffice,  There should only be one master list of materials
-
-		//MG.tex = palette.m_Materials[meshy.m_Groups[u].matid].id_Map;
-		//MG.dif = NS_VEC::VEC3(palette.m_Materials[meshy.m_Groups[u].matid].diff[0], palette.m_Materials[meshy.m_Groups[u].matid].diff[1], palette.m_Materials[meshy.m_Groups[u].matid].diff[2]);
-		//if im going to use attributepointers for diffcolor, specular intensity and specular power create  it here
+		return;
 
 
+		}
+		else if(SpecialInstructions == true)
+		{
+
+			/*
+			boost::char_separator<char> sep("#G#","");
+			//boost::char_delimiters_separator<std::string> sep3("#G#")
+			//boost::char_delimiters_separator<char> sep(true,"#G#");
+
+
+			boost::tokenizer< boost::char_separator<char> > tokens(mtl, sep);
+			//boost::tokenizer<boost::char_delimiters_separator<char> > tokens(mtl, sep);
+
+			boost::tokenizer< boost::char_separator<char>>::iterator tok_it = tokens.begin();
+			//boost::tokenizer< boost::char_delimiters_separator<char> >::iterator tok_it = tokens.begin();
+
+
+			std::string TagValue = "";
+			while (tok_it != tokens.end())
+			{
+
+
+				//std::string Obj(tok_sec->data());
+
+				std::string Tag(tok_it->data());
+				//std::string Next( tok_it->begin()._Ptr);
+				boost::char_separator<char> sep2("#MN#");
+
+				//boost::tokenizer< boost::char_separator<char> > TokensSecond(Tag, sep2);
+				boost::tokenizer< boost::char_separator<char> > TokensSecond(Next, sep2);
+
+				boost::tokenizer< boost::char_separator<char>>::iterator tok_sec = TokensSecond.begin();
+
+				//std::string MatStr = "";
+				std::string Obj(tok_sec->data());
+				tok_sec++;
+
+
+				std::string MatStr(tok_sec->data());
+
+
+				SetMaterial(MG, Obj, MatStr);
+				tok_it++;
+			}
+			*/
+
+			vector<string> tokens;
+
+			//boost::split(tokens, mtl, boost::is_any_of("#G#"));
+
+			boost::split_regex(tokens, mtl, boost::regex("#G#"));
+
+			vector<string>::iterator ModelGrpIt = tokens.begin();
+
+			vector<string>::iterator ModelGrpItEnd = tokens.end();
+
+			if (tokens.front().empty())
+				ModelGrpIt++;
+
+
+			//for (std::list<ShaderItemPtr>::iterator ip = this->ShaderSourceComponents.begin(); ip != this->ShaderSourceComponents.end(); ++ip)
+
+			while (ModelGrpIt != ModelGrpItEnd)
+			{
+
+				vector<string> SecondTokens;
+
+				//boost::split(tokens, mtl, boost::is_any_of("#G#"));
+
+				boost::split_regex(SecondTokens, ModelGrpIt->data(), boost::regex("#MN#"));
+
+
+				if (SecondTokens.size() == 2)
+				{
+
+					SetMaterial(MG, SecondTokens.front(), SecondTokens.back());
+
+				}
+
+
+				ModelGrpIt++;
+			}
+
+
+
+
+		}
+		else
+		{ 
+		SetMaterial(MG, "", "");
+		}
 		MG.ModelAidChild = meshy.m_Groups[u].Child;
 
 		Sort_Groups.push_back(MG);
-
+		
 
 	}
 
@@ -276,7 +422,64 @@ model::~model()
 	//classModelList.erase(iter);
 }
 
+void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::string TaskMaterial = "")
+{
 
+	bool B_ModelGroup = false;
+
+	if (&Object != NULL)
+		B_ModelGroup = true;
+
+	
+	if (Object.ObjName.compare(TaskModel) != 0)
+		return;
+
+	std::string Distincion;
+
+	if(!TaskMaterial.empty())
+	{ 
+		Distincion = TaskMaterial;
+	}
+	else
+	{
+		Distincion = Object.MatName;
+	}
+
+
+	for (auto MatIter : NS_ENG::Material::classMaterialList)
+	{
+		
+
+			//meshy.m_Groups[u]
+		if (Distincion.compare(MatIter.name) == 0)
+		{
+			cout << "MAT: " << MatIter.name << " : " << MatIter.matID << endl;
+			//meshy.m_Groups[u].matid = j;
+			Object.MatId = MatIter.matID;
+			//MG.
+			//map
+			MapAsset *TmpMap = NULL;
+			TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+			//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+			if (TmpMap != NULL)
+			{
+				//Oh right...I did use that
+				Object.tex = TmpMap->Map_TName;
+			}
+
+
+
+			//not as elegant as I thought.
+			meshy.m_Groups[Object.ObjectID].Child.MatObjChildTech[0] = MatIter.matID;
+			meshy.m_Groups[Object.ObjectID].Child.MatObjChildTech[2] = Object.ObjectID;
+			break;
+		}
+
+	}
+
+
+
+}
 
 void model::Draw()
 {
@@ -298,6 +501,10 @@ void model::Draw()
 
 
 
+	//glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
+
+	//glBindTexture(GL_TEXTURE_2D, Material::GenerateMaterialMap());
+
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned int i = 0; i < Sort_Groups.size(); i++)
@@ -312,7 +519,14 @@ void model::Draw()
 		glBindVertexArray(Sort_Groups[i].vao);
 		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
 		
-		//if (Sort_Groups[i].tex != NULL)
+
+		//Sort_Groups[i].
+
+
+
+
+
+		//13.07  is allways null
 		if (Sort_Groups[i].tex != NULL)
 		{
 			//if ActivateAlbedoSampler
@@ -333,7 +547,7 @@ void model::Draw()
 		
 		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
 
-
+		//nvogl gives exception error every second run
 
 
 

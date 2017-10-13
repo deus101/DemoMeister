@@ -2,32 +2,132 @@
 #ifndef UTIL_HPP
 #define	UTIL_HPP
 
+//#include "Rendrer\context.h"
 
+//#include "world.h"
 #include "math/math3d.h"
-#include "math/vec.h"
-#include <GLFW/glfw3.h>
+//#include "math/vec.h"
+//#include <GLFW/glfw3.h>
 
 
-#ifndef WIN32
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <sys/time.h>
+#endif
+
+#ifndef _WIN32
 #include <unistd.h>
 #endif
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <cstdlib>
 #include <typeinfo>
-
-#include <Windows.h>
-#include <Shlwapi.h>
+#include <set>
+#include <map>
+//#include <Windows.h>
+//#include <Shlwapi.h>
 
 #include <boost/shared_ptr.hpp>
+//#include <boost/make_shared.hpp>
 
-using namespace std;
+#include <boost/filesystem.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+#include <boost/foreach.hpp>
+
+#include <vector>
+//extern DemoMeister * TheDisc;
+
+/*
+//not being used
 void EngError(const char* fn, unsigned int ln, const char* msg);
 void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 
 #define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
 #define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
+
+
+
+*/
+
+/*
+
+template<typename T>
+class X
+{
+    public:
+        T const& operator[](std::size_t index) const    {return const_cast<X&>(*this)[index];}
+        T&       operator[](std::size_t index)          {return data[index];}
+        void        remove(std::size_t index)           {unused.push_back(index);}
+
+        
+		std::size_t insert(T  value);
+    private:
+        std::vector<T>                  data;
+        std::vector<std::size_t>        unused;
+};
+
+template<typename T>
+std::size_t X<T>::insert(T  value)
+{
+    if (unused.empty())
+    {
+        data.push_back(value);
+        return data.size() - 1;
+    }
+    std::size_t result  = unused.back();
+    unused.pop_back();
+    data[result]    = value;
+    return result;
+}
+
+*/
+
+
+
+
+//used as a singleton on Extern Squiddy
+struct DeploymentOrganizer
+{
+	
+
+
+
+
+	std::string ProjectFolder;              
+	std::string ProductionName;
+	std::string ProductioFolder;
+
+	std::set<std::string> Resource_Paths;
+
+
+	
+	//std::set<boost::filesystem::path> Resource_Paths;
+	void load(const std::string &filename);
+	void save();
+	void deploy();
+
+
+	std::string FindAndRegister(const std::string &Item);
+
+	boost::filesystem::path HumbleIni;
+
+	boost::filesystem::path AssetGlobal;
+	boost::filesystem::path AssetProduction;
+
+	boost::filesystem::path ReleaseFolder;
+
+	boost::filesystem::path Util_CurrentFolder;
+	//boost::filesystem::path HumbleIni;
+
+};
+
+
+extern DeploymentOrganizer Squiddy;
 
 enum TypeOfTexture
 {
@@ -50,11 +150,41 @@ enum TypeOfTexture
 
 };
 
+/*
+char* AssetCategoryPath[3][3]{ {"Materials", "Models","Shaders",
+
+
+
+	
+	}
+}
+
+*/
+
+enum e_InstructionActors {
+	Self, Rendrer, PassInit, BufferInit, AssetInit, EffectInit,RocketInit,TransFormNode,AssetNode
+
+
+
+
+};
+
+struct PipelineTask {
+	e_InstructionActors target;
+	std::string TarType, TarName;
+	int TarID;
+	e_InstructionActors Supplicant;
+	std::string SupType, SupName;
+	int SupID;
+	std::string PropertyName;
+	float Return;
+
+};
 
 struct EffectStage
 {
-	//GL_TEXTURE1
-	int StageValue;
+	bool bReqComplete;
+	int iStageValue;
 	//GLint TextureUnits[Size];
 	GLenum TextureUnits[Size];
 	//GLUint TextureUnits[Size];
@@ -133,19 +263,4 @@ struct SpotLight : public PointLight
 #define INVALID_OGL_VALUE 0xffffffff
 
 
-//hold øye på dette
-#define COLOR_TEXTURE_UNIT              GL_TEXTURE0
-#define COLOR_TEXTURE_UNIT_INDEX        0
-#define SHADOW_TEXTURE_UNIT             GL_TEXTURE1
-#define SHADOW_TEXTURE_UNIT_INDEX       1
-#define NORMAL_TEXTURE_UNIT             GL_TEXTURE2
-#define NORMAL_TEXTURE_UNIT_INDEX       2
-#define RANDOM_TEXTURE_UNIT             GL_TEXTURE3
-#define RANDOM_TEXTURE_UNIT_INDEX       3
-#define DISPLACEMENT_TEXTURE_UNIT       GL_TEXTURE4
-#define DISPLACEMENT_TEXTURE_UNIT_INDEX 4
-#define MOTION_TEXTURE_UNIT             GL_TEXTURE5
-#define MOTION_TEXTURE_UNIT_INDEX       5
-
-#endif	
-
+#endif

@@ -1,7 +1,7 @@
 #pragma once
 #include "lightNode.h"
-#include "../Effect/PointLightPacket.h"
-#include "../Effect/NullPacket.h"
+#include "../ShaderFu/DeferredPackets/PointLightPacket.h"
+#include "../ShaderFu/DeferredPackets/NullPacket.h"
 //#include "math3d.h"
 namespace NS_SG
 {

@@ -2,12 +2,14 @@
 #define VEC_INLINE_HPP
 
 //#define M_PI 3.14159265358979323846
-#define M_PI 3.14159265
+
 
 #include <math.h>
 
 namespace NS_VEC
 {
+
+	#define M_PI 3.14159265
 	inline VEC4::VEC4(float x, float y, float z, float w) : X(x), Y(y), Z(z), W(w){}
 
 	inline VEC3::VEC3(float x, float y, float z) : X(x), Y(y), Z(z){}
@@ -392,8 +394,7 @@ namespace NS_VEC
 
 }
 
-
-
 #pragma once
+
 
 #endif

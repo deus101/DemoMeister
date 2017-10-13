@@ -15,6 +15,12 @@ GBuffer::GBuffer()
 {
 	
 	m_fbo = 0;
+
+	Nr_LocalPasses = 5;
+
+	this->RegionalPassList.clear();
+	this->LocalPassProperties.clear();
+	this->LocalPassProperties.resize(Nr_LocalPasses);
 	//geo_fbo = 0;
 	//light_fbo = 0;
 	//m_fbo = 0;
@@ -198,6 +204,8 @@ void GBuffer::BindForGeomPass()
 		GL_COLOR_ATTACHMENT3
 		 };
 
+
+
 	
 	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
 }
@@ -275,7 +283,7 @@ void GBuffer::BindForLightPass()
 
 	//glActiveTexture(GL_TEXTURE3);
 	//this is stupid, I should store this in the packets
-	AoBuffer *test2 = (AoBuffer*)TheDisc->BufferContainer[1];
+	AoBuffer *test2 = (AoBuffer*)TheDisc->MasterList_Buffers[1].get();
 	//glActiveTexture(GL_TEXTURE5);
 	
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::AOBuffer_AO_UNIT]);

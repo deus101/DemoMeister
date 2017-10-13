@@ -44,102 +44,16 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		m3dTranslationMatrix44(ReverseTranslation, -EyeWorldPos.X, -EyeWorldPos.Y, -EyeWorldPos.Z);
 		//m3dTranslationMatrix44(ReverseTranslation, EyeWorldPos.X*-1.0f, EyeWorldPos.Y*-1.0f, EyeWorldPos.Z*-1.0f);
 
-		//TheDisc->
-		//there there, hide the shame.
-		/*
-		M3DMatrix44f RotInv, SortaScale, AnotherFuckingIntermediate, CamWorld, CamWorldInv, local, tmpProj, ModelView, ModelView2, TransposedMat, ReverseTranslation, TransposedRot, PreTransposedRot;
-		M3DVector4f tranComp, tranComp2, tranComp3;
-		M3DVector3f forwardComp, cameraViewFix;
-		M3DMatrix33f RotComp, RotComp2, TransposeRotComp, TransposeRotComp2, Invert;
-
-		m3dLoadIdentity44(SortaScale);
-		m3dLoadIdentity44(AnotherFuckingIntermediate);
-
-		m3dLoadIdentity44(CamWorld);
-		m3dLoadIdentity44(CamWorldInv);
-		m3dLoadIdentity44(ModelView);
-		m3dLoadIdentity44(ModelView2);
-		m3dLoadIdentity44(TransposedMat);
-		m3dLoadIdentity44(ReverseTranslation);
-		m3dLoadIdentity44(TransposedRot);
-		m3dLoadIdentity44(PreTransposedRot);
 		
-		
-		m3dLoadIdentity33(RotComp);
-		m3dLoadIdentity33(TransposeRotComp);
-		m3dLoadIdentity33(Invert);
-		cammy->getAbsoluteTransform(CamWorld);
-		cammy->getInverseRotation(RotInv);
-		//TransposedRot
-		m3dExtractRotationMatrix33(RotComp2, CamWorld);
-		
-		//cameraViewFix
-		
-		m3dInjectRotationMatrix44(PreTransposedRot, RotComp2);
-
-		//m3dTransposeMatrix44(TransposedRot, PreTransposedRot);
-		
-
-		m3dGetMatrixColumn44(tranComp3, TransposedRot, 2);
-		tranComp3[0] = tranComp3[0] * 1.0;
-		tranComp3[1] = tranComp3[1] * 1.0;
-		tranComp3[2] = tranComp3[2] * 1.0;
-		m3dGetMatrixColumn44(tranComp2, CamWorld, 3);
-		EyeWorldPos = NS_VEC::VEC3(tranComp2[0], tranComp2[1], tranComp2[2]);
-		m3dTranslationMatrix44(ReverseTranslation, -EyeWorldPos.X, -EyeWorldPos.Y, -EyeWorldPos.Z);
-		//m3dTranslationMatrix44(ReverseTranslation, EyeWorldPos.X*-1.0f, EyeWorldPos.Y*-1.0f, EyeWorldPos.Z*-1.0f);
-
-
-		m3dTransposeMatrix44(TransposedRot, PreTransposedRot);
-		m3dMatrixMultiply44(AnotherFuckingIntermediate, ReverseTranslation, ReverseTranslation);
-		//m3dMatrixMultiply44(AnotherFuckingIntermediate, ReverseTranslation, SortaScale);
-
-		//m3dMatrixMultiply44(ModelView2, ReverseTranslation, AnotherFuckingIntermediate);
-		m3dMatrixMultiply44(ModelView2, SortaScale, AnotherFuckingIntermediate);
-
-		//m3dMatrixMultiply44(ModelView2, ReverseTranslation, TransposedRot);
-		m3dInvertMatrix44(CamWorldInv, CamWorld);
-		//EyeWorldPos = NS_VEC::VEC3(CamWorldInv[12], CamWorldInv[13], CamWorldInv[14]);
-		//EyeWorldPos = NS_VEC::VEC3(CamWorldInv[12], CamWorldInv[13], CamWorldInv[14]);
-
-
-		m3dTransposeMatrix44(TransposedMat, CamWorld);
-		m3dExtractRotationMatrix33(RotComp, TransposedMat);
-		//TransposeRotComp
-		m3dGetMatrixColumn33(forwardComp, RotComp, 2);
-		m3dScaleVector3(forwardComp, -1.0f);
-		m3dCopyMatrix33(TransposeRotComp, RotComp);
-		m3dSetMatrixColumn33(TransposeRotComp, forwardComp, 2);
-		
-		m3dLoadIdentity44(view);
-		m3dLoadIdentity44(InvViewRT);
-		//CamWorldModelView2
-		m3dInjectRotationMatrix44(ModelView, TransposeRotComp);
-		m3dSetMatrixColumn44(ModelView, tranComp, 3);
-		m3dInjectRotationMatrix44(CamWorldInv, TransposeRotComp);
-		float VCollumn_x, VCollumn_y, VCollumn_z, VCollumn_w;
-		//VCollumn_x = CamWorld[8];
-		//VCollumn_y = CamWorld[9];
-		//VCollumn_z = CamWorld[10];
-		//VCollumn_w = CamWorldInv[11];
-
-		//CamWorld[8] = VCollumn_x * -1.0f;
-		//CamWorld[9] = VCollumn_y * -1.0f;
-		//CamWorld[10] = VCollumn_z * -1.0f;
-		//CamWorldInv[11] =  VCollumn_w * -1.0f;
-		*/
 
 		m3dMatrixMultiply44(tmpRTinvView, CamWorldInv, ReverseTranslation);
 		m3dCopyMatrix44(InvViewRT, CamWorldInv);
-		//m3dCopyMatrix44(view, CamWorld);
-		//m3dCopyMatrix44(view, tmpRTinvView);
-
-		//M3DMatrix44f LocalTr;
-		//cammy->getParent()->getLocalTransform(LocalTr);
 
 		m3dCopyMatrix44(view, CamWorld);
 		cammy->getProjection(tmpProj);
 		m3dCopyMatrix44(projection, tmpProj);
+
+
 		//cammy->ge
 
 		//PIVVOT PIVVOT BRUK DEN TARGETNODEN!
@@ -160,7 +74,9 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			M3DMatrix44f wv, wvp, vp;
 
 
-			M3DMatrix44f world_view_proj, matWVP_inv;
+			//M3DMatrix44f world_view_proj, matWVP_inv;
+
+
 
 			m3dMatrixMultiply44(vp, projection, view);
 
@@ -202,8 +118,8 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			
 
 			s_LPL = lPoint->GetPointLight();
-			M3DMatrix44f wv, wvp , vp;
-
+			//M3DMatrix44f wv, wvp , vp;
+			M3DMatrix44f wvp, vp;
 
 			M3DMatrix44f w_scale, w_scaled;
 			float f_scale = CalcPointLightBSphere(s_LPL);
@@ -223,8 +139,9 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			//m3dCopyMatrix44(Tmp.sWVP, world);
 			//m3dCopyMatrix44(Tmp.sW, w_scaled);
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
-			m3dCopyMatrix44(Tmp.sW, world);
-
+			//m3dCopyMatrix44(Tmp.sW, world);
+			//m3dCopyMatrix44(Tmp.sW, world);
+			m3dCopyMatrix44(Tmp.sW, w_scaled);
 		}
 		Tmp.sPL = s_LPL;
 		Tmp.sNode = lPoint;
@@ -296,9 +213,14 @@ void rendrer::RenderSceneCB()
 	//float test = GetDeltaTime();
 	//double testD = GetDeltaTimeD();
 
+	//
+
 	Visible.clear();
 	VisiblePoint.clear();
 	VisibleDir.clear();
+
+
+
 
 	//don't do this also USE EIGEN OF GLM OR WRITE YOUR OWN! MATH3D IS SHIT!
 	M3DMatrix44f world;
@@ -319,34 +241,33 @@ void rendrer::RenderSceneCB()
 
 
 
-	TheDisc->BufferContainer[0]->EnablePass(0);
+	TheDisc->MasterList_Buffers[0]->EnablePass(0);
 	//mgBuffer->StartFrame();
 	//Geom pass---------------------------------------------
 	//mgBuffer->BindForGeomPass();
-	TheDisc->BufferContainer[0]->EnablePass(1);
+	TheDisc->MasterList_Buffers[0]->EnablePass(1);
 
 	glDepthMask(GL_TRUE);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+	//Geometry_RayMarcher_Vert.glsl
 	glEnable(GL_DEPTH_TEST);
 	GeoRayMarch->Enable();
-	GeoRayMarch->SetViewMatrix(view);
+	GeoRayMarch->SetViewMatrix(view); //Views Looks to be correct
 	GeoRayMarch->SetProjectionMatrix(projection);
 
 	M3DMatrix44f ModelView, toCam;
 	m3dLoadIdentity44(ModelView);
-	//m3dLoadIdentity44(toCam);
-	//m3dMatrixMultiply44(toCam, view, ModelView);
-	//m3dInvertMatrix44(toCam, view);
-	//m3dTransposeMatrix44(ModelView, toCam);
-	//m3dCopyMatrix44(Tmp.sWVP, wvp);
+
+
+	//PointLess Identity Matrix to Geometry_RayMarcher_Vert.glsl
 	GeoRayMarch->SetWVP(ModelView);
 	GeoRayMarch->SetEyeWorldPos(EyeWorldPos);
+	//GeoRayMarch->
 	//If I want a Raymarcher here should the depth test be disable?
 	glFrontFace(GL_CW);
-	quad->Draw();
+	quad->Draw();//need generic quad assembly here, maybe create something static?
 	glFrontFace(GL_CCW);
 
 	
@@ -357,10 +278,10 @@ void rendrer::RenderSceneCB()
 
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 		
-		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*> (iv->gpuEff);
-		NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
-		NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
-		
+		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*>(iv->gpuEff);
+		//NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
+		//NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
+		/*
 		if (hmapEff != NULL)
 		{
 			hmapEff->Enable();
@@ -368,6 +289,7 @@ void rendrer::RenderSceneCB()
 			hmapEff->SetWorldMatrix(iv->sTransform);
 			hmapEff->SetHalfSize();
 		}
+		*/
 		if (geoEff != NULL)
 		{
 			geoEff->Enable();
@@ -376,12 +298,12 @@ void rendrer::RenderSceneCB()
 			geoEff->SetViewMatrix(view);
 			geoEff->SetProjectionMatrix(projection);
 		}
-
+		/*
 		if (gridAss != NULL)
 		{
 			gridAss->SetDelta(deltaCtan);
 		}
-
+		*/
 		
 		iv->gpuIn->Draw();
 		
@@ -397,26 +319,24 @@ void rendrer::RenderSceneCB()
 	//Screen spaced Ambient Occulsion pass
 
 	M3DMatrix44f IdentSWP, ViewProAO;
-	m3dLoadIdentity44(ViewProAO);
-	m3dLoadIdentity44(IdentSWP);
+	m3dLoadIdentity44(ViewProAO);//pointless
+	m3dLoadIdentity44(IdentSWP);//pointless
 
-	m3dLoadIdentity44(ModelView);
+	m3dLoadIdentity44(ModelView);//pointless
 
 	AoPass->Enable();
 
 
-
-
-
 	//god im lazy 
-	m3dMatrixMultiply44(ViewProAO, projection, view);
+	m3dMatrixMultiply44(ViewProAO, projection, view); //Redundant
+
 
 	AoPass->SetWVP(ModelView);
 	//AoPass->SetWorldMatrix(ModelView);
 	AoPass->SetViewMatrix(view);
 	AoPass->SetProjectionMatrix(projection);
 	//mgBuffer->BindForAoPass();
-	TheDisc->BufferContainer[1]->EnablePass(0);
+	TheDisc->MasterList_Buffers[1]->EnablePass(0);
 
 	//glActiveTexture(GL_TEXTURE5);
 	//glActiveTexture(GL_TEXTURE9);
@@ -454,7 +374,7 @@ void rendrer::RenderSceneCB()
 	for (vPITc ip = beginVisiblePoint(); ip != endVisiblePoint(); ++ip) {
 		ip->sNode->NullMagic->Enable();
 
-		TheDisc->BufferContainer[0]->EnablePass(2);
+		TheDisc->MasterList_Buffers[0]->EnablePass(2);
 		//mgBuffer->BindForStencilPass();
 		//NS_REND::mGBuffer->BindForStencilPass();
 		glEnable(GL_DEPTH_TEST);
@@ -471,6 +391,8 @@ void rendrer::RenderSceneCB()
 		glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
 
 		ip->sNode->NullMagic->SetWorldMatrix(ip->sW);
+		//ip->sNode->NullMagic->SetWorldMatrix(ip->sWVP);
+
 
 		ip->sNode->NullMagic->SetProjectionMatrix(projection);
 		ip->sNode->NullMagic->SetViewMatrix(view);
@@ -485,7 +407,7 @@ void rendrer::RenderSceneCB()
 		ip->sNode->LightMagic->Enable();
 
 		//mgBuffer->BindForLightPass();
-		TheDisc->BufferContainer[0]->EnablePass(3);
+		TheDisc->MasterList_Buffers[0]->EnablePass(3);
 
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 
@@ -498,10 +420,15 @@ void rendrer::RenderSceneCB()
 
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
+
+		//move to geometry shader for sphere, fix scaling
 		//ip->sNode->LightMagic->SetWVP(ip->sWVP);
 		ip->sNode->LightMagic->SetProjectionMatrix(projection);
 		ip->sNode->LightMagic->SetViewMatrix(view);
+		
 		ip->sNode->LightMagic->SetWorldMatrix(ip->sW);
+		//ip->sNode->LightMagic->SetWorldMatrix(ip->sWVP);
+
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 		
 		sphere_light->Draw();
@@ -519,7 +446,7 @@ void rendrer::RenderSceneCB()
 		id->sNode->LightMagic->Enable();
 		id->sNode->LightMagic->SetProjectionMatrix(projection);
 		//mgBuffer->BindForLightPass();
-		TheDisc->BufferContainer[0]->EnablePass(3);
+		TheDisc->MasterList_Buffers[0]->EnablePass(3);
 
 
 		//id->sNode->LightMagic->SetWVP()
@@ -550,7 +477,7 @@ void rendrer::RenderSceneCB()
 	unsigned int w = GetPixelWidth();
 	unsigned int h = GetPixelHeight();
 	//mgBuffer->BindForFinalPass();
-	TheDisc->BufferContainer[0]->EnablePass(4);
+	TheDisc->MasterList_Buffers[0]->EnablePass(4);
 
 	glBlitFramebuffer(0, 0, w, h,
 		0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_LINEAR);

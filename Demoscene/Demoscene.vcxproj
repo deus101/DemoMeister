@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="DeployDebug|Win32">
       <Configuration>DeployDebug</Configuration>
       <Platform>Win32</Platform>
@@ -38,98 +30,61 @@
     <ProjectGuid>{B4F2D6D2-EC74-4589-8699-11E54DBB4207}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Demoscene</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'" Label="PropertySheets" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'" Label="PropertySheets" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'" Label="PropertySheets" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'" Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -140,6 +95,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>CppCoreCheckRules.ruleset</CodeAnalysisRuleSet>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExcludePath>$(ExcludePath)</ExcludePath>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -148,57 +107,8 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;SYNC_PLAYER;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>
-      </AdditionalUsingDirectories>
-      <UseFullPaths>true</UseFullPaths>
-      <MultiProcessorCompilation>
-      </MultiProcessorCompilation>
-      <EnablePREfast>false</EnablePREfast>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocket-playerd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <Profile>true</Profile>
-      <LinkStatus>true</LinkStatus>
-    </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Move runtime libs</Message>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;_LIB;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
-      <UseFullPaths>true</UseFullPaths>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\Libs\x64;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <Profile>true</Profile>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -226,7 +136,8 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy runtime libs</Message>
@@ -258,7 +169,8 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy runtime libs</Message>
@@ -272,8 +184,8 @@
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_63_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_65_1;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\include;E:\3rdPartyTools\glew-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
@@ -289,14 +201,15 @@
       </EnableCOMDATFolding>
       <OptimizeReferences>
       </OptimizeReferences>
-      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\Libs;E:\3rdPartyTools\glfw-3.2.1.bin.WIN32\lib-vc2015;E:\3rdPartyTools\glew-2.0.0\lib\Release\Win32;E:\3rdPartyTools\boost_1_65_1\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>legacy_stdio_definitions.lib;Shlwapi.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <LinkStatus>true</LinkStatus>
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)\Libs\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy runtime libs</Message>
@@ -355,83 +268,99 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;FREEGLUT_STATIC;FREEGLUT_LIB_PRAGMAS=0;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\glsdk\boost\;C:\glsdk\freeglut\include\GL\;C:\glsdk\glload\include\;C:\glsdk\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>freeglut;GLU;GL;glload;bass</AdditionalUsingDirectories>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_65_1;E:\3rdPartyTools\glfw-3.2.1.bin.WIN64\include;E:\3rdPartyTools\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
       <UseFullPaths>true</UseFullPaths>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>.\Libs\x64;C:\glsdk\freeglut\lib;C:\glsdk\glload\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;gdi32.lib;winmm.lib;user32.lib;glload.lib;freeglut.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Libs\x64;E:\3rdPartyTools\glew-2.1.0\lib\Release\x64;E:\3rdPartyTools\glfw-3.2.1.bin.WIN64\lib-vc2015;E:\3rdPartyTools\boost_1_65_1\stage\VS2017\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;Shlwapi.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <LinkStatus>true</LinkStatus>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)\Libs\x64\bass.dll" "$(TargetDir)\bass.dll"
+$(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
+      <Message>Copy runtime libs</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Effect\aoPacket.cpp" />
-    <ClCompile Include="Effect\ConeLightPacket.cpp" />
-    <ClCompile Include="Effect\DirLightPacket.cpp" />
-    <ClCompile Include="Effect\lightPacket.cpp" />
-    <ClCompile Include="Effect\NullPacket.cpp" />
-    <ClCompile Include="Effect\PointLightPacket.cpp" />
-    <ClCompile Include="Effect\HeightMapPacket.cpp" />
-    <ClCompile Include="Effect\RayMarcher.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPipeMother.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\ArrayMap.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\aoPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\ConeLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\DirLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\lightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\NullPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\PointLightPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\HeightMapPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\RayMarcher.cpp" />
     <ClCompile Include="Engine\asset.cpp" />
-    <ClCompile Include="Engine\FBOTexture.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\FBOTexture.cpp" />
     <ClCompile Include="Engine\Grid.cpp" />
-    <ClCompile Include="Engine\map.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\map.cpp" />
     <ClCompile Include="Engine\ProjectedGrid.cpp" />
     <ClCompile Include="Engine\GridPoints.cpp" />
-    <ClCompile Include="Engine\FileTexture.cpp" />
+    <ClCompile Include="Engine\AssetMapClasses\FileTexture.cpp" />
+    <ClCompile Include="Engine\ShaderItem.cpp" />
     <ClCompile Include="Rendrer\aobuffer.cpp" />
     <ClCompile Include="Rendrer\base_buffer.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
-    <ClCompile Include="SceneGraph\tinyxml2.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
-    <ClCompile Include="SceneGraph\camera.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="SceneGraph\camera.cpp" />
     <ClCompile Include="SceneGraph\composite.cpp" />
     <ClCompile Include="Rendrer\context.cpp" />
     <ClCompile Include="Rendrer\gbuffer.cpp" />
-    <ClCompile Include="Effect\GeomPacket.cpp" />
+    <ClCompile Include="ShaderFu\DeferredPackets\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\materials.cpp" />
     <ClCompile Include="Math\math3d.cpp" />
     <ClCompile Include="Engine\mesh.cpp" />
     <ClCompile Include="Engine\model.cpp" />
     <ClCompile Include="SceneGraph\node.cpp" />
-    <ClCompile Include="Effect\renderPacket.cpp" />
+    <ClCompile Include="ShaderFu\renderPacket.cpp" />
     <ClCompile Include="Engine\rendrer.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Effect\aoPacket.h" />
-    <ClInclude Include="Effect\ConeLightPacket.h" />
-    <ClInclude Include="Effect\DirLightPacket.h" />
-    <ClInclude Include="Effect\aoBlurPass.h" />
-    <ClInclude Include="Effect\lightPacket.h" />
-    <ClInclude Include="Effect\NullPacket.h" />
-    <ClInclude Include="Effect\OceanPacket.h" />
-    <ClInclude Include="Effect\PointLightPacket.h" />
-    <ClInclude Include="Effect\RayMarcher.h" />
+    <ClInclude Include="ShaderFu\DeferredPipeMother.h" />
+    <ClInclude Include="Engine\AssetMapClasses\ArrayMap.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\aoPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\ConeLightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\DirLightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\aoBlurPass.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\lightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\NullPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\OceanPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\PointLightPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\RayMarcher.h" />
     <ClInclude Include="Engine\asset.h" />
-    <ClInclude Include="Effect\HeightMapPacket.h" />
-    <ClInclude Include="Engine\FBOTexture.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\HeightMapPacket.h" />
+    <ClInclude Include="Engine\AssetMapClasses\FBOTexture.h" />
     <ClInclude Include="Engine\Grid.h" />
-    <ClInclude Include="Engine\map.h" />
+    <ClInclude Include="Engine\AssetMapClasses\map.h" />
     <ClInclude Include="Engine\ProjectedGrid.h" />
     <ClInclude Include="Engine\GridPoints.h" />
-    <ClInclude Include="Engine\FileTexture.h" />
+    <ClInclude Include="Engine\AssetMapClasses\FileTexture.h" />
+    <ClInclude Include="Engine\ShaderItem.h" />
     <ClInclude Include="FreeImage.h" />
-    <ClInclude Include="Worlds\MasterWorld.h" />
+    <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h" />
+    <ClCompile Include="Productions\WCD_1_HackSpace\WCD_1.cpp" />
     <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
@@ -443,13 +372,13 @@
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />
     <ClInclude Include="Rendrer\gbuffer.h" />
-    <ClInclude Include="Effect\GeomPacket.h" />
+    <ClInclude Include="ShaderFu\DeferredPackets\GeomPacket.h" />
     <ClInclude Include="SceneGraph\dirLightNode.h" />
     <ClInclude Include="SceneGraph\lightNode.h" />
     <ClInclude Include="SceneGraph\oceanNode.h" />
     <ClInclude Include="SceneGraph\pointLightNode.h" />
     <ClInclude Include="SceneGraph\sceneparser.h" />
-    <ClInclude Include="SceneGraph\tinyxml2.h" />
+    <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Engine\materials.h" />
     <ClInclude Include="Math\math3d.h" />
@@ -458,7 +387,7 @@
     <ClInclude Include="SceneGraph\modelNode.h" />
     <ClInclude Include="SceneGraph\node.h" />
     <ClInclude Include="SceneGraph\objTransform.h" />
-    <ClInclude Include="Effect\renderPacket.h" />
+    <ClInclude Include="ShaderFu\renderPacket.h" />
     <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sync.h" />
@@ -472,8 +401,6 @@
   <ItemGroup>
     <Media Include="AF.mp3" />
     <Media Include="bf.mp3">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -483,10 +410,12 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
+    <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
+    <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
+    <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
     <None Include="bf.ogg" />
     <None Include="Mesh\38p.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -495,8 +424,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\38ps.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -505,8 +432,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\bench.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -515,8 +440,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\corridor.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -525,8 +448,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\corridor_Scene.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -535,8 +456,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\corridor_Scene_Scene.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -545,8 +464,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\cube_texture.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -555,8 +472,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\cube_texture2.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -565,8 +480,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\hex.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -578,8 +491,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\p38.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -588,8 +499,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="Mesh\p38.obj.bac">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -597,30 +506,19 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </None>
-    <None Include="Mesh\PentagonArm.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Mesh\PentagonBase.mtl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
     <None Include="Mesh\teapot.FBX" />
+    <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Scene.rocket" />
     <None Include="Shaders\ao_Pass_Frag.glsl" />
     <None Include="Shaders\geometry_grid_pass.fs" />
-    <None Include="Shaders\geometry_grid_pass.gs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="Shaders\geometry_grid_pass.vs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
+    <None Include="Shaders\geometry_grid_pass.gs" />
+    <None Include="Shaders\geometry_grid_pass.vs" />
     <None Include="Shaders\IdentityPacket.vert" />
     <None Include="Shaders\RayMarcher_Frag.glsl" />
     <None Include="Shaders\RayMarcher_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Mesh\38p.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -630,8 +528,6 @@
       <FileType>Document</FileType>
     </Object>
     <Object Include="Mesh\38ps.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -640,8 +536,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\bench.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -650,8 +544,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cor.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -660,8 +552,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cornomtl.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -670,8 +560,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cornor.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -680,8 +568,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\corridor.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -690,8 +576,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\corridor_Scene.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -700,8 +584,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\corridor_Scene_Scene.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -710,8 +592,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cube.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -720,8 +600,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cube_texture.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -730,8 +608,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\cube_texture2.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -740,8 +616,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\hex.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -750,8 +624,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\hexagon.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -760,8 +632,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\humanoid_tri.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -774,11 +644,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Media>
     <Object Include="Mesh\p38.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -786,25 +653,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
-    <Object Include="Mesh\PentagonArm.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
-    </Object>
-    <Resource Include="Mesh\PentagonBase.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</DeploymentContent>
+    <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</DeploymentContent>
-    </Resource>
+      <FileType>Document</FileType>
+    </None>
     <Object Include="Mesh\pyramid.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -813,8 +666,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\sd.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -823,8 +674,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\tea.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -833,8 +682,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\tea2.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -843,8 +690,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="Mesh\teapot.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -855,8 +700,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\p38.obj.bac.txt">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
@@ -871,10 +714,22 @@
   <ItemGroup>
     <Image Include="Mesh\texture.bmp" />
     <Image Include="Mesh\texture2.bmp" />
+    <Image Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\cave2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Asset\EffectRepo\Deferred_Geometry_Pass.xml" />
-    <Xml Include="Asset\EffectRepo\Deferred_Raymarching_Geometry_Pass.xml" />
+    <Xml Include="Assets\GlobalMaterialVault\Stone\Deferred.xml" />
+    <Xml Include="Assets\GlobalMaterialVault\Stone\Seamless.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_Blur_AOPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_AOBUFFER_SSAO_AOPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Point_LightPass.xml" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Raymarching_GeometryPass.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

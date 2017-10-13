@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pass name="Gbuffer_RayMarch" packet="RayMarcher" packetInstance="Geometry_RayMarch_Default" PassValue="200" Buffer="GBuffer" BufferLocalPass="1">
+
+
+  <Base_Shaders vertex="1" geometry="0" fragment="1">
+    <Base_Vert Path="Geometry_Raymarcher_Pass_Vert.glsl"
+           Target=".\Shader\Geometry_Raymarcher_Pass_Vert.glsl">
+
+    </Base_Vert>
+    <Base_Frag Path="Geometry_Raymarcher_Pass_Frag.glsl"
+               Target=".\Shader\Geometry_Raymarcher_Pass_Frag.glsl">
+      <Include_Component Name="SDF_Bounds" Path="hg_sdf.glsl" Marker="#include hg_sdf.glsl"/>
+    </Base_Frag>
+  </Base_Shaders>
+
+</pass>
