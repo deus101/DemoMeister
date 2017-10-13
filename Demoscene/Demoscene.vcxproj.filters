@@ -136,7 +136,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Productions\WCD_1_HackSpace\WCD_1.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

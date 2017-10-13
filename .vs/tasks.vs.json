@@ -10,6 +10,11 @@
       "taskName": "task-Demoscene",
       "appliesTo": "Demoscene/Demoscene.rc",
       "type": "launch"
+    },
+    {
+      "taskName": "task-Productions",
+      "appliesTo": "Demoscene/Productions/",
+      "type": "launch"
     }
   ]
 }
