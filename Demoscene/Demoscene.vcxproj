@@ -30,7 +30,7 @@
     <ProjectGuid>{B4F2D6D2-EC74-4589-8699-11E54DBB4207}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Demoscene</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

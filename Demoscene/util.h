@@ -10,15 +10,6 @@
 //#include <GLFW/glfw3.h>
 
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <sys/time.h>
-#endif
-
-#ifndef _WIN32
-#include <unistd.h>
-#endif
 
 
 #include <stdlib.h>
