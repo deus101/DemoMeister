@@ -16,6 +16,7 @@
 [Rr]elease/
 DeployDebug/
 DeployRelease/
+Win32/
 x64/
 build/
 bld/
