@@ -20,8 +20,12 @@
 #include "SceneGraph\pointLightNode.h"
 #include "SceneGraph\targetNode.h"
 
-
+#include <boost/algorithm/string.hpp>
+#include <boost/regex.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/make_shared.hpp>
+
+
 PassItemnator::PassItemnator() {
 
 
@@ -289,9 +293,74 @@ void DemoMeister::AddNode()
 }
 
 
-void DemoMeister::AddTexture(boost::filesystem::path argPath, GLint & SamplerId, GLint & MapId, NS_ENG::TextureDesc)
+//UGH! This is going to shit. I'll just prototype it and find a better solution later.
+void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_ENG::TextureDesc *Initial)
 {
+	
 
+	NS_ENG::ArrayTextureDesc *BindTo;
+	//first component in a filename
+	std::string DomainTag;
+	//Should be in the middle
+	std::string TextureName;
+	//Last Component is about the dimensions and depth 1024x24 f.eks.
+	int dimension;
+	int depth;
+
+
+	boost::filesystem::path fileName = argPath.filename();
+	boost::filesystem::path Folder = argPath.parent_path();
+	boost::filesystem::path fileNameNoSuffix = fileName.replace_extension();
+
+	std::vector<std::string> tokens;
+
+	boost::split(tokens, fileName.string(), boost::is_any_of("_"));
+	
+
+	int Nr_Attributes = tokens.size();
+
+
+	//naturally its meant to be more rigid then this...ah fuck it...why not just make do with the filename format.
+	bool AddToArray = false;
+	if (Nr_Attributes == 3)
+	{
+
+
+		boost::regex expr("(\\d{1,4})(?:[x])(\\d{1,2})");
+		boost::smatch match;
+
+		std::string SearchString = tokens.back();
+
+
+		if (boost::regex_search(SearchString, match, expr)) {
+			dimension = boost::lexical_cast<int>(match[1]);
+			depth = boost::lexical_cast<int>(match[2]);
+			DomainTag = tokens.front();
+			TextureName = tokens.at(1);
+			
+
+
+
+
+
+			BindTo = new NS_ENG::ArrayTextureDesc();
+			AddToArray = true;
+
+			//ArrayTextureDesc
+
+
+
+		}
+		
+
+
+
+	}
+
+	if(AddToArray == true)
+		MapId = NS_ENG::MapAsset::LoadMaps(Initial, BindTo);
+	else
+		MapId = NS_ENG::MapAsset::LoadMaps(Initial, NULL);
 
 
 

@@ -7,15 +7,11 @@
 
 #include "map.h"
 #include "FileTexture.h"
-
+#include "ArrayMap.h"
+#include <boost/make_shared.hpp>
 using namespace std;
 
 using namespace NS_ENG;
-
-//std::list <map> 
-//map::classMapList = std::list <map>();
-
-//enum type
 
 
 
@@ -29,20 +25,39 @@ MapAsset::MapAsset() : asset()
 	//Mats.Clear();
 	//FileTextureDesc test;
 	//test.
-
-}
-
-void MapAsset::Draw()
-{
-
-
-
+	this->textura = NULL;
 }
 
 
-
-GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
+GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, ArrayTextureDesc *ToBind = NULL)
 {
+
+
+	if (ToBind != NULL)
+	{
+		for (auto MapIter : NS_ENG::MapAsset::classMapList)
+		{
+			if (ToBind->Name.compare(MapIter->Base_Data.Name) == 0)
+			{
+				cout << " The Texture: " << ToCreate->Name << " From " << ToCreate->Origin << " Have Allready been Declared by:  "
+
+					<< MapIter->Map_MapID << endl;
+
+				//_MapId = MapIter->Map_MapID;
+				//duplicate = true;
+				break;
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
 
 	//FileTextureDesc Meta();
 	bool duplicate = false;
@@ -71,24 +86,69 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 		return R_MapId;
 
 
-	//MapAsset *tmp_Map;
-	//FileTexturePtr tmp_TexMap;
 
 
-	//switch (ToCreate->MapCategory)
-	//{
 
-	//case  MAP_TYPE::FILE_TEXTURE : {
 
-		//tmp_Map = 
-		//tmp_TexMap = reinterpret_cast<FileTexture&>(tmp_Map);
-		//tmp_TexMap =   FileTexturePtr();
-		//tmp_TexMap->Init(reinterpret_cast<FileTextureDescPtr&>(ToCreate));
-		//tmp_Map->
-		//(FileTexture)tmp_Map->
-		//MapAsset* MapAsset::RetriveMap(GLint idx)
-	classMapList.push_back(boost::shared_ptr < MapAsset >(new FileTexture));
+
+	switch (ToCreate->MapCategory)
+	{
+
+	case  NS_ENG::MAP_ASSEMBLY_TYPE::FILE_TEXTURE:{
+
+
+		FileTextureDesc *TmpFileTextureDesc = dynamic_cast<FileTextureDesc*>(ToCreate);
 	
+		classMapList.push_back(boost::make_shared<NS_ENG::FileTexture>() );
+
+
+		((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpFileTextureDesc);
+		//classMapList.back()->Load(TmpFileTextureDesc);
+
+		
+	}
+/*
+	case  NS_ENG::MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE: {
+
+
+		ArrayTextureDesc *TmpArrayTextureDesc = dynamic_cast<ArrayTextureDesc*>(ToCreate);
+
+		classMapList.push_back(boost::make_shared<NS_ENG::ArrayMap>() );
+
+
+		((ArrayMap*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpArrayTextureDesc);
+		//classMapList.back()->Load(TmpFileTextureDesc);
+
+
+	}
+
+	
+	case  NS_ENG::MAP_ASSEMBLY_TYPE::SUB_ARRAY_TEXTURE:{
+
+
+		SubArrayTextureDesc *TmpSubArrayTextureDesc = dynamic_cast<SubArrayTextureDesc*>(ToCreate);
+
+
+
+		if (TmpSubArrayTextureDesc->LoadedAs == NS_ENG::MAP_ASSEMBLY_TYPE::FILE_TEXTURE)
+		{
+
+
+
+		}
+
+
+
+		classMapList.push_back(boost::make_shared<NS_ENG::SubArrayMap>());
+
+		//((ArrayTextureDesc*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpSubArrayTextureDesc);
+		//classMapList.back()->Load(TmpFileTextureDesc);
+
+
+	}
+	*/
+
+	}
 	//NS_ENG::MapAsset::classMapList.back()->Base_Data = FileTextureDesc(*ToCreate);
 	//FileTexture *test = static_pointer_cast<FileTexture&>( NS_ENG::MapAsset::classMapList.back()).get();
 		//reinterpret_cast<FileTexture&> (NS_ENG::MapAsset::classMapList.back()).Init(reinterpret_cast<FileTextureDesc>(NS_ENG::MapAsset::classMapList.back()->Base_Data));
@@ -96,12 +156,12 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 
 
 
-	FileTextureDesc *test  = dynamic_cast<FileTextureDesc*>(ToCreate);
+	
 
 
 
 	//((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Init(reinterpret_cast<FileTextureDesc&>(ToCreate));
-	((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Init(test);
+	//((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Init(test);
 	
 
 
@@ -119,20 +179,18 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 	//NS_ENG::map::MapIter = NS_ENG::map::classMapList.begin();
 	//classMapList
 	//return NS_ENG::MapAsset::classMapList.back()->Map_MapID;
+
+
 	return NS_ENG::MapAsset::classMapList.back()->Map_MapID;
-
-
-
-
-
-
 
 
 
 }
 
 
-MapAsset* MapAsset::RetriveMap(GLint idx)
+//MapAsset* MapAsset::RetriveMap(GLint idx)
+
+t_SharedMapPtr MapAsset::RetriveMap(GLint idx)
 {
 
 	
@@ -149,11 +207,23 @@ MapAsset* MapAsset::RetriveMap(GLint idx)
 			//MG.
 			//duplicate = true;
 			//break;
-			return MapIter.get();
+			//return MapIter.get();
+			return MapIter;
 		}
 	}
 	
 	return NULL;
+
+
+}
+
+void  MapAsset::InitAll()
+{
+	for (auto MapIter : NS_ENG::MapAsset::classMapList)
+	{
+		MapIter->Init();
+	
+	}
 
 
 }

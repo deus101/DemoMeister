@@ -16,8 +16,17 @@ public:
 	FileTexture();
 
 	//int Init(FileTextureDesc *BaseMapMeta);
-	int Init(FileTextureDesc* FileTexMeta);
-	void Draw();
+	//void Load();
+	
+	int Load(FileTextureDesc* FileTexMeta);
+
+
+	void Init();
+
+
+	void Draw() {  };
+
+
 	~FileTexture() {};
 
 	std::string Map_Path;

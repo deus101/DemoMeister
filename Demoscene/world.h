@@ -216,13 +216,14 @@ public:
 
 	void AddMaterial();
 
-	void AddTexture(boost::filesystem::path argPath, GLint &SamplerId, GLint &MapId, NS_ENG::TextureDesc);
+
+	//void AddTexture(boost::filesystem::path argPath, GLint &SamplerId, GLint &MapId, NS_ENG::TextureDesc);
+	void AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_ENG::TextureDesc *Initial);
 
 
 
 
-
-
+	
 
 
 

@@ -144,6 +144,11 @@ namespace NS_ENG{
 		
 		*/
 
+		void Init() {};
+		int Init(int t) { return t; };
+		void Load();
+		void Load(std::string obj, std::string mtl, bool UV, bool Tangent);
+
 		void Draw();
 		void Draw(int instances);
 	public:

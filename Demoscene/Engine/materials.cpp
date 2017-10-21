@@ -139,10 +139,6 @@ void Material::LoadMats( const char *param)
 			//boost::filesystem::path tmp_Path = boost::filesystem::path(path);
 			
 			boost::filesystem::path tmp_Path = boost::filesystem::path(Squiddy.FindAndRegister(path));
-
-			
-			
-			
 			boost::filesystem::path fileName = tmp_Path.filename();
 			boost::filesystem::path Folder = tmp_Path.parent_path();
 
@@ -171,36 +167,33 @@ void Material::LoadMats( const char *param)
 
 
 
-			FileTextureDesc NewDiffTex;
+			FileTextureDesc *NewDiffTex = new FileTextureDesc();
 			//NewDiffTex.Name = string("DiffuseTex:") + boost::filesystem::path(path).filename().string();
-			NewDiffTex.Name = string("DiffuseTex: ") + tmp_Path.filename().string();
+			NewDiffTex->Name = string("DiffuseTex:") + tmp_Path.filename().string();
 
 			
-			NewDiffTex.Origin = "LoadMats: " + CurrentMaterial + " From:" + string(param);
-			NewDiffTex.Description = "Use in the Geometry pass Set TextureUnit at Enum DiffuseMap_UNIT ";
+			NewDiffTex->Origin = "LoadMats: " + CurrentMaterial + " From:" + string(param);
+			NewDiffTex->Description = "Use in the Geometry pass Set TextureUnit at Enum DiffuseMap_UNIT ";
 
-			NewDiffTex.Target = GL_TEXTURE_2D;
-			NewDiffTex.Map_Path = tmp_Path.string();
-			NewDiffTex.internalFormat = GL_RGBA;
-			NewDiffTex.format = GL_RGBA;
-			NewDiffTex.type = GL_UNSIGNED_BYTE;
-			NewDiffTex.filter = GL_NEAREST;
+			NewDiffTex->Target = GL_TEXTURE_2D;
+			NewDiffTex->Map_Path = tmp_Path.string();
+			NewDiffTex->internalFormat = GL_RGBA;
+			NewDiffTex->format = GL_RGBA;
+			NewDiffTex->type = GL_UNSIGNED_BYTE;
+			NewDiffTex->filter = GL_NEAREST;
 
 
 			//NS_ENG::Material::classMaterialList.back().enum_Map_Category
-			//TheDisc->AddTexture(NS_ENG::Material::classMaterialList.back().)
+			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back().id_Map, NewDiffTex);
+
 
 			//Map_Categories
 			//0 Diffuse Forward_Diffuse
 			//1 Bump
-			NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
+			
 			//NS_ENG::Material::classMaterialList.back().id_SamplerType = MapAsset::LoadMaps(&NewDiffTex);
-
-			//The forward diffuse texture is 0, forward bump is 1
-			//No wait, since we must confeer with the shaders and Renderpacksts about the UniformID for the sampler
-			//What we need is to use the currentStage values.
-			//It was a goal to start initializing those values...time for some enum abortion
-
+			//NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
+			
 
 
 
@@ -312,7 +305,7 @@ std::string Material::Shaderfy() {
 GLuint Material::GenerateMaterialMap() {
 
 
-
+	
 	int nr_mats = NS_ENG::Material::classMaterialList.size();
 
 
@@ -321,6 +314,7 @@ GLuint Material::GenerateMaterialMap() {
 		return Material::MaterialMapTextureUnit;
 	//Vec4 diffuse, vec4 specular is 2 collumns
 
+	NS_ENG::MapAsset::InitAll();
 	std::vector<NS_VEC::VEC3> rowMaterial;
 
 	for (auto MatIter : NS_ENG::Material::classMaterialList)

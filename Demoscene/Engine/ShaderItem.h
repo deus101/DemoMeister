@@ -66,6 +66,7 @@ namespace NS_ENG
 
 			void Load();
 			
+			void Init() {};
 			void Save();
 			void Deploy();
 

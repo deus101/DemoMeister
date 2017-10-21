@@ -28,11 +28,16 @@ model::model()
 
 
 //Anything with the static container should not have something todo in a constructor
-model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
+model::model(string obj, string mtl, bool UV, bool Tangent) : asset()
 {
+	this->Load(obj, mtl, UV, Tangent);
+}
 
-
-
+void model::Load()
+{
+}
+void model::Load(string obj, string mtl, bool UV, bool Tangent)
+{
 
 	//actually all this is just a test, I have really no reason to do this for this class, finding duplicates is something
 	//id rather do elsewhere....Again completely fucking pointless....well...or is it, if I wanted a function to set up nodes with assets
@@ -459,7 +464,8 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 			Object.MatId = MatIter.matID;
 			//MG.
 			//map
-			MapAsset *TmpMap = NULL;
+			t_SharedMapPtr TmpMap;
+			//MapAsset *TmpMap = NULL;
 			TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
 			//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
 			if (TmpMap != NULL)

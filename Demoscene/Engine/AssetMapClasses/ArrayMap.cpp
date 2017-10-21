@@ -20,15 +20,32 @@ void ArrayMap::Draw()
 }
 
 
+
+int ArrayMap::Load(ArrayTextureDesc* ArrayTexMeta)
+{
+	GLuint tmp_TName = 0;
+
+	glGenTextures(1, &tmp_TName);
+
+
+	//this->b
+
+
+
+
+
+
+	this->Map_TName = tmp_TName;
+
+	return tmp_TName;
+}
 void ArrayMap::Init()
 {
 
 
-	GLuint tmp_TName = 0;
 
-	glGenTextures(1, &tmp_TName);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, tmp_TName);
+	
+	glBindTexture(GL_TEXTURE_2D_ARRAY, this->Map_TName);
 
 	glTexStorage3D(GL_TEXTURE_2D_ARRAY,
 		5,                    //5 mipmaps
