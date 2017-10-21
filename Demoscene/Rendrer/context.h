@@ -1,8 +1,9 @@
-#pragma once
 
+#ifndef CONTEXT_HPP
+#define	CONTEXT_HPP
 
 /* <windef.h> and <gl.h>*/
-
+#include <Windows.h>
 
 #include <GL/glew.h>
 
@@ -11,9 +12,9 @@
 
 //#include <GL\wglew.h>
 
-#include "../util.h"
+//#include "../util.h"
 
-//#include "../math/math3d.h"
+#include "../math/math3d.h"
 
 //#include "../Engine/asset.h"
 
@@ -24,8 +25,8 @@
 #include "gbuffer.h"
 #include "callbacks.h"
 
-#include "../FreeImage.h"
-
+//#include "../FreeImage.h"
+class DemoMeister;
 
 		extern unsigned int pHeight;
 		extern unsigned int pWidth;
@@ -52,7 +53,7 @@
 
 
 		//static GBuffer* mgBuffer;
-		extern DemoMeister * TheDisc;
+		//extern DemoMeister * TheDisc;
 
 
 
@@ -97,8 +98,5 @@
 
 	//static GBuffer * mGBuffer;
 
-
-
-	
-
 //}
+#endif

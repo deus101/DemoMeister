@@ -279,8 +279,9 @@ model::model(string obj, string mtl, bool UV , bool Tangent ) : asset()
 
 				boost::split_regex(SecondTokens, ModelGrpIt->data(), boost::regex("#MN#"));
 
-
-				if (SecondTokens.size() == 2)
+				//if (std::equal(SecondTokens.begin(), SecondTokens.end(), (size_t)2));
+				//if ((SecondTokens.size() == (size_t)2) && std::equal(SecondTokens.begin(), SecondTokens.end(), (size_t)2));
+				if (SecondTokens.size() == (size_t)2);
 				{
 
 					SetMaterial(MG, SecondTokens.front(), SecondTokens.back());

@@ -3,10 +3,10 @@
 
 #include <iostream>
 //#include <list>
-#include "../Math/vec.h"
+//#include "../Math/vec.h"
 
 #include "../Engine/asset.h"
-#include "../Math/math3d.h"
+//#include "../Math/math3d.h"
 //#include "../Rendrer/context.h"
 
 

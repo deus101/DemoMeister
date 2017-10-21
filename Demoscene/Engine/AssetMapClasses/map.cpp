@@ -108,7 +108,7 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate)
 	
 	//I sorely need a more durable and conscice ID, what more it should store a direct access index.
     //http://en.cppreference.com/w/cpp/types/ptrdiff_t
-	NS_ENG::MapAsset::classMapList.back()->Map_MapID = NS_ENG::MapAsset::classMapList.size();
+	NS_ENG::MapAsset::classMapList.back()->Map_MapID = (GLint)NS_ENG::MapAsset::classMapList.size();
 	//NS_ENG::MapAsset::classMapList.push_back(tmp_TexMap);
 	//NS_ENG::MapAsset::classMapList.back().Map_MapID = NS_ENG::MapAsset::classMapList.size();
 	//NS_ENG::MapAsset::classMapList.back()->MapIter = NS_ENG::MapAsset::classMapList.size();

@@ -5,12 +5,12 @@
 
 //#include "asset.h"
 #include "../asset.h"
-
+//#include "../../util.h"
 //#include "../ShaderFu/GeomPacket.h"
 //
 //#include "../Libs/FreeImage.h"
 #include "../../FreeImage.h"
-#include "../../util.h"
+
 
 
 
@@ -18,26 +18,50 @@
 
 namespace NS_ENG
 {
-	typedef enum MAP_TYPE {
+	typedef enum class MAP_ASSEMBLY_TYPE {
 		UNDEFINED,
 		FILE_TEXTURE,
 		FBO_TEXTURE,
 		DATA_TEXTURE,
-		ARRAY_TEXTURE
-	} e_CategoryType;
+		ARRAY_TEXTURE,
+		SUB_ARRAY_TEXTURE
+	} e_AssemblyType;
 
+	typedef enum class MAP_CONTENT_TYPE {
+		UNDEFINED,
+		DIFFUSE,
+		BUMP,
+		HEIGHT,
+		PERLIN,
+		VORONOI
+	} e_DataType;
+
+	typedef enum class MAP_CLIENT_TYPE {
+		UNDEFINED,
+		PACKET,
+		MANUAL,
+		MATERIAL,
+		BUFFER,
+		PASS
+	} e_ClientType;
 
 
 	struct TextureDesc
 	{
-		e_CategoryType MapCategory;
+		e_AssemblyType MapCategory;
+		e_DataType MapContent;
+		e_ClientType MapUser;
 		GLenum Target;
 		std::string Name;
 		std::string Origin;
+		std::string OriginNames;
 		std::string Description;
-		GLenum format;
-		GLenum type;
-		GLint internalFormat;
+					//v  v  These two must be in the deferred material Map, Need to offset it to 1 so zero means naught;	
+		GLint SamplerID;	//As the Material is fetched in the shader and you get 1 it will mean Diffuse sampler, As with 2, of course then the
+		GLint TextureLayer; //Texture id does not matter, the sampler has allready been loaed with a texture for the deferred rendering.
+		GLenum format;		//but...if TextureLayer is not 0 then we move on to the shadercode that uses the ArrayMap.
+		GLenum type;		//The MaterialMap is cheap to make, though the code in GLSL will be not, Lets stick with diffuse and bump/normal
+		GLint internalFormat;//The TextureName will reside elsewhere, this is just a descriptor
 		GLint  wrap;
 		GLint  filter;
 		unsigned int w;
@@ -45,11 +69,16 @@ namespace NS_ENG
 
 	public:
 		TextureDesc()
-			:MapCategory(MAP_TYPE::UNDEFINED)
+			:MapCategory(MAP_ASSEMBLY_TYPE::UNDEFINED)
+			, MapContent(MAP_CONTENT_TYPE::UNDEFINED)
+			, MapUser(MAP_CLIENT_TYPE::UNDEFINED)
 			, Target(GL_TEXTURE_2D)
 			, Name("")
 			, Origin("")
+			, OriginNames("")
 			, Description("")
+			, SamplerID(0)  //these can actually just be an index for the Passes own Sampler list
+			, TextureLayer(0) //Before the data is loaded the ArrayTexture can assaign the layer
 			, format(0)
 			, type(0)
 			, internalFormat(0)
@@ -74,13 +103,13 @@ namespace NS_ENG
 		FileTextureDesc() : TextureDesc()
 			, Map_Path("")
 		{
-			MapCategory = MAP_TYPE::FILE_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::FILE_TEXTURE;
 		}
 
 		FileTextureDesc(const TextureDesc & B)
 			: TextureDesc(B)
 		{
-			MapCategory = MAP_TYPE::FILE_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::FILE_TEXTURE;
 		}
 		
 
@@ -131,6 +160,26 @@ namespace NS_ENG
 
 	};
 
+	struct SubArrayTextureDesc : public FileTextureDesc
+	{
+	public:
+		SubArrayTextureDesc()
+			: FileTextureDesc()
+		{
+			MapCategory = MAP_ASSEMBLY_TYPE::SUB_ARRAY_TEXTURE;
+		}
+
+		SubArrayTextureDesc(const TextureDesc & B)
+			: FileTextureDesc(B)
+		{
+			MapCategory = MAP_ASSEMBLY_TYPE::SUB_ARRAY_TEXTURE;
+		}
+
+		//GLint  wrap;
+		//GLint  filter;
+		//string Map_Path;
+
+	};
 
 	struct ArrayTextureDesc : public TextureDesc
 	{
@@ -138,13 +187,13 @@ namespace NS_ENG
 		ArrayTextureDesc()
 			: TextureDesc()
 		{
-			MapCategory = MAP_TYPE::ARRAY_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
 		}
 
 		ArrayTextureDesc(const TextureDesc & B)
 			: TextureDesc(B)
 		{
-			MapCategory = MAP_TYPE::ARRAY_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
 		}
 
 		//GLint  wrap;

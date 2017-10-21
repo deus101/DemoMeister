@@ -289,6 +289,16 @@ void DemoMeister::AddNode()
 }
 
 
+void DemoMeister::AddTexture(boost::filesystem::path argPath, GLint & SamplerId, GLint & MapId, NS_ENG::TextureDesc)
+{
+
+
+
+
+
+
+}
+
 
 size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Name)
 {

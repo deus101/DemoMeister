@@ -2,7 +2,7 @@
 //#include "map.h"
 #include "AssetMapClasses\map.h"
 
-
+#include "../world.h"
 //#include "../Libs/FreeImage.h"
 
 
@@ -26,7 +26,7 @@ std::list <s_mat> Material::classMaterialList = std::list <s_mat>();
 GLuint Material::MaterialMapTextureUnit = 0;
 
 
-Material::Material() : asset()
+Material::Material() : asset::asset()
 {
 	//Mats.Clear();
 
@@ -131,7 +131,7 @@ void Material::LoadMats( const char *param)
 
 
 
-
+			
 
 			
 			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
@@ -141,17 +141,17 @@ void Material::LoadMats( const char *param)
 			boost::filesystem::path tmp_Path = boost::filesystem::path(Squiddy.FindAndRegister(path));
 
 			
-
+			
 			
 			boost::filesystem::path fileName = tmp_Path.filename();
 			boost::filesystem::path Folder = tmp_Path.parent_path();
 
-
+			/*
 			vector<string> tokens;
 
 			boost::split(tokens, fileName.string(), boost::is_any_of("_"));
 			
-			/*
+			
 			boost::char_separator<char> sep("_");
 
 			boost::tokenizer< boost::char_separator<char> > tokens(fileName.string(), sep);
@@ -188,11 +188,22 @@ void Material::LoadMats( const char *param)
 
 
 			//NS_ENG::Material::classMaterialList.back().enum_Map_Category
+			//TheDisc->AddTexture(NS_ENG::Material::classMaterialList.back().)
 
 			//Map_Categories
 			//0 Diffuse Forward_Diffuse
 			//1 Bump
 			NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
+			//NS_ENG::Material::classMaterialList.back().id_SamplerType = MapAsset::LoadMaps(&NewDiffTex);
+
+			//The forward diffuse texture is 0, forward bump is 1
+			//No wait, since we must confeer with the shaders and Renderpacksts about the UniformID for the sampler
+			//What we need is to use the currentStage values.
+			//It was a goal to start initializing those values...time for some enum abortion
+
+
+
+
 			//What I would do in the future, is to enact a Rule through a static functions and the LoadMaps or any other Static Asset Loader
 			//would be instructed for that call to create the right Asset and set the right properties.
 			//this would work well when I want to prepare a model but with different materials at its objects, those could be set with a string or with xml

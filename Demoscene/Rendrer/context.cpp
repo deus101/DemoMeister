@@ -6,6 +6,7 @@
 //#include <GL\wglew.h>
 //#include <GL\glew.h>
 //#include <GL\wglew.h>
+//#include "../world.h"
 
 //using namespace NS_REND;
 

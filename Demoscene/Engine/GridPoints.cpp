@@ -118,7 +118,7 @@ void GridPoints::Draw()
 
 	//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
 
-	glDrawArrays(GL_POINTS, 0, CellPos.size() );
+	glDrawArrays(GL_POINTS, 0, (GLsizei)CellPos.size() );
 
 	error = glGetError();
 
@@ -139,7 +139,7 @@ void GridPoints::Draw()
 }
 void GridPoints::CreateGridActor(NS_VEC::VEC2 _pos, NS_VEC::VEC3 col, float high)
 {
-	GridEffects.push_back( AbstractModifier(this->UniformCellSize, this->UniformCellSize, _pos, high, col, 0.5, 0.1));
+	GridEffects.push_back( AbstractModifier(this->UniformCellSize, this->UniformCellSize, _pos, high, col, 0.5f, 0.1f));
 
 
 
@@ -214,7 +214,7 @@ void GridPoints::UpdateLists()
 				else
 				{
 			if (CellAttrib[i].cellHeight > CellAttrib[i].defaultHeight)
-				CellAttrib[i].cellHeight = CellAttrib[i].cellHeight - 0.1;
+				CellAttrib[i].cellHeight = CellAttrib[i].cellHeight - 0.1f;
 			else if (CellAttrib[i].cellHeight < CellAttrib[i].defaultHeight)
 				CellAttrib[i].cellHeight = CellAttrib[i].defaultHeight;
 
@@ -225,24 +225,24 @@ void GridPoints::UpdateLists()
 
 			//Color
 			if (CellAttrib[i].cellCol.X > CellAttrib[i].defaultCol.X)
-				CellAttrib[i].cellCol.X = CellAttrib[i].cellCol.X - 0.01;
+				CellAttrib[i].cellCol.X = CellAttrib[i].cellCol.X - 0.01f;
 			else if (CellAttrib[i].cellCol.X < CellAttrib[i].defaultCol.X)
-				CellAttrib[i].cellCol.X = CellAttrib[i].cellCol.X + 0.01;
+				CellAttrib[i].cellCol.X = CellAttrib[i].cellCol.X + 0.01f;
 			*ColPtr = CellAttrib[i].cellCol.X;
 			ColPtr++;
 
 			if (CellAttrib[i].cellCol.Y > CellAttrib[i].defaultCol.Y)
-				CellAttrib[i].cellCol.Y = CellAttrib[i].cellCol.Y - 0.01;
+				CellAttrib[i].cellCol.Y = CellAttrib[i].cellCol.Y - 0.01f;
 			else if (CellAttrib[i].cellCol.Y < CellAttrib[i].defaultCol.Y)
-				CellAttrib[i].cellCol.Y = CellAttrib[i].cellCol.Y + 0.01;
+				CellAttrib[i].cellCol.Y = CellAttrib[i].cellCol.Y + 0.01f;
 			*ColPtr = CellAttrib[i].cellCol.Y;
 			ColPtr++;
 
 
 			if (CellAttrib[i].cellCol.Z > CellAttrib[i].defaultCol.Z)
-				CellAttrib[i].cellCol.Z = CellAttrib[i].cellCol.Z - 0.01;
+				CellAttrib[i].cellCol.Z = CellAttrib[i].cellCol.Z - 0.01f;
 			else if (CellAttrib[i].cellCol.Z < CellAttrib[i].defaultCol.Z)
-				CellAttrib[i].cellCol.Z = CellAttrib[i].cellCol.Z + 0.01;
+				CellAttrib[i].cellCol.Z = CellAttrib[i].cellCol.Z + 0.01f;
 			*ColPtr = CellAttrib[i].cellCol.Z;
 			ColPtr++;
 

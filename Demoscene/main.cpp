@@ -9,12 +9,12 @@
 //DemoMeister as a scene object and going through a sceneloader?
 
 #include "util.h"
-//#include "Rendrer\context.h"
+#include "Rendrer\context.h"
 
 
 #include "Engine\rendrer.h"
-#include "Engine\GridPoints.h"
-#include "SceneGraph\gridNode.h"
+//#include "Engine\GridPoints.h"
+//#include "SceneGraph\gridNode.h"
 
 
 /*SG*/
@@ -855,7 +855,7 @@ int main(int argc, char** argv)
 
 
 	//Dir Light
-	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.8, 0.8, 0.9), 0.3f, 0.2f, e_dir));
+	boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(0.8f, 0.8f, 0.9f), 0.3f, 0.2f, e_dir));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Dir(new NS_SG::objTransform("tran_DirLys"));
 

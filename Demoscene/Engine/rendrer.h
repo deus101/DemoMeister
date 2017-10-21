@@ -15,7 +15,7 @@
 #include "../bass.h"
 #include "../Timer.h"
 
-
+#include "../util.h"
 //yes I know I need a proper system for passes. 
 #include "../ShaderFu/DeferredPackets/aoPacket.h"
 #include "../ShaderFu/DeferredPackets/RayMarcher.h"

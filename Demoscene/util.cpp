@@ -1,38 +1,15 @@
 #include "util.h"
-#include <iostream>
-#include <fstream>
+//#include <iostream>
+//#include <fstream>
 
+#include "world.h"
+//#include "Rendrer\context.h"
 
-#include "Rendrer\context.h"
-
-/*
-//Its not being used
-void EngError(const char* pFileName, unsigned int line, const char* pError)
-{
-#ifdef WIN32
-	char msg[1000];
-	_snprintf_s(msg, sizeof(msg), "%s:%d: %s", pFileName, line, pError);
-	MessageBoxA(NULL, msg, NULL, 0);
-#else
-	fprintf(stderr, "%s:%d: %s\n", pFileName, line, pError);
-#endif    
-}
-
-
-void EngFileError(const char* pFileName, unsigned int line, const char* pFileError)
-{
-#ifdef WIN32
-	char msg[1000];
-	_snprintf_s(msg, sizeof(msg), "%s:%d: unable to open file `%s`", pFileName, line, pFileError);
-	MessageBoxA(NULL, msg, NULL, 0);
-#else
-	fprintf(stderr, "%s:%d: unable to open file `%s`\n", pFileName, line, pFileError);
-#endif    
-}
-*/
 
 void DeploymentOrganizer::load(const std::string &filename)
 {
+	
+
 	
 	HumbleIni = boost::filesystem::path(filename.c_str());
 	HumbleIni.remove_leaf();

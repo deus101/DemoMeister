@@ -1,20 +1,11 @@
-
 #ifndef UTIL_HPP
 #define	UTIL_HPP
 
-//#include "Rendrer\context.h"
 
-//#include "world.h"
-#include "math/math3d.h"
-//#include "math/vec.h"
-//#include <GLFW/glfw3.h>
-
-
-
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <cstdlib>
+//#include "Engine\asset.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+//#include <cstdlib>
 #include <typeinfo>
 #include <set>
 #include <map>
@@ -30,65 +21,23 @@
 #include <boost/foreach.hpp>
 
 #include <vector>
-//extern DemoMeister * TheDisc;
-
-/*
-//not being used
-void EngError(const char* fn, unsigned int ln, const char* msg);
-void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
 
 
-#define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
-#define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
+#include "math/math3d.h"
+//#include "Rendrer/context.h"
 
+//#include "world.h"
+//
+//#include "math/vec.h"
+//#include <GLFW/glfw3.h>
 
-
-*/
-
-/*
-
-template<typename T>
-class X
-{
-    public:
-        T const& operator[](std::size_t index) const    {return const_cast<X&>(*this)[index];}
-        T&       operator[](std::size_t index)          {return data[index];}
-        void        remove(std::size_t index)           {unused.push_back(index);}
-
-        
-		std::size_t insert(T  value);
-    private:
-        std::vector<T>                  data;
-        std::vector<std::size_t>        unused;
-};
-
-template<typename T>
-std::size_t X<T>::insert(T  value)
-{
-    if (unused.empty())
-    {
-        data.push_back(value);
-        return data.size() - 1;
-    }
-    std::size_t result  = unused.back();
-    unused.pop_back();
-    data[result]    = value;
-    return result;
-}
-
-*/
-
-
-
+class DemoMeister;
+extern DemoMeister * TheDisc;
 
 //used as a singleton on Extern Squiddy
 struct DeploymentOrganizer
 {
 	
-
-
-
-
 	std::string ProjectFolder;              
 	std::string ProductionName;
 	std::string ProductioFolder;
@@ -96,7 +45,6 @@ struct DeploymentOrganizer
 	std::set<std::string> Resource_Paths;
 
 
-	
 	//std::set<boost::filesystem::path> Resource_Paths;
 	void load(const std::string &filename);
 	void save();
@@ -144,9 +92,6 @@ enum TypeOfTexture
 /*
 char* AssetCategoryPath[3][3]{ {"Materials", "Models","Shaders",
 
-
-
-	
 	}
 }
 
@@ -239,6 +184,8 @@ struct SpotLight : public PointLight
 		Cutoff = 0.0f;
 	}
 };
+
+
 //float fmax(float a, float b);
 #define COLOR_WHITE Vector3f(1.0f, 1.0f, 1.0f)
 #define COLOR_RED Vector3f(1.0f, 0.0f, 0.0f)
