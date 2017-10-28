@@ -13,6 +13,8 @@
 //#include <Shlwapi.h>
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
+
+
 using namespace NS_ENG;
 using namespace std;
 
@@ -20,8 +22,8 @@ using namespace std;
 //namespace NS_MAT
 //namespace NS_ENG
 //{
-std::list <s_mat> Material::classMaterialList = std::list <s_mat>();
-//std::list <Material*> Material::classModelList = std::list <Material*>();
+//std::list <s_mat> Material::classMaterialList = std::list <s_mat>();
+std::list <Material*> Material::classMaterialList = std::list <Material*>();
 
 GLuint Material::MaterialMapTextureUnit = 0;
 
@@ -32,6 +34,10 @@ Material::Material() : asset::asset()
 
 }
 
+int NS_ENG::Material::Load(const char * param)
+{
+	return 0;
+}
 
 //this should be a static method, and eaach materials object should be stored in the static container as one materials
 //hmm but what about shader jutsu?
@@ -44,7 +50,7 @@ void Material::LoadMats( const char *param)
 	//Squiddy.
 
 
-
+	Material* mtl = new Material();
 
 	FILE * mtlFile;
 	fopen_s(&mtlFile, param , "rb");
@@ -62,25 +68,26 @@ void Material::LoadMats( const char *param)
 		if(strcmp (id, "newmtl") == 0)
 		{
 			NrMatFile++;
-			s_mat mtl;
+			//s_mat mtl;
 			char nam[80] ="";
 			fscanf_s(mtlFile, "%79s", nam ,sizeof(nam));
-			mtl.name = nam;
+			
+			//name = nam;
 			CurrentMaterial = nam;
-			std::cout << "-material name: " << mtl.name << endl;
+			std::cout << "-material name: " << mtl->Mat_Name << endl;
 			//Mats.m_Materials.push_back( mtl );
 			NS_ENG::Material::classMaterialList.push_back(mtl);
 
-			NS_ENG::Material::classMaterialList.back().matID =  NS_ENG::Material::classMaterialList.size();
+			NS_ENG::Material::classMaterialList.back()->Mat_MatID =  NS_ENG::Material::classMaterialList.size();
 		}
 		if(strcmp (id, "Kd") == 0)
 		{
 			//diffuse reflectivity  RGB
 
 
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().diff[0], &NS_ENG::Material::classMaterialList.back().diff[1], &NS_ENG::Material::classMaterialList.back().diff[2]);
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Diff[0], &NS_ENG::Material::classMaterialList.back()->Mat_Diff[1], &NS_ENG::Material::classMaterialList.back()->Mat_Diff[2]);
 
-			NS_ENG::Material::classMaterialList.back().diff[3] = 1.0;
+			NS_ENG::Material::classMaterialList.back()->Mat_Diff[3] = 1.0;
 
 		}
 		if(strcmp (id, "Ka") == 0)
@@ -89,22 +96,22 @@ void Material::LoadMats( const char *param)
 
 
 		
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().amb[0], &NS_ENG::Material::classMaterialList.back().amb[1], &NS_ENG::Material::classMaterialList.back().amb[2]);
-			NS_ENG::Material::classMaterialList.back().amb[3] = 1.0;
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Amb[0], &NS_ENG::Material::classMaterialList.back()->Mat_Amb[1], &NS_ENG::Material::classMaterialList.back()->Mat_Amb[2]);
+			NS_ENG::Material::classMaterialList.back()->Mat_Amb[3] = 1.0;
 		}
 		if(strcmp (id, "Ks") == 0)
 		{
 			//specular reflectivity RGB
 		
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().spec[0], &NS_ENG::Material::classMaterialList.back().spec[1], &NS_ENG::Material::classMaterialList.back().spec[2]);
-			NS_ENG::Material::classMaterialList.back().spec[3] = 1.0;
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Spec[0], &NS_ENG::Material::classMaterialList.back()->Mat_Spec[1], &NS_ENG::Material::classMaterialList.back()->Mat_Spec[2]);
+			NS_ENG::Material::classMaterialList.back()->Mat_Spec[3] = 1.0;
 		}
 		if(strcmp (id, "Ke") == 0)
 		{	//emmisive in rgb or should it just be a float
 			NS_VEC::VEC3 c;
 			
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back().emmi[0], &NS_ENG::Material::classMaterialList.back().emmi[1], &NS_ENG::Material::classMaterialList.back().emmi[2]);
-			NS_ENG::Material::classMaterialList.back().emmi[3] = 1.0;
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Emmi[0], &NS_ENG::Material::classMaterialList.back()->Mat_Emmi[1], &NS_ENG::Material::classMaterialList.back()->Mat_Emmi[2]);
+			NS_ENG::Material::classMaterialList.back()->Mat_Emmi[3] = 1.0;
 
 		}
 		if(strcmp (id, "Ns") == 0)
@@ -114,7 +121,7 @@ void Material::LoadMats( const char *param)
 			GLfloat shin = 0.0f;
 			fscanf_s(mtlFile, "%f", &shin);
 			
-			NS_ENG::Material::classMaterialList.back().shiny = shin;
+			NS_ENG::Material::classMaterialList.back()->Mat_Shiny = shin;
 		}
 		else if (strcmp(id, "map_Kd") == 0)
 		{
@@ -184,7 +191,8 @@ void Material::LoadMats( const char *param)
 			NewDiffTex->MapContent = NS_ENG::MAP_CONTENT_TYPE::DIFFUSE;
 
 			//NS_ENG::Material::classMaterialList.back().enum_Map_Category
-			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back().id_Map, NewDiffTex);
+			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back()->Mat_MatID, NewDiffTex);
+
 
 
 			//Map_Categories
@@ -254,32 +262,32 @@ std::string Material::Shaderfy() {
 		string Current;
 		if(first == true)
 		{
-			Current =  string(" if(ID=") + std::to_string((int)MatIter.matID) + string("){\n ");
+			Current =  string(" if(ID=") + std::to_string((int)MatIter->Mat_MatID) + string("){\n ");
 			first = false;
 		}
 		else
 		{
 		
-			Current = string(" else-if(ID=") + std::to_string((int)MatIter.matID) + string("){\n ");
+			Current = string(" else-if(ID=") + std::to_string((int)MatIter->Mat_MatID) + string("){\n ");
 		}
 
 		string Diffuse = string(" MatDiffuse =  vec4(") 
-			+ std::to_string((float)MatIter.diff[0])
+			+ std::to_string((float)MatIter->Mat_Diff[0])
 			+ string(",")
-			+ std::to_string((float)MatIter.diff[1])
+			+ std::to_string((float)MatIter->Mat_Diff[1])
 			+ string(",")
-			+ std::to_string((float)MatIter.diff[2])
+			+ std::to_string((float)MatIter->Mat_Diff[2])
 			+ string(",")
-			+ std::to_string((float)MatIter.diff[3])
+			+ std::to_string((float)MatIter->Mat_Diff[3])
 			+ string(");\n ");
 		string Specular = string(" MatSpecular =  vec4(")
-			+ std::to_string((float)MatIter.spec[0])
+			+ std::to_string((float)MatIter->Mat_Diff[0])
 			+ string(",")
-			+ std::to_string((float)MatIter.spec[1])
+			+ std::to_string((float)MatIter->Mat_Diff[1])
 			+ string(",")
-			+ std::to_string((float)MatIter.spec[2])
+			+ std::to_string((float)MatIter->Mat_Diff[2])
 			+ string(",")
-			+ std::to_string((float)MatIter.spec[3])
+			+ std::to_string((float)MatIter->Mat_Diff[3])
 			+ string(");\n ") + string(" }");
 		
 			//cout << " The material: " << MatIter.matID << ":" << MatIter.name << " have allready loaded the texture " << MatIter.tPath << endl;
@@ -321,19 +329,19 @@ GLuint Material::GenerateMaterialMap() {
 	{
 		//default bool
 
-
+		//The material map needs it layout logged.
 
 		//MatIter.diff[0]
-		NS_VEC::VEC3 col1Diff(MatIter.diff[0], MatIter.diff[1], MatIter.diff[2]); 
+		NS_VEC::VEC3 col1Diff(MatIter->Mat_Diff[0], MatIter->Mat_Diff[1], MatIter->Mat_Diff[2]);
 		rowMaterial.push_back(col1Diff);
 
-		NS_VEC::VEC3 col1Spec(MatIter.spec[0], MatIter.spec[1], MatIter.spec[2]); 
+		NS_VEC::VEC3 col1Spec(MatIter->Mat_Spec[0], MatIter->Mat_Spec[1], MatIter->Mat_Spec[2]);
 		rowMaterial.push_back(col1Spec);
 
-		//need SamplerId
-		NS_VEC::VEC3 MapLocMapIdEffectId(1, MatIter.id_Map, MatIter.shiny);
+		//need SamplerId                                                                             //this way we cans skip needless inquireries
+		NS_VEC::VEC3 MapLocMapIdEffectId(MatIter->Tex_Diffuse_SamplerID, MatIter->Tex_Diffuse_Layer, MatIter->Tex_Has_BumpTexture);
 		rowMaterial.push_back(MapLocMapIdEffectId);
-
+		
 
 		//first value confirming Diffuse texture is assigned to material, 0 is no 1 is simple direct Loaded Texture, 2 is ArrayTexture
 		//Second is a meta sampler ID, though each vec will deffine the type of texture, this will specify the sampler in question

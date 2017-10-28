@@ -457,24 +457,24 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 		
 
 			//meshy.m_Groups[u]
-		if (Distincion.compare(MatIter.name) == 0)
+		if (Distincion.compare(MatIter->Mat_Name) == 0)
 		{
 
-			cout << "MAT: " << MatIter.name << " : " << MatIter.matID << endl;
+			cout << "MAT: " << MatIter->Mat_Name << " : " << MatIter->Mat_MatID << endl;
 
 
 
 			//meshy.m_Groups[u].matid = j;
-			Object.MatId = MatIter.matID;
+			Object.MatId = MatIter->Mat_MatID;
 			//MG.
 			//map
 			t_SharedMapPtr TmpMap;
 			
-			TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+			TmpMap = MapAsset::RetriveMap(MatIter->Mat_MatID);
 
 			//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
 
-
+			
 
 			if (TmpMap != NULL)
 			{
@@ -485,7 +485,7 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 
 
 			//not as elegant as I thought.
-			meshy.m_Groups[Object.ObjectID].Child.MatObjChildTech[0] = MatIter.matID;
+			meshy.m_Groups[Object.ObjectID].Child.MatObjChildTech[0] = MatIter->Mat_MatID;
 			meshy.m_Groups[Object.ObjectID].Child.MatObjChildTech[2] = Object.ObjectID;
 			break;
 		}

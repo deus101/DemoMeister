@@ -74,6 +74,10 @@ namespace NS_ENG{
 
 		//Remove Tex
 		GLint tex;
+		GLint HasDiffuseSkin;
+		GLint HasNormalSkin;
+
+
 		GLint MatId;
 		GLint EffectID;
 		GLint ObjectID;
