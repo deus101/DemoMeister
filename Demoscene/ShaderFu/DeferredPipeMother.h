@@ -30,8 +30,15 @@ namespace NS_EFF {
 		void SetScreenSize(unsigned int Width, unsigned int Height);
 
 
+		void SetTasks();
+
 		//void SetDiffuseTextureUnit(unsigned int TextureUnit);
 		void SetDiffuseTextureUnit(GLenum TextureUnit);
+		void SetDeferreDiffuseTextureUnit(GLenum TextureUnit);
+		void SetDeferreBumpTextureUnit(GLenum TextureUnit);
+
+
+
 		//void SetDiffuseTextureUnit(GLint TextureUnit);
 		//void SetBumpTextureUnit(unsigned int TextureUnit);
 
@@ -54,6 +61,11 @@ namespace NS_EFF {
 		//Forward loaded textures
 		GLuint m_diffuseTextureUnitLocation;
 		GLuint m_bumpTextureUnitLocation;
+		//Should put these in a tupple 
+
+		//New Array textures
+		GLuint m_DeferredDiffuseTextureUnitLocation;
+		GLuint m_DeferredBumpTextureUnitLocation;
 
 
 		//Result from FBO
@@ -63,6 +75,9 @@ namespace NS_EFF {
 		GLuint m_UvTextureUnitLocation;
 		GLuint m_AoTextureUnitLocation;
 		//how about t for Target or RT
+
+
+
 
 
 		GLuint m_MaterialMapTextureUnitLocation;

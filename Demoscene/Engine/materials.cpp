@@ -181,7 +181,7 @@ void Material::LoadMats( const char *param)
 			NewDiffTex->format = GL_RGBA;
 			NewDiffTex->type = GL_UNSIGNED_BYTE;
 			NewDiffTex->filter = GL_NEAREST;
-
+			NewDiffTex->MapContent = NS_ENG::MAP_CONTENT_TYPE::DIFFUSE;
 
 			//NS_ENG::Material::classMaterialList.back().enum_Map_Category
 			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back().id_Map, NewDiffTex);
@@ -324,15 +324,16 @@ GLuint Material::GenerateMaterialMap() {
 
 
 		//MatIter.diff[0]
-		NS_VEC::VEC3 col1Diff(MatIter.diff[0], MatIter.diff[1], MatIter.diff[2]); // rotate around z-axis (in tangent space)
+		NS_VEC::VEC3 col1Diff(MatIter.diff[0], MatIter.diff[1], MatIter.diff[2]); 
 		rowMaterial.push_back(col1Diff);
 
-		NS_VEC::VEC3 col1Spec(MatIter.spec[0], MatIter.spec[1], MatIter.spec[2]); // rotate around z-axis (in tangent space)
+		NS_VEC::VEC3 col1Spec(MatIter.spec[0], MatIter.spec[1], MatIter.spec[2]); 
 		rowMaterial.push_back(col1Spec);
 
 		//need SamplerId
-		NS_VEC::VEC3 MapLocMapIdEffectId(1, MatIter.id_Map, MatIter.shiny); // rotate around z-axis (in tangent space)
+		NS_VEC::VEC3 MapLocMapIdEffectId(1, MatIter.id_Map, MatIter.shiny);
 		rowMaterial.push_back(MapLocMapIdEffectId);
+
 
 		//first value confirming Diffuse texture is assigned to material, 0 is no 1 is simple direct Loaded Texture, 2 is ArrayTexture
 		//Second is a meta sampler ID, though each vec will deffine the type of texture, this will specify the sampler in question

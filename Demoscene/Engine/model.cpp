@@ -459,15 +459,23 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 			//meshy.m_Groups[u]
 		if (Distincion.compare(MatIter.name) == 0)
 		{
+
 			cout << "MAT: " << MatIter.name << " : " << MatIter.matID << endl;
+
+
+
 			//meshy.m_Groups[u].matid = j;
 			Object.MatId = MatIter.matID;
 			//MG.
 			//map
 			t_SharedMapPtr TmpMap;
-			//MapAsset *TmpMap = NULL;
+			
 			TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+
 			//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+
+
+
 			if (TmpMap != NULL)
 			{
 				//Oh right...I did use that

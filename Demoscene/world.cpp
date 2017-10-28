@@ -297,8 +297,8 @@ void DemoMeister::AddNode()
 void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_ENG::TextureDesc *Initial)
 {
 	
-
-	NS_ENG::ArrayTextureDesc *BindTo;
+	//NS_ENG::ArrayTextureDesc *BindTo;
+	NS_ENG::TextureDesc *BindTo;
 	//first component in a filename
 	std::string DomainTag;
 	//Should be in the middle
@@ -306,6 +306,24 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 	//Last Component is about the dimensions and depth 1024x24 f.eks.
 	int dimension;
 	int depth;
+
+	std::string StrContent = "";
+
+	switch (Initial->MapContent)
+	{
+
+	case  NS_ENG::MAP_CONTENT_TYPE::DIFFUSE:
+	{
+		StrContent = "Diffuse";
+		break;
+	}
+	case  NS_ENG::MAP_CONTENT_TYPE::BUMP: 
+	{
+		StrContent = "Normal";
+		break;
+	}
+	}
+
 
 
 	boost::filesystem::path fileName = argPath.filename();
@@ -342,8 +360,17 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 
 
 
+			//BindTo = new NS_ENG::ArrayTextureDesc();
+			BindTo = new NS_ENG::TextureDesc();
+			BindTo->h = dimension;
+			BindTo->w = dimension;
+			BindTo->internalFormat;
+			BindTo->MapContent = Initial->MapContent;
+			BindTo->MapCategory = NS_ENG::MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
 
-			BindTo = new NS_ENG::ArrayTextureDesc();
+			//BindTo->Name = DomainTag + "_" + StrContent + "_"+ (char*)dimension;
+			BindTo->Name = DomainTag + "_" + StrContent + "_" + SearchString;
+
 			AddToArray = true;
 
 			//ArrayTextureDesc

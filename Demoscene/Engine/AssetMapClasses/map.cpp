@@ -29,31 +29,65 @@ MapAsset::MapAsset() : asset()
 }
 
 
-GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, ArrayTextureDesc *ToBind = NULL)
+GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, TextureDesc *ToBind = NULL) //ArrayTextureDesc *ToBind = NULL)
 {
+
+	const TextureDesc BaseTexDesc = TextureDesc(*ToBind);
+	ArrayTextureDesc ArrayTexDesc = ArrayTextureDesc(BaseTexDesc);
+
+	NS_ENG::ArrayMap *ToBindMap;
+	//t_SharedMapPtr ToBindMapShrdPtr;
+
+	//t_SharedArrayMapPtr ToBindMapArrayShrdPtr;
+	//t_WeakArrayMapPtr ToBindMapArrayWeakPtr;
+
+
+	GLint R_ArrayMapID = -1;
 
 
 	if (ToBind != NULL)
 	{
+
+		//BindTo->MapCategory = NS_ENG::MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
 		for (auto MapIter : NS_ENG::MapAsset::classMapList)
 		{
-			if (ToBind->Name.compare(MapIter->Base_Data.Name) == 0)
+			if (ToBind->MapCategory == NS_ENG::MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE && ToBind->Name.compare(MapIter->Base_Data.Name) == 0)
 			{
-				cout << " The Texture: " << ToCreate->Name << " From " << ToCreate->Origin << " Have Allready been Declared by:  "
+				cout << "Found Array Texture: " << ToBind->Name << MapIter->Map_MapID << endl;
 
-					<< MapIter->Map_MapID << endl;
+				R_ArrayMapID = MapIter->Map_MapID;
 
-				//_MapId = MapIter->Map_MapID;
-				//duplicate = true;
+				//ToBindMapShrdPtr = MapIter;
+				
+
+				ToBindMap = (ArrayMap*)MapIter.get();
+
+				ArrayTexDesc = ToBindMap->BaseArrayData;
+
 				break;
 			}
 		}
+
+		if (R_ArrayMapID == -1)
+		{
+			classMapList.push_back(boost::make_shared<NS_ENG::ArrayMap>());
+
+			((ArrayMap*)NS_ENG::MapAsset::classMapList.back().get())->Load( &ArrayTexDesc );
+
+			NS_ENG::MapAsset::classMapList.back()->Map_MapID = (GLint)NS_ENG::MapAsset::classMapList.size();
+			R_ArrayMapID = NS_ENG::MapAsset::classMapList.back()->Map_MapID;
+
+			//ToBindMapShrdPtr = NS_ENG::MapAsset::classMapList.back();
+			ToBindMap = (ArrayMap*)NS_ENG::MapAsset::classMapList.back().get();
+			ToBindMap->Base_Data =  *ToBind;
+		}
+		
+		//ToBindMap
+		//ToBindMapArrayShrdPtr =  t_SharedArrayMapPtr(ToBindMapShrdPtr.get());
+		//ToBindMapArrayShrdPtr = t_SharedArrayMapPtr(ToBindMap);
+
+		//dynamic_cast<NS_ENG::SubArrayTextureDesc*>
 	}
-
-
-
-
-
 
 
 
@@ -67,6 +101,7 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, ArrayTextureDesc *ToBind = NULL
 	//https://stackoverflow.com/questions/2236482/data-structure-that-maps-unique-id-to-an-object
 	for (auto MapIter : NS_ENG::MapAsset::classMapList)
 	{
+
 		if (ToCreate->Name.compare(MapIter->Base_Data.Name) == 0)
 		{
 			cout << " The Texture: " << ToCreate->Name << " From " << ToCreate->Origin << " Have Allready been Declared by:  " 
@@ -87,9 +122,15 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, ArrayTextureDesc *ToBind = NULL
 
 
 
+	NS_ENG::MapAsset *ToCreateMap;
+
+	t_SharedMapPtr ToCreateMap_sPtr;
+	//NS_ENG::MapAsset *ToCreateMapPtr;
 
 
-
+	NS_ENG::SubArrayMap *tmpSubMap;
+	//boost::shared_ptr<NS_ENG::SubArrayMap> tmpSubMap;
+	//t_SharedMapPtr tmpSubMap;
 
 	switch (ToCreate->MapCategory)
 	{
@@ -98,93 +139,52 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, ArrayTextureDesc *ToBind = NULL
 
 
 		FileTextureDesc *TmpFileTextureDesc = dynamic_cast<FileTextureDesc*>(ToCreate);
-	
-		classMapList.push_back(boost::make_shared<NS_ENG::FileTexture>() );
-
-
-		((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpFileTextureDesc);
-		//classMapList.back()->Load(TmpFileTextureDesc);
-
 		
-	}
-/*
-	case  NS_ENG::MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE: {
+		//ToCreateMap = dynamic_cast<NS_ENG::FileTexture*>(new  NS_ENG::FileTexture());
+		ToCreateMap = new NS_ENG::FileTexture();
 
-
-		ArrayTextureDesc *TmpArrayTextureDesc = dynamic_cast<ArrayTextureDesc*>(ToCreate);
-
-		classMapList.push_back(boost::make_shared<NS_ENG::ArrayMap>() );
-
-
-		((ArrayMap*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpArrayTextureDesc);
-		//classMapList.back()->Load(TmpFileTextureDesc);
-
-
-	}
-
-	
-	case  NS_ENG::MAP_ASSEMBLY_TYPE::SUB_ARRAY_TEXTURE:{
-
-
-		SubArrayTextureDesc *TmpSubArrayTextureDesc = dynamic_cast<SubArrayTextureDesc*>(ToCreate);
-
-
-
-		if (TmpSubArrayTextureDesc->LoadedAs == NS_ENG::MAP_ASSEMBLY_TYPE::FILE_TEXTURE)
+		((NS_ENG::FileTexture*)ToCreateMap)->Load(TmpFileTextureDesc);
+		//ToCreateMap = (ToCreateMapPtr);
+		//ToCreateMap_sPtr
+		if (ToBind == NULL)
 		{
 
+			//classMapList.push_back(boost::make_shared<NS_ENG::FileTexture>(ToCreateMap) );
+			classMapList.push_back(t_SharedMapPtr(ToCreateMap));
 
-
+			NS_ENG::MapAsset::classMapList.back()->Map_MapID = (GLint)NS_ENG::MapAsset::classMapList.size();
 		}
-
-
-
-		classMapList.push_back(boost::make_shared<NS_ENG::SubArrayMap>());
-
-		//((ArrayTextureDesc*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpSubArrayTextureDesc);
+		//((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Load(TmpFileTextureDesc);
+		
 		//classMapList.back()->Load(TmpFileTextureDesc);
 
+	}
+
+	if (ToBind != NULL) {
+
+		NS_ENG::SubArrayTextureDesc *tmpSubArrayTextureDesc = new NS_ENG::SubArrayTextureDesc(ToCreateMap->Base_Data);
+
+		tmpSubArrayTextureDesc->ParentArrayID = ToBindMap->Map_MapID;
+
+
+		classMapList.push_back((t_SharedMapPtr)ToCreateMap);
+		
+
+		NS_ENG::MapAsset::classMapList.back()->Map_MapID = (GLint)NS_ENG::MapAsset::classMapList.size();
+
+		NS_ENG::SubArrayMap* FUAAE;
+		FUAAE = (NS_ENG::SubArrayMap*)NS_ENG::MapAsset::classMapList.back().get();
+
+		FUAAE->Load(tmpSubArrayTextureDesc);
 
 	}
-	*/
-
-	}
-	//NS_ENG::MapAsset::classMapList.back()->Base_Data = FileTextureDesc(*ToCreate);
-	//FileTexture *test = static_pointer_cast<FileTexture&>( NS_ENG::MapAsset::classMapList.back()).get();
-		//reinterpret_cast<FileTexture&> (NS_ENG::MapAsset::classMapList.back()).Init(reinterpret_cast<FileTextureDesc>(NS_ENG::MapAsset::classMapList.back()->Base_Data));
-	//}
-
-
 
 	
-
-
-
-	//((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Init(reinterpret_cast<FileTextureDesc&>(ToCreate));
-	//((FileTexture*)NS_ENG::MapAsset::classMapList.back().get())->Init(test);
-	
-
-
-	
-	//I sorely need a more durable and conscice ID, what more it should store a direct access index.
-    //http://en.cppreference.com/w/cpp/types/ptrdiff_t
-	NS_ENG::MapAsset::classMapList.back()->Map_MapID = (GLint)NS_ENG::MapAsset::classMapList.size();
-	//NS_ENG::MapAsset::classMapList.push_back(tmp_TexMap);
-	//NS_ENG::MapAsset::classMapList.back().Map_MapID = NS_ENG::MapAsset::classMapList.size();
-	//NS_ENG::MapAsset::classMapList.back()->MapIter = NS_ENG::MapAsset::classMapList.size();
-	//NS_ENG::MapAsset::classMapList.back()->Map_TUnit = tmp_TName;
-	//NS_ENG::MapAsset::classMapList.back()->Map_Path = tmp_Path;
-	//NS_ENG::map::MapIter();
-	//MapIter
-	//NS_ENG::map::MapIter = NS_ENG::map::classMapList.begin();
-	//classMapList
-	//return NS_ENG::MapAsset::classMapList.back()->Map_MapID;
-
 
 	return NS_ENG::MapAsset::classMapList.back()->Map_MapID;
 
 
-
+	}
 }
 
 

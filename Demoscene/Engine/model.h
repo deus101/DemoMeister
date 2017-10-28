@@ -71,6 +71,7 @@ namespace NS_ENG{
 		std::string Effect;
 
 
+
 		//Remove Tex
 		GLint tex;
 		GLint MatId;

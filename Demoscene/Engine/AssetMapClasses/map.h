@@ -22,6 +22,8 @@ namespace NS_ENG
 
 	typedef boost::weak_ptr< class MapAsset > t_WeakMapPtr;
 
+	typedef boost::shared_ptr< class ArrayMap  > t_SharedArrayMapPtr;
+
 	typedef boost::weak_ptr< class ArrayMap > t_WeakArrayMapPtr;
 
 	typedef enum class MAP_ASSEMBLY_TYPE {
@@ -190,7 +192,8 @@ namespace NS_ENG
 	struct SubArrayTextureDesc : public TextureDesc
 	{
 		e_AssemblyType LoadedAs;
-		t_WeakArrayMapPtr ParentArray;
+		//t_WeakArrayMapPtr ParentArray;
+		GLint ParentArrayID;
 		
 	public:
 		SubArrayTextureDesc()
@@ -235,9 +238,9 @@ namespace NS_ENG
 		void Init() {} ;
 		void Draw() {};
 		void Load() {};
-		int Load(FileTextureDesc* FileTexMeta) {};
+		int Load(FileTextureDesc* FileTexMeta) { return 0; };
 
-		static GLint LoadMaps( TextureDesc *ToCreate, ArrayTextureDesc *ToBind );
+		static GLint LoadMaps( TextureDesc *ToCreate, TextureDesc *ToBind); //ArrayTextureDesc *ToBind );
 
 		static t_SharedMapPtr RetriveMap(GLint MapID);
 		

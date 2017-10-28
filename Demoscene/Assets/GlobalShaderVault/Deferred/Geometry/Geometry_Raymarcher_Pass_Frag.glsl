@@ -10,6 +10,11 @@ layout(location = 1) out vec3 DiffuseOut;
 layout(location = 2) out vec3 NormalOut;
 layout(location = 3) out vec3 UvOut;
 
+uniform sampler2DArray DiffuseMaps;
+
+
+
+
 uniform sampler2D MaterialMap;
 
 uniform mat4 gWVP;
@@ -67,23 +72,38 @@ float sdBox(vec3 p, vec3 size)
 }
 
 
+float archModel(inout vec3 p)
+{ 
+	//vec2 translate = vec2(5.0f, 2.0f);
+
+	float s_sphere = sdSphere(p - vec3(0.0f, 2.2f, 0.0f), 3.0f);
+	float s_box = sdBox(p - vec3(0.0f, 2.2f, 0.0f), vec3(2.25f));
+	return max(-s_sphere, s_box);
+}
+
+
 float distScene(vec3 p)
 {
-	p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
-	//p.xz = pModGrid2(p.xz, vec2(8.0)) - vec2(4.0f);
-	//p.xz = pModMirror2(p.xz, vec2(8.0)) - vec2(4.0f);
-	//p.xz = mod(p.xz, 2.0f) - vec2(1.0f);
-	//return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.01f));
-	//float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
-	//float s_box = sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
-	 return fHexagonCircumcircle(p - vec3(0.0f, -0.5f, 0.0f), vec2(3.5f, 0.5f));
-	//return max(s_box, s_sphere);
-	//return max(-s_sphere, s_box);
+
+
+
+	float distArch = archModel(p);
+
+    //pMod2(p.xz, vec2(2.0f,1.5f));
+	//p.x *= 1.1547f;
+	p.z += mod(floor(p.x), 2.)*0.5;
+	p.xz = abs((mod(p, 1.0) - 0.5)).xz;
+	//pMod2(p.zx, vec2(10.0f,10.f));
+	float Hexagons = fHexagonCircumcircle(p - vec3(0.0f, -0.5f, 0.0f), vec2(0.45f, 0.5f));
+	
+	return min(distArch, Hexagons);
+
 }
 
 
 void pewpew(vec3 orig, vec3 dir, out int i, out float t)
 {
+
 	t = 0.0;
 	i = 0;
 	for (i = 0; i < raySteps; i++)
@@ -258,6 +278,7 @@ void main()
 
 	int i;
 
+	int matID = 0;
 
 	pewpew(ro, rd, i, t0);
 	vec3 floorNormal = vec3(0, 1, 0);
@@ -282,7 +303,7 @@ void main()
 	float z = 0;
 
 
-	int matID = 0;
+	
 
 
 	if (t1 < t0 && t1 >= NEAR && t1 <= FAR)
@@ -297,7 +318,8 @@ void main()
 		normal = floorNormal;
 		color = chessBoard(p);
 		matID = 6;
-		//color = vec4(3 / 255);
+		
+
 		puv = CalcUV(p, normal, 32.0).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 
@@ -321,6 +343,8 @@ void main()
 
 		gl_FragDepth = dep;
 		dep = LinearDepth(dep);
+
+
 	}
 	else
 	{
@@ -343,24 +367,9 @@ void main()
 		matID = 5;
 		normal = getNormal(p);
 		puv = CalcUV(p, normal, 32.0).xy;
-		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
-		//p = vec3(FAR,FAR,eyeHitZ);
-		//p = (gProjection * vec4(p,1)).xyz;
-		//z = mapTo(t, NEAR, FAR, 1, 0);
-		//normal = vec3(0,-1,0);
-		//normal = -getNormal(p);
-		//normal = -rd;
-		//dep = distance(ro, p) * 20000;
-		//gl_FragDepth = ndcDepth;
-		//gl_FragDepth = dep;
-		//dep = LinearDepth(dep);
-		//gl_FragDepth = dep;
-		//dep = distance(ro, p);
-		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 
-		//dep = FAR;
-		//gl_FragDepth = dep;
-		gl_FragDepth = FAR;
+
+		//gl_FragDepth = 1.0f;
 		//ndcDepth = FAR;
 	}
 

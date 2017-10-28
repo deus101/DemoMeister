@@ -40,6 +40,11 @@ bool RayMarcher::Init()
 	m_ProjectionLocation = GetUniformLocation("gProjection");
 	m_screenSizeLocation = GetUniformLocation("gScreenSize");
 	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
+
+
+
+
+
 	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
 
 	//m_diffuseTextureUnitLocation

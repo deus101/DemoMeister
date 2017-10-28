@@ -73,6 +73,10 @@ enum TypeOfTexture
 	ActiveTexture,
 	DiffuseMap_UNIT,
 	BumpMap_UNIT,
+
+	DiffuseArrayMap_UNIT,
+	BumpArrayMap_UNIT,
+
 	MaterialMap_UNIT,
 
 	GBuffer_WorldPos_UNIT,
