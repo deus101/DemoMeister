@@ -42,7 +42,7 @@ namespace NS_ENG
 		{ 
 			GLuint ToDelete = (GLuint)this->Map_TName;
 
-			glDeleteTextures(1, &ToDelete);
+			//glDeleteTextures(1, &ToDelete);
 			
 			NS_ENG::ArrayMap* tmpMapArrayPtr;
 			tmpMapArrayPtr = dynamic_cast<NS_ENG::ArrayMap*>(MapAsset::RetriveMap(SubArrayTexMeta->ParentArrayID).get());

@@ -539,7 +539,7 @@ int main(int argc, char** argv)
 
 	//NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
 
-	NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
+	//NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
 
 
 	//NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
@@ -575,19 +575,19 @@ int main(int argc, char** argv)
 	
 
 	//NS_ENG::Material::LoadMats(Squiddy.FindAndRegister("GlobalMaterialVault/Brick/Brick.mtl").c_str());
-	NS_ENG::Material::LoadMats(Squiddy.FindAndRegister("Brick.mtl").c_str());
+	//NS_ENG::Material::LoadMats(Squiddy.FindAndRegister("Brick.mtl").c_str());
 
 
 
-	NS_ENG::model m_fly(Squiddy.FindAndRegister("mitsuba-sphere.obj"), "#G#inside#MN#Deferred_Stone#G#case#MN#Deferred_Brick");
+	//NS_ENG::model m_fly(Squiddy.FindAndRegister("mitsuba-sphere.obj"), "#G#inside#MN#Deferred_Stone#G#case#MN#Deferred_Brick");
 
-	//NS_ENG::model m_fly(Squiddy.FindAndRegister("mitsuba-sphere.obj"), Squiddy.FindAndRegister("mitsuba.mtl"));
-
+	//NS_ENG::model m_fly(Squiddy.FindAndRegister("mitsuba-sphere.obj"), Squiddy.FindAndRegister("Deferred_Stone.mtl"));
+	boost::shared_ptr<NS_ENG::model> m_fly(new NS_ENG::model( Squiddy.FindAndRegister("mitsuba-sphere.obj").c_str(),  "mitsuba-mtl"));
 	//NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
 	//NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
 
 
-
+	NS_ENG::MapAsset::InitAll();
 	//should this be placed in the DemoMeister class?...nah if it works as intended this should get the
 	// DemoMeister singelton and the assets and effects effortlessly
 	//NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(),  &Pass_GBuffer, &e_rm_Pack, &e_ao_Pass);
@@ -641,7 +641,7 @@ int main(int argc, char** argv)
 
 
 
-
+	std::cout << "GeomPacketEnable!==================!" << std::endl;
 	test1->Enable();
 	test1->SetDiffuseTextureUnit(GL_TEXTURE1);
 
@@ -665,6 +665,8 @@ int main(int argc, char** argv)
 	//std::cout << "Status of grid geometry effect is: " << e_hmap.Init() << std::endl;
 	//e_rm_Pack.Enable();
 
+
+	std::cout << "RayMarcherEnable!==================!" << std::endl;
 	//Enable();
 	test->Enable();
 	test->SetScreenSize(Xres, Yres);
@@ -673,7 +675,7 @@ int main(int argc, char** argv)
 	//std::cout << "Status of point light effect is: " << e_point->Init() << std::endl << std::endl << std::endl;
 
 
-
+	std::cout << "PouintLight!==================!" << std::endl;
 	e_point->Enable();
 
 
@@ -694,7 +696,7 @@ int main(int argc, char** argv)
 	//e_point.SetScreenSize(1600, 900);
 
 
-
+	std::cout << "DirShit!==================!" << std::endl;
 	e_dir->Enable();
 
 	e_dir->SetPositionTextureUnit(GL_TEXTURE1);
@@ -711,7 +713,7 @@ int main(int argc, char** argv)
 
 
 
-
+	std::cout << "AO PASS SHIT!==================!" << std::endl;
 	e_ao_Pass->Enable();
 	//e_ao_Pass->SetPositionTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
 	//e_ao_Pass->SetNormalTextureUnit(GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
@@ -757,7 +759,7 @@ int main(int argc, char** argv)
 
 
 	//NS_ENG::model::
-	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", &m_fly, test1));
+	boost::shared_ptr<NS_SG::modelNode> mn_ShowPiece(new NS_SG::modelNode("ShowPiece", m_fly.get(), test1));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_ShowPiece(new NS_SG::objTransform("tran_ShowPiece"));
 
@@ -972,7 +974,7 @@ int main(int argc, char** argv)
 
 //	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), &e_ao_Pass);
 
-
+	std::cout << "RUN!==================!" << std::endl;
 
 	mRender->Run();
 

@@ -1,4 +1,4 @@
-﻿# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 05.12.2012 22:27:27
 
 newmtl inside
@@ -12,9 +12,7 @@ newmtl inside
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Kd Seamless_StoneRed_1024x24.png
-	
-	
+
 newmtl case
 	Ns 32.0000
 	Ni 1.5000
@@ -26,5 +24,3 @@ newmtl case
 	Kd 0.4860 0.6310 0.6630
 	Ks 0.7000 0.7000 0.7000
 	Ke 0.0000 0.0000 0.0000
-	map_Kd Seamless_StoneBlue_1024x24.png
-	

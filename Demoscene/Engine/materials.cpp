@@ -78,6 +78,9 @@ void Material::LoadMats( const char *param)
 			//Mats.m_Materials.push_back( mtl );
 			NS_ENG::Material::classMaterialList.push_back(mtl);
 
+			NS_ENG::Material::classMaterialList.back()->Mat_Name = CurrentMaterial;
+			NS_ENG::Material::classMaterialList.back()->Tex_Has_BumpTexture = FALSE;
+			NS_ENG::Material::classMaterialList.back()->Tex_Has_DiffuseTexture = FALSE;
 			NS_ENG::Material::classMaterialList.back()->Mat_MatID =  NS_ENG::Material::classMaterialList.size();
 		}
 		if(strcmp (id, "Kd") == 0)
@@ -138,7 +141,7 @@ void Material::LoadMats( const char *param)
 
 
 
-			
+			NS_ENG::Material::classMaterialList.back()->Tex_Has_DiffuseTexture = TRUE;
 
 			
 			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
@@ -178,8 +181,8 @@ void Material::LoadMats( const char *param)
 			//NewDiffTex.Name = string("DiffuseTex:") + boost::filesystem::path(path).filename().string();
 			NewDiffTex->Name = string("DiffuseTex:") + tmp_Path.filename().string();
 
-			
-			NewDiffTex->Origin = "LoadMats: " + CurrentMaterial + " From:" + string(param);
+			//std::string Test(__FUNCTION__);
+			NewDiffTex->Origin = string(__FUNCTION__) + "(" + std::string(param) +  ") " + " Material: " + string(CurrentMaterial) + "\n";
 			NewDiffTex->Description = "Use in the Geometry pass Set TextureUnit at Enum DiffuseMap_UNIT ";
 
 			NewDiffTex->Target = GL_TEXTURE_2D;
@@ -191,7 +194,9 @@ void Material::LoadMats( const char *param)
 			NewDiffTex->MapContent = NS_ENG::MAP_CONTENT_TYPE::DIFFUSE;
 
 			//NS_ENG::Material::classMaterialList.back().enum_Map_Category
-			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back()->Mat_MatID, NewDiffTex);
+
+
+			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back()->Tex_Diffuse_SamplerID, NewDiffTex);
 
 
 
@@ -322,7 +327,7 @@ GLuint Material::GenerateMaterialMap() {
 		return Material::MaterialMapTextureUnit;
 	//Vec4 diffuse, vec4 specular is 2 collumns
 
-	NS_ENG::MapAsset::InitAll();
+	//NS_ENG::MapAsset::InitAll();
 	std::vector<NS_VEC::VEC3> rowMaterial;
 
 	for (auto MatIter : NS_ENG::Material::classMaterialList)

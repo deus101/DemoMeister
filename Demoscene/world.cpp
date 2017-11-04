@@ -364,9 +364,23 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 			BindTo = new NS_ENG::TextureDesc();
 			BindTo->h = dimension;
 			BindTo->w = dimension;
-			BindTo->internalFormat;
+			BindTo->internalFormat = Initial->internalFormat;
+			BindTo->format = Initial->format;
+			BindTo->type = Initial->type;
+			BindTo->filter = Initial->filter;
 			BindTo->MapContent = Initial->MapContent;
+
+			//argPath.lexically_relative(boost::filesystem::path(Squiddy.ProjectFolder)).string()
+
+			BindTo->Origin = std::string(__FUNCTION__) + 
+				"Initialized by filename attributes: DomainTag: Seamless == " + DomainTag +
+				"\n_NAME_: * == " +  StrContent + "\n" +
+				"_SizeXDepth: 1024x24 == " + SearchString;
+
+
 			BindTo->MapCategory = NS_ENG::MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
+
+
 
 			//BindTo->Name = DomainTag + "_" + StrContent + "_"+ (char*)dimension;
 			BindTo->Name = DomainTag + "_" + StrContent + "_" + SearchString;

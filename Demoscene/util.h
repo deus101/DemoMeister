@@ -12,7 +12,7 @@
 //#include <Windows.h>
 //#include <Shlwapi.h>
 
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 //#include <boost/make_shared.hpp>
 
 #include <boost/filesystem.hpp>
@@ -73,24 +73,17 @@ enum TypeOfTexture
 	ActiveTexture,
 	DiffuseMap_UNIT,
 	BumpMap_UNIT,
-
 	DiffuseArrayMap_UNIT,
 	BumpArrayMap_UNIT,
-
 	MaterialMap_UNIT,
-
 	GBuffer_WorldPos_UNIT,
 	GBuffer_Albedo_UNIT,
 	GBuffer_Normal_UNIT,
 	GBuffer_UV_UNIT,
-
 	AOBuffer_NOISE,
 	AOBuffer_AO_UNIT,
 	AOBuffer_Blur_UNIT,     
-   
 	Size 
-
-
 };
 
 /*

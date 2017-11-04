@@ -35,7 +35,10 @@ model::model(string obj, string mtl, bool UV, bool Tangent) : asset()
 
 void model::Load()
 {
+
 }
+
+
 void model::Load(string obj, string mtl, bool UV, bool Tangent)
 {
 
@@ -303,7 +306,7 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 		}
 		else
 		{ 
-		SetMaterial(MG, "", "");
+		SetMaterial(MG, MG.ObjName, "");
 		}
 		MG.ModelAidChild = meshy.m_Groups[u].Child;
 
@@ -468,21 +471,41 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 			Object.MatId = MatIter->Mat_MatID;
 			//MG.
 			//map
-			t_SharedMapPtr TmpMap;
-			
-			TmpMap = MapAsset::RetriveMap(MatIter->Mat_MatID);
-
-			//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
-
-			
-
-			if (TmpMap != NULL)
+			if (MatIter->Tex_Has_DiffuseTexture != NULL)
 			{
-				//Oh right...I did use that
-				Object.tex = TmpMap->Map_TName;
+				t_SharedMapPtr TmpMap;
+				TmpMap = MapAsset::RetriveMap(MatIter->Tex_Diffuse_SamplerID);
+
+
+
+				//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+
+				if (TmpMap != NULL)
+				{
+					//Oh right...I did use that
+					Object.DiffuseTexture = TmpMap->Map_TName;
+					//Object.Dif
+				}
+
 			}
 
+			if (MatIter->Tex_Has_BumpTexture != NULL)
+			{
+				t_SharedMapPtr TmpMap;
+				TmpMap = MapAsset::RetriveMap(MatIter->Tex_Bump_SamplerID);
 
+
+
+				//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+
+				if (TmpMap != NULL)
+				{
+					//Oh right...I did use that
+					Object.BumpTexture = TmpMap->Map_TName;
+					//Object.Dif
+				}
+
+			}
 
 			//not as elegant as I thought.
 			meshy.m_Groups[Object.ObjectID].Child.MatObjChildTech[0] = MatIter->Mat_MatID;
@@ -542,14 +565,14 @@ void model::Draw()
 
 
 		//13.07  is allways null
-		if (Sort_Groups[i].tex != NULL)
+		if (Sort_Groups[i].DiffuseTexture != NULL)
 		{
 			//if ActivateAlbedoSampler
 			glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::DiffuseMap_UNIT]);
 			//glActiveTexture(TypeOfTexture::DiffuseMap_UNIT);
 
 			//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
-			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
+			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].DiffuseTexture);
 		}
 
 		//Sort_Groups[i].

@@ -165,7 +165,7 @@ GLint MapAsset::LoadMaps(TextureDesc  *ToCreate, TextureDesc *ToBind = NULL) //A
 		NS_ENG::SubArrayTextureDesc *tmpSubArrayTextureDesc = new NS_ENG::SubArrayTextureDesc(ToCreateMap->Base_Data);
 
 		tmpSubArrayTextureDesc->ParentArrayID = ToBindMap->Map_MapID;
-
+		//tmpSubArrayTextureDesc->
 
 		classMapList.push_back((t_SharedMapPtr)ToCreateMap);
 		

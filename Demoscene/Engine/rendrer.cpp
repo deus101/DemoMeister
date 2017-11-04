@@ -190,7 +190,7 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 
 void rendrer::Run()
 {
-	
+	std::cout << "Started!==================!" << std::endl;
 	BASS_Start();
 	BASS_ChannelPlay(stream, false);
 

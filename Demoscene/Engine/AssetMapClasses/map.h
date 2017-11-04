@@ -69,7 +69,7 @@ namespace NS_ENG
 		GLint TextureLayer; //Texture id does not matter, the sampler has allready been loaed with a texture for the deferred rendering.
 		GLenum format;		//but...if TextureLayer is not 0 then we move on to the shadercode that uses the ArrayMap.
 		GLenum type;		//The MaterialMap is cheap to make, though the code in GLSL will be not, Lets stick with diffuse and bump/normal
-		GLint internalFormat;//The TextureName will reside elsewhere, this is just a descriptor
+		GLenum internalFormat;//The TextureName will reside elsewhere, this is just a descriptor
 		GLint  wrap;
 		GLint  filter;
 		unsigned int w;

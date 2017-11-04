@@ -32,15 +32,23 @@ namespace NS_ENG{
 		buffer_Group()
 		{
 			IBO.clear();
-			tex = NULL;
+
+
+
 
 			OriginalMat = "";
 			OriginalEffect = "";
+			HasDiffuseSkin = NULL;
+			HasNormalSkin = NULL;
 
 
 			ObjName = "";
 			MatName = "";
 			Effect = "";
+
+			DiffuseTexture = NULL;
+			BumpTexture = NULL;
+
 
 			ObjectID = NULL;
 			MatId = NULL;
@@ -73,9 +81,13 @@ namespace NS_ENG{
 
 
 		//Remove Tex
-		GLint tex;
+		
 		GLint HasDiffuseSkin;
 		GLint HasNormalSkin;
+
+
+		GLint DiffuseTexture;
+		GLint BumpTexture;
 
 
 		GLint MatId;

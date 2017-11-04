@@ -121,6 +121,8 @@ void FileTexture::Init()
 	}
 	*/
 
+	if(this->Base_Data.MapCategory == MAP_ASSEMBLY_TYPE::FILE_TEXTURE)
+	{
 	glBindTexture(GL_TEXTURE_2D, this->Map_TName);
 	glTexImage2D(GL_TEXTURE_2D, 0, this->Base_Data.internalFormat, this->Base_Data.w, this->Base_Data.h, 0, this->Base_Data.format, this->Base_Data.type, (GLvoid*)textura);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -133,8 +135,8 @@ void FileTexture::Init()
 
 	}
 	
-
-
+	}
+	
 
 
 	
