@@ -62,11 +62,12 @@ class Material : public asset
 
 	//FUCK! Forgot about this.
 private:
-	std::list <Material*>::iterator MatIter;
+	
+	std::list <boost::shared_ptr<Material>>::iterator MatIter;
 	//std::list <s_mat>::iterator MatIter;
 public:
-	static std::list <Material*> classMaterialList;
-	//static std::list <s_mat> classMaterialList;
+	static std::list <boost::shared_ptr<Material>> ClassMaterialList;
+	//static std::list <s_mat> ClassMaterialList;
 	//
 	static GLuint MaterialMapTextureUnit;
 
@@ -105,7 +106,7 @@ public:
 
 Material();
 
-~Material() { };
+~Material() {};
 
 void Load() {};
 

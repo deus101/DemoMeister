@@ -11,9 +11,9 @@
 #include <iostream>
 #include <boost\filesystem.hpp>
 //#include <Shlwapi.h>
-#include <boost/tokenizer.hpp>
-#include <boost/algorithm/string.hpp>
-
+#include <boost\tokenizer.hpp>
+#include <boost\algorithm\string.hpp>
+#include <boost\make_shared.hpp>
 
 using namespace NS_ENG;
 using namespace std;
@@ -22,8 +22,13 @@ using namespace std;
 //namespace NS_MAT
 //namespace NS_ENG
 //{
-//std::list <s_mat> Material::classMaterialList = std::list <s_mat>();
-std::list <Material*> Material::classMaterialList = std::list <Material*>();
+//std::list <s_mat> Material::ClassMaterialList = std::list <s_mat>();
+//std::list  <boost::shared_ptr<Material>> Material::ClassMaterialList = std::list  <boost::shared_ptr<Material>>();
+//std::list  <boost::shared_ptr<Material>>  std::list<boost::shared_ptr<Material>>();
+
+//list<boost::shared_ptr<  Material >> NS_ENG::MapAsset::ClassMaterialList;
+
+list<boost::shared_ptr< Material  >> NS_ENG::Material::ClassMaterialList;
 
 GLuint Material::MaterialMapTextureUnit = 0;
 
@@ -50,7 +55,10 @@ void Material::LoadMats( const char *param)
 	//Squiddy.
 
 
-	Material* mtl = new Material();
+	//Material* mtl = new Material();
+
+	NS_ENG::Material::ClassMaterialList.push_back(boost::make_shared<NS_ENG::Material>());
+
 
 	FILE * mtlFile;
 	fopen_s(&mtlFile, param , "rb");
@@ -73,24 +81,28 @@ void Material::LoadMats( const char *param)
 			fscanf_s(mtlFile, "%79s", nam ,sizeof(nam));
 			
 			//name = nam;
-			CurrentMaterial = nam;
-			std::cout << "-material name: " << mtl->Mat_Name << endl;
-			//Mats.m_Materials.push_back( mtl );
-			NS_ENG::Material::classMaterialList.push_back(mtl);
 
-			NS_ENG::Material::classMaterialList.back()->Mat_Name = CurrentMaterial;
-			NS_ENG::Material::classMaterialList.back()->Tex_Has_BumpTexture = FALSE;
-			NS_ENG::Material::classMaterialList.back()->Tex_Has_DiffuseTexture = FALSE;
-			NS_ENG::Material::classMaterialList.back()->Mat_MatID =  NS_ENG::Material::classMaterialList.size();
+			//Mats.m_Materials.push_back( mtl );
+			
+			CurrentMaterial = nam;
+			
+
+
+			NS_ENG::Material::ClassMaterialList.back()->Mat_Name = CurrentMaterial;
+
+			std::cout << "-material name: " << NS_ENG::Material::ClassMaterialList.back()->Mat_Name << endl;
+			NS_ENG::Material::ClassMaterialList.back()->Tex_Has_BumpTexture = FALSE;
+			NS_ENG::Material::ClassMaterialList.back()->Tex_Has_DiffuseTexture = FALSE;
+			NS_ENG::Material::ClassMaterialList.back()->Mat_MatID =  NS_ENG::Material::ClassMaterialList.size();
 		}
 		if(strcmp (id, "Kd") == 0)
 		{
 			//diffuse reflectivity  RGB
 
 
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Diff[0], &NS_ENG::Material::classMaterialList.back()->Mat_Diff[1], &NS_ENG::Material::classMaterialList.back()->Mat_Diff[2]);
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::ClassMaterialList.back()->Mat_Diff[0], &NS_ENG::Material::ClassMaterialList.back()->Mat_Diff[1], &NS_ENG::Material::ClassMaterialList.back()->Mat_Diff[2]);
 
-			NS_ENG::Material::classMaterialList.back()->Mat_Diff[3] = 1.0;
+			NS_ENG::Material::ClassMaterialList.back()->Mat_Diff[3] = 1.0;
 
 		}
 		if(strcmp (id, "Ka") == 0)
@@ -99,22 +111,22 @@ void Material::LoadMats( const char *param)
 
 
 		
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Amb[0], &NS_ENG::Material::classMaterialList.back()->Mat_Amb[1], &NS_ENG::Material::classMaterialList.back()->Mat_Amb[2]);
-			NS_ENG::Material::classMaterialList.back()->Mat_Amb[3] = 1.0;
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::ClassMaterialList.back()->Mat_Amb[0], &NS_ENG::Material::ClassMaterialList.back()->Mat_Amb[1], &NS_ENG::Material::ClassMaterialList.back()->Mat_Amb[2]);
+			NS_ENG::Material::ClassMaterialList.back()->Mat_Amb[3] = 1.0;
 		}
 		if(strcmp (id, "Ks") == 0)
 		{
 			//specular reflectivity RGB
 		
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Spec[0], &NS_ENG::Material::classMaterialList.back()->Mat_Spec[1], &NS_ENG::Material::classMaterialList.back()->Mat_Spec[2]);
-			NS_ENG::Material::classMaterialList.back()->Mat_Spec[3] = 1.0;
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::ClassMaterialList.back()->Mat_Spec[0], &NS_ENG::Material::ClassMaterialList.back()->Mat_Spec[1], &NS_ENG::Material::ClassMaterialList.back()->Mat_Spec[2]);
+			NS_ENG::Material::ClassMaterialList.back()->Mat_Spec[3] = 1.0;
 		}
 		if(strcmp (id, "Ke") == 0)
 		{	//emmisive in rgb or should it just be a float
 			NS_VEC::VEC3 c;
 			
-			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::classMaterialList.back()->Mat_Emmi[0], &NS_ENG::Material::classMaterialList.back()->Mat_Emmi[1], &NS_ENG::Material::classMaterialList.back()->Mat_Emmi[2]);
-			NS_ENG::Material::classMaterialList.back()->Mat_Emmi[3] = 1.0;
+			fscanf_s(mtlFile, "%f %f %f", &NS_ENG::Material::ClassMaterialList.back()->Mat_Emmi[0], &NS_ENG::Material::ClassMaterialList.back()->Mat_Emmi[1], &NS_ENG::Material::ClassMaterialList.back()->Mat_Emmi[2]);
+			NS_ENG::Material::ClassMaterialList.back()->Mat_Emmi[3] = 1.0;
 
 		}
 		if(strcmp (id, "Ns") == 0)
@@ -124,7 +136,7 @@ void Material::LoadMats( const char *param)
 			GLfloat shin = 0.0f;
 			fscanf_s(mtlFile, "%f", &shin);
 			
-			NS_ENG::Material::classMaterialList.back()->Mat_Shiny = shin;
+			NS_ENG::Material::ClassMaterialList.back()->Mat_Shiny = shin;
 		}
 		else if (strcmp(id, "map_Kd") == 0)
 		{
@@ -134,47 +146,26 @@ void Material::LoadMats( const char *param)
 			//load
 			//GLuint tmp_TName;
 				
-			char path[80];
+			char path[80] = "";
 
 			fscanf_s (mtlFile, "%79s", path, sizeof(path));
-			//string tmp_S_Path(path);
+			
+			string tmp_S_Path(path);
 
 
 
-			NS_ENG::Material::classMaterialList.back()->Tex_Has_DiffuseTexture = TRUE;
+			NS_ENG::Material::ClassMaterialList.back()->Tex_Has_DiffuseTexture = TRUE;
 
 			
 			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
 
-			//boost::filesystem::path tmp_Path = boost::filesystem::path(path);
-			
-			boost::filesystem::path tmp_Path = boost::filesystem::path(Squiddy.FindAndRegister(path));
+			boost::filesystem::path tmp_Path = boost::filesystem::path(tmp_S_Path);
+			std::string faen( Squiddy.FindAndRegister(tmp_S_Path));
+
+
+			//boost::filesystem::path tmp_Path = boost::filesystem::path(Squiddy.FindAndRegister(path));
 			boost::filesystem::path fileName = tmp_Path.filename();
 			boost::filesystem::path Folder = tmp_Path.parent_path();
-
-			/*
-			vector<string> tokens;
-
-			boost::split(tokens, fileName.string(), boost::is_any_of("_"));
-			
-			
-			boost::char_separator<char> sep("_");
-
-			boost::tokenizer< boost::char_separator<char> > tokens(fileName.string(), sep);
-			//= "";
-			
-			//tokens.assign()
-			std::string TagValue = "";
-			//std::list< struct PointLightItem>::iterator
-
-			//tokenizer::const_iterator()
-			boost::tokenizer< boost::char_separator<char>>::iterator tok_it = tokens.begin();
-			
-
-			std::string Tag(tok_it->data());
-			*/
-
-
 
 
 			FileTextureDesc *NewDiffTex = new FileTextureDesc();
@@ -193,10 +184,10 @@ void Material::LoadMats( const char *param)
 			NewDiffTex->filter = GL_NEAREST;
 			NewDiffTex->MapContent = NS_ENG::MAP_CONTENT_TYPE::DIFFUSE;
 
-			//NS_ENG::Material::classMaterialList.back().enum_Map_Category
+			//NS_ENG::Material::ClassMaterialList.back().enum_Map_Category
 
 
-			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::classMaterialList.back()->Tex_Diffuse_SamplerID, NewDiffTex);
+			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::ClassMaterialList.back()->Tex_Diffuse_SamplerID, NewDiffTex);
 
 
 
@@ -204,8 +195,8 @@ void Material::LoadMats( const char *param)
 			//0 Diffuse Forward_Diffuse
 			//1 Bump
 			
-			//NS_ENG::Material::classMaterialList.back().id_SamplerType = MapAsset::LoadMaps(&NewDiffTex);
-			//NS_ENG::Material::classMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
+			//NS_ENG::Material::ClassMaterialList.back().id_SamplerType = MapAsset::LoadMaps(&NewDiffTex);
+			//NS_ENG::Material::ClassMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
 			
 
 
@@ -218,14 +209,14 @@ void Material::LoadMats( const char *param)
 	}
 
 
-	//NS_ENG::Material::classMaterialList.push_front(this);
+	//NS_ENG::Material::ClassMaterialList.push_front(this);
 
-	//iter = NS_ENG::Material::classMaterialList.begin();
+	//iter = NS_ENG::Material::ClassMaterialList.begin();
 
 
 		fclose(mtlFile);
 
-		std::cout << "Loaded " << NrMatFile << ", Materials NR of materials so far : " << NS_ENG::Material::classMaterialList.size() << endl << "Done loading the " << param << " MTL---------" <<endl << endl;
+		std::cout << "Loaded " << NrMatFile << ", Materials NR of materials so far : " << NS_ENG::Material::ClassMaterialList.size() << endl << "Done loading the " << param << " MTL---------" <<endl << endl;
 		//cout << "NR of materials: " << Mats.m_Materials.size() << endl;
 }
 
@@ -247,7 +238,7 @@ std::string Material::Shaderfy() {
 
 	//constructing color buffer or that is...material texture. 
 	//Columns
-	int nr_mats = NS_ENG::Material::classMaterialList.size();
+	int nr_mats = ClassMaterialList.size();
 
 	//OK so what do we need in terms of...wel channels, each Row would be a channel in this regard.
 	//
@@ -262,7 +253,7 @@ std::string Material::Shaderfy() {
 
 
 
-	for (auto MatIter : NS_ENG::Material::classMaterialList)
+	for (auto MatIter : NS_ENG::Material::ClassMaterialList)
 	{
 		string Current;
 		if(first == true)
@@ -299,8 +290,8 @@ std::string Material::Shaderfy() {
 			//cout << " Using the GlName :" << MatIter.tUnit << endl;
 			//meshy.m_Groups[u].matid = j;
 			//meshy.m_Groups[u].matid = MatIter.matID;
-			//NS_ENG::Material::classMaterialList.back().tUnit = MatIter.tUnit;
-			//NS_ENG::Material::classMaterialList.back().tPath = tmp_Path;
+			//NS_ENG::Material::ClassMaterialList.back().tUnit = MatIter.tUnit;
+			//NS_ENG::Material::ClassMaterialList.back().tPath = tmp_Path;
 			//MG.
 		GlSL += Current;
 		GlSL += Diffuse;
@@ -319,7 +310,7 @@ GLuint Material::GenerateMaterialMap() {
 
 
 	
-	int nr_mats = NS_ENG::Material::classMaterialList.size();
+	int nr_mats = NS_ENG::Material::ClassMaterialList.size();
 
 
 
@@ -330,7 +321,7 @@ GLuint Material::GenerateMaterialMap() {
 	//NS_ENG::MapAsset::InitAll();
 	std::vector<NS_VEC::VEC3> rowMaterial;
 
-	for (auto MatIter : NS_ENG::Material::classMaterialList)
+	for (auto MatIter : NS_ENG::Material::ClassMaterialList)
 	{
 		//default bool
 

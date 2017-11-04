@@ -9,8 +9,6 @@
 void DeploymentOrganizer::load(const std::string &filename)
 {
 	
-
-	
 	HumbleIni = boost::filesystem::path(filename.c_str());
 	HumbleIni.remove_leaf();
 	HumbleIni.append("DemoMeister.ini");
@@ -130,18 +128,81 @@ void DeploymentOrganizer::deploy()
 
 }
 
-
-
-
-
-std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
+std::string DeploymentOrganizer::FindAndRegister(std::string Path)
 {
-	//if no we are looking for Model Folders most likely
-	boost::filesystem::path File(Item);
+	boost::filesystem::path File(Path);
 	//bool HasExtension = boost::filesystem::has_extension() (Item);
 	bool HasExtension = File.has_extension();
 
-	std::string FileExtension = boost::filesystem::extension(Item);
+	std::string FileExtension = boost::filesystem::extension(Path);
+
+
+
+
+
+	if (Util_CurrentFolder.empty() == true)
+	{
+		Util_CurrentFolder = AssetProduction;
+	}
+
+	//Util_CurrentFolder.append(Item).is_complete()
+	//boost::filesystem::path local_Check = Util_CurrentFolder.append(Item);
+
+	boost::filesystem::path local_Check(Util_CurrentFolder);
+	local_Check.append(Path);
+	if (boost::filesystem::exists(local_Check))
+	{
+		return local_Check.string();
+	}
+
+
+	boost::filesystem::recursive_directory_iterator iter(AssetProduction), eod;
+
+	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
+		if (is_regular_file(i)) {
+			//cout << i.string() << endl;
+			if (i.filename().compare(File) == 0)
+			{
+				Util_CurrentFolder = i.parent_path();
+				return i.string();
+
+
+			}
+		}
+	}
+
+	Util_CurrentFolder = AssetGlobal;
+
+	//boost::filesystem::recursive_directory_iterator iter(Util_CurrentFolder), eod;
+	iter = boost::filesystem::recursive_directory_iterator(AssetGlobal);
+
+	BOOST_FOREACH(boost::filesystem::path const& i, std::make_pair(iter, eod)) {
+		if (is_regular_file(i)) {
+			//cout << i.string() << endl;
+			if (i.filename().compare(File) == 0)
+			{
+				Util_CurrentFolder = i.parent_path();
+				return i.string();
+
+			}
+			//std::cout << i.string() << std::endl;
+
+		}
+	}
+
+	return std::string("");
+}
+
+/*
+//std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
+std::string DeploymentOrganizer::FindAndRegister( std::string Path )
+{
+	//if no we are looking for Model Folders most likely
+	boost::filesystem::path File(Path);
+	//bool HasExtension = boost::filesystem::has_extension() (Item);
+	bool HasExtension = File.has_extension();
+
+	std::string FileExtension = boost::filesystem::extension(Path);
 		
 	
 
@@ -156,7 +217,7 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
 	//boost::filesystem::path local_Check = Util_CurrentFolder.append(Item);
 	
 	boost::filesystem::path local_Check( Util_CurrentFolder);
-	local_Check.append(Item);
+	local_Check.append(Path);
 	if (boost::filesystem::exists(local_Check))
 	{ 
 		return local_Check.string();
@@ -196,3 +257,5 @@ std::string DeploymentOrganizer::FindAndRegister(const std::string & Item)
 
 	return std::string("");
 }
+
+*/

@@ -46,12 +46,15 @@ struct DeploymentOrganizer
 
 
 	//std::set<boost::filesystem::path> Resource_Paths;
+
+public:
 	void load(const std::string &filename);
 	void save();
 	void deploy();
 
 
-	std::string FindAndRegister(const std::string &Item);
+	std::string FindAndRegister(std::string Path);
+	//std::string FindAndRegister(const std::string &Item);
 
 	boost::filesystem::path HumbleIni;
 

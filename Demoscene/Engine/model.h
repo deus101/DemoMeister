@@ -33,9 +33,6 @@ namespace NS_ENG{
 		{
 			IBO.clear();
 
-
-
-
 			OriginalMat = "";
 			OriginalEffect = "";
 			HasDiffuseSkin = NULL;
@@ -79,7 +76,6 @@ namespace NS_ENG{
 		std::string Effect;
 
 
-
 		//Remove Tex
 		
 		GLint HasDiffuseSkin;
@@ -119,10 +115,10 @@ namespace NS_ENG{
 	{
 	private:
 		//Rename to model Iter
-		std::list <model*>::iterator iter;
+		std::list <boost::shared_ptr<model>>::iterator ModelIterator;
 		//std::list <model*>::iterator classModelIter;
 	public:
-		static std::list <model*> classModelList;
+		static std::list <boost::shared_ptr<model>> classModelList;
 		//heh should be private
 		std::vector<NS_VEC::VEC3> Sort_Pos;
 		std::vector<NS_VEC::VEC3> Sort_Norms;

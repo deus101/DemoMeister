@@ -7,6 +7,7 @@
 #include <boost\algorithm\string.hpp>
 #include <boost\algorithm\string\regex.hpp> 
 //#include "vsGLInfoLib.h"
+#include <boost\make_shared.hpp>
 
 using namespace NS_ENG;
 
@@ -15,10 +16,8 @@ using namespace NS_MESH;
 //using namespace NS_MAP;
 //using namespace NS_MAT;
 
-//arve drawable her
 
-//std::list <model*> classModelList;
-std::list <model*> model::classModelList = std::list <model*>();
+list<boost::shared_ptr< model  >> model::classModelList;
 
 model::model() 
 {
@@ -52,16 +51,16 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 	if (mtl.c_str()[0] == '#')
 		SpecialInstructions = true;
 
-	for (auto iter : model::classModelList) {
+	for (auto ModelIterator : model::classModelList) {
 		
 		//cout << "\n Previus file: " << iter->meshy.file_name << endl;
-		if (obj.compare(iter->meshy.file_name) == 0)
+		if (obj.compare(ModelIterator->meshy.file_name) == 0)
 		{
 			//could provide memory leaks
-			cout << "\n Found Model Object with same mesh: " << iter->meshy.file_name << endl;
+			cout << "\n Found Model Object with same mesh: " << ModelIterator->meshy.file_name << endl;
 			//hmm maybe what I really want is just to copy the sorted vertex and attribute buffers
 			//A central deopsitory for the mesh struct maybe intead?
-			*this = *iter;
+			*this = *ModelIterator;
 
 			//actually its not really a clone at all, should fix that.
 			IsClone = true;
@@ -171,7 +170,7 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 		meshy.m_Groups[u].matid = j;
 		*/
 		//Sort_Groups.push_back(MG);
-		//for (unsigned int j = 0; j < NS_ENG::Material::classMaterialList.size(); j++)
+		//for (unsigned int j = 0; j < NS_ENG::Material::ClassMaterialList.size(); j++)
 
 		if(NewPaint == true && IsClone == true )
 		{
@@ -192,7 +191,7 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 
 
 		
-		for (auto iter : model::classModelList)
+		for (auto ModelIterator : model::classModelList)
 		{ 
 
 		std::string Tag(tok_it->data());
@@ -406,18 +405,8 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 
 
 
-
-	//gl::BindBuffer(gl::GL_ARRAY_BUFFER, 0);
-
-
-
-	//cout << "loading done" << endl;
-	
-	//this->BufferLog();
-
-	NS_ENG::model::classModelList.push_front(this);
-
-	iter = NS_ENG::model::classModelList.begin();
+	NS_ENG::model::classModelList.push_front(boost::make_shared<NS_ENG::model>());
+	ModelIterator = NS_ENG::model::classModelList.begin();
 
 
 	//cout << "\n Number of models: " << NS_ENG::model::classModelList.size() << endl;
@@ -455,7 +444,7 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 	}
 
 
-	for (auto MatIter : NS_ENG::Material::classMaterialList)
+	for (auto MatIter : NS_ENG::Material::ClassMaterialList)
 	{
 		
 

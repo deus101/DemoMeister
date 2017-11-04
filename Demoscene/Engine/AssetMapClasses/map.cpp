@@ -202,8 +202,8 @@ t_SharedMapPtr MapAsset::RetriveMap(GLint idx)
 			//cout << " Using the GlName :" << MatIter.tUnit << endl;
 			//meshy.m_Groups[u].matid = j;
 			//meshy.m_Groups[u].matid = MatIter.
-			//NS_ENG::Material::classMaterialList.back()- = MatIter.tUnit;
-			//NS_ENG::Material::classMaterialList.back().tPath = tmp_Path;
+			//NS_ENG::Material::ClassMaterialList.back()- = MatIter.tUnit;
+			//NS_ENG::Material::ClassMaterialList.back().tPath = tmp_Path;
 			//MG.
 			//duplicate = true;
 			//break;
