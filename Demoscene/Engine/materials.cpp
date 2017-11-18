@@ -1,7 +1,7 @@
 #include "materials.h"
 //#include "map.h"
-#include "AssetMapClasses\map.h"
-
+//#include "AssetMapClasses\map.h"
+#include "AssetMapClasses\FileTexture.h"
 #include "../world.h"
 //#include "../Libs/FreeImage.h"
 
@@ -19,14 +19,6 @@ using namespace NS_ENG;
 using namespace std;
 
 
-//namespace NS_MAT
-//namespace NS_ENG
-//{
-//std::list <s_mat> Material::ClassMaterialList = std::list <s_mat>();
-//std::list  <boost::shared_ptr<Material>> Material::ClassMaterialList = std::list  <boost::shared_ptr<Material>>();
-//std::list  <boost::shared_ptr<Material>>  std::list<boost::shared_ptr<Material>>();
-
-//list<boost::shared_ptr<  Material >> NS_ENG::MapAsset::ClassMaterialList;
 
 list<boost::shared_ptr< Material  >> NS_ENG::Material::ClassMaterialList;
 
@@ -44,20 +36,11 @@ int NS_ENG::Material::Load(const char * param)
 	return 0;
 }
 
-//this should be a static method, and eaach materials object should be stored in the static container as one materials
-//hmm but what about shader jutsu?
-//void LoadMats(const char *param, MATERIALS& Mats)
-//void LoadMats(const char *Origin, const char *param)
+
 void Material::LoadMats( const char *param)
 {
 
 
-	//Squiddy.
-
-
-	//Material* mtl = new Material();
-
-	NS_ENG::Material::ClassMaterialList.push_back(boost::make_shared<NS_ENG::Material>());
 
 
 	FILE * mtlFile;
@@ -75,6 +58,7 @@ void Material::LoadMats( const char *param)
 
 		if(strcmp (id, "newmtl") == 0)
 		{
+			NS_ENG::Material::ClassMaterialList.push_back(boost::make_shared<NS_ENG::Material>());
 			NrMatFile++;
 			//s_mat mtl;
 			char nam[80] ="";
@@ -140,11 +124,9 @@ void Material::LoadMats( const char *param)
 		}
 		else if (strcmp(id, "map_Kd") == 0)
 		{
-			//"map_bump"
-			//here we implement a map object...
+			
 			bool duplicate = false;
-			//load
-			//GLuint tmp_TName;
+	
 				
 			char path[80] = "";
 
@@ -157,22 +139,19 @@ void Material::LoadMats( const char *param)
 			NS_ENG::Material::ClassMaterialList.back()->Tex_Has_DiffuseTexture = TRUE;
 
 			
-			//(NewDiffTex.Name = string("DiffuseTex:")+string(PathFindFileNameA(path));
+		
 
-			boost::filesystem::path tmp_Path = boost::filesystem::path(tmp_S_Path);
+			
 			std::string faen( Squiddy.FindAndRegister(tmp_S_Path));
+			boost::filesystem::path tmp_Path = boost::filesystem::path(faen);
 
-
-			//boost::filesystem::path tmp_Path = boost::filesystem::path(Squiddy.FindAndRegister(path));
 			boost::filesystem::path fileName = tmp_Path.filename();
 			boost::filesystem::path Folder = tmp_Path.parent_path();
 
 
 			FileTextureDesc *NewDiffTex = new FileTextureDesc();
-			//NewDiffTex.Name = string("DiffuseTex:") + boost::filesystem::path(path).filename().string();
 			NewDiffTex->Name = string("DiffuseTex:") + tmp_Path.filename().string();
 
-			//std::string Test(__FUNCTION__);
 			NewDiffTex->Origin = string(__FUNCTION__) + "(" + std::string(param) +  ") " + " Material: " + string(CurrentMaterial) + "\n";
 			NewDiffTex->Description = "Use in the Geometry pass Set TextureUnit at Enum DiffuseMap_UNIT ";
 
@@ -184,21 +163,9 @@ void Material::LoadMats( const char *param)
 			NewDiffTex->filter = GL_NEAREST;
 			NewDiffTex->MapContent = NS_ENG::MAP_CONTENT_TYPE::DIFFUSE;
 
-			//NS_ENG::Material::ClassMaterialList.back().enum_Map_Category
 
 
-			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::ClassMaterialList.back()->Tex_Diffuse_SamplerID, NewDiffTex);
-
-
-
-			//Map_Categories
-			//0 Diffuse Forward_Diffuse
-			//1 Bump
-			
-			//NS_ENG::Material::ClassMaterialList.back().id_SamplerType = MapAsset::LoadMaps(&NewDiffTex);
-			//NS_ENG::Material::ClassMaterialList.back().id_Map = MapAsset::LoadMaps(&NewDiffTex);
-			
-
+			TheDisc->AddTexture(tmp_Path, NS_ENG::Material::ClassMaterialList.back()->Tex_Has_DiffuseTexture, NewDiffTex);
 
 
 			//What I would do in the future, is to enact a Rule through a static functions and the LoadMaps or any other Static Asset Loader
@@ -209,15 +176,10 @@ void Material::LoadMats( const char *param)
 	}
 
 
-	//NS_ENG::Material::ClassMaterialList.push_front(this);
-
-	//iter = NS_ENG::Material::ClassMaterialList.begin();
-
 
 		fclose(mtlFile);
 
 		std::cout << "Loaded " << NrMatFile << ", Materials NR of materials so far : " << NS_ENG::Material::ClassMaterialList.size() << endl << "Done loading the " << param << " MTL---------" <<endl << endl;
-		//cout << "NR of materials: " << Mats.m_Materials.size() << endl;
 }
 
 
@@ -229,27 +191,20 @@ void Material::LoadMats( const char *param)
 //Check if "None" effect has pre_parsed code that needs to be added for shadertype, check if packet allready have the code
 //std::string Material::AssureEffect{char* effectCode, string EffectName, Enum::ShaderType,  
 
+
+//OK, for materials This was abandoned but it could still be usefull to have
 std::string Material::Shaderfy() {
 	//forget this for now work ing static int GenerateMaterialMap();
 	bool first = true;
 	string GlSL = "//retrive materials \n ";
 
+	//actually as I expand the materialMap it would be nice to have procedures drawn up
+	//for GLSL, possibly another lamebrain idea I just got for the ASSET monstrosity
+	//BUT NOT THIS YEAR!
 
 
-	//constructing color buffer or that is...material texture. 
-	//Columns
 	int nr_mats = ClassMaterialList.size();
 
-	//OK so what do we need in terms of...wel channels, each Row would be a channel in this regard.
-	//
-
-	//3 for diffuse, 3 for specular, 1 for effect/technique, 1 for technique and 1 for texture
-	//question is wheter I should just offload diffuse into the gbuffer, this makles sense because if we have normal/bump map those can be bound
-	//in the forward rendering...well forward as it gets with a deferred rendrer...but then we dont have to bother adding 
-	//boundless textures that might be cumbersome to handle and instead focus on the physical based properties and add their maps 
-	//to be boundless as it gets to the lightning stage
-	
-	//float matInfo[12];
 
 
 
@@ -286,13 +241,7 @@ std::string Material::Shaderfy() {
 			+ std::to_string((float)MatIter->Mat_Diff[3])
 			+ string(");\n ") + string(" }");
 		
-			//cout << " The material: " << MatIter.matID << ":" << MatIter.name << " have allready loaded the texture " << MatIter.tPath << endl;
-			//cout << " Using the GlName :" << MatIter.tUnit << endl;
-			//meshy.m_Groups[u].matid = j;
-			//meshy.m_Groups[u].matid = MatIter.matID;
-			//NS_ENG::Material::ClassMaterialList.back().tUnit = MatIter.tUnit;
-			//NS_ENG::Material::ClassMaterialList.back().tPath = tmp_Path;
-			//MG.
+	
 		GlSL += Current;
 		GlSL += Diffuse;
 		GlSL += Specular;
@@ -300,7 +249,7 @@ std::string Material::Shaderfy() {
 	}
 
 
-	//GlSL += "}\n";
+
 
 	cout << GlSL;
 	return GlSL;
@@ -316,26 +265,22 @@ GLuint Material::GenerateMaterialMap() {
 
 	if(Material::MaterialMapTextureUnit != 0)
 		return Material::MaterialMapTextureUnit;
-	//Vec4 diffuse, vec4 specular is 2 collumns
 
-	//NS_ENG::MapAsset::InitAll();
 	std::vector<NS_VEC::VEC3> rowMaterial;
 
 	for (auto MatIter : NS_ENG::Material::ClassMaterialList)
 	{
-		//default bool
 
-		//The material map needs it layout logged.
-
-		//MatIter.diff[0]
 		NS_VEC::VEC3 col1Diff(MatIter->Mat_Diff[0], MatIter->Mat_Diff[1], MatIter->Mat_Diff[2]);
 		rowMaterial.push_back(col1Diff);
 
 		NS_VEC::VEC3 col1Spec(MatIter->Mat_Spec[0], MatIter->Mat_Spec[1], MatIter->Mat_Spec[2]);
 		rowMaterial.push_back(col1Spec);
-
-		//need SamplerId                                                                             //this way we cans skip needless inquireries
-		NS_VEC::VEC3 MapLocMapIdEffectId(MatIter->Tex_Diffuse_SamplerID, MatIter->Tex_Diffuse_Layer, MatIter->Tex_Has_BumpTexture);
+       //this way we cans skip needless inquireries...nah pointless, dont waste the space
+		NS_VEC::VEC3 MapLocMapIdEffectId(
+			MatIter->Tex_Diffuse_SamplerID, 
+			MatIter->Tex_Diffuse_Layer,
+			MatIter->Tex_Has_BumpTexture);
 		rowMaterial.push_back(MapLocMapIdEffectId);
 		
 
@@ -346,10 +291,13 @@ GLuint Material::GenerateMaterialMap() {
 		//NS_VEC::VEC3 TexDiff(MatIter. MatIter.spec[1], MatIter.spec[2]); // rotate around z-axis (in tangent space)
 		//rowMaterial.push_back(col1Spec);
 
-
+		
 		//if routinme to see if aspect of material have been checked
 	}
-	//GL_R8
+	
+
+	//this probably can't wait next year, fix the fucking layout to something useable so it can be properly
+	//used
 	glGenTextures(1, &Material::MaterialMapTextureUnit);
 	glBindTexture(GL_TEXTURE_2D, Material::MaterialMapTextureUnit);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 2, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
@@ -364,4 +312,3 @@ GLuint Material::GenerateMaterialMap() {
 	return Material::MaterialMapTextureUnit;
 }
 
-//}

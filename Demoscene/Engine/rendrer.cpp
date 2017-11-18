@@ -27,22 +27,20 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		camera *cammy = reinterpret_cast<camera*>(Node);
 
 
-
+		//Math3d.cpp you still remain 10 years since I encountered you in the OpenGL bluebook, GLFrame is around here somewhere
+		//One of these days I'll jump over to Eigen...but not this year
 		M3DMatrix44f CamWorld, tmpProj, CamWorldInv, ReverseTranslation, tmpRTinvView;
 		M3DVector4f tranComp2;
 		m3dLoadIdentity44(CamWorld);
 
-		//cammy->getAbsoluteTransform(CamWorld);
 		cammy->getParent()->getLocalTransform(CamWorld);
 		
 		
 		m3dInvertMatrix44(CamWorldInv, CamWorld);
 		m3dGetMatrixColumn44(tranComp2, CamWorldInv, 3);
-		//EyeWorldPos = NS_VEC::VEC3(tranComp2[0], tranComp2[1], tranComp2[2]);
 		EyeWorldPos = NS_VEC::VEC3(CamWorldInv[12], CamWorldInv[13], CamWorldInv[14]);
 
 		m3dTranslationMatrix44(ReverseTranslation, -EyeWorldPos.X, -EyeWorldPos.Y, -EyeWorldPos.Z);
-		//m3dTranslationMatrix44(ReverseTranslation, EyeWorldPos.X*-1.0f, EyeWorldPos.Y*-1.0f, EyeWorldPos.Z*-1.0f);
 
 		
 
@@ -54,29 +52,24 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		m3dCopyMatrix44(projection, tmpProj);
 
 
-		//cammy->ge
 
-		//PIVVOT PIVVOT BRUK DEN TARGETNODEN!
 	}
 
 	if (NS_SG::node::NODE_ASSET == Node->getType())
 	{
-		//std::cout << Node->getName() << std::endl;
+
 		RendrerItem Tmp;
-		//aabb checks of culling her
+
 		assetNode *mesh = reinterpret_cast<assetNode*>(Node);
 		if (NULL != mesh->getMagic())
 		{
-			//M3DMatrix44f world; 
-
+	
 			Node->getAbsoluteTransform(world);
 
 			M3DMatrix44f wv, wvp, vp;
 
 
-			//M3DMatrix44f world_view_proj, matWVP_inv;
-
-
+	
 
 			m3dMatrixMultiply44(vp, projection, view);
 
@@ -88,15 +81,14 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 
 			Tmp.gpuEff = mesh->getMagic();
 			Tmp.gpuIn = mesh->getAsset();
-			//Tmp.sNode = mesh;
+			
 		}
 		
 
 		
 		Visible.push_back(Tmp);
 
-		//Ide: en drawque item som har Matrisene og informasjonen den trenger, må sorte denne skikkelig uansett. Transformasjons matrisen iallefall.
-
+		
 
 
 	}
@@ -112,13 +104,13 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 		if (NULL != lPoint->LightMagic)
 		{
 			M3DMatrix44f world;
-			//Node->g
+
 			Node->getAbsoluteTransform(world);
 
 			
 
 			s_LPL = lPoint->GetPointLight();
-			//M3DMatrix44f wv, wvp , vp;
+
 			M3DMatrix44f wvp, vp;
 
 			M3DMatrix44f w_scale, w_scaled;
@@ -136,11 +128,9 @@ void rendrer::visit(node *Node, M3DMatrix44f  world)
 			
 			m3dMatrixMultiply44(wvp, vp, w_scaled);
 
-			//m3dCopyMatrix44(Tmp.sWVP, world);
-			//m3dCopyMatrix44(Tmp.sW, w_scaled);
+
 			m3dCopyMatrix44(Tmp.sWVP, wvp);
-			//m3dCopyMatrix44(Tmp.sW, world);
-			//m3dCopyMatrix44(Tmp.sW, world);
+
 			m3dCopyMatrix44(Tmp.sW, w_scaled);
 		}
 		Tmp.sPL = s_LPL;
@@ -260,6 +250,13 @@ void rendrer::RenderSceneCB()
 	M3DMatrix44f ModelView, toCam;
 	m3dLoadIdentity44(ModelView);
 
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, base_buffer::DiffArrayMapTexure);
+	//GL_TEXTURE_BINDING_2D_ARRAY
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
+	//glActiveTexture(TypeOfTexture::MaterialMap_UNIT);
+	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
 
 	//PointLess Identity Matrix to Geometry_RayMarcher_Vert.glsl
 	GeoRayMarch->SetWVP(ModelView);
@@ -273,23 +270,14 @@ void rendrer::RenderSceneCB()
 	
 
 	
-
+	//Idea is to have a system that sets up these drawquees and render process.
+	//But not this year!
 	for (vIT iv = beginVisible(); iv != endVisible(); ++iv) {
 
 		//eller visible i ->magic->enable og modellen bare kjører draw array Men det må gjøres i modelnode
 		
 		NS_EFF::GeomPacket *geoEff = dynamic_cast<NS_EFF::GeomPacket*>(iv->gpuEff);
-		//NS_EFF::HeightMapPacket *hmapEff = dynamic_cast<NS_EFF::HeightMapPacket*> (iv->gpuEff);
-		//NS_ENG::GridPoints *gridAss = dynamic_cast<NS_ENG::GridPoints*> (iv->gpuIn);
-		/*
-		if (hmapEff != NULL)
-		{
-			hmapEff->Enable();
-			hmapEff->SetWVP(iv->sWVP);
-			hmapEff->SetWorldMatrix(iv->sTransform);
-			hmapEff->SetHalfSize();
-		}
-		*/
+
 		if (geoEff != NULL)
 		{
 			geoEff->Enable();
@@ -297,27 +285,30 @@ void rendrer::RenderSceneCB()
 			geoEff->SetWorldMatrix(iv->sTransform);
 			geoEff->SetViewMatrix(view);
 			geoEff->SetProjectionMatrix(projection);
+
+			glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT]);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, base_buffer::DiffArrayMapTexure);
+			
+			glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
+			glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
+
+
+
+
 		}
-		/*
-		if (gridAss != NULL)
-		{
-			gridAss->SetDelta(deltaCtan);
-		}
-		*/
+
 		
 		iv->gpuIn->Draw();
 		
-		//old
-		//in truth the gridnode should derive from modelnode with virtual functions that can be overridden
-		//iv->sNode->Magic->Enable();
 
-		//iv->sNode->Magic->SetWVP(iv->sWVP);
-		//iv->sNode->Magic->SetWorldMatrix(iv->sTransform);
-		//iv->sNode->Model->Draw();
 	}
 
 	//Screen spaced Ambient Occulsion pass
 
+
+	//gather what uniforms actually matters, the idea I have with DemoMeister is to 
+	//have a callback statemachine system which feeds nessescary paramaters to packets, shaders, buffers,etc.
+	//high fucking hopes....but not this year
 	M3DMatrix44f IdentSWP, ViewProAO;
 	m3dLoadIdentity44(ViewProAO);//pointless
 	m3dLoadIdentity44(IdentSWP);//pointless
@@ -331,30 +322,28 @@ void rendrer::RenderSceneCB()
 	m3dMatrixMultiply44(ViewProAO, projection, view); //Redundant
 
 
+	//Rendrer is a nice place to hack, but god its messy.
+	//My ideas for a pass system is meant to organize all this
+	//Though I still want a couple of sections free for hacks
+	//an callback interface perhaps. NOT THIS YEAR
 	AoPass->SetWVP(ModelView);
-	//AoPass->SetWorldMatrix(ModelView);
+
 	AoPass->SetViewMatrix(view);
 	AoPass->SetProjectionMatrix(projection);
-	//mgBuffer->BindForAoPass();
+
 	TheDisc->MasterList_Buffers[1]->EnablePass(0);
 
-	//glActiveTexture(GL_TEXTURE5);
-	//glActiveTexture(GL_TEXTURE9);
-	//FEIL FEIL FEIL!!
-	//glActiveTexture(TypeOfTexture::AOBuffer_NOISE);
+
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::AOBuffer_NOISE]);
 	glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
 
-	//glActiveTexture(GL_TEXTURE7);
-	//glBindTexture(GL_TEXTURE_2D, AoPass->NoiseTexure);
-	
+
 
 	glDisable(GL_DEPTH_TEST);
-	//glEnable(GL_BLEND);
-	//glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
 
 	glFrontFace(GL_CW);
-	quad->Draw();
+	quad->Draw(0);
 	glFrontFace(GL_CCW);
 
 	//glDisable(GL_BLEND);
@@ -375,29 +364,43 @@ void rendrer::RenderSceneCB()
 		ip->sNode->NullMagic->Enable();
 
 		TheDisc->MasterList_Buffers[0]->EnablePass(2);
-		//mgBuffer->BindForStencilPass();
-		//NS_REND::mGBuffer->BindForStencilPass();
+
+
 		glEnable(GL_DEPTH_TEST);
 
 		glDisable(GL_CULL_FACE);
 
 		glClear(GL_STENCIL_BUFFER_BIT);
 
+		/////////////////////////////////////////////////////////
+		//Years ago I was desperate to release something cool
+		//So in all the tutorials I watched I didnt even bother
+		//to type the code, hell I couldnt get it to work so I had to make sure
+		//everything was excactly as it was....of course it was just a damn quad
+		//drawn the wrong way...typical
+		//Anyway OGLDEV has a lot of credit for my deferred rendrer
+		//I used to keep the liscenc agreement up there, but I changed it so much....
+		//Well that still makes it derivative...should probably put the liscence back up
+		/////////////////////////////////////////////////////////////
+
+		//////////////////////////////////////////////////////////
 		// We need the stencil test to be enabled but we want it
 		// to succeed always. Only the depth test matters.
+		//////////////////////////////////////////////////////////
 		glStencilFunc(GL_ALWAYS, 0, 0);
 
 		glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
 		glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
 
 		ip->sNode->NullMagic->SetWorldMatrix(ip->sW);
-		//ip->sNode->NullMagic->SetWorldMatrix(ip->sWVP);
+
 
 
 		ip->sNode->NullMagic->SetProjectionMatrix(projection);
 		ip->sNode->NullMagic->SetViewMatrix(view);
 		
-		sphere_null->Draw();
+
+		sphere_null->Draw(0);
 		
 		
 		
@@ -406,7 +409,6 @@ void rendrer::RenderSceneCB()
 		//kjøre spotlight her også?
 		ip->sNode->LightMagic->Enable();
 
-		//mgBuffer->BindForLightPass();
 		TheDisc->MasterList_Buffers[0]->EnablePass(3);
 
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
@@ -421,17 +423,16 @@ void rendrer::RenderSceneCB()
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
 
-		//move to geometry shader for sphere, fix scaling
-		//ip->sNode->LightMagic->SetWVP(ip->sWVP);
+
 		ip->sNode->LightMagic->SetProjectionMatrix(projection);
 		ip->sNode->LightMagic->SetViewMatrix(view);
 		
 		ip->sNode->LightMagic->SetWorldMatrix(ip->sW);
-		//ip->sNode->LightMagic->SetWorldMatrix(ip->sWVP);
+
 
 		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 		
-		sphere_light->Draw();
+		sphere_light->Draw(0);
 		
 		glCullFace(GL_BACK);
 
@@ -445,20 +446,18 @@ void rendrer::RenderSceneCB()
 
 		id->sNode->LightMagic->Enable();
 		id->sNode->LightMagic->SetProjectionMatrix(projection);
-		//mgBuffer->BindForLightPass();
+
 		TheDisc->MasterList_Buffers[0]->EnablePass(3);
 
 
-		//id->sNode->LightMagic->SetWVP()
+
 		id->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 		id->sNode->LightMagic->SetDirectionalLight(id->sDL);
 		id->sNode->LightMagic->SetWorldMatrix(id->sW);
-		//id->sNode->LightMagic->SetViewMatrix(id->sWVP);
+
 		id->sNode->LightMagic->SetViewMatrix(view);
 		id->sNode->LightMagic->SetProjectionMatrix(projection);
 
-		//glActiveTexture(COLOR_TEXTURE_UNIT_INDEX + 10);
-		//glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
 
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -476,7 +475,7 @@ void rendrer::RenderSceneCB()
 	//final pass
 	unsigned int w = GetPixelWidth();
 	unsigned int h = GetPixelHeight();
-	//mgBuffer->BindForFinalPass();
+
 	TheDisc->MasterList_Buffers[0]->EnablePass(4);
 
 	glBlitFramebuffer(0, 0, w, h,

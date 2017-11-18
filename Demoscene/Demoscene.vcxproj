@@ -405,10 +405,12 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <Media Include="AF.mp3" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AssetDiagram.cd" />
     <None Include="Assets\GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
     <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
+    <None Include="DemoMeisterDiagram.cd" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Scene.rocket" />
   </ItemGroup>

@@ -528,47 +528,6 @@ int main(int argc, char** argv)
 	ptrCamTran = dynamic_cast<NS_SG::objTransform*>(TheDisc->o_loader.get()->findNode("tran_kambot").get());
 
 
-
-	//-------------------The effects packets 
-	//NS_EFF::GeomPacket e_geom = NS_EFF::GeomPacket();
-
-
-	//NS_EFF::PointLightPacket e_point = NS_EFF::PointLightPacket();
-
-	//NS_EFF::NullPacket e_null = NS_EFF::NullPacket();
-
-	//NS_EFF::DirLightPacket e_dir = NS_EFF::DirLightPacket();
-
-	//NS_EFF::HeightMapPacket e_hmap = NS_EFF::HeightMapPacket();
-
-
-	//NS_EFF::aoPacket e_ao_Pass = NS_EFF::aoPacket();
-
-	//NS_EFF::RayMarcher e_rm_Pack = NS_EFF::RayMarcher();
-
-
-	//GET RID OF THIS!!!!
-	//boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
-	//boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/sphere.obj", "Mesh/sphere.mtl"));
-
-
-	boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model(Squiddy.FindAndRegister("sphere.obj").c_str(), "sphere.mtl"));
-	boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model(Squiddy.FindAndRegister("sphere.obj").c_str(), "sphere.mtl"));
-	//boost::shared_ptr<NS_ENG::model>  n_sphereL(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
-	//boost::shared_ptr<NS_ENG::model>  n_sphereN(new NS_ENG::model("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl"));
-
-
-	//boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model("Mesh/UVQuad.obj", "Mesh/UVQuad.mtl"));
-
-	
-	boost::shared_ptr<NS_ENG::model>  n_quad(new NS_ENG::model(Squiddy.FindAndRegister("UVQuad.obj").c_str(), "UVQuad.mtl"));
-	//NS_ENG::model m_fly("Mesh/38p.obj", "Mesh/38p.mtl");
-	//NS_ENG::model m_fly("Mesh/fixedP38.obj", "Mesh/fixedP38.mtl");
-	
-	//NS_ENG::model()
-	//NS_ENG::model m_fly(Squiddy.FindAndRegister("GlobalModelVault/Poly/Mitsuba/mitsuba-sphere.obj"), Squiddy.FindAndRegister("GlobalModelVault/Poly/Mitsuba/mitsuba.mtl"));
-	
-	
 	
 	//#O#inside#MN#Deferred_Stone#O#case#MN#Deferred_Brick
 	
@@ -585,6 +544,10 @@ int main(int argc, char** argv)
 	boost::shared_ptr<NS_ENG::model> m_fly(new NS_ENG::model( Squiddy.FindAndRegister("mitsuba-sphere.obj").c_str(),  "mitsuba-mtl"));
 	//NS_ENG::model m_fly("Mesh/mitsuba-sphere.obj", "Mesh/mitsuba-stone.mtl");
 	//NS_ENG::Material::LoadMats("Mesh/mitsuba.mtl");
+
+
+	//NS_ENG::Material::LoadMats(Squiddy.FindAndRegister("Brick.mtl").c_str());
+
 
 
 	NS_ENG::MapAsset::InitAll();
@@ -613,7 +576,7 @@ int main(int argc, char** argv)
 	NS_EFF::RayMarcher *test = boost::static_pointer_cast<NS_EFF::RayMarcher>(TheDisc->RetriveEffect(GeomRayTestIdx)).get();
 
 
-	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(), n_sphereL.get(), n_sphereN.get(), n_quad.get(), test, e_ao_Pass);
+	NS_ENG::rendrer* mRender = new NS_ENG::rendrer(TheDisc->o_loader.get(), kambot.get(),  test, e_ao_Pass);
 
 	//std::cout << "Status of geometry effect is: " << e_geom.Init() << std::endl << std::endl << std::endl;
 	TheDisc->InitEffects("", "", 0);
@@ -646,6 +609,7 @@ int main(int argc, char** argv)
 	test1->SetDiffuseTextureUnit(GL_TEXTURE1);
 
 	//test1->
+	test1->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
 	test1->SetMaterialMapUnit(GL_TEXTURE6);
 	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->Enable());
 	//e_geom.Enable();
@@ -670,6 +634,8 @@ int main(int argc, char** argv)
 	//Enable();
 	test->Enable();
 	test->SetScreenSize(Xres, Yres);
+
+	test->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
 	test->SetMaterialMapUnit(GL_TEXTURE6);
 
 	//std::cout << "Status of point light effect is: " << e_point->Init() << std::endl << std::endl << std::endl;
@@ -678,7 +644,7 @@ int main(int argc, char** argv)
 	std::cout << "PouintLight!==================!" << std::endl;
 	e_point->Enable();
 
-
+	
 	e_point->SetPositionTextureUnit(GL_TEXTURE1);
 	e_point->SetAbedoTextureUnit(GL_TEXTURE2);
 	e_point->SetUvTextureUnit(GL_TEXTURE3);
@@ -690,6 +656,8 @@ int main(int argc, char** argv)
 	e_point->SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
 	e_point->SetMaterialMapUnit(GL_TEXTURE6);
+
+	e_point->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
 	//e_dir.SetMaterialMapUnit(15);
 	e_point->SetScreenSize(Xres, Yres);
 
@@ -708,7 +676,7 @@ int main(int argc, char** argv)
 	e_dir->SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
 	e_dir->SetMaterialMapUnit(GL_TEXTURE6);
-
+	e_dir->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
 	e_dir->SetScreenSize(Xres, Yres);
 
 
@@ -777,14 +745,6 @@ int main(int argc, char** argv)
 
 
 
-	//NS_ENG::model m_protagonist("Mesh/PentagonBase.obj", "Mesh/PentagonBase.mtl");
-
-	//NS_ENG::model m_P_Arm("Mesh/PentagonArm.obj", "Mesh/PentagonArm.mtl");
-
-	//NS_ENG::model m_P_Half_Arm("Mesh/PentagonHalfArm.obj", "Mesh/PentagonHalfArm.mtl");
-
-
-
 	//mn is for model node
 
 	boost::shared_ptr<NS_SG::objTransform> tran_protagonist(new NS_SG::objTransform("tran_protoganist"));
@@ -797,56 +757,8 @@ int main(int argc, char** argv)
 
 	tran_protagonist->addChild(tran_ShowPiece.get());
 
-	/*
-	boost::shared_ptr<NS_SG::targetTransform> target_look(new NS_SG::targetTransform("tar_look"));
-	boost::shared_ptr<NS_SG::objTransform> t_look(new NS_SG::objTransform("t_look"));
 
 
-	boost::shared_ptr<NS_SG::modelNode> lookTest(new NS_SG::modelNode("looker", &m_protagonist, &e_geom));
-	target_look->addChild(lookTest.get());
-	t_look->setPosition(NS_VEC::VEC3(0.0f, 0.0f, -5.0f));
-	t_look->setScale(NS_VEC::VEC3(1.0f, 1.0f, 1.0f));
-	target_look->setTarget(tran_protagonist.get());
-
-	t_look->addChild(target_look.get());
-
-	TheDisc->o_loader->addChild(t_look.get());
-	*/
-	//-----------------------------Grid
-
-
-		/*
-			boost::shared_ptr<NS_SG::objTransform> t_grid(new NS_SG::objTransform("t_grid"));
-			t_grid->setPosition(NS_VEC::VEC3(0, 1, 0));
-			NS_ENG::GridPoints m_grid10x10(90, 90, 1.0f);
-			boost::shared_ptr<NS_SG::gridNode> mn_grid(new NS_SG::gridNode("grid", &m_grid10x10, &e_hmap));
-
-			ptrGridNode = mn_grid.get();
-
-			t_grid->addChild(mn_grid.get());
-
-			Ptr_t_grid = t_grid.get();
-
-			TheDisc->o_loader->addChild(t_grid.get());
-
-			*/
-
-
-
-
-
-
-
-
-
-			//------------------Lights
-
-
-
-				//boost::shared_ptr<NS_SG::dirLightNode> n_dir_lys(new NS_SG::dirLightNode("DirLys", NS_VEC::VEC3(1.0f, 1.0f, 1.0f), 0.1f, 0.5f));
-
-				//Cavern Follow Light
-				//boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.9f, 0.05f, 0.05f), 0.8f, 0.2f, 1.0f, 0.35f, 0.032f, &e_point, &e_null));
 	boost::shared_ptr<NS_SG::pointLightNode> n_point_lys(new NS_SG::pointLightNode("PointLys", NS_VEC::VEC3(0.54f, 0.89f, 0.63f), 0.6f, 0.2f, 1.0f, 0.7f, 0.6f, e_point, e_null));
 
 	boost::shared_ptr<NS_SG::objTransform> tran_Point(new NS_SG::objTransform("tran_PointLys"));

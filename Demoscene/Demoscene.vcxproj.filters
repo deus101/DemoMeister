@@ -319,6 +319,8 @@
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
     <None Include="Assets\GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
     <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
+    <None Include="AssetDiagram.cd" />
+    <None Include="DemoMeisterDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="AF.mp3" />

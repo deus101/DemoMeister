@@ -259,14 +259,7 @@ DemoMeister::~DemoMeister() //public context()
 
 void DemoMeister::AddPass()
 {
-	//GBuffer *temp = new GBuffer();
-	//AoBuffer *temp2 = new AoBuffer();
-	//boost::shared_ptr < MapAsset >(new FileTexture)
-	//temp->Init(ResolutionX, ResolutionY);
-	//temp2->Init(ResolutionX, ResolutionY);
-	//MasterList_Buffers.push_back(sp_Buffer(temp));
-	//MasterList_Buffers.push_back(sp_Buffer(temp2));
-
+	//might be a nice addition to use as a callback for the Projects inheriting from demomeister
 
 }
 
@@ -404,14 +397,21 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 		MapId = NS_ENG::MapAsset::LoadMaps(Initial, NULL);
 
 
-
+	if (AddToArray == true)
+	{
+		
+		base_buffer::DiffArrayMapTexure = NS_ENG::MapAsset::RetriveMap(MapId)->Map_TName;
+	}
 
 
 }
 
-
+//I really REALLY want to add the same trick I did with the buffers to the packets, But not this year?!
 size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Name)
 {
+	//Not to be overloaded, but work with tandem with the Production child.
+
+
 	size_t idx = false;
 	//Prototype names, Todo: look in declaration for links for possible solutions now just get on with it.
 	
@@ -423,13 +423,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	
 
 
-		
-
-
-		//g_factory.construct("Type");
-
-
-		//MasterList_Packets.push_back(boost::make_shared<>());
+	
 	if (idx == false)
 	{
 
@@ -446,7 +440,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	if (TypeName.compare("RayMarcher") == 0)
 	{
 
-		//MasterList_Packets.push_back(sp_RenderPacket(temp2));
+		
 		MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::RayMarcher()));
 		MasterList_Packets.back()->SetName(Name);
 		idx = MasterList_Packets.size();
@@ -454,7 +448,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	if (TypeName.compare("NullPacket") == 0)
 	{
 
-		//MasterList_Packets.push_back(sp_RenderPacket(temp2));
+		
 		MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::NullPacket()));
 		MasterList_Packets.back()->SetName(Name);
 		idx = MasterList_Packets.size();
@@ -462,7 +456,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	if (TypeName.compare("PointLightPacket") == 0)
 	{
 
-		//MasterList_Packets.push_back(sp_RenderPacket(temp2));
+		
 		MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::PointLightPacket()));
 		MasterList_Packets.back()->SetName(Name);
 		idx = MasterList_Packets.size();
@@ -470,7 +464,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	if (TypeName.compare("DirLightPacket") == 0)
 	{
 		
-		//MasterList_Packets.push_back(sp_RenderPacket(temp2));
+		
 		MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::DirLightPacket()));
 		MasterList_Packets.back()->SetName(Name);
 		idx = MasterList_Packets.size();
@@ -478,7 +472,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	if (TypeName.compare("aoPacket") == 0)
 	{
 
-		//MasterList_Packets.push_back(sp_RenderPacket(temp2));
+		
 		MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::aoPacket()));
 		MasterList_Packets.back()->SetName(Name);
 		idx = MasterList_Packets.size();
@@ -491,6 +485,10 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 
 }
 
+
+//some of the cleverest things I've ever done...should replicate....Even the Asset Monstrosity?!
+//NOT THIS DECADE!
+//But the ShaderPackets really should have the same thing
 size_t DemoMeister::AddBuffer(const std::string & TypeName, const std::string & Name)
 {
 	size_t idx = false;
@@ -502,31 +500,11 @@ size_t DemoMeister::AddBuffer(const std::string & TypeName, const std::string & 
 
 		base_buffer* TemplateObject = (base_buffer*)(g_factory.construct(TypeName));
 
-		//MasterList_Buffers.push_back(*(TemplateObject->clone()));
-		//MasterList_Buffers.push_back(sp_Buffer((*TemplateObject->clone())));
+
 		MasterList_Buffers.push_back(sp_Buffer((TemplateObject->clone())));
 		MasterList_Buffers.back()->SetName(Name);
 		MasterList_Buffers.back()->Init(ResolutionX, ResolutionY);
 		idx = MasterList_Buffers.size();
-
-		/*
-		if (TypeName.compare("GBuffer") == 0)
-		{
-
-			//MasterList_Packets.push_back(sp_RenderPacket(temp2));
-			MasterList_Buffers.push_back(sp_Buffer(new GBuffer()));
-			MasterList_Buffers.back()->SetName(Name);
-			idx = MasterList_Buffers.size();
-		}
-		if (TypeName.compare("AoBuffer") == 0)
-		{
-
-			//MasterList_Packets.push_back(sp_RenderPacket(temp2));
-			MasterList_Buffers.push_back(sp_Buffer(new AoBuffer()));
-			MasterList_Buffers.back()->SetName(Name);
-			idx = MasterList_Buffers.size();
-		}
-		*/
 
 	}
 	return idx;
@@ -566,25 +544,25 @@ size_t  DemoMeister::RetriveEffectID(const std::string &TypeName, const std::str
 //Might as well actually, would be nice to have direct call to the containers in BaseBuffer
 //But the architecture(mess) I made means it really should not have public acces to those.
 
-
+//stupid name, Packets are Packets Effects is a term I want to use elsewhere.
+//or wait...eh...NOT THIS YEAR!
 sp_RenderPacket  DemoMeister::RetriveEffect(size_t idx)
 {
 	
-	//there are better ways then this.
 	if (this->MasterList_Packets.size() < idx || idx == 0)
 		return NULL;
 	//Should put the idx in an assert.
 
 
-	//return this->MasterList_Packets.at(idx);
+
 	return this->MasterList_Packets.at(idx-1);
-	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
 
 }
 
 
 
-
+//Experiments I did before I learned the CRTP trick, the factory works well with that...add to packets...
+//BUT NOT THIS YEAR!
 /*
 template <class T>
 T*  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string & Name)
@@ -615,7 +593,7 @@ T*  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string &
 
 
 
-
+//TEMPLATES MOTHER FUCKERS! Bah, I got 3 monster containers must find a way to unite the getters and setters
 sp_RenderPacket  DemoMeister::RetriveEffect(const std::string & TypeName, const std::string & Name)
 {
 
@@ -627,9 +605,8 @@ sp_RenderPacket  DemoMeister::RetriveEffect(const std::string & TypeName, const 
 	//Should put the idx in an assert.
 
 
-	//return this->MasterList_Packets.at(idx);
+
 	return this->MasterList_Packets.at(idx - 1);
-	//((NS_EFF::DeferredPipeMother*)(this->MasterList_Packets.at(PackID).get()))->;
 
 }
 
@@ -642,7 +619,7 @@ size_t DemoMeister::RetrivePassID(const std::string & TypeName, const std::strin
 	{
 		std::string CurrName = (*iter)->GetName();
 		idxCounter++;
-		//if (0 == std::string("Base_Vert").compare(el_BaseShaders->Value()))
+		
 		if (0 == CurrName.compare(Name))
 		{
 			idx = idxCounter;
@@ -702,7 +679,7 @@ sp_PassItemnator DemoMeister::RetrivePass(size_t idx)
 	if (this->MasterList_Passes.size() < idx || idx == 0)
 		return NULL;
 
-	//return this->MasterList_Packets.at(idx);
+
 	return this->MasterList_Passes.at(idx - 1);
 }
 
@@ -715,7 +692,6 @@ sp_PassItemnator DemoMeister::RetrivePass(const std::string & TypeName, const st
 	if (this->MasterList_Passes.size() < idx || idx == 0)
 		return NULL;
 
-	//return this->MasterList_Packets.at(idx);
 	return this->MasterList_Passes.at(idx - 1);
 }
 
@@ -729,7 +705,6 @@ size_t DemoMeister::RetriveBufferID(const std::string & TypeName, const std::str
 	{
 		std::string CurrName = (*iter)->GetName();
 		idxCounter++;
-		//if (0 == std::string("Base_Vert").compare(el_BaseShaders->Value()))
 		if (0 == CurrName.compare(Name))
 		{
 			idx = idxCounter;
@@ -742,9 +717,6 @@ size_t DemoMeister::RetriveBufferID(const std::string & TypeName, const std::str
 	return idx;
 }
 
-//template< class T >
-//std::shared_ptr<T> DemoMeister::RetriveBuffer(size_t idx)
-//template< class T >
 
 sp_Buffer DemoMeister::RetriveBuffer(size_t idx)
 {
@@ -752,7 +724,6 @@ sp_Buffer DemoMeister::RetriveBuffer(size_t idx)
 	{
 		return NULL;
 	}
-	//return this->MasterList_Packets.at(idx);
 
 	return this->MasterList_Buffers.at(idx - 1);
 }

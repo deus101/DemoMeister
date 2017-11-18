@@ -44,7 +44,7 @@ struct S_LocalBuffer {
 class base_buffer{
 
 public:
-
+	static GLuint DiffArrayMapTexure;
 	virtual ~base_buffer() {};
 
 	virtual base_buffer *clone() const = 0;
@@ -74,6 +74,8 @@ public:
 		PASS_AOBUFFER,
 		PASS_BLURBUFFER
 	};
+	
+	
 
 
 protected:

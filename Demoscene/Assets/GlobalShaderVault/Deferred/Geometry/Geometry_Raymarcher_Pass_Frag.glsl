@@ -1,4 +1,4 @@
-#version 330
+#version 450 core
 
 smooth in vec2 uv;
 //smooth in vec3 v;
@@ -10,10 +10,8 @@ layout(location = 1) out vec3 DiffuseOut;
 layout(location = 2) out vec3 NormalOut;
 layout(location = 3) out vec3 UvOut;
 
-uniform sampler2DArray DiffuseMaps;
-
-
-
+uniform sampler2DArray ArrayDiffuseMaps;
+//uniform sampler3D ArrayDiffuseMaps;
 
 uniform sampler2D MaterialMap;
 
@@ -96,7 +94,10 @@ float distScene(vec3 p)
 	//pMod2(p.zx, vec2(10.0f,10.f));
 	float Hexagons = fHexagonCircumcircle(p - vec3(0.0f, -0.5f, 0.0f), vec2(0.45f, 0.5f));
 	
-	return min(distArch, Hexagons);
+
+
+	return fOpUnionStairs(distArch,Hexagons,0.3,4);
+	//return min(distArch, Hexagons);
 
 }
 
@@ -166,6 +167,38 @@ vec4 CalcUV(in vec3 p, in vec3 n, in float k)
 	vec4 y = vec4(p.zx, 0, 1);
 	vec4 z = vec4(p.xy, 0, 1);
 	return (x*m.x + y*m.y + z*m.z) / (m.x + m.y + m.z);
+}
+
+
+//DataSets:
+//0 gives you RGB of diffuse component.
+//1 gives you RGB of specular component.
+//2 gives you R: Sampler used if zero the texture is bound for this pass, over 1 will identify the texture
+//            Unit of a (hopefully) bound array texture.
+//			  G: The Layer in an TextureArray if R is over 0, if not this identifies the texture unit
+//            B: Number of Layers in this sampler
+
+
+void LookUpDeferredMaterial(float ID, int DataSet, out vec3 Properties)
+{
+
+	float PZ_MM_Y = 1 / textureSize(MaterialMap, 0).y;
+	float PZ_MM_X = 1 / textureSize(MaterialMap, 0).x;
+	float fixID = (ID * PZ_MM_Y) * 0.5;
+	float fixDataSet = (DataSet * PZ_MM_X) * 0.5;
+	//MatDiffuse = vec4(texture(MaterialMap, vec2(0, fixID)).xyz, 1.0);
+	//MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID)).xyz, 1.0);
+	Properties = texture(MaterialMap, vec2(fixDataSet, fixID)).xyz;
+	//MapInfo = 1 / texture(MaterialMap, ivec2(2, ID)).xyz;
+
+}
+
+void LookUpTexture( int TextureLayer, vec2 uv, out vec4 Result)
+{
+//texture(ArrayDiffuseMaps, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
+Result =  texture(ArrayDiffuseMaps, vec3(uv,float(TextureLayer)));
+ //texture(ArrayDiffuseMaps[0], TexCoord0).xyz;
+
 }
 
 void main()
@@ -317,7 +350,7 @@ void main()
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
 		normal = floorNormal;
 		color = chessBoard(p);
-		matID = 6;
+		matID = 3;
 		
 
 		puv = CalcUV(p, normal, 32.0).xy;
@@ -336,7 +369,7 @@ void main()
 		eyeHitZ = -t *dot(worldDir, rd);
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
 		//color = vec4(1 / 255);
-		matID = 5;
+		matID = 1;
 		normal = getNormal(p);
 		puv = CalcUV(p, normal, 32.0).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
@@ -344,7 +377,17 @@ void main()
 		gl_FragDepth = dep;
 		dep = LinearDepth(dep);
 
+		
+		if(3.0f > distance(p,vec3(0.0f, 2.2f, 0.0f)) )
+		{
+		color.xyz = texture(ArrayDiffuseMaps, vec3(puv.xy,float(0) ) ).xyz;
+		}
+		else
+		{
+		color.xyz = texture(ArrayDiffuseMaps, vec3(puv.xy,float(1) ) ).xyz;
+		}
 
+		//LookUpDeferredMaterial(matID,2,color.xyz);
 	}
 	else
 	{
@@ -364,7 +407,7 @@ void main()
 		eyeHitZ = -t *dot(worldDir, rd);
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
 		//color = vec4(1 / 255);
-		matID = 5;
+		matID = 4;
 		normal = getNormal(p);
 		puv = CalcUV(p, normal, 32.0).xy;
 
@@ -380,12 +423,15 @@ void main()
 	//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 	//gl_FragDepth = dep;
 
-
-
+	//vec3 MatMapProps = vec3(0,0,0);
+	//LookUpDeferredMaterial(matID,2,MatMapProps);
+	//LookUpTexture(int(MatMapProps.y)-1,puv,color);
+	//LookUpTexture(int(MatMapProps.y)-1,puv,color);
 	WorldPosOut.xyz = p;
 	//WorldPosOut.w = LinearDepth(dep);
 	WorldPosOut.w = dep;
 	DiffuseOut = color.xyz;
+	
 	UvOut.xy = puv;
 	UvOut.z = matID;
 	NormalOut = normal;

@@ -34,6 +34,8 @@ namespace NS_EFF {
 
 		//void SetDiffuseTextureUnit(unsigned int TextureUnit);
 		void SetDiffuseTextureUnit(GLenum TextureUnit);
+
+
 		void SetDeferreDiffuseTextureUnit(GLenum TextureUnit);
 		void SetDeferreBumpTextureUnit(GLenum TextureUnit);
 

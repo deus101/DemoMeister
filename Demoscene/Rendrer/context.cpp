@@ -2,13 +2,6 @@
 #include <iostream>
 #include <stdio.h>
 
-//#include <GLFW/glfw3.h>
-//#include <GL\wglew.h>
-//#include <GL\glew.h>
-//#include <GL\wglew.h>
-//#include "../world.h"
-
-//using namespace NS_REND;
 
 static ICallbacks* s_pCallbacks = NULL;
 
@@ -28,27 +21,8 @@ DemoMeister *TheDisc = NULL;
 extern void Sync();
 
 
-//static unsigned int pHeight = 0;
-//static unsigned int pWidth = 0;
-//static bool m_created;
-//HGLRC context::SharedContex;
- //int context::Glu_Window;
-// HGLRC context::RendContext = 0;
-// HDC context::DeviceContext;
-//bool context::ResizeBuffer;
 
-//context::context()
-//{
-//	
-//
-//}
-//
-//
-//context::~context()
-//{
-//
-//
-//}
+
 
 
 static void RenderSceneCB()

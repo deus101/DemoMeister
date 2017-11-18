@@ -108,7 +108,11 @@ namespace NS_ENG{
 		};
 	};
 
-	
+	enum ModelSimple {
+		Sphere,
+		Quad,
+
+	};
 
 
 	class model : public asset
@@ -160,6 +164,8 @@ namespace NS_ENG{
 		void Init() {};
 		int Init(int t) { return t; };
 		void Load();
+		void Load(ModelSimple QuickAssembly);
+		
 		void Load(std::string obj, std::string mtl, bool UV, bool Tangent);
 
 		void Draw();
@@ -201,6 +207,18 @@ namespace NS_ENG{
 
 
 	};
-	//const void loadBuffer(Model &mModel, renderPacket &mPacket);
+	
+
+	/*
+	class SimpleModel : public model
+	{
+
+	};
+	*/
+
+
+
+
+
 }
 #endif

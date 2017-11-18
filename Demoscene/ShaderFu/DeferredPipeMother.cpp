@@ -68,7 +68,7 @@ void DeferredPipeMother::SetScreenSize(unsigned int Width, unsigned int Height)
 
 
 
-//void GeomPacket::SetDiffuseTextureUnit(unsigned int TextureUnit)
+//Packets needs to have generic functions, but not this year!
 void DeferredPipeMother::SetDiffuseTextureUnit(GLenum TextureUnit)
 {
 	GLint ShaderProg;
@@ -87,6 +87,7 @@ void NS_EFF::DeferredPipeMother::SetDeferreDiffuseTextureUnit(GLenum TextureUnit
 	GLint ShaderProg;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
 
+	
 	int SamplerID = TextureUnit - GL_TEXTURE0;
 	glUniform1i(m_DeferredDiffuseTextureUnitLocation, SamplerID);
 	this->m_StageParamPtr->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT] = TextureUnit;

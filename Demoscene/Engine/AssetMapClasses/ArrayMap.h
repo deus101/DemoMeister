@@ -1,5 +1,5 @@
 #pragma once
-//#include "C:\Users\Deus\Source\Repos\DemoEngine\Demoscene\Engine\AssetMapClasses\map.h"
+
 
 #include "map.h"
 
@@ -26,6 +26,9 @@ namespace NS_ENG
 
 	};
 
+
+	//pointless oop fuckery, remove and replace with a common function,
+	//modifying the texturedesc is good enough.
 	class SubArrayMap : public MapAsset
 	{
 

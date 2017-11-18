@@ -29,11 +29,195 @@ model::model()
 //Anything with the static container should not have something todo in a constructor
 model::model(string obj, string mtl, bool UV, bool Tangent) : asset()
 {
+
 	this->Load(obj, mtl, UV, Tangent);
 }
 
 void model::Load()
 {
+
+}
+
+void model::Load(ModelSimple QuickAssembly)
+{
+
+	if (!this->meshy.file_name.empty() || !Sort_Groups.empty())
+		return;
+
+
+	switch (QuickAssembly)
+	{
+
+	case(ModelSimple::Quad): {
+
+
+		LoadMesh(Squiddy.FindAndRegister("UVQuad.obj").c_str(), this->meshy);
+
+		break;
+
+	}
+	case(ModelSimple::Sphere): {
+
+
+		LoadMesh(Squiddy.FindAndRegister("sphere.obj").c_str(), this->meshy);
+		break;
+
+	}
+	default:
+	{
+		return;
+
+	}
+
+
+	}
+
+
+	map<PackedVertex, unsigned int> VertexToOutIndex;
+
+	for (unsigned int u = 0; u < meshy.m_Groups.size(); u++)
+	{
+
+		buffer_Group MG;
+
+		//We are gonna make sure these are filled, even if we have a new material at hand we will allways load the original;
+		MG.ObjName = meshy.m_Groups[u].group_name;
+		
+		MG.ObjectID = u;
+
+		for (unsigned int j = 0; j < meshy.m_Groups[u].m_Faces.size(); j++)
+		{
+			for (unsigned int k = 0; k < meshy.m_Groups[u].m_Faces[j].m_Verts.size(); k++)
+			{
+				PackedVertex packed = {
+					meshy.m_Pos[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_PID],
+					meshy.m_Uvs[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_UID],
+					meshy.m_Norms[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_NID]
+				};
+				unsigned int index;
+				//unsigned short index;
+
+
+
+				bool found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
+
+
+				if (found)
+				{ // A similar vertex is already in the VBO, use it instead !
+					MG.IBO.push_back(index);
+				}
+				else
+				{ // If not, it needs to be added in the output data.
+					Sort_Pos.push_back(meshy.m_Pos[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_PID]);
+					Sort_Uvs.push_back(meshy.m_Uvs[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_UID]);
+					Sort_Norms.push_back(meshy.m_Norms[meshy.m_Groups[u].m_Faces[j].m_Verts[k].m_NID]);
+
+
+					unsigned int newindex = (unsigned int)Sort_Pos.size() - 1;
+					MG.IBO.push_back(newindex);
+					VertexToOutIndex[packed] = newindex;
+				}
+			}
+
+		}
+		this->Sort_Groups.push_back(MG);
+
+	}
+	
+	this->ModelAidRoot = meshy.Child;
+	//Husk å generer programmet før dette
+	//gl::UseProgram(aContext.Program);
+	//KA FAEN TENKTE JEG PÅ!
+
+	//cout << "NR groups: " << Sort_Groups.size() << endl;
+	//cout << "VBOs   vertex: " << Sort_Pos.size() << " Norms: " << Sort_Norms.size() << " UVs: " << Sort_Uvs.size() << endl;
+
+	glGenBuffers(1, &vbo_vertices);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+	glBufferData(GL_ARRAY_BUFFER, Sort_Pos.size() * sizeof(GLfloat) * 3, &Sort_Pos[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &vbo_uv);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_uv);
+	glBufferData(GL_ARRAY_BUFFER, Sort_Uvs.size() * sizeof(GLfloat) * 2, &Sort_Uvs[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &vbo_normals);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+	glBufferData(GL_ARRAY_BUFFER, Sort_Norms.size() * sizeof(GLfloat) * 3, &Sort_Norms[0], GL_STATIC_DRAW);
+
+
+
+	for (unsigned int j = 0; j < Sort_Groups.size(); j++)
+	{
+		//cout << "NR of indice for: " << j << " is " << Sort_Groups[j].IBO.size() << endl;
+		glGenVertexArrays(1, &Sort_Groups[j].vao);
+		glBindVertexArray(Sort_Groups[j].vao);
+
+		//cout << "vao ident: " << Sort_Groups[j].vao << endl;
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_uv);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+
+		//wait what? 
+		glGenBuffers(1, &Sort_Groups[j].vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].vbo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Sort_Groups[j].IBO.size() * sizeof(unsigned int), &Sort_Groups[j].IBO[0], GL_STATIC_DRAW);
+
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
+
+		for (unsigned int i = 0; i < 4; i++) {
+			glEnableVertexAttribArray(3 + i);
+			glVertexAttribPointer(3 + i, 4, GL_FLOAT, GL_FALSE, sizeof(s_ModelAid),
+				(const GLvoid*)(sizeof(GLfloat) * i * 4));
+			glVertexAttribDivisor(3 + i, 1);
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_ChildTool);
+
+		for (unsigned int i = 0; i < 4; i++) {
+			glEnableVertexAttribArray(4 + i);
+			glVertexAttribPointer(4 + i, 4, GL_FLOAT, GL_FALSE, sizeof(s_ModelAid),
+				(const GLvoid*)(sizeof(GLfloat) * i * 4));
+			glVertexAttribDivisor(4 + i, 1);
+		}
+
+
+
+
+
+
+
+	}
+
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+
+
+
+
+
+
+
+
 
 }
 
@@ -50,6 +234,9 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 
 	if (mtl.c_str()[0] == '#')
 		SpecialInstructions = true;
+
+
+
 
 	for (auto ModelIterator : model::classModelList) {
 		
@@ -100,6 +287,7 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 	Sort_Groups.clear();
 	}
 	//meshy.
+
 
 
 
@@ -315,12 +503,7 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 	}
 
 	ModelAidRoot = meshy.Child;
-	//Husk å generer programmet før dette
-	//gl::UseProgram(aContext.Program);
-	//KA FAEN TENKTE JEG PÅ!
 
-	//cout << "NR groups: " << Sort_Groups.size() << endl;
-	//cout << "VBOs   vertex: " << Sort_Pos.size() << " Norms: " << Sort_Norms.size() << " UVs: " << Sort_Uvs.size() << endl;
 
 	glGenBuffers(1, &vbo_vertices);
 
@@ -458,13 +641,14 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 
 			//meshy.m_Groups[u].matid = j;
 			Object.MatId = MatIter->Mat_MatID;
+			
 			//MG.
 			//map
 			if (MatIter->Tex_Has_DiffuseTexture != NULL)
 			{
 				t_SharedMapPtr TmpMap;
-				TmpMap = MapAsset::RetriveMap(MatIter->Tex_Diffuse_SamplerID);
-
+				TmpMap = MapAsset::RetriveMap(MatIter->Tex_Has_DiffuseTexture);
+				//TmpMap = MapAsset::RetriveMap(MatIter->di);
 
 
 				//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
@@ -473,7 +657,22 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 				{
 					//Oh right...I did use that
 					Object.DiffuseTexture = TmpMap->Map_TName;
-					//Object.Dif
+	
+					MatIter->Tex_Diffuse_Layer = TmpMap->Map_Layer;
+
+					if(TmpMap->Base_Data.MapCategory == NS_ENG::MAP_ASSEMBLY_TYPE::FILE_TEXTURE)
+					{ 
+					Object.HasDiffuseSkin = TmpMap->Map_TName;
+					MatIter->Tex_Diffuse_SamplerID = 0;
+
+					}
+					else
+					{
+					MatIter->Tex_Diffuse_SamplerID = 1;
+
+					}
+
+
 				}
 
 			}
@@ -481,17 +680,31 @@ void model::SetMaterial(buffer_Group &Object, std::string TaskModel = "", std::s
 			if (MatIter->Tex_Has_BumpTexture != NULL)
 			{
 				t_SharedMapPtr TmpMap;
-				TmpMap = MapAsset::RetriveMap(MatIter->Tex_Bump_SamplerID);
+				TmpMap = MapAsset::RetriveMap(MatIter->Tex_Has_BumpTexture);
+				
 
 
-
-				//MapAssetPtr TmpMap = MapAsset::RetriveMap(MatIter.id_Map);
+			
 
 				if (TmpMap != NULL)
 				{
 					//Oh right...I did use that
 					Object.BumpTexture = TmpMap->Map_TName;
 					//Object.Dif
+					MatIter->Tex_Bump_Layer = TmpMap->Map_Layer;
+
+					if (TmpMap->Base_Data.MapCategory == NS_ENG::MAP_ASSEMBLY_TYPE::FILE_TEXTURE)
+					{
+						Object.HasNormalSkin = TmpMap->Map_TName;
+						MatIter->Tex_Bump_SamplerID = 0;
+
+					}
+					else
+					{
+						MatIter->Tex_Bump_SamplerID = 1;
+
+					}
+
 				}
 
 			}
@@ -513,24 +726,13 @@ void model::Draw()
 
 	
 
-	//GLuint vbo_BaseTool;
-	//GLuint vbo_ChildTool;
 
-	//this shit needs to go. 
 	GLint ShaderProg;
-	//glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
-	
-	//GLint VEC3_DIFF_UNILOC = glGetUniformLocation(ShaderProg, "mDiffuseCol");
-	
-	//remember to move to overloaded method
+
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &ModelAidRoot, GL_DYNAMIC_DRAW);
 
 
-
-	//glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
-
-	//glBindTexture(GL_TEXTURE_2D, Material::GenerateMaterialMap());
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -542,39 +744,27 @@ void model::Draw()
 
 
 		
-		//This shit must be redone to use mat ID and stuff
+	
 		glBindVertexArray(Sort_Groups[i].vao);
-		//glUniform3f(VEC3_DIFF_UNILOC, Sort_Groups[i].dif.X, Sort_Groups[i].dif.Y, Sort_Groups[i].dif.Z);
-		
-
-		//Sort_Groups[i].
-
 
 
 
 
 		//13.07  is allways null
-		if (Sort_Groups[i].DiffuseTexture != NULL)
+		if (Sort_Groups[i].HasDiffuseSkin != NULL)
 		{
+			//If the mesh has a texture or skin I want to use it in the forward rendering
+			//If I want to, so it will be a second set of materials that will be available even If new one is assigned
 			//if ActivateAlbedoSampler
 			glActiveTexture(CurrentStage->TextureUnits[TypeOfTexture::DiffuseMap_UNIT]);
-			//glActiveTexture(TypeOfTexture::DiffuseMap_UNIT);
 
-			//glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].tex);
-			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].DiffuseTexture);
+			glBindTexture(GL_TEXTURE_2D, Sort_Groups[i].HasDiffuseSkin);
 		}
 
-		//Sort_Groups[i].
-		//gl::Uniform4fv(DifLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].diff);
-		//gl::Uniform4fv(AmbLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].amb);
-		//gl::Uniform4fv(SpecLoc, 1, (const GLfloat *)palette.m_Materials[meshy.m_Groups[i].matid].spec);
-		//glUniform1f(this->, palette.m_Materials[meshy.m_Groups[i].matid].shiny);
-		//glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, (GLintptr)_data.indices.length, _data.indices.bytes);
-		//glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_SHORT, (void*)0);
-		
+
 		glDrawElements(GL_TRIANGLES, Sort_Groups[i].IBO.size(), GL_UNSIGNED_INT, (void*)0);
 
-		//nvogl gives exception error every second run
+
 
 
 
@@ -592,6 +782,27 @@ void model::Draw()
 void model::Draw(int instances)
 {
 
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &ModelAidRoot, GL_DYNAMIC_DRAW);
+
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_ChildTool);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &Sort_Groups[instances].ModelAidChild, GL_DYNAMIC_DRAW);
+
+
+
+		//This shit must be redone to use mat ID and stuff
+	glBindVertexArray(Sort_Groups[instances].vao);
+
+
+	glDrawElements(GL_TRIANGLES, Sort_Groups[instances].IBO.size(), GL_UNSIGNED_INT, (void*)0);
+
+	
+	glBindVertexArray(0);
 
 
 }

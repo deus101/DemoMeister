@@ -74,7 +74,7 @@ namespace NS_ENG
 		GLint  filter;
 		unsigned int w;
 		unsigned int h;
-
+		unsigned int d;
 	public:
 		TextureDesc()
 			:MapCategory(MAP_ASSEMBLY_TYPE::UNDEFINED)
@@ -94,13 +94,12 @@ namespace NS_ENG
 			, filter(GL_NEAREST)
 			, w(0)
 			, h(0)
+			, d(0)
 		{
 		}
 		virtual ~TextureDesc() {}
 	};
 
-	//typedef boost::shared_ptr< struct TextureDesc > TextureDescPtr;
-	//typedef boost::shared_ptr<const struct TextureDesc> TextureDescConstPtr;
 
 
 
@@ -123,9 +122,6 @@ namespace NS_ENG
 
 	};
 
-
-	//typedef boost::shared_ptr< struct FileTextureDesc > FileTextureDescPtr;
-	//typedef boost::shared_ptr<const struct FileTextureDesc> FileTextureDescConstPtr;
 
 	struct FboTextureDesc : public TextureDesc
 	{
@@ -192,7 +188,7 @@ namespace NS_ENG
 	struct SubArrayTextureDesc : public TextureDesc
 	{
 		e_AssemblyType LoadedAs;
-		//t_WeakArrayMapPtr ParentArray;
+		
 		GLint ParentArrayID;
 		
 	public:
@@ -220,10 +216,10 @@ namespace NS_ENG
 
 
 	private:
-		//list <MapAsset>::iterator MapIter;
+		
 		std::list <boost::shared_ptr<  MapAsset >>::iterator MapIter;
 	public:
-		//static list <MapAsset*> classMapList;
+		
 		static std::list<boost::shared_ptr<  MapAsset >> classMapList;
 
 		//typedef enum MAP_TYPE;
@@ -233,7 +229,7 @@ namespace NS_ENG
 
 		MapAsset();
 		~MapAsset() {};
-		//static GLint LoadMaps(const char *param);
+		
 
 		void Init() {} ;
 		void Draw() {};
@@ -244,17 +240,23 @@ namespace NS_ENG
 
 		static t_SharedMapPtr RetriveMap(GLint MapID);
 		
+
 		static void InitAll();
 
 		//static MapAsset* RetriveMap(string origin, string name);
 
-
 		//this should be called AssetID
+
+
 		GLint Map_MapID;
 
-		GLint Map_TName;
+		GLuint Map_TName;
 		
+		GLint SamplerID;
+
 		GLint Map_Layer;
+
+		GLint Total_Layers;
 		//protected:
 
 		TextureDesc Base_Data;
@@ -266,5 +268,3 @@ namespace NS_ENG
 	};
 
 }
-
-//#endif

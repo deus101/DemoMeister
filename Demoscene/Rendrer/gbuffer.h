@@ -8,8 +8,7 @@
 
 
 
-//class GBuffer : public base_buffer
-//Derive_Buffer_CRTP(GBuffer)
+
 
 class GBuffer : public Buffer_CRTP<GBuffer>
 {
