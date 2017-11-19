@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Mesh">
       <UniqueIdentifier>{41af6f82-7fcc-498f-b98a-471001714d51}</UniqueIdentifier>
     </Filter>
@@ -316,151 +312,18 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Mesh\38p.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\38ps.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\bench.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\corridor.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\corridor_Scene.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\corridor_Scene_Scene.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\cube_texture.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\cube_texture2.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\hex.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\p38.mtl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\p38.obj.bac">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="bf.ogg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Mesh\teapot.FBX" />
-    <None Include="Shaders\geometry_grid_pass.vs" />
-    <None Include="Shaders\geometry_grid_pass.gs" />
-    <None Include="Shaders\geometry_grid_pass.fs" />
     <None Include="Scene.rocket" />
-    <None Include="Mesh\LazyGreets.mtl" />
-    <None Include="Shaders\ao_Pass_Frag.glsl" />
-    <None Include="Shaders\IdentityPacket.vert" />
-    <None Include="Shaders\RayMarcher_Frag.glsl" />
-    <None Include="Shaders\RayMarcher_vert.glsl" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
     <None Include="Assets\GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
     <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
+    <None Include="AssetDiagram.cd" />
+    <None Include="DemoMeisterDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="Mesh\38p.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\38ps.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\bench.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\cor.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\cornomtl.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\cornor.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\corridor.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\corridor_Scene.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\corridor_Scene_Scene.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\cube.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\cube_texture.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\cube_texture2.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\hex.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\hexagon.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\humanoid_tri.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\p38.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\pyramid.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\sd.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\tea.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\tea2.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-    <Object Include="Mesh\teapot.obj">
-      <Filter>Resource Files</Filter>
-    </Object>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="bf.mp3">
-      <Filter>Resource Files</Filter>
-    </Media>
     <Media Include="AF.mp3" />
-    <Media Include="Mesh\LazyGreets.obj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Mesh\p38.obj.bac.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Demoscene.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Mesh\texture.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Mesh\texture2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\cave2.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />

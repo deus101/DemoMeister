@@ -2,12 +2,9 @@
 #define RENDERPACKET_HPP
 
 #include <iostream>
-//#include <list>
-#include "../Math/vec.h"
+
 
 #include "../Engine/asset.h"
-#include "../Math/math3d.h"
-//#include "../Rendrer/context.h"
 
 
 #include "../util.h"
@@ -22,18 +19,13 @@ namespace NS_EFF{
 
 
 	public:
-		//renderPacket(const std::string &name) : EffectName(name) { assert(name.length() > 0); }
+
 		renderPacket();
 
 
 		virtual ~renderPacket();
 
 
-		//void SetUniMat()
-		//{
-
-
-		//}
 
 		virtual bool Init();
 
@@ -84,8 +76,7 @@ namespace NS_EFF{
 		
 		bool b_Custom_GLSL_Targets;
 
-		//NS_ENG::NS_SHADER::ShaderItem *ParsedVertexCode, *ParsedGeometryCode, *ParsedFragmentCode;
-		//NS_ENG::NS_SHADER::ShaderItemPtr ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
+
 		NS_ENG::NS_SHADER::BaseShaderItemPtr ParsedVertexCode, ParsedGeometryCode, ParsedFragmentCode;
 
 		//sp_PassItemnator

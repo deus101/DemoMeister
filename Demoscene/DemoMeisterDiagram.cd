@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PassItemnator">
+    <Position X="16" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQaYCgABAIgAEEQBQAgAgAAAAAIDEYQAAAFAE=</HashCode>
+      <FileName>world.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoMeister">
+    <Position X="6.75" Y="0.75" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="DemoMeister::vec_EffectPackets" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>world.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="DemoMeister::vec_BufferContainer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>world.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="DemoMeister::vec_PassDefinitions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>world.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgQAYwAAAAYQgACAAARAABAAAAAgICoUQCAAgJAAg=</HashCode>
+      <FileName>world.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::aoPacket" Collapsed="true">
+    <Position X="3.75" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAAAAAABAAAAAACAAACAAAAAABAgEAACIAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\aoPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::SpotLightPacket" Collapsed="true">
+    <Position X="9" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAACAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\ConeLightPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::DirLightPacket" Collapsed="true">
+    <Position X="6.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAIAAAAAAAAAAAACAAAAAAE=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\DirLightPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::GeomPacket" Collapsed="true">
+    <Position X="10.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\GeomPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::HeightMapPacket" Collapsed="true">
+    <Position X="12" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAIJAAEAAAAAAAAAAAQAAAAAgAQAAAAiACAABgA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\HeightMapPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::lightPacket" Collapsed="true">
+    <Position X="6" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\lightPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::NullPacket" Collapsed="true">
+    <Position X="8.25" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAACAAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\NullPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::PointLightPacket" Collapsed="true">
+    <Position X="9" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAEAAAgAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\PointLightPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::RayMarcher" Collapsed="true">
+    <Position X="12.75" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ShaderFu\DeferredPackets\RayMarcher.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::DeferredPipeMother" Collapsed="true">
+    <Position X="7.75" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>yAAEAICBAAAAAAAIgRAJAAkQEABKggKAAQICgAAAAgQ=</HashCode>
+      <FileName>ShaderFu\DeferredPipeMother.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_EFF::renderPacket" Collapsed="true">
+    <Position X="12" Y="3.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="NS_EFF::renderPacket::ShaderObjList" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ShaderFu\renderPacket.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AZQCEMQIAAAgAGEgCgAACATAhCAElQkxCyMCQABAJCA=</HashCode>
+      <FileName>ShaderFu\renderPacket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="base_buffer">
+    <Position X="19.75" Y="3.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="base_buffer::TARGET_BUFFERS_TYPE" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\base_buffer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAIABQAIAAEAEAAAAAAAAEwQCACUAAABAA=</HashCode>
+      <FileName>Rendrer\base_buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buffer_CRTP&lt;ConcreteBuffer&gt;" Collapsed="true">
+    <Position X="24.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Rendrer\base_buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GBuffer" Collapsed="true">
+    <Position X="25.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIEBAAAQgAAAQAAAAABAAAAAsAACAAAAAAg=</HashCode>
+      <FileName>Rendrer\gbuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AoBuffer" Collapsed="true">
+    <Position X="23.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIAAQAAAAAAAADAAAAAABAAAAAAGIAAAAAA=</HashCode>
+      <FileName>Rendrer\aobuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

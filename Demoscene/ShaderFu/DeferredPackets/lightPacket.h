@@ -5,7 +5,7 @@
 
 #include "../renderPacket.h"
 #include "../DeferredPipeMother.h"
-//#include "../../util.h"
+#include "../../util.h"
 
 namespace NS_EFF{
 	//class lightPacket : public renderPacket {

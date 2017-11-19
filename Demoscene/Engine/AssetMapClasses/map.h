@@ -5,51 +5,88 @@
 
 //#include "asset.h"
 #include "../asset.h"
-
+//#include "../../util.h"
 //#include "../ShaderFu/GeomPacket.h"
 //
 //#include "../Libs/FreeImage.h"
 #include "../../FreeImage.h"
-#include "../../util.h"
 
+#include <boost/enable_shared_from_this.hpp>
 
 
 
 
 namespace NS_ENG
 {
-	typedef enum MAP_TYPE {
+	typedef boost::shared_ptr< class MapAsset  > t_SharedMapPtr;
+
+	typedef boost::weak_ptr< class MapAsset > t_WeakMapPtr;
+
+	typedef boost::shared_ptr< class ArrayMap  > t_SharedArrayMapPtr;
+
+	typedef boost::weak_ptr< class ArrayMap > t_WeakArrayMapPtr;
+
+	typedef enum class MAP_ASSEMBLY_TYPE {
 		UNDEFINED,
 		FILE_TEXTURE,
 		FBO_TEXTURE,
 		DATA_TEXTURE,
-		ARRAY_TEXTURE
-	} e_CategoryType;
+		ARRAY_TEXTURE,
+		SUB_ARRAY_TEXTURE
+	} e_AssemblyType;
 
+	typedef enum class MAP_CONTENT_TYPE {
+		UNDEFINED,
+		DIFFUSE,
+		BUMP,
+		HEIGHT,
+		PERLIN,
+		VORONOI
+	} e_DataType;
+
+	typedef enum class MAP_CLIENT_TYPE {
+		UNDEFINED,
+		PACKET,
+		MANUAL,
+		MATERIAL,
+		BUFFER,
+		PASS
+	} e_ClientType;
 
 
 	struct TextureDesc
 	{
-		e_CategoryType MapCategory;
+		e_AssemblyType MapCategory;
+		e_DataType MapContent;
+		e_ClientType MapUser;
 		GLenum Target;
 		std::string Name;
 		std::string Origin;
+		std::string OriginNames;
 		std::string Description;
-		GLenum format;
-		GLenum type;
-		GLint internalFormat;
+					//v  v  These two must be in the deferred material Map, Need to offset it to 1 so zero means naught;	
+		GLint SamplerID;	//As the Material is fetched in the shader and you get 1 it will mean Diffuse sampler, As with 2, of course then the
+		GLint TextureLayer; //Texture id does not matter, the sampler has allready been loaed with a texture for the deferred rendering.
+		GLenum format;		//but...if TextureLayer is not 0 then we move on to the shadercode that uses the ArrayMap.
+		GLenum type;		//The MaterialMap is cheap to make, though the code in GLSL will be not, Lets stick with diffuse and bump/normal
+		GLenum internalFormat;//The TextureName will reside elsewhere, this is just a descriptor
 		GLint  wrap;
 		GLint  filter;
 		unsigned int w;
 		unsigned int h;
-
+		unsigned int d;
 	public:
 		TextureDesc()
-			:MapCategory(MAP_TYPE::UNDEFINED)
+			:MapCategory(MAP_ASSEMBLY_TYPE::UNDEFINED)
+			, MapContent(MAP_CONTENT_TYPE::UNDEFINED)
+			, MapUser(MAP_CLIENT_TYPE::UNDEFINED)
 			, Target(GL_TEXTURE_2D)
 			, Name("")
 			, Origin("")
+			, OriginNames("")
 			, Description("")
+			, SamplerID(0)  //these can actually just be an index for the Passes own Sampler list
+			, TextureLayer(0) //Before the data is loaded the ArrayTexture can assaign the layer
 			, format(0)
 			, type(0)
 			, internalFormat(0)
@@ -57,13 +94,12 @@ namespace NS_ENG
 			, filter(GL_NEAREST)
 			, w(0)
 			, h(0)
+			, d(0)
 		{
 		}
 		virtual ~TextureDesc() {}
 	};
 
-	//typedef boost::shared_ptr< struct TextureDesc > TextureDescPtr;
-	//typedef boost::shared_ptr<const struct TextureDesc> TextureDescConstPtr;
 
 
 
@@ -74,21 +110,18 @@ namespace NS_ENG
 		FileTextureDesc() : TextureDesc()
 			, Map_Path("")
 		{
-			MapCategory = MAP_TYPE::FILE_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::FILE_TEXTURE;
 		}
 
 		FileTextureDesc(const TextureDesc & B)
 			: TextureDesc(B)
 		{
-			MapCategory = MAP_TYPE::FILE_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::FILE_TEXTURE;
 		}
 		
 
 	};
 
-
-	//typedef boost::shared_ptr< struct FileTextureDesc > FileTextureDescPtr;
-	//typedef boost::shared_ptr<const struct FileTextureDesc> FileTextureDescConstPtr;
 
 	struct FboTextureDesc : public TextureDesc
 	{
@@ -125,49 +158,68 @@ namespace NS_ENG
 		{
 		}
 
-		//GLint  wrap;
-		//GLint  filter;
-		//string Map_Path;
+
 
 	};
 
 
+
 	struct ArrayTextureDesc : public TextureDesc
 	{
+
+		std::list <GLint> SubItemsID;
 	public:
 		ArrayTextureDesc()
 			: TextureDesc()
 		{
-			MapCategory = MAP_TYPE::ARRAY_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
 		}
 
 		ArrayTextureDesc(const TextureDesc & B)
 			: TextureDesc(B)
 		{
-			MapCategory = MAP_TYPE::ARRAY_TEXTURE;
+			MapCategory = MAP_ASSEMBLY_TYPE::ARRAY_TEXTURE;
 		}
 
-		//GLint  wrap;
-		//GLint  filter;
-		//string Map_Path;
+
 
 	};
 
-	//typedef boost::shared_ptr< class MapAsset& > MapAssetPtr;
-	//typedef boost::shared_ptr<const class MapAsset& > MapAssetConstPtr;
-	
-	
-	//typedef boost::shared_ptr<const  MapAsset> MapAssetConstPtr;
+	struct SubArrayTextureDesc : public TextureDesc
+	{
+		e_AssemblyType LoadedAs;
+		
+		GLint ParentArrayID;
+		
+	public:
+		SubArrayTextureDesc()
+			: TextureDesc()
+		{
+			LoadedAs = MAP_ASSEMBLY_TYPE::UNDEFINED;
+			MapCategory = MAP_ASSEMBLY_TYPE::SUB_ARRAY_TEXTURE;
+		}
+
+		SubArrayTextureDesc(const ArrayTextureDesc & B)
+			: TextureDesc(B)
+		{
+			LoadedAs = this->MapCategory;
+			MapCategory = MAP_ASSEMBLY_TYPE::SUB_ARRAY_TEXTURE;
+		}
+
+
+
+	};
+
 
 	class MapAsset : public asset
 	{
 
 
 	private:
-		//list <MapAsset>::iterator MapIter;
+		
 		std::list <boost::shared_ptr<  MapAsset >>::iterator MapIter;
 	public:
-		//static list <MapAsset*> classMapList;
+		
 		static std::list<boost::shared_ptr<  MapAsset >> classMapList;
 
 		//typedef enum MAP_TYPE;
@@ -177,44 +229,42 @@ namespace NS_ENG
 
 		MapAsset();
 		~MapAsset() {};
-		//static GLint LoadMaps(const char *param);
-		static GLint LoadMaps( TextureDesc *ToCreate);
-		static MapAsset* RetriveMap(GLint MapID);
+		
+
+		void Init() {} ;
+		void Draw() {};
+		void Load() {};
+		int Load(FileTextureDesc* FileTexMeta) { return 0; };
+
+		static GLint LoadMaps( TextureDesc *ToCreate, TextureDesc *ToBind); //ArrayTextureDesc *ToBind );
+
+		static t_SharedMapPtr RetriveMap(GLint MapID);
+		
+
+		static void InitAll();
 
 		//static MapAsset* RetriveMap(string origin, string name);
 
-
-		void Draw();
-
-
 		//this should be called AssetID
-		GLint Map_MapID;
-		//char path[80];
-		//actually the proper place
-		
-		//Texture names are unsigned integers.The value zero is reserved to represent the default texture for each texture target.
-		GLint Map_TName;
-		GLint Map_TUnit;
 
+
+		GLint Map_MapID;
+
+		GLuint Map_TName;
+		
+		GLint SamplerID;
 
 		GLint Map_Layer;
+
+		GLint Total_Layers;
 		//protected:
 
 		TextureDesc Base_Data;
 
+		GLubyte* textura;
 
 
 
-	//GL_NEAREST or point filtering.
-	//Something something 
-	//NS_VEC::VEC2 
-
-	//There should be more arguments depending on what kind of map it is
-		//for now keep it simple...also should Load* ve a virtual function toed to  asset?
-		//I could use draw for that matter...AAAH BETTER GPUIFY!
-		//static void LoadMaps(const char *param);
 	};
-	//typedef boost::shared_ptr<  MapAsset > MapAssetPtr;
-}
 
-//#endif
+}

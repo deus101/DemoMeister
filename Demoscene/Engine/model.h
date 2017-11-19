@@ -32,15 +32,20 @@ namespace NS_ENG{
 		buffer_Group()
 		{
 			IBO.clear();
-			tex = NULL;
 
 			OriginalMat = "";
 			OriginalEffect = "";
+			HasDiffuseSkin = NULL;
+			HasNormalSkin = NULL;
 
 
 			ObjName = "";
 			MatName = "";
 			Effect = "";
+
+			DiffuseTexture = NULL;
+			BumpTexture = NULL;
+
 
 			ObjectID = NULL;
 			MatId = NULL;
@@ -72,7 +77,15 @@ namespace NS_ENG{
 
 
 		//Remove Tex
-		GLint tex;
+		
+		GLint HasDiffuseSkin;
+		GLint HasNormalSkin;
+
+
+		GLint DiffuseTexture;
+		GLint BumpTexture;
+
+
 		GLint MatId;
 		GLint EffectID;
 		GLint ObjectID;
@@ -95,17 +108,21 @@ namespace NS_ENG{
 		};
 	};
 
-	
+	enum ModelSimple {
+		Sphere,
+		Quad,
+
+	};
 
 
 	class model : public asset
 	{
 	private:
 		//Rename to model Iter
-		std::list <model*>::iterator iter;
+		std::list <boost::shared_ptr<model>>::iterator ModelIterator;
 		//std::list <model*>::iterator classModelIter;
 	public:
-		static std::list <model*> classModelList;
+		static std::list <boost::shared_ptr<model>> classModelList;
 		//heh should be private
 		std::vector<NS_VEC::VEC3> Sort_Pos;
 		std::vector<NS_VEC::VEC3> Sort_Norms;
@@ -143,6 +160,13 @@ namespace NS_ENG{
 			return *this;
 		
 		*/
+
+		void Init() {};
+		int Init(int t) { return t; };
+		void Load();
+		void Load(ModelSimple QuickAssembly);
+		
+		void Load(std::string obj, std::string mtl, bool UV, bool Tangent);
 
 		void Draw();
 		void Draw(int instances);
@@ -183,6 +207,18 @@ namespace NS_ENG{
 
 
 	};
-	//const void loadBuffer(Model &mModel, renderPacket &mPacket);
+	
+
+	/*
+	class SimpleModel : public model
+	{
+
+	};
+	*/
+
+
+
+
+
 }
 #endif

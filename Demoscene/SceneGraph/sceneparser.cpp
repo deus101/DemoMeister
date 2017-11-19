@@ -122,7 +122,7 @@ public:
 				if (strcmp(val, "position") == 0)
 					ret->setPosition(getVector3(currElem));
 				else if (strcmp(val, "rotation") == 0)
-					ret->setRotation(v3toQ(getVector3(currElem) * float(M_PI / 180)));
+					ret->setRotation(v3toQ(getVector3(currElem) * float(3.14159265358979323846 / 180)));  //float(M_PI / 180))); 
 				else if (strcmp(val, "scale") == 0)
 					ret->setScale(getVector3(currElem));
 				else if (strcmp(val, "children") == 0)

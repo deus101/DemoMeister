@@ -1,4 +1,4 @@
-#version 330
+#version 450 core
 
 smooth in vec2 uv;
 //smooth in vec3 v;
@@ -9,6 +9,9 @@ layout(location = 0) out vec4 WorldPosOut;
 layout(location = 1) out vec3 DiffuseOut;
 layout(location = 2) out vec3 NormalOut;
 layout(location = 3) out vec3 UvOut;
+
+uniform sampler2DArray ArrayDiffuseMaps;
+//uniform sampler3D ArrayDiffuseMaps;
 
 uniform sampler2D MaterialMap;
 
@@ -67,23 +70,41 @@ float sdBox(vec3 p, vec3 size)
 }
 
 
+float archModel(inout vec3 p)
+{ 
+	//vec2 translate = vec2(5.0f, 2.0f);
+
+	float s_sphere = sdSphere(p - vec3(0.0f, 2.2f, 0.0f), 3.0f);
+	float s_box = sdBox(p - vec3(0.0f, 2.2f, 0.0f), vec3(2.25f));
+	return max(-s_sphere, s_box);
+}
+
+
 float distScene(vec3 p)
 {
-	p.xz = mod(p.xz, 8.0f) - vec2(4.0f);
-	//p.xz = pModGrid2(p.xz, vec2(8.0)) - vec2(4.0f);
-	//p.xz = pModMirror2(p.xz, vec2(8.0)) - vec2(4.0f);
-	//p.xz = mod(p.xz, 2.0f) - vec2(1.0f);
-	//return sdBox(p - vec3(0.0f, -0.25f, 0.0f), vec3(0.01f));
-	//float s_sphere = sdSphere(p - vec3(0.0f, 1.0f, 0.0f), 3.0f);
-	//float s_box = sdBox(p - vec3(0.0f, 1.0f, 0.0f), vec3(2.25f));
-	 return fHexagonCircumcircle(p - vec3(0.0f, -0.5f, 0.0f), vec2(3.5f, 0.5f));
-	//return max(s_box, s_sphere);
-	//return max(-s_sphere, s_box);
+
+
+
+	float distArch = archModel(p);
+
+    //pMod2(p.xz, vec2(2.0f,1.5f));
+	//p.x *= 1.1547f;
+	p.z += mod(floor(p.x), 2.)*0.5;
+	p.xz = abs((mod(p, 1.0) - 0.5)).xz;
+	//pMod2(p.zx, vec2(10.0f,10.f));
+	float Hexagons = fHexagonCircumcircle(p - vec3(0.0f, -0.5f, 0.0f), vec2(0.45f, 0.5f));
+	
+
+
+	return fOpUnionStairs(distArch,Hexagons,0.3,4);
+	//return min(distArch, Hexagons);
+
 }
 
 
 void pewpew(vec3 orig, vec3 dir, out int i, out float t)
 {
+
 	t = 0.0;
 	i = 0;
 	for (i = 0; i < raySteps; i++)
@@ -146,6 +167,38 @@ vec4 CalcUV(in vec3 p, in vec3 n, in float k)
 	vec4 y = vec4(p.zx, 0, 1);
 	vec4 z = vec4(p.xy, 0, 1);
 	return (x*m.x + y*m.y + z*m.z) / (m.x + m.y + m.z);
+}
+
+
+//DataSets:
+//0 gives you RGB of diffuse component.
+//1 gives you RGB of specular component.
+//2 gives you R: Sampler used if zero the texture is bound for this pass, over 1 will identify the texture
+//            Unit of a (hopefully) bound array texture.
+//			  G: The Layer in an TextureArray if R is over 0, if not this identifies the texture unit
+//            B: Number of Layers in this sampler
+
+
+void LookUpDeferredMaterial(float ID, int DataSet, out vec3 Properties)
+{
+
+	float PZ_MM_Y = 1 / textureSize(MaterialMap, 0).y;
+	float PZ_MM_X = 1 / textureSize(MaterialMap, 0).x;
+	float fixID = (ID * PZ_MM_Y) * 0.5;
+	float fixDataSet = (DataSet * PZ_MM_X) * 0.5;
+	//MatDiffuse = vec4(texture(MaterialMap, vec2(0, fixID)).xyz, 1.0);
+	//MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID)).xyz, 1.0);
+	Properties = texture(MaterialMap, vec2(fixDataSet, fixID)).xyz;
+	//MapInfo = 1 / texture(MaterialMap, ivec2(2, ID)).xyz;
+
+}
+
+void LookUpTexture( int TextureLayer, vec2 uv, out vec4 Result)
+{
+//texture(ArrayDiffuseMaps, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
+Result =  texture(ArrayDiffuseMaps, vec3(uv,float(TextureLayer)));
+ //texture(ArrayDiffuseMaps[0], TexCoord0).xyz;
+
 }
 
 void main()
@@ -258,6 +311,7 @@ void main()
 
 	int i;
 
+	int matID = 0;
 
 	pewpew(ro, rd, i, t0);
 	vec3 floorNormal = vec3(0, 1, 0);
@@ -282,7 +336,7 @@ void main()
 	float z = 0;
 
 
-	int matID = 0;
+	
 
 
 	if (t1 < t0 && t1 >= NEAR && t1 <= FAR)
@@ -296,8 +350,9 @@ void main()
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
 		normal = floorNormal;
 		color = chessBoard(p);
-		matID = 6;
-		//color = vec4(3 / 255);
+		matID = 3;
+		
+
 		puv = CalcUV(p, normal, 32.0).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 
@@ -314,13 +369,25 @@ void main()
 		eyeHitZ = -t *dot(worldDir, rd);
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
 		//color = vec4(1 / 255);
-		matID = 5;
+		matID = 1;
 		normal = getNormal(p);
 		puv = CalcUV(p, normal, 32.0).xy;
 		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 
 		gl_FragDepth = dep;
 		dep = LinearDepth(dep);
+
+		
+		if(3.0f > distance(p,vec3(0.0f, 2.2f, 0.0f)) )
+		{
+		color.xyz = texture(ArrayDiffuseMaps, vec3(puv.xy,float(0) ) ).xyz;
+		}
+		else
+		{
+		color.xyz = texture(ArrayDiffuseMaps, vec3(puv.xy,float(1) ) ).xyz;
+		}
+
+		//LookUpDeferredMaterial(matID,2,color.xyz);
 	}
 	else
 	{
@@ -340,27 +407,12 @@ void main()
 		eyeHitZ = -t *dot(worldDir, rd);
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
 		//color = vec4(1 / 255);
-		matID = 5;
+		matID = 4;
 		normal = getNormal(p);
 		puv = CalcUV(p, normal, 32.0).xy;
-		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
-		//p = vec3(FAR,FAR,eyeHitZ);
-		//p = (gProjection * vec4(p,1)).xyz;
-		//z = mapTo(t, NEAR, FAR, 1, 0);
-		//normal = vec3(0,-1,0);
-		//normal = -getNormal(p);
-		//normal = -rd;
-		//dep = distance(ro, p) * 20000;
-		//gl_FragDepth = ndcDepth;
-		//gl_FragDepth = dep;
-		//dep = LinearDepth(dep);
-		//gl_FragDepth = dep;
-		//dep = distance(ro, p);
-		//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 
-		//dep = FAR;
-		//gl_FragDepth = dep;
-		gl_FragDepth = FAR;
+
+		//gl_FragDepth = 1.0f;
 		//ndcDepth = FAR;
 	}
 
@@ -371,12 +423,15 @@ void main()
 	//dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 	//gl_FragDepth = dep;
 
-
-
+	//vec3 MatMapProps = vec3(0,0,0);
+	//LookUpDeferredMaterial(matID,2,MatMapProps);
+	//LookUpTexture(int(MatMapProps.y)-1,puv,color);
+	//LookUpTexture(int(MatMapProps.y)-1,puv,color);
 	WorldPosOut.xyz = p;
 	//WorldPosOut.w = LinearDepth(dep);
 	WorldPosOut.w = dep;
 	DiffuseOut = color.xyz;
+	
 	UvOut.xy = puv;
 	UvOut.z = matID;
 	NormalOut = normal;

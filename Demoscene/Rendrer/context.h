@@ -1,21 +1,18 @@
-#pragma once
+
+#ifndef CONTEXT_HPP
+#define	CONTEXT_HPP
 
 
-/* <windef.h> and <gl.h>*/
-
+#include <Windows.h>
 
 #include <GL/glew.h>
 
 
 #include <GLFW/glfw3.h>
 
-//#include <GL\wglew.h>
 
-#include "../util.h"
 
-//#include "../math/math3d.h"
-
-//#include "../Engine/asset.h"
+#include "../math/math3d.h"
 
 
 #include "../world.h"
@@ -24,8 +21,8 @@
 #include "gbuffer.h"
 #include "callbacks.h"
 
-#include "../FreeImage.h"
 
+class DemoMeister;
 
 		extern unsigned int pHeight;
 		extern unsigned int pWidth;
@@ -37,22 +34,12 @@
 
 
 		//extern DeploymentOrganizer Squiddy;
-		//static double deltaTime;
-		//static double currentTime;
 
 		static bool ResizeBuffer;
 		
 		static int glu_Window;
-		//static HGLRC RendContext;
-		//static HDC DeviceContext;
+
 		static int Glu_Window;
-
-		//static HGLRC SharedContex;
-		//static GLuint Program;
-
-
-		//static GBuffer* mgBuffer;
-		extern DemoMeister * TheDisc;
 
 
 
@@ -89,16 +76,4 @@
 		//void SetGBStatus(bool) ;
 
 
-	//private:
-
-
-	//};
-		
-
-	//static GBuffer * mGBuffer;
-
-
-
-	
-
-//}
+#endif

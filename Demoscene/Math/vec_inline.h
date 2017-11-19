@@ -9,7 +9,7 @@
 namespace NS_VEC
 {
 
-	#define M_PI 3.14159265
+	//#define M_PI 3.14159265
 	inline VEC4::VEC4(float x, float y, float z, float w) : X(x), Y(y), Z(z), W(w){}
 
 	inline VEC3::VEC3(float x, float y, float z) : X(x), Y(y), Z(z){}
@@ -19,8 +19,10 @@ namespace NS_VEC
 	//just convert to radians be fore putting in the arguments
 	inline QUAT::QUAT(float w, float x, float y, float z) {
 		//nevermind did it here
-		w = w / 360 * (float)M_PI * 2;
-
+		
+		//w = w / 360 * (float)M_PI * 2;
+		w = w / 360 * (float)3.14159265358979323846 * 2;
+		
 		W = cosf(w / 2);
 		X = x*sinf(w / 2);
 		Y = y*sinf(w / 2);
@@ -139,9 +141,9 @@ namespace NS_VEC
 
 		fAngle = acos(W) * 2;
 
-	
-		fAngle *= 360 / ((float)M_PI * 2);
-
+		
+		//fAngle *= 360 / ((float)M_PI * 2);
+		fAngle *= 360 / ((float)3.14159265358979323846 * 2);
 	}
 
 	inline const QUAT QUAT::Slerp(const QUAT& other, float t) const

@@ -15,14 +15,16 @@
 #include "../bass.h"
 #include "../Timer.h"
 
+#include "../util.h"
+
 
 //yes I know I need a proper system for passes. 
+//2017: its comming but it really shouldnt...fuck engine coding! WHY DIDNT I LISTEN TO THE OTHERS!?
 #include "../ShaderFu/DeferredPackets/aoPacket.h"
 #include "../ShaderFu/DeferredPackets/RayMarcher.h"
 
 
-//rendrern can ta over for compositt klassen... eller kansje ikke hva har man namespaces til...
-//men er konteinere I namespaces en god ide? 
+
 
 extern HSTREAM stream;
 
@@ -32,17 +34,7 @@ namespace NS_ENG
 
 	struct RendrerItem
 	{
-		//RendrerItem()
-		//{
-		//	
-		//}
 
-		//VEC3 m_vNor;
-		//referanse til objekt referanse burde vært her
-		//burde vært detrte men prøver mer direkt metode først
-		//NS_SG::assetNode *sNode;
-		//shared_ptr damnit
-		//NS_SG::modelNode *sNode;
 		asset *gpuIn;
 		NS_EFF::renderPacket *gpuEff;
 
@@ -77,101 +69,52 @@ class rendrer : public ICallbacks
 public:
 	Timer Ctan;
 	double currentCtan;
-	//DemoMeister test;
-	// should scene/composite hold the pass packets?
-	//                                should this just be name?																																																								
-	//rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, GBuffer * _GBuffer, NS_EFF::RayMarcher * _GeoRayMarch, NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass), mgBuffer(_GBuffer)
 
-	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera, NS_ENG::model * _sphereL, NS_ENG::model * _sphereN, NS_ENG::model * _quad, NS_EFF::RayMarcher * _GeoRayMarch,  NS_EFF::aoPacket * _AoPass) : scene(_scene), kamera(_camera), sphere_light(_sphereL), sphere_null(_sphereN), quad(_quad), GeoRayMarch(_GeoRayMarch), AoPass(_AoPass)
+	rendrer(NS_SG::composite *_scene, NS_SG::camera *_camera,
+		NS_EFF::RayMarcher * _GeoRayMarch, 
+		NS_EFF::aoPacket * _AoPass) : scene(_scene),
+		kamera(_camera),  GeoRayMarch(_GeoRayMarch),
+		AoPass(_AoPass)
 	{
 
 		unsigned int w = GetPixelWidth();
 		unsigned int h = GetPixelHeight();
-		//mgBuffer = new GBuffer();
-		//mgBuffer->Init(w, h);
 
-		//M3DMatrix44f inverseView, viewT;
+
+	
 		m3dLoadIdentity44(view);
 		kamera->getProjection(projection);
 		//kamera->getAbsoluteTransform(view);
 		kamera->getParent()->getLocalTransform(view);
-		//m3dTransposeMatrix44(viewT, view);
-		//m3dInvertMatrix44(inverseView, view);
-		//view[0] = 1.0f;
-		//view[13]
-		//view[14] =
-		//M3DVector4f vect, eyePos;
-		//vect[0] = 0.0f;
-		//vect[1] = 0.0f;
-		//vect[2] = 0.0f;
-		//vect[3] = 1.0f;
-		//m3dTransformVector4(eyePos, vect, inverseView);
-
-		//m3dTransla
-		//kamera->getAbsoluteTransform(view);
-		//m3dTransposeMatrix44(, inversLookat);
-		//m3dInvertMatrix44(view, view);
-		//kamera->getParent()->getLocalTransform(view);
-
-		/*
-		std::cout << "[" << projection[0] << "] ";
-		std::cout << "[" << projection[1] << "] ";
-		std::cout << "[" << projection[2] << "] ";
-		std::cout << "[" << projection[3] << "] " << endl;
-		std::cout << "[" << projection[4] << "] ";
-		std::cout << "[" << projection[5] << "] ";
-		std::cout << "[" << projection[6] << "] ";
-		std::cout << "[" << projection[7] << "] " << endl;
-		std::cout << "[" << projection[8] << "] ";
-		std::cout << "[" << projection[9] << "] ";
-		std::cout << "[" << projection[10] << "] ";
-		std::cout << "[" << projection[11] << "] " << endl;
-		std::cout << "[" << projection[12] << "] ";
-		std::cout << "[" << projection[13] << "] ";
-		std::cout << "[" << projection[14] << "] ";
-		std::cout << "[" << projection[15] << "] " << endl;
 
 
-		std::cout << "[" << view[0] << "] ";
-		std::cout << "[" << view[1] << "] ";
-		std::cout << "[" << view[2] << "] ";
-		std::cout << "[" << view[3] << "] " << endl;
-		std::cout << "[" << view[4] << "] ";
-		std::cout << "[" << view[5] << "] ";
-		std::cout << "[" << view[6] << "] ";
-		std::cout << "[" << view[7] << "] " << endl;
-		std::cout << "[" << view[8] << "] ";
-		std::cout << "[" << view[9] << "] ";
-		std::cout << "[" << view[10] << "] ";
-		std::cout << "[" << view[11] << "] " << endl;
-		std::cout << "[" << view[12] << "] ";
-		std::cout << "[" << view[13] << "] ";
-		std::cout << "[" << view[14] << "] ";
-		std::cout << "[" << view[15] << "] " << endl;
+		this->sphere_light = new NS_ENG::model();
+		this->sphere_null = new NS_ENG::model();
+		this->quad = new NS_ENG::model();
 
-		*/
-
-
-		//		NS_ENG::model sphere = NS_ENG::model(mContext, std::string("../Mesh/sphere.obj"), std::string("../Mesh/sphere.mtl"));
+		this->sphere_light->Load(NS_ENG::ModelSimple::Sphere);
+		this->sphere_null->Load(NS_ENG::ModelSimple::Sphere);
+		this->quad->Load(NS_ENG::ModelSimple::Quad);
+		std::cout << "Rendrer Instansiated!==================!" << std::endl;
 
 	}
-	//using nodePtr might be a mistake
+
 	void visit(NS_SG::node *Node, M3DMatrix44f world);
 
 
-	//void draw();
+
 	void Run();
 	virtual void RenderSceneCB();
-	//virtual void RenderSceneCB();
+
 
 	float CalcPointLightBSphere(const PointLight& Light);
 
 private:
 	NS_SG::composite *scene;
 	NS_SG::camera *kamera;
-	//NS_REND::context *mContext;
 
-	//soo...sooo ashamed...
+
+	//why two for a simple assembly? TRADITION thats why!
 	NS_ENG::model *sphere_light;
 	NS_ENG::model *sphere_null;
 	NS_ENG::model *quad;
@@ -179,14 +122,6 @@ private:
 	//need better system for this
 	NS_EFF::aoPacket *AoPass;
 	NS_EFF::RayMarcher *GeoRayMarch;
-	//Question is what should I do with the packets that does not require a node
-	//I could just create a sorta render component node
-	//another idea might be to give room the buffer class for these and give them the buffer an sorta special method.
-	//GBuffer *mgBuffer;
-	//std::list< base_buffer> Passes;
-	//Pretty sure I want something like this, Since I'm juggling with various rendertargets I need to 
-	//Fit in getter and setters for the them not to mention a good log output, maybe I should make base_buffer into a composite class.
-
 
 
 	std::list< struct RendrerItem> Visible;

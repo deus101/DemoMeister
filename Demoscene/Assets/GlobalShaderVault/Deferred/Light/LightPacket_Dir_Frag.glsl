@@ -75,6 +75,8 @@ vec2 CalcTexCoord()
 
 #include MaterialFunction
 
+
+
 vec4 CalcLightInternal(BaseLight Light,
 	vec3 LightDirection,
 	float ID,

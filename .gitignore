@@ -8,10 +8,15 @@
 *.VC.opendb
 *.VC.db
 
+!Demoscene/Assets/*
+!Demoscene/Productions/*
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
+DeployDebug/
+DeployRelease/
+Win32/
 x64/
 build/
 bld/
@@ -189,6 +194,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-/Demoscene/DeployRelease
-/Demoscene/Libs
-/DeployRelease
+

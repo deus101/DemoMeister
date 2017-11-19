@@ -5,9 +5,6 @@
 namespace NS_ENG
 {
 
-	//typedef boost::shared_ptr< FileTexture> FileTexturePtr;
-
-	//typedef boost::shared_ptr<const  FileTexture> FileTextureConstPtr;
 
 class FileTexture : public MapAsset{
 
@@ -15,18 +12,24 @@ public:
 
 	FileTexture();
 
-	//int Init(FileTextureDesc *BaseMapMeta);
-	int Init(FileTextureDesc* FileTexMeta);
-	void Draw();
+
+	int Load(FileTextureDesc* FileTexMeta);
+
+
+	void Init();
+
+
+	void Draw() {  };
+
+
 	~FileTexture() {};
 
 	std::string Map_Path;
 
-
+	//this one needs proper garbage handling, hell all of my classes do.
 	FREE_IMAGE_FORMAT format;
 	FIBITMAP* bmp_Map;
 
-	//FileTextureDesc FileTexMeta;
 
 };
 

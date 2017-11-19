@@ -68,7 +68,7 @@ void DeferredPipeMother::SetScreenSize(unsigned int Width, unsigned int Height)
 
 
 
-//void GeomPacket::SetDiffuseTextureUnit(unsigned int TextureUnit)
+//Packets needs to have generic functions, but not this year!
 void DeferredPipeMother::SetDiffuseTextureUnit(GLenum TextureUnit)
 {
 	GLint ShaderProg;
@@ -82,7 +82,32 @@ void DeferredPipeMother::SetDiffuseTextureUnit(GLenum TextureUnit)
 	//typeid(TextureUnit).name()
 }
 
+void NS_EFF::DeferredPipeMother::SetDeferreDiffuseTextureUnit(GLenum TextureUnit)
+{
+	GLint ShaderProg;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
 
+	
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_DeferredDiffuseTextureUnitLocation, SamplerID);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT] = TextureUnit;
+	std::cout << "Deffered Diffuse Array Map Uniform Location is " << m_DeferredDiffuseTextureUnitLocation <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
+
+}
+
+void NS_EFF::DeferredPipeMother::SetDeferreBumpTextureUnit(GLenum TextureUnit)
+{
+	GLint ShaderProg;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
+
+	int SamplerID = TextureUnit - GL_TEXTURE0;
+	glUniform1i(m_DeferredBumpTextureUnitLocation, SamplerID);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::BumpArrayMap_UNIT] = TextureUnit;
+	std::cout << "Deffered Bump Array Map Uniform Location is " << m_DeferredBumpTextureUnitLocation <<
+		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
+
+}
 
 void DeferredPipeMother::SetPositionTextureUnit(GLenum TextureUnit)
 {

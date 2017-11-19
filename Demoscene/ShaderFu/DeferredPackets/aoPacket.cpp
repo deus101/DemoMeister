@@ -132,7 +132,7 @@ void aoPacket::InitNoise()
 	std::vector<NS_VEC::VEC3> ssaoNoise;
 	for (GLuint i = 0; i < 16; i++)
 	{
-		NS_VEC::VEC3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
+		NS_VEC::VEC3 noise(randomFloats(generator) * 2.0f - 1.0f, randomFloats(generator) * 2.0f - 1.0f, 0.0f); // rotate around z-axis (in tangent space)
 		ssaoNoise.push_back(noise);
 	}
 	glGenTextures(1, &NoiseTexure);

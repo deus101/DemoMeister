@@ -6,9 +6,9 @@
 
 //#include "Rendrer\context.h"
 
-#include "bass.h"
+//#include "bass.h"
 
-#include "sync.h"
+//#include "sync.h"
 
 #include "util.h"
 #include "Engine\asset.h"
@@ -158,12 +158,6 @@ class DemoMeister //would inheriting from the Composite/Root Node be a good idea
 
 
 
-
-
-
-
-
-
 //All Initialisation data, custom or no clutters up the main or where ever.
 //For each prod I'm working on I'll create a template in the Production Folder with a 
 //simple concrete version of this class in a similarly named c++/h.
@@ -200,7 +194,7 @@ public:
 
 	
 
-	void AddNode();
+	
 
 	//returns the index which it was placed, if type is not found, it returns -2, if name is not found returns -1.
 	//If the Name and Type(better just make it Name) allready exsist, its index is returned.
@@ -215,12 +209,24 @@ public:
 	//things are gonna get confusing pretty quick however. Which Is why I plan to use a prototype pattern 
 	//and a quantifiable identifier. 
 	//This is one of the main reasons Im doing this, I want a material system
+	
+	void AddNode();
+	
 	void AddAsset();
 
-	//This is one of the main reasons Im doing this, I want a material system
 	void AddMaterial();
 
-	//maybe not virtualize the getters.
+
+	//void AddTexture(boost::filesystem::path argPath, GLint &SamplerId, GLint &MapId, NS_ENG::TextureDesc);
+	void AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_ENG::TextureDesc *Initial);
+
+
+
+
+	
+
+
+
 
 	//Use default argument for both of these, error if both are not filled in.
 	//The way I'm doing it now you only need one instance of each RenderPacket so type would be enough.
