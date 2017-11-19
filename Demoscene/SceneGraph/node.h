@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
-#include "../Math/math3d.h"
+
+//#include "../Math/math3d.h"
+#include "../util.h"
 #include <boost/enable_shared_from_this.hpp>
 #include <deque>
 #include <list>

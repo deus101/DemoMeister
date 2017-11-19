@@ -8,8 +8,14 @@
 
 AoBuffer::AoBuffer()
 {
-	//m_fbo = 0;
+	
 	m_fbo = 0;
+	Nr_LocalPasses = 1;
+
+	this->RegionalPassList.clear();
+	this->LocalPassProperties.clear();
+	this->LocalPassProperties.resize(Nr_LocalPasses);
+	//ZERO_MEM(this->LocalPassProperties.clear());
 	//m_AoTexture = 0;
 	//m_depthTexture = 0;
 	//m_finalTexture = 0;
@@ -27,15 +33,11 @@ AoBuffer::~AoBuffer()
 	if (ao_textures[0] != 0) {
 		glDeleteTextures(ARRAY_SIZE_IN_ELEMENTS(ao_textures), ao_textures);
 	}
+	this->LocalPassProperties.clear();
 
-	//if (m_depthTexture != 0) {
-	//	glDeleteTextures(1, &m_depthTexture);
-	//}
-
-	//if (m_finalTexture != 0) {
-	//	glDeleteTextures(1, &m_finalTexture);
-	//}
 }
+
+
 bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
 
@@ -44,7 +46,6 @@ bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 
 
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
 	glGenFramebuffers(1, &m_fbo);
 
@@ -55,13 +56,11 @@ bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 
 	glBindTexture(GL_TEXTURE_2D, ao_textures[0]);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, WindowWidth, WindowHeight, 0, GL_RED, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_AoTexture, 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ao_textures[0], 0);
 
 	GLenum Status1 = glCheckFramebufferStatus(GL_FRAMEBUFFER);
@@ -84,40 +83,22 @@ bool AoBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 void AoBuffer::BindForAoPass()
 {
 
-	GBuffer *test = (GBuffer*)TheDisc->BufferContainer[0];
+	GBuffer *test = (GBuffer*)TheDisc->MasterList_Buffers[0].get();
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-	//glClear(GL_COLOR_BUFFER_BIT);
 
 	GLuint faen = test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL];
 	
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
-	//glActiveTexture(GL_TEXTURE2);
-	//glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL]);
+
+
 
 
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
-	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
 	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_POSITION]);
 
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_Normal_UNIT]);
-	//glActiveTexture(TypeOfTexture::GBuffer_Normal_UNIT);
 	glBindTexture(GL_TEXTURE_2D, test->m_textures[test->GBUFFER_TEXTURE_TYPE_NORMAL]);
-	//glActiveTexture(GL_TEXTURE0);
-	////glBindTexture(GL_TEXTURE_2D, gb_PosDepth);
-	//glBindTexture(GL_TEXTURE_2D, 
-	//glActiveTexture(GL_TEXTURE2);
-	//glBindTexture(GL_TEXTURE_2D, gb_Normal);
-	
-	//glActiveTexture(GL_TEXTURE0 );
-	//glBindTexture(GL_TEXTURE_2D, GLuint(5));
-	//glActiveTexture(GL_TEXTURE2 );
-	//glBindTexture(GL_TEXTURE_2D, GLuint(3));
-	//glActiveTexture(GL_TEXTURE7);
-	//glBindTexture(GL_TEXTURE_2D, GLuint(5));
 
 }
 

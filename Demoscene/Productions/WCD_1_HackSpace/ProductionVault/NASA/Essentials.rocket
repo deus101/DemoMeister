@@ -1,0 +1,173 @@
+<sync rows="812">
+	<tracks>
+		<track name="part">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="cam.x">
+			<key row="0" interpolation="1" value="0"/>
+			<key row="14" interpolation="1" value="5"/>
+			<key row="64" interpolation="1" value="2"/>
+			<key row="84" interpolation="1" value="-3"/>
+			<key row="127" interpolation="1" value="2"/>
+			<key row="152" interpolation="1" value="0"/>
+			<key row="200" interpolation="1" value="2"/>
+			<key row="352" interpolation="1" value="2"/>
+			<key row="400" interpolation="0" value="4"/>
+			<key row="464" interpolation="1" value="4"/>
+			<key row="472" interpolation="1" value="8"/>
+			<key row="480" interpolation="0" value="4"/>
+		</track>
+		<track name="cam.y">
+			<key row="0" interpolation="1" value="5"/>
+			<key row="64" interpolation="1" value="2"/>
+			<key row="127" interpolation="0" value="2"/>
+			<key row="152" interpolation="1" value="2"/>
+			<key row="184" interpolation="1" value="2.5"/>
+			<key row="216" interpolation="1" value="2"/>
+			<key row="272" interpolation="1" value="5"/>
+			<key row="304" interpolation="1" value="3"/>
+			<key row="336" interpolation="0" value="1"/>
+			<key row="352" interpolation="1" value="1"/>
+			<key row="440" interpolation="1" value="9"/>
+			<key row="464" interpolation="0" value="2"/>
+			<key row="641" interpolation="1" value="2"/>
+			<key row="652" interpolation="0" value="8"/>
+			<key row="686" interpolation="0" value="8"/>
+		</track>
+		<track name="cam.Rot.x">
+			<key row="0" interpolation="0" value="20"/>
+			<key row="56" interpolation="1" value="20"/>
+			<key row="74" interpolation="0" value="40"/>
+			<key row="104" interpolation="1" value="40"/>
+			<key row="127" interpolation="1" value="20"/>
+			<key row="152" interpolation="0" value="20"/>
+			<key row="216" interpolation="1" value="20"/>
+			<key row="272" interpolation="1" value="30"/>
+			<key row="304" interpolation="1" value="50"/>
+			<key row="336" interpolation="2" value="10"/>
+			<key row="344" interpolation="1" value="-40"/>
+			<key row="352" interpolation="0" value="10"/>
+			<key row="642" interpolation="1" value="10"/>
+			<key row="656" interpolation="0" value="10"/>
+		</track>
+		<track name="cam.z">
+			<key row="0" interpolation="1" value="7"/>
+			<key row="22" interpolation="1" value="4"/>
+			<key row="32" interpolation="1" value="3"/>
+			<key row="48" interpolation="1" value="-4"/>
+			<key row="64" interpolation="2" value="-3"/>
+			<key row="112" interpolation="1" value="5"/>
+			<key row="127" interpolation="0" value="4"/>
+			<key row="152" interpolation="1" value="4"/>
+			<key row="216" interpolation="0" value="-5"/>
+			<key row="240" interpolation="1" value="-5"/>
+			<key row="272" interpolation="1" value="-3"/>
+			<key row="304" interpolation="0" value="-1"/>
+			<key row="352" interpolation="1" value="-1"/>
+			<key row="400" interpolation="0" value="-2"/>
+			<key row="464" interpolation="1" value="-2"/>
+			<key row="480" interpolation="1" value="8"/>
+			<key row="544" interpolation="0" value="38"/>
+			<key row="639" interpolation="1" value="80"/>
+			<key row="811" interpolation="0" value="200"/>
+		</track>
+		<track name="cam.Rot.y">
+			<key row="0" interpolation="1" value="0"/>
+			<key row="127" interpolation="0" value="-360"/>
+			<key row="152" interpolation="1" value="-360"/>
+			<key row="216" interpolation="0" value="-180"/>
+			<key row="464" interpolation="1" value="-180"/>
+			<key row="480" interpolation="0" value="0"/>
+			<key row="619" interpolation="0" value="180"/>
+		</track>
+		<track name="cam.Rot.z">
+			<key row="0" interpolation="0" value="0"/>
+			<key row="127" interpolation="0" value="0"/>
+			<key row="152" interpolation="0" value="0"/>
+		</track>
+		<track name="Ppos.x">
+			<key row="0" interpolation="0" value="0"/>
+			<key row="241" interpolation="0" value="4"/>
+			<key row="464" interpolation="0" value="4"/>
+		</track>
+		<track name="Ppos.y">
+			<key row="0" interpolation="0" value="0.1"/>
+		</track>
+		<track name="Ppos.z">
+			<key row="0" interpolation="0" value="0"/>
+			<key row="241" interpolation="1" value="0"/>
+			<key row="280" interpolation="0" value="2"/>
+			<key row="464" interpolation="0" value="2"/>
+			<key row="480" interpolation="1" value="2"/>
+			<key row="639" interpolation="0" value="74"/>
+		</track>
+		<track name="Prot.x">
+			<key row="0" interpolation="0" value="0"/>
+			<key row="241" interpolation="0" value="0"/>
+		</track>
+		<track name="Prot.y">
+			<key row="0" interpolation="1" value="0"/>
+			<key row="152" interpolation="0" value="0"/>
+			<key row="241" interpolation="1" value="400"/>
+			<key row="280" interpolation="0" value="150"/>
+			<key row="464" interpolation="1" value="150"/>
+			<key row="480" interpolation="0" value="360"/>
+		</track>
+		<track name="Prot.z">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Psca.x">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Psca.y">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Psca.z">
+			<key row="0" interpolation="0" value="1"/>
+		</track>
+		<track name="Lpos.x">
+			<key row="0" interpolation="0" value="3"/>
+			<key row="50" interpolation="0" value="0"/>
+			<key row="232" interpolation="1" value="1"/>
+			<key row="280" interpolation="0" value="4"/>
+			<key row="464" interpolation="1" value="3"/>
+			<key row="544" interpolation="2" value="1"/>
+			<key row="561" interpolation="1" value="8"/>
+			<key row="616" interpolation="3" value="2"/>
+			<key row="639" interpolation="0" value="3"/>
+			<key row="656" interpolation="0" value="4"/>
+		</track>
+		<track name="Lpos.y">
+			<key row="0" interpolation="0" value="1"/>
+			<key row="50" interpolation="0" value="0"/>
+			<key row="232" interpolation="1" value="0"/>
+			<key row="280" interpolation="0" value="1"/>
+			<key row="448" interpolation="0" value="2"/>
+			<key row="456" interpolation="1" value="2"/>
+			<key row="464" interpolation="0" value="0"/>
+			<key row="528" interpolation="1" value="0"/>
+			<key row="552" interpolation="1" value="-1.5"/>
+			<key row="639" interpolation="0" value="5"/>
+			<key row="656" interpolation="0" value="1"/>
+		</track>
+		<track name="Lpos.z">
+			<key row="0" interpolation="1" value="0"/>
+			<key row="13" interpolation="0" value="1"/>
+			<key row="50" interpolation="0" value="2"/>
+			<key row="61" interpolation="0" value="5"/>
+			<key row="232" interpolation="1" value="2"/>
+			<key row="280" interpolation="0" value="1"/>
+			<key row="464" interpolation="1" value="1"/>
+			<key row="480" interpolation="1" value="2"/>
+			<key row="639" interpolation="1" value="75"/>
+			<key row="811" interpolation="0" value="196"/>
+		</track>
+		<track name="gridFunc">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+		<track name="Utility">
+			<key row="0" interpolation="0" value="0"/>
+		</track>
+	</tracks>
+	<bookmarks/>
+</sync>

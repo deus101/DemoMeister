@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureCategory type="TileableArray" basename="Deferred_Textures">
+  <ValidInstances names="0" property="2" resolution="2">
+    <MaterialCategory>
+      <MaterialProperty id="map_Kd" PropertySize="24">
+        <SizeHeading Resolution="1024"/>
+        <SizeHeading Resolution="2048"/>
+      </MaterialProperty>
+      <MaterialProperty id="map_bump" PropertySize="32">
+        <SizeHeading Resolution="1024"/>
+        <SizeHeading Resolution="2048"/>
+      </MaterialProperty>
+    </MaterialCategory>
+    
+  </ValidInstances>
+  
+</TextureCategory> 

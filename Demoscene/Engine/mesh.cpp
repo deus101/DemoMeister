@@ -17,7 +17,7 @@ namespace NS_MESH
 	{
 
 		FILE * objFile;
-		objFile = fopen ( param, "rb");
+		fopen_s(&objFile, param, "rb");
 
 		Mesh.Clear();
 	
@@ -29,24 +29,37 @@ namespace NS_MESH
 		bool b_RelativeIndex = false;
 		bool b_hasUvs = false;
 		bool b_hasNorm = false;
-
 		
+		
+	
 
-		while( fscanf (objFile, "%s", id) > 0)
+		while( fscanf_s (objFile, "%s", id, sizeof(id)) > 0)
 		{
+
+			if (strcmp(id, "mtllib") == 0)
+			{
+				char mtlPath[50] = "";
+				
+				fscanf_s(objFile, "%s \n", &mtlPath, sizeof(mtlPath));
+				
+				Mesh.file_mat = string(mtlPath);
+
+				
+
+			}
 			if(strcmp (id, "v") == 0)
 			{
 				VEC3 v; 
-				fscanf (objFile, "%f %f %f", &v.X, &v.Y, &v.Z);
+				fscanf_s (objFile, "%f %f %f", &v.X, &v.Y, &v.Z);
 
-
+				
 				Mesh.m_Pos.push_back(v);
 
 			}
 			if(strcmp (id, "vt") == 0)
 			{
 				VEC2 uv;
-				fscanf (objFile, "%f %f", &uv.X, &uv.Y);
+				fscanf_s (objFile, "%f %f", &uv.X, &uv.Y);
 
 				Mesh.m_Uvs.push_back(uv);
 				
@@ -55,7 +68,7 @@ namespace NS_MESH
 			if(strcmp (id, "vn") == 0)
 			{
 				VEC3 vn;
-				fscanf (objFile, "%f %f %f", &vn.X, &vn.Y, &vn.Z);
+				fscanf_s (objFile, "%f %f %f", &vn.X, &vn.Y, &vn.Z);
 				vn.NormIt();
 				Mesh.m_Norms.push_back(vn);
 
@@ -67,18 +80,30 @@ namespace NS_MESH
 				s_Group temp;
 				char nam[50] = "";
 				char mat[50] = "";
-				fscanf (objFile, "%s \n", &nam);
-				fscanf (objFile, "%s", &mat);
-				fscanf (objFile, "%s", &mat);
+				//fscanf_s(objFile, "%s \n", &nam,sizeof(&nam));
+				//fscanf_s(objFile, "%s", &mat,sizeof(&mat));
+				fscanf_s(objFile, "%s \n", &nam,sizeof(nam));
 				
-				temp.mat = mat;
+				
+				
 				
 				temp.group_name = nam;
 
-				
+				fscanf_s(objFile, "%s", &mat, sizeof(mat));
 
+				if (strcmp(mat, "usemtl") == 0)
+				{
+					fscanf_s(objFile, "%s \n", &mat, sizeof(mat));
+					temp.mat = mat;
+					
+					
+				}
 				Mesh.m_Groups.push_back( temp );
 				
+				
+				
+
+
 				std::cout << "Group: " << temp.group_name << endl;
 				std::cout << "Material: " << temp.mat << endl << endl;
 
@@ -106,7 +131,7 @@ namespace NS_MESH
 
 					if (b_hasUvs == false)
 					{
-						if (fscanf(objFile, "%i//%i", &FV.m_PID, &FV.m_NID) <= 0)
+						if (fscanf_s(objFile, "%i//%i", &FV.m_PID, &FV.m_NID) <= 0)
 						break;
 
 						//FV.m_UID = 4294967296;
@@ -116,10 +141,10 @@ namespace NS_MESH
 					{
 
 					
-					if(fscanf(objFile, "%i/%i/%i", &FV.m_PID, &FV.m_UID, &FV.m_NID) <= 0)
+					if(fscanf_s(objFile, "%i/%i/%i", &FV.m_PID, &FV.m_UID, &FV.m_NID) <= 0)
 					break;
 					}
-					//fscanf(objFile, "%i/%i/%i", &FV.m_PID, &FV.m_UID, &FV.m_NID);
+					//fscanf_s(objFile, "%i/%i/%i", &FV.m_PID, &FV.m_UID, &FV.m_NID);
 					
 					//b_RelativeIndex = true;
 					//cout << " pid: " << FV.m_PID << " nid: " << FV.m_NID << endl;

@@ -6,7 +6,7 @@
 #include "modelNode.h"
 
 
-#include "tinyxml2.h"
+#include "../tinyxml2.h"
 
 using namespace NS_SG;
 using namespace tinyxml2;
@@ -122,7 +122,7 @@ public:
 				if (strcmp(val, "position") == 0)
 					ret->setPosition(getVector3(currElem));
 				else if (strcmp(val, "rotation") == 0)
-					ret->setRotation(v3toQ(getVector3(currElem) * float(M_PI / 180)));
+					ret->setRotation(v3toQ(getVector3(currElem) * float(3.14159265358979323846 / 180)));  //float(M_PI / 180))); 
 				else if (strcmp(val, "scale") == 0)
 					ret->setScale(getVector3(currElem));
 				else if (strcmp(val, "children") == 0)
@@ -230,7 +230,7 @@ composite *NS_SG::parseScene(const std::string filename)
 	try
 	{
 		if (!doc.LoadFile(filename.c_str()))
-			cout << "shit";
+			std::cout << "shit";
 			//throw  std::string(doc.GetErrorStr1());
 
 		SceneParser sceneParser(composed.get(), filename);
@@ -258,6 +258,6 @@ composite *NS_SG::parseScene(const std::string filename)
 	catch (const std::string &str)
 	{
 		delete composed.get();
-		cout << "!Failed to parse " + filename + " : " + str + "\n";
+		std::cout << "!Failed to parse " + filename + " : " + str + "\n";
 	}
 }

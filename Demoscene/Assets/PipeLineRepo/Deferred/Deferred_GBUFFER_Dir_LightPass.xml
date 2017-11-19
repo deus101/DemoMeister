@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pass name="Gbuffer_DirLights" packet="DirLightPacket" packetInstance="LightPacket_DirLights_Default" PassValue="350" Buffer="GBuffer" BufferLocalPass="3">
+  <requirements>
+    <packet Name="AoPass" Intimacy="-50">
+      Need the AOBufferMap
+    </packet>
+  </requirements>
+
+  <Base_Shaders vertex="1" geometry="0" fragment="1">
+    <Base_Vert Path="IdentityPacket_Frame_Vert.glsl"
+           Target=".\Shader\IdentityPacket_Frame_Vert.glsl">
+    </Base_Vert>
+    <Base_Frag Path="LightPacket_Dir_Frag.glsl"
+               Target=".\Shader\Dir_Light_Fragment.glsl">
+      <Include_Component Name="DeferredMaterialFunction" Path="DeferredMaterialFetch.glsl" Marker="#include MaterialFunction"/>
+    </Base_Frag>
+  </Base_Shaders>
+
+</pass>

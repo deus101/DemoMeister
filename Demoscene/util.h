@@ -1,60 +1,126 @@
-
 #ifndef UTIL_HPP
 #define	UTIL_HPP
 
 
-#include "math/math3d.h"
-#include "math/vec.h"
-#include <GLFW/glfw3.h>
-
-
-#ifndef WIN32
-#include <unistd.h>
-#endif
-#include <stdlib.h>
-#include <stdio.h>
-#include <cstdlib>
+//#include "Engine\asset.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+//#include <cstdlib>
 #include <typeinfo>
+#include <set>
+#include <map>
+//#include <Windows.h>
+//#include <Shlwapi.h>
 
-#include <Windows.h>
-#include <Shlwapi.h>
+//#include <boost/shared_ptr.hpp>
+//#include <boost/make_shared.hpp>
 
-#include <boost/shared_ptr.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+#include <boost/foreach.hpp>
 
-using namespace std;
-void EngError(const char* fn, unsigned int ln, const char* msg);
-void EngFileError(const char* fn, unsigned int ln, const char* fmsg);
+#include <vector>
 
 
-#define ENG_ERROR(s_err) EngError(__FILE__, __LINE__, s_err);
-#define ENG_FILE_ERROR(s_file_err) EngFileError(__FILE__, __LINE__, s_file_err);
+#include "math/math3d.h"
+//#include "Rendrer/context.h"
+
+//#include "world.h"
+//
+//#include "math/vec.h"
+//#include <GLFW/glfw3.h>
+
+class DemoMeister;
+extern DemoMeister * TheDisc;
+
+//used as a singleton on Extern Squiddy
+struct DeploymentOrganizer
+{
+	
+	std::string ProjectFolder;              
+	std::string ProductionName;
+	std::string ProductioFolder;
+
+	std::set<std::string> Resource_Paths;
+
+
+	//std::set<boost::filesystem::path> Resource_Paths;
+
+public:
+	void load(const std::string &filename);
+	void save();
+	void deploy();
+
+
+	std::string FindAndRegister(std::string Path);
+	//std::string FindAndRegister(const std::string &Item);
+
+	boost::filesystem::path HumbleIni;
+
+	boost::filesystem::path AssetGlobal;
+	boost::filesystem::path AssetProduction;
+
+	boost::filesystem::path ReleaseFolder;
+
+	boost::filesystem::path Util_CurrentFolder;
+	//boost::filesystem::path HumbleIni;
+
+};
+
+
+extern DeploymentOrganizer Squiddy;
 
 enum TypeOfTexture
 {
 	ActiveTexture,
 	DiffuseMap_UNIT,
 	BumpMap_UNIT,
+	DiffuseArrayMap_UNIT,
+	BumpArrayMap_UNIT,
 	MaterialMap_UNIT,
-
 	GBuffer_WorldPos_UNIT,
 	GBuffer_Albedo_UNIT,
 	GBuffer_Normal_UNIT,
 	GBuffer_UV_UNIT,
-
 	AOBuffer_NOISE,
 	AOBuffer_AO_UNIT,
 	AOBuffer_Blur_UNIT,     
-   
 	Size 
+};
+
+/*
+char* AssetCategoryPath[3][3]{ {"Materials", "Models","Shaders",
+
+	}
+}
+
+*/
+
+enum e_InstructionActors {
+	Self, Rendrer, PassInit, BufferInit, AssetInit, EffectInit,RocketInit,TransFormNode,AssetNode
+
+
 
 
 };
 
+struct PipelineTask {
+	e_InstructionActors target;
+	std::string TarType, TarName;
+	int TarID;
+	e_InstructionActors Supplicant;
+	std::string SupType, SupName;
+	int SupID;
+	std::string PropertyName;
+	float Return;
+
+};
 
 struct EffectStage
 {
-	//GL_TEXTURE1
-	int StageValue;
+	bool bReqComplete;
+	int iStageValue;
 	//GLint TextureUnits[Size];
 	GLenum TextureUnits[Size];
 	//GLUint TextureUnits[Size];
@@ -118,6 +184,8 @@ struct SpotLight : public PointLight
 		Cutoff = 0.0f;
 	}
 };
+
+
 //float fmax(float a, float b);
 #define COLOR_WHITE Vector3f(1.0f, 1.0f, 1.0f)
 #define COLOR_RED Vector3f(1.0f, 0.0f, 0.0f)
@@ -133,19 +201,4 @@ struct SpotLight : public PointLight
 #define INVALID_OGL_VALUE 0xffffffff
 
 
-//hold øye på dette
-#define COLOR_TEXTURE_UNIT              GL_TEXTURE0
-#define COLOR_TEXTURE_UNIT_INDEX        0
-#define SHADOW_TEXTURE_UNIT             GL_TEXTURE1
-#define SHADOW_TEXTURE_UNIT_INDEX       1
-#define NORMAL_TEXTURE_UNIT             GL_TEXTURE2
-#define NORMAL_TEXTURE_UNIT_INDEX       2
-#define RANDOM_TEXTURE_UNIT             GL_TEXTURE3
-#define RANDOM_TEXTURE_UNIT_INDEX       3
-#define DISPLACEMENT_TEXTURE_UNIT       GL_TEXTURE4
-#define DISPLACEMENT_TEXTURE_UNIT_INDEX 4
-#define MOTION_TEXTURE_UNIT             GL_TEXTURE5
-#define MOTION_TEXTURE_UNIT_INDEX       5
-
-#endif	
-
+#endif

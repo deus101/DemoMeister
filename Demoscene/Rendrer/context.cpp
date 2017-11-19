@@ -2,39 +2,27 @@
 #include <iostream>
 #include <stdio.h>
 
-//using namespace NS_REND;
 
 static ICallbacks* s_pCallbacks = NULL;
-//mGBuffer =  GBuffer;
-//mGBuffer = NULL;
-static bool sDepth = false;
-static bool sStencil = false;
-static GLFWwindow* s_pWindow = NULL;
-//Buffer = NULL;
-//TheDisc = NULL;
-world *TheDisc = NULL;
-extern void Sync();
-//static unsigned int pHeight = 0;
-//static unsigned int pWidth = 0;
-//static bool m_created;
-//HGLRC context::SharedContex;
- //int context::Glu_Window;
-// HGLRC context::RendContext = 0;
-// HDC context::DeviceContext;
-//bool context::ResizeBuffer;
 
-//context::context()
-//{
-//	
-//
-//}
-//
-//
-//context::~context()
-//{
-//
-//
-//}
+
+bool sDepth = false;
+bool sStencil = false;
+GLFWwindow* s_pWindow = NULL;
+
+
+unsigned int pHeight = 0;
+unsigned int pWidth = 0;
+bool m_created = false;
+
+
+DeploymentOrganizer Squiddy;
+DemoMeister *TheDisc = NULL;
+extern void Sync();
+
+
+
+
 
 
 static void RenderSceneCB()
@@ -52,7 +40,7 @@ static void IdleCB()
 
  void InitCallbacks()
 {
-	//I'm beginning to think I should utilize the world class
+	//I'm beginning to think I should utilize the DemoMeister class
 
 	//glutDisplayFunc(RenderSceneCB);
 	//glutIdleFunc(IdleCB);
@@ -84,7 +72,7 @@ void GLFWBackendTerminate()
 }
 
 
-bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle, world * globe)
+bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth, unsigned int aHeight, bool fs, const char* aTitle, DemoMeister * globe)
 {
 
 
@@ -123,6 +111,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 	glfwWindowHint(GLFW_REFRESH_RATE, 60);
 
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+	//glfwWindowHint(GLFw, GL_TRUE);
 	
 	s_pWindow = glfwCreateWindow(aWidth, aHeight, aTitle, pMonitor, NULL);
 	
@@ -148,9 +137,7 @@ bool Init(int argc, char** arg, bool aDepth, bool aStencil, unsigned int aWidth,
 
 	TheDisc->ResolutionX = pWidth;
 	TheDisc->ResolutionY = pHeight;
-	//mgBuffer = new GBuffer();
-	//mgBuffer->Init(pWidth, pHeight, s_pWindow);
-	//mGBuffer->Init(500, 500);
+
 
 	return s_pWindow;
 

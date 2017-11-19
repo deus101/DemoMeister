@@ -15,6 +15,12 @@ GBuffer::GBuffer()
 {
 	
 	m_fbo = 0;
+
+	Nr_LocalPasses = 5;
+
+	this->RegionalPassList.clear();
+	this->LocalPassProperties.clear();
+	this->LocalPassProperties.resize(Nr_LocalPasses);
 	//geo_fbo = 0;
 	//light_fbo = 0;
 	//m_fbo = 0;
@@ -52,13 +58,9 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 
 	GLenum error;
-	//GLRC initContext = wglGetCurrentContext();
-	// Create the FBO
+
 	glGenFramebuffers(1, &m_fbo);
 	
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
-
-	//NS_ENG::MapAsset::DataTextureDesc test;
 
 	NS_ENG::FboTextureDesc GPosDepthDesc;
 
@@ -95,17 +97,13 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, GL_TEXTURE_2D, m_textures[0], 0);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , GL_TEXTURE_2D, m_textures[0], 0);
 	//End of PosDepth
 
-	//GBUFFER_TEXTURE_TYPE_DIFFUSE Should be TYPE_ID
 
 	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_ABEDO]);
-	//GL_RGB8UI                           GL_UNSIGNED_INT
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WindowWidth, WindowHeight, 0, GL_RGBA, GL_FLOAT, NULL);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL);
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -113,7 +111,6 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, GL_TEXTURE_2D, m_textures[0], 0);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_ABEDO], 0);
 
@@ -145,9 +142,7 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 	// final
 	glBindTexture(GL_TEXTURE_2D, m_finalTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WindowWidth, WindowHeight, 0, GL_RGB,GL_FLOAT, NULL);
-	//gl::GenerateMipmap(gl::TEXTURE_2D);
-	//glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
-	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, m_finalTexture, 0);
+
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT6, GL_TEXTURE_2D, m_finalTexture, 0);
 	
 
@@ -167,11 +162,10 @@ bool GBuffer::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
 void GBuffer::StartFrame()
 {
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
+
     
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
-	//glDrawBuffer(GL_COLOR_ATTACHMENT5);
+
 	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
@@ -179,8 +173,8 @@ void GBuffer::StartFrame()
 
 void GBuffer::BindForGeomPass()
 {
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
-	//glBindFramebuffer(GL_FRAMEBUFFER,geo_fbo);
+
+	
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 	
 	
@@ -198,33 +192,14 @@ void GBuffer::BindForGeomPass()
 		GL_COLOR_ATTACHMENT3
 		 };
 
+
+
 	
 	glDrawBuffers(ARRAY_SIZE_IN_ELEMENTS(DrawBuffers), DrawBuffers);
 }
 
 
 
-/*
-void GBuffer::BindForAoPass()
-{
-
-
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	glBindFramebuffer(GL_FRAMEBUFFER, ao_fbo);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-
-
-	glActiveTexture(GL_TEXTURE1 );
-	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION]);
-	glActiveTexture(GL_TEXTURE3 );
-	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_NORMAL]);
-
-
-}
-*/
 
 void GBuffer::BindForStencilPass()
 {	
@@ -242,19 +217,9 @@ void GBuffer::BindForLightPass()
 	//prob not right
 
 
-	//glDrawBuffer(GL_COLOR_ATTACHMENT4);
-	//glReadBuffer(GL_COLOR_ATTACHMENT5);
-	//Don't forget  collor attachments are an FBO thing
+
 	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 
-	/*
-	for (unsigned int i = 0; i < ARRAY_SIZE_IN_ELEMENTS(m_textures); i++) {
-		//one as specified in shader
-		//glActiveTexture(GL_TEXTURE0 + i);
-		glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
-		//many from GLGENTex
-		glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_POSITION + i]);
-	}*/
 
 	
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
@@ -275,13 +240,17 @@ void GBuffer::BindForLightPass()
 
 	//glActiveTexture(GL_TEXTURE3);
 	//this is stupid, I should store this in the packets
-	AoBuffer *test2 = (AoBuffer*)TheDisc->BufferContainer[1];
+	AoBuffer *test2 = (AoBuffer*)TheDisc->MasterList_Buffers[1].get();
 	//glActiveTexture(GL_TEXTURE5);
 	
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::AOBuffer_AO_UNIT]);
 	//glActiveTexture(TypeOfTexture::AOBuffer_AO_UNIT);
 	glBindTexture(GL_TEXTURE_2D, test2->ao_textures[test2->AO_TEXTURE_TYPE_AO_MAP]);
 
+
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT]);
+	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, DiffArrayMapTexure);
 
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
 	//glActiveTexture(TypeOfTexture::MaterialMap_UNIT);
@@ -295,8 +264,7 @@ void GBuffer::BindForFinalPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
-	//glReadBuffer(GL_COLOR_ATTACHMENT4);
-	//glReadBuffer(GL_COLOR_ATTACHMENT5);
+
 	glReadBuffer(GL_COLOR_ATTACHMENT6);
 
 }

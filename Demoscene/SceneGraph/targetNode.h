@@ -111,7 +111,7 @@ namespace NS_SG
 			up[2] = 0.0f;
 
 
-			M3DMatrix44f lookat, lookat_inv;
+			M3DMatrix44f lookat;// lookat_inv;
 			m3dLoadIdentity44(lookat);
 
 			m3dLookAt(lookat, at, from, up, 0.0f);

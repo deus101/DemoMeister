@@ -26,7 +26,7 @@ namespace NS_SG
 			{
 
 				//just to check how much I fuck ups
-				M3DMatrix44f MatArgument, parInv;
+				M3DMatrix44f MatArgument;// parInv;
 				NS_VEC::VEC3 parPos;
 				m3dCopyMatrix44(MatArgument, in);
 				//this->getParent()->getInverseRotation(parInv);
@@ -34,8 +34,8 @@ namespace NS_SG
 				
 				if (matrix_dirty)
 				{
-
-					M3DMatrix44f m_scale, m_rot, m_tran, m_rotTr, m_ScaXRot, m_ScaXrotXtran;
+					//m_rotTr,
+					M3DMatrix44f m_scale, m_rot, m_tran,  m_ScaXRot, m_ScaXrotXtran;
 
 
 

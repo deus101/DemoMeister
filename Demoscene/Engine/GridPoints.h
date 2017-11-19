@@ -8,8 +8,8 @@
 
 #include "mesh.h"
 #include "materials.h"
-#include "../Effect/GeomPacket.h"
-#include "../Effect/HeightMapPacket.h"
+#include "../ShaderFu/DeferredPackets/GeomPacket.h"
+#include "../ShaderFu/DeferredPackets/HeightMapPacket.h"
 #include "../Rendrer/context.h"
 
 
@@ -146,7 +146,7 @@ namespace NS_ENG{
 		//std::vector<NS_VEC::VEC4> CellData;
 
 
-		GridPoints(int GridSize_X, int GridSize_Y, float GridSize, NS_VEC::VEC3 col = NS_VEC::VEC3(0.0, 0.749,1.0));
+		GridPoints(int GridSize_X, int GridSize_Y, float GridSize, NS_VEC::VEC3 col = NS_VEC::VEC3(0.0f, 0.749f,1.0f));
 		
 		//Let the node handle that?
 		//CreateHeightMap

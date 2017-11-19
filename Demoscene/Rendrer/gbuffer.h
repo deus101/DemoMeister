@@ -6,7 +6,11 @@
 #include "base_buffer.h"
 #include "../Math/vec.h"
 
-class GBuffer : public base_buffer
+
+
+
+
+class GBuffer : public Buffer_CRTP<GBuffer>
 {
 public:
 

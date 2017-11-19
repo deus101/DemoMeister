@@ -10,7 +10,9 @@
 
 #include "mesh.h"
 #include "materials.h"
-#include "../Effect/GeomPacket.h"
+
+//obviusly this wont work if I want to be forward and deferred, but fuck it
+#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 #include "../util.h"
 
 //#include "../Rendrer/context.h"
@@ -30,25 +32,71 @@ namespace NS_ENG{
 		buffer_Group()
 		{
 			IBO.clear();
-			tex = NULL;
+
+			OriginalMat = "";
+			OriginalEffect = "";
+			HasDiffuseSkin = NULL;
+			HasNormalSkin = NULL;
+
+
+			ObjName = "";
+			MatName = "";
+			Effect = "";
+
+			DiffuseTexture = NULL;
+			BumpTexture = NULL;
+
+
+			ObjectID = NULL;
+			MatId = NULL;
+			EffectID = NULL;
+			
 		}
+
+
+		//we got what we need for an oct-tree
+		GLint SiblingValue;
+
 		GLuint vao;
 		//I should have called this IBO
 		GLuint vbo;
 		//And This IBO_Data
 		std::vector<unsigned int> IBO;
-		//std::vector<unsigned short> IBO;
+		
 		NS_MESH::s_ModelAid ModelAidChild;
 
-		//been to long...
-		//VEC3 amb;
+		//yep, must bloat it some more.
+		//Atleast I make sure data don't duplicate.
+		std::string OriginalMat;
+		std::string OriginalEffect;
+		
+		
+		std::string ObjName;
+		std::string MatName;
+		std::string Effect;
+
+
+		//Remove Tex
+		
+		GLint HasDiffuseSkin;
+		GLint HasNormalSkin;
+
+
+		GLint DiffuseTexture;
+		GLint BumpTexture;
+
+
+		GLint MatId;
+		GLint EffectID;
+		GLint ObjectID;
+
+		//strictly speaking we wont need these
 		GLfloat amb[4];
 		NS_VEC::VEC3 dif;
 		NS_VEC::VEC3 spec;
 		NS_VEC::VEC3 emi;
 		NS_VEC::VEC3 shiny;
-		//GLuint tex;
-		GLint tex;
+
 	};
 
 	struct PackedVertex{
@@ -60,16 +108,21 @@ namespace NS_ENG{
 		};
 	};
 
-	
+	enum ModelSimple {
+		Sphere,
+		Quad,
+
+	};
 
 
 	class model : public asset
 	{
 	private:
 		//Rename to model Iter
-		std::list <model*>::iterator iter;
+		std::list <boost::shared_ptr<model>>::iterator ModelIterator;
+		//std::list <model*>::iterator classModelIter;
 	public:
-		static std::list <model*> classModelList;
+		static std::list <boost::shared_ptr<model>> classModelList;
 		//heh should be private
 		std::vector<NS_VEC::VEC3> Sort_Pos;
 		std::vector<NS_VEC::VEC3> Sort_Norms;
@@ -98,6 +151,8 @@ namespace NS_ENG{
 		//model(model const &from)
 		model( std::string obj, std::string mtl, bool UV = true, bool Tangent = true);
 		~model();
+
+		void SetMaterial(buffer_Group &Object, std::string TaskModel, std::string TaskMaterial);
 		
 
 		/*
@@ -106,7 +161,12 @@ namespace NS_ENG{
 		
 		*/
 
-
+		void Init() {};
+		int Init(int t) { return t; };
+		void Load();
+		void Load(ModelSimple QuickAssembly);
+		
+		void Load(std::string obj, std::string mtl, bool UV, bool Tangent);
 
 		void Draw();
 		void Draw(int instances);
@@ -147,6 +207,18 @@ namespace NS_ENG{
 
 
 	};
-	//const void loadBuffer(Model &mModel, renderPacket &mPacket);
+	
+
+	/*
+	class SimpleModel : public model
+	{
+
+	};
+	*/
+
+
+
+
+
 }
 #endif

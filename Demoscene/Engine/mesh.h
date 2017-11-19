@@ -8,11 +8,9 @@
 #include "../Math/vec.h"
 #include "../Math/math3d.h"
 //should I consider giving this a static container?
+//NO!
 namespace NS_MESH
 {
-	//APPAPPAPAPAA 
-//using namespace std;
-//using namespace NS_VEC;
 
 struct s_FaceVertex
 {
@@ -25,10 +23,6 @@ struct s_FaceVertex
 		}
 
 
-		//whoops gotta be signed
-		//unsigned int m_PID;
-		//unsigned int m_UID;
-		//unsigned int m_NID;
 		int m_PID;
 		int m_UID;
 		int m_NID;

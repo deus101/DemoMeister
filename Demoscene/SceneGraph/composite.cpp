@@ -5,9 +5,7 @@
 
 using namespace NS_SG;
 
-		
-		
-		
+	
 		float gravity = 9.8f;
 
 		NS_VEC::QUAT qStart = NS_VEC::QUAT(-30, 0, 1, 0) * NS_VEC::QUAT(-45, 1, 0, 0);

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NS_ENG::asset">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEAAAAAAAgAAAAAAAAAAAAAAAAAAQAACAAAAAAA=</HashCode>
+      <FileName>Engine\asset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::MapAsset">
+    <Position X="4.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAACAAgCAEEAABAAAAAAIIBAMgAACAAAAAAA=</HashCode>
+      <FileName>Engine\AssetMapClasses\map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::ArrayMap">
+    <Position X="5.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAgAAAAAAAAABAAAAAAAAAEACAAAAAAQ=</HashCode>
+      <FileName>Engine\AssetMapClasses\ArrayMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::FileTexture">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAgAAAAAAAggAAAAAACAAAAAAAAAAggAACAAAAAAA=</HashCode>
+      <FileName>Engine\AssetMapClasses\FileTexture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::SubArrayMap">
+    <Position X="7.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAAAAA=</HashCode>
+      <FileName>Engine\AssetMapClasses\ArrayMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::NS_SHADER::ShaderItem">
+    <Position X="13.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IIgAoIAAARAAAgCoIAAABAAhAAAEIAQQBgECAAAAEAE=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::NS_SHADER::IncludeComponentItem">
+    <Position X="9.25" Y="9" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAAAAACAAAQAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::NS_SHADER::CompositeShader">
+    <Position X="16.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::NS_SHADER::BaseShaderItem">
+    <Position X="16.25" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::FBOTexture">
+    <Position X="1.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAQAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Engine\AssetMapClasses\FBOTexture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="NS_ENG::NS_SHADER::ShaderItemPtr" Collapsed="true">
+    <Position X="22" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="NS_ENG::NS_SHADER::BaseShaderItemPtr" Collapsed="true">
+    <Position X="20.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="NS_ENG::NS_SHADER::IncludeComponentItemPtr" Collapsed="true">
+    <Position X="22" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="NS_ENG::NS_SHADER::ShaderContainerPtr" Collapsed="true">
+    <Position X="20.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="NS_ENG::NS_SHADER::ShaderUtilityType" Collapsed="true">
+    <Position X="20.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Engine\ShaderItem.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

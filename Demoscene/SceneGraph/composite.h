@@ -1,7 +1,7 @@
 #ifndef COMPOSITE_HPP
 #define COMPOSITE_HPP
 
-//#include "world.h"
+//#include "DemoMeister.h"
 #include <iostream>
 //#include "Timer.h"
 #include "boost/shared_ptr.hpp"
@@ -13,6 +13,8 @@
 #include "../Engine/model.h"
 
 #include "../util.h"
+
+
 #include "camera.h"
 
 //#include "sync.h"

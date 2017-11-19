@@ -60,13 +60,14 @@ std::deque<s_mat> m_Materials;
 class Material : public asset
 {
 
-
+	//FUCK! Forgot about this.
 private:
-	//std::list <Material*>::iterator MatIter;
-	std::list <s_mat>::iterator MatIter;
+	
+	std::list <boost::shared_ptr<Material>>::iterator MatIter;
+	//std::list <s_mat>::iterator MatIter;
 public:
-	//static std::list <Material*> classMaterialList;
-	static std::list <s_mat> classMaterialList;
+	static std::list <boost::shared_ptr<Material>> ClassMaterialList;
+	//static std::list <s_mat> ClassMaterialList;
 	//
 	static GLuint MaterialMapTextureUnit;
 
@@ -77,13 +78,50 @@ public:
 	GLfloat Mat_Spec[4];
 	GLfloat Mat_Emmi[4];
 	GLfloat Mat_Shiny;
+
+
 	//not unit.. name...right?
 	//needs more then just a texture name
 	
+
+	//0 none, 1 forwarded drawn and loaded, 2 Global ArrayTexture
+	GLint Tex_Has_DiffuseTexture;
+	GLint Tex_Has_BumpTexture;
+
+	//Zero if one, 
+	GLint Tex_Diffuse_SamplerID;
+	//Zero if one, we know we need to access the Bump/Normal Map sampler because we are activly looking up the range in the MaterialMap
+	//I imagine if you have 512 sized seamless textures and 1024 sized ones we need to create texture arrays for both
+	//There is a different between bump and normal map remember that
+	GLint Tex_Bump_SamplerID;
+
+	//Zero if one in Tex_Has_DiffuseTexture
+	GLint Tex_Diffuse_Layer;
+	GLint Tex_Bump_Layer;
+
+	//The model class should not be responsible in loading the ArrayTextures or MaterialMap
+	//Model must only load the forward rendered ones
 	GLint Mat_TUnit;
 	GLint Mat_MatID;
 
 Material();
+
+~Material() {};
+
+void Load() {};
+
+int Load(const char *param);
+
+
+void Init() {};
+
+
+void Draw() {  };
+
+
+
+
+
 
 static void LoadMats(const char *param);
 

@@ -1,7 +1,7 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-#include <sys/timeb.h>
+//#include <sys/timeb.h>
 //#include <time.h>
 
 #ifdef _WIN32
