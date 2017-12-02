@@ -4,13 +4,13 @@ out float FragColor;
 
 
 //with depth
-uniform sampler2D gPositionMap;
-uniform sampler2D gNormalMap;
-uniform sampler2D gTexNoise;
+uniform sampler2D gbPositionMap;
+uniform sampler2D gbNormalMap;
+uniform sampler2D aoTexNoise;
 
-uniform mat4 gProjection;
-uniform mat4 gView;
-uniform mat4 gWorld;
+uniform mat4 commonProjectionMatrix;
+uniform mat4 commonViewMatrix;
+uniform mat4 commonWorldMatrix;
 
 uniform vec3 gEyeWorldPos;
 uniform vec2 gScreenSize;
@@ -32,25 +32,23 @@ vec2 CalcTexCoord()
 
 void main()
 {
-	mat3 viewNormal = transpose(inverse(mat3(gView)));
+	mat3 viewNormal = transpose(inverse(mat3(commonViewMatrix)));
 
 
 	vec2 TexCoords = CalcTexCoord();
     // Get input for SSAO algorithm
 
-	vec3 fragPos = texture(gPositionMap, TexCoords).xyz;
-	vec3 origin = vec3(gView * vec4(texture(gPositionMap, TexCoords).xyz, 1.0f));//.xyz;
+	vec3 fragPos = texture(gbPositionMap, TexCoords).xyz;
+	vec3 origin = vec3(commonViewMatrix * vec4(texture(gbPositionMap, TexCoords).xyz, 1.0f));//.xyz;
 
 
-    vec3 normal = texture(gNormalMap, TexCoords).xyz;
+    vec3 normal = texture(gbNormalMap, TexCoords).xyz;
 	//vec3 normal = texture(gTexNoise, TexCoords).rgb;
 
 	normal = normalize(normal * 2.0 - 1.0);
 	normal = normalize(viewNormal * normal);
 
-    //vec3 randomVec = (gView * vec4(texture(gNormalMap, TexCoords * noiseScale).xyz,0.0f)).xyz;
-	vec3 randomVec = texture(gTexNoise, TexCoords * noiseScale).xyz;
-	//vec3 randomVec = texture(gPositionMap, TexCoords * noiseScale).xyz;
+	vec3 randomVec = texture(aoTexNoise, TexCoords * noiseScale).xyz;
 
 
     // Create TBN change-of-basis matrix: from tangent-space to view-space
@@ -72,12 +70,12 @@ void main()
         vec4 offset = vec4(sample, 1.0);
         
 		
-		offset = gProjection * offset; // from view to clip-space
+		offset = commonProjectionMatrix * offset; // from view to clip-space
         offset.xy /= offset.w; // perspective divide
         offset.xy = offset.xy * 0.5 + 0.5; // transform to range 0.0 - 1.0
         
         // get sample depth
-        float sampleDepth = -texture(gPositionMap, offset.xy).w; // Get depth value of kernel sample
+        float sampleDepth = -texture(gbPositionMap, offset.xy).w; // Get depth value of kernel sample
         
 		if(sampleDepth < -67.0f)
 		continue;

@@ -22,11 +22,11 @@ bool lightPacket::Init()
 	m_posTextureUnitLocation = GetUniformLocation("gbPositionMap");
 	m_AbedoTextureUnitLocation = GetUniformLocation("gbAbedoMap");
 	m_normalTextureUnitLocation = GetUniformLocation("gbNormalMap");
-	m_UvTextureUnitLocation = GetUniformLocation("gUvMap");
-	m_AoTextureUnitLocation = GetUniformLocation("gAoPass");
+	m_UvTextureUnitLocation = GetUniformLocation("gbUvMap");
+	m_AoTextureUnitLocation = GetUniformLocation("aobAoMap");
 
 	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("baseMaterialMap");
-	m_MaterialCountUnitLocation = GetUniformLocation("baseMaterialMap");
+	m_MaterialCountUnitLocation = GetUniformLocation("baseMaterialCount");
 	m_eyeWorldPosLocation = GetUniformLocation("gEyeWorldPos");
 	//m_matSpecularIntensityLocation = GetUniformLocation("gMatSpecularIntensity");
 	//m_matSpecularPowerLocation = GetUniformLocation("gSpecularPower");
@@ -49,126 +49,3 @@ bool lightPacket::Init()
 	return true;
 }
 
-/*
-void lightPacket::SetWVP(const M3DMatrix44f& WVP)
-{
-	//glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP);
-
-	glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, WVP);
-}
-
-
-void lightPacket::SetWorldMatrix(const M3DMatrix44f& W)
-{
-	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
-
-	glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_FALSE, W);
-}
-
-
-
-
-void  lightPacket::SetViewMatrix(const M3DMatrix44f& V)
-{
-	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
-
-	glUniformMatrix4fv(m_ViewLocation, 1, GL_FALSE, V);
-}
-
-void  lightPacket::SetProjectionMatrix(const M3DMatrix44f& P)
-{
-	//glUniformMatrix4fv(m_WorldMatrixLocation, 1, GL_TRUE, W);
-
-	glUniformMatrix4fv(m_ProjectionLocation, 1, GL_FALSE, P);
-}
-//void lightPacket::SetPositionTextureUnit(unsigned int TextureUnit)
-void lightPacket::SetPositionTextureUnit(GLenum TextureUnit)
-{
-	int SamplerID = TextureUnit - GL_TEXTURE0;
-	glUniform1i(m_posTextureUnitLocation, SamplerID);
-
-	std::cout << "Light postex Uniform Location is " << m_posTextureUnitLocation <<
-		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
-
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT] = TextureUnit;
-}
-
-
-void lightPacket::SetColorTextureUnit(GLenum TextureUnit)
-{
-	int SamplerID = TextureUnit - GL_TEXTURE0;
-	glUniform1i(m_colorTextureUnitLocation, SamplerID);
-	// rename gl id 
-	std::cout << "Light colTex Uniform Location is " << m_colorTextureUnitLocation <<
-		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_Albedo_UNIT] = TextureUnit;
-}
-
-
-void lightPacket::SetNormalTextureUnit(GLenum TextureUnit)
-{
-	int SamplerID = TextureUnit - GL_TEXTURE0;
-	glUniform1i(m_normalTextureUnitLocation, SamplerID);
-
-	std::cout << "Light normal tex Uniform Location is " << m_normalTextureUnitLocation <<
-		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_Normal_UNIT] = TextureUnit;
-}
-
-void lightPacket::SetUvTextureUnit(GLenum TextureUnit)
-{
-	int SamplerID = TextureUnit - GL_TEXTURE0;
-	glUniform1i(m_UvTextureUnitLocation, SamplerID);
-	std::cout << "Light Uv Screen tex Uniform Location is " << m_UvTextureUnitLocation <<
-		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::GBuffer_UV_UNIT] = TextureUnit;
-}
-
-void lightPacket::SetAoTextureUnit(GLenum TextureUnit)
-{
-	int SamplerID = TextureUnit - GL_TEXTURE0;
-	glUniform1i(m_AoTextureUnitLocation, SamplerID);
-
-	std::cout << "Light AO Uniform Location is " << m_AoTextureUnitLocation <<
-		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::AOBuffer_AO_UNIT] = TextureUnit;
-}
-
-void lightPacket::SetEyeWorldPos(const NS_VEC::VEC3& EyePos)
-{
-	glUniform3f(m_eyeWorldPosLocation, EyePos.X, EyePos.Y, EyePos.Z);
-}
-
-
-void lightPacket::SetScreenSize(unsigned int Width, unsigned int Height)
-{
-	glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
-}
-
-//void lightPacket::SetbaseMaterialMapUnit(unsigned int TextureUnit)
-void lightPacket::SetbaseMaterialMapUnit(GLenum TextureUnit)
-{
-	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
-
-	//Material::GeneratebaseMaterialMap
-	int SamplerID = TextureUnit - GL_TEXTURE0;
-
-	glUniform1i(m_baseMaterialMapTextureUnitLocation, SamplerID);
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::baseMaterialMap_UNIT] = TextureUnit;
-	std::cout << "Material Map Uniform Location is " << m_baseMaterialMapTextureUnitLocation <<
-		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
-}
-
-void lightPacket::SetMaterialsCount(GLenum NrMaterials)
-{
-	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
-
-	//Material::GeneratebaseMaterialMap
-
-
-	glUniform1i(m_MaterialCountUnitLocation, NrMaterials);
-
-	std::cout << "Unifor Location for MatCount is " << m_MaterialCountUnitLocation << " Value is " << NrMaterials << std::endl;
-}
-
-*/

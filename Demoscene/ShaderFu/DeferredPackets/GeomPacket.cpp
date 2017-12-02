@@ -46,10 +46,10 @@ bool GeomPacket::Init()
 	m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
 
 
-	m_diffuseTextureUnitLocation = GetUniformLocation("geomDiffuseSkin0");
+	m_diffuseTextureUnitLocation = GetUniformLocation("geomDiffuseSkin");
 	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("baseArrayDiffuse0");
 
-	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("basebaseMaterialMap");
+	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("baseMaterialMap");
 	m_MaterialCountUnitLocation = GetUniformLocation("baseMaterialCount");
 	//NS_ENG::Material::
 

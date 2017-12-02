@@ -14,11 +14,11 @@ layout(location = 3) out vec3 TexCoordOut;
 
 
 
-uniform sampler2D geomDiffuseSkin0;
+uniform sampler2D geomDiffuseSkin;
 
 uniform sampler2DArray baseArrayDiffuse0;
 
-uniform sampler2D basebaseMaterialMap;
+uniform sampler2D baseMaterialMap;
 uniform int baseMaterialCount;
 
 

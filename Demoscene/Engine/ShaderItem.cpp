@@ -29,6 +29,7 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 		this->IsLoaded = false;
 		this->ShaderType = _ShaderType;
 		this->UtilityType = type;
+		this->path = AssetGlobalLocation.string();
 
 
 		
@@ -349,18 +350,39 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 
 		boost::regex expr(re1 + re2 + re3 + re4 + re5 + re6);
 		boost::smatch match;
+		//ugh...I keep using std and boost...gotta pick one.
+		boost::regex const map_rgx("\\s*#sampler\\s+\\w+(?=\\s*\\n)");
+		boost::regex const unif_rgx("uniform\\s+\\w+\\s+\\w+(?=\\s*;)");
 
 		for(std::vector<std::string>::iterator it = this->ShaderLines.begin(); it != this->ShaderLines.end(); ++it)
 		{
 			std::string CurrentLine = std::string(it->data());
-			if (boost::regex_search(CurrentLine, match, expr)) {
+			if (boost::regex_search(CurrentLine, match, unif_rgx)) {
 
-				std::string test = match[2];
-				std::string test2 = match[3];
-				Current->push_back( tup_Uniform(test, test2));
+				std::string res_uniform_line = match[0];
 
+				if (boost::regex_search(CurrentLine, match, unif_rgx)) {
+					{
+
+						boost::smatch unif;
+
+						boost::regex_search(res_uniform_line, unif, boost::regex("\\s+\\w+"));
+						std::string unifType_s = unif.str();
+
+
+						std::string unifName_s = res_uniform_line.substr(unif.position() + unif.length());
+						unifName_s.erase(remove_if(unifName_s.begin(), unifName_s.end(), isspace), unifName_s.end());
+						unifType_s.erase(remove_if(unifType_s.begin(), unifType_s.end(), isspace), unifType_s.end());
+						Current->push_back( tup_Uniform(unifType_s, unifName_s));
+
+						std::fprintf(stdout,"-Retrived %s : %s \n", unifName_s.c_str(), unifType_s.c_str());
+					}
+
+
+					
+
+				}
 			}
-		
 
 		}
 

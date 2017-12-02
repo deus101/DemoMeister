@@ -38,8 +38,8 @@ struct SpotLight
 
 
 uniform sampler2D baseMaterialMap;
+uniform int baseMaterialCount;
 
-//gColorMap should be diffuseMap
 //uniform sampler2D gColorMap;
 
 uniform sampler2D gbPositionMap;
@@ -85,10 +85,8 @@ vec4 CalcLightInternal(BaseLight Light,
 	vec3 Normal,
 	float AO)
 {
-	//vec4 OcculsionFactor = vec4(vec3(AO),0.0);
-	//vec4 AmbientColor =  vec4(Light.Color * Light.AmbientIntensity, 1.0) ;
-	//vec3 OcculsionFactor = vec3(AO);
-	//vec3 AmbientColor =  vec3(Light.Color * (Light.AmbientIntensity * AO)) ;
+
+	//(Light.AmbientIntensity * AO));
 
 
 	vec4 DiffuseColor = vec4(0, 0, 0, 0);
@@ -96,8 +94,9 @@ vec4 CalcLightInternal(BaseLight Light,
 	vec3 DiffuseColor1 = vec3(0, 0, 0);
 	vec3 SpecularColor1 = vec3(0, 0, 0);
 
+
 	LookUpMaterial(ID, DiffuseColor, SpecularColor);
-	//Light.AmbientIntensity
+	
 
 	vec2 tc = CalcTexCoord();
 	DiffuseColor.xyz = texture(gbAbedoMap, tc).xyz;
@@ -196,11 +195,8 @@ void main()
 	//material id
 	vec3 Color = texture(gbAbedoMap, TexCoord).xyz;
 
-	//int MatId = int(texture(gUvMap, TexCoord).z);
-	//int MatId = int(texture(gUvMap, TexCoord).z);
-	float MatId = texture(gUvMap, TexCoord).z;
-	//int MatId = int(texture(gColorMap, TexCoord).x);
-	//for some reasong gColormMap has the same handle as gPositionm
+	float MatId = texture(gbUvMap, TexCoord).z;
+
 
 
 
@@ -211,15 +207,12 @@ void main()
 
 
 	vec3 Normal = texture(gbNormalMap, TexCoord).xyz;
-	vec2 Uv = texture(gUvMap, TexCoord).xy;
-	//vec2 texelSize =  vec2(textureSize(gAoPass, 0));
-	float AmbientOcculsion = texture(gAoPass, TexCoord).r;
+	vec2 Uv = texture(gbUvMap, TexCoord).xy;
+	
+	float AmbientOcculsion = texture(aobAoMap, TexCoord).r;
 
 
 	vec3 satan = Normal;
-	//Normal = normalize(Normal);
-	//Normal = normalize(Normal * 2.0 - 1.0);
-	//Normal = normalize(viewNormal * Normal);
 
 	//FragColor = vec4(Color, 1.0) *  CalcDirectionalLight(MatId,WorldPos, Depth,satan,AmbientOcculsion);
 	FragColor = CalcDirectionalLight(MatId, WorldPos, Depth, satan, AmbientOcculsion);

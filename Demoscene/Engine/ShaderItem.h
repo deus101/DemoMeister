@@ -97,6 +97,7 @@ namespace NS_ENG
 			size_t GetSize() { return TotalSize; };
 			size_t GetLines() { return TotalLines; };
 
+			std::string path;
 		//private:
 		protected:
 			size_t TotalSize;

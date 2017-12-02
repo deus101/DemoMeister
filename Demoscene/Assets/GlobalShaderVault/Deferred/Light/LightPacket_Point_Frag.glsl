@@ -37,10 +37,11 @@ struct SpotLight
 uniform sampler2D gbPositionMap;
 uniform sampler2D gbAbedoMap;
 uniform sampler2D gbNormalMap;
-uniform sampler2D gUvMap;
-uniform sampler2D gAoPass;
+uniform sampler2D gbUvMap;
+uniform sampler2D aobAoMap;
 
 uniform sampler2D baseMaterialMap;
+uniform int baseMaterialCount;
 
 uniform mat4 commonProjectionMatrix;
 uniform mat4 commonViewMatrix;
@@ -166,11 +167,11 @@ void main()
     vec2 TexCoord = CalcTexCoord();
 	vec3 WorldPos = texture(gbPositionMap, TexCoord).xyz;
 	vec3 Color = texture(gbAbedoMap, TexCoord).xyz;
-	vec3 UVMat = texture(gUvMap, TexCoord).xyz;
+	vec3 UVMat = texture(gbUvMap, TexCoord).xyz;
 	//vec3 Color = texture(baseMaterialMap, vec2(0,UVMat.z)).xyz;
-	float MatId = texture(gUvMap, TexCoord).z;
+	float MatId = texture(gbUvMap, TexCoord).z;
 	vec3 Normal = texture(gbNormalMap, TexCoord).xyz;
-	float AmbientOcculsion = texture(gAoPass, TexCoord).r;
+	float AmbientOcculsion = texture(aobAoMap, TexCoord).r;
 
 	Normal = normalize(Normal * 2.0 - 1.0);
 	Normal = normalize(viewNormal * Normal);

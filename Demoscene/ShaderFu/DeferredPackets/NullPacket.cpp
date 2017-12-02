@@ -31,9 +31,9 @@ bool NullPacket::Init()
 	}
 
 	m_WVPLocation = GetUniformLocation("gWVP");
-	m_WorldMatrixLocation = GetUniformLocation("gWorld");
-	m_ViewLocation = GetUniformLocation("gView");
-	m_ProjectionLocation = GetUniformLocation("gProjection");
+	m_WorldMatrixLocation = GetUniformLocation("commonWorldMatrix");
+	m_ViewLocation = GetUniformLocation("commonViewMatrix");
+	m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_ViewLocation == INVALID_UNIFORM_LOCATION ||

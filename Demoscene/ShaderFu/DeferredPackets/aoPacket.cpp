@@ -53,7 +53,7 @@ bool aoPacket::Init() {
 
 	m_normalTextureUnitLocation = GetUniformLocation("gbNormalMap");
 
-	m_NoiseLocation = GetUniformLocation("gTexNoise");
+	m_NoiseLocation = GetUniformLocation("aoTexNoise");
 
 
 	m_screenSizeLocation = GetUniformLocation("gScreenSize");

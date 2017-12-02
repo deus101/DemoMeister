@@ -45,11 +45,11 @@ bool RayMarcher::Init()
 
 
 	
-	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("baseArrayDiffuse_0");
+	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("baseArrayDiffuse0");
 
 	
 	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("baseMaterialMap");
-	m_MaterialCountUnitLocation = GetUniformLocation("MaterialCount");
+	m_MaterialCountUnitLocation = GetUniformLocation("baseMaterialCount");
 	//m_diffuseTextureUnitLocation
 
 

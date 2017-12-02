@@ -115,13 +115,14 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 		inMemory = true;
 	}
 	
-		std::cout << fileName << std::endl;
+		
 
 	if(inMemory == false)
 	{ 
 	fp = fopen(fileName, "r");
 	if (fp != NULL)
 	{
+		std::cout << "Loading: " << fileName << std::endl;
 		while (fgetc(fp) != EOF)
 		{
 			shaderLength++;
@@ -154,7 +155,8 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 		glslArray = (const GLchar *)CurrShader->GetString()->c_str();
 		glslStringPtr[0] = glslArray;
 		//return true;
-
+		//CurrShader->na
+		std::cout << "Loading: " << CurrShader->path << std::endl;
 	}
 
 
@@ -177,7 +179,7 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 	{
 		GLchar infoLog[2048];
 		glGetShaderInfoLog(ShaderObj, 2048, NULL, infoLog);
-		fprintf(stderr, "epic Vertex #%d ffffail!\n", ShaderObj);
+		fprintf(stderr, "epic ffffail in: %s #%d !\n", CurrShader->path.c_str(),ShaderObj);
 		fprintf(stderr, "%s\n", infoLog);
 		Sleep(10000);
 		return false;
