@@ -14,16 +14,13 @@ layout(location = 3) out vec3 TexCoordOut;
 
 
 
-uniform sampler2D A_DiffuseMap;
+uniform sampler2D geomDiffuseSkin0;
 
-uniform sampler2DArray ArrayDiffuseMaps;
+uniform sampler2DArray baseArrayDiffuse0;
 
-uniform sampler2D MaterialMap;
-uniform int MaterialCount;
+uniform sampler2D basebaseMaterialMap;
+uniform int baseMaterialCount;
 
-uniform vec3 mDiffuseCol;
-uniform float mSpecularInt;
-uniform float mSpecularPow;
 
 const float NEAR = 0.1f;
 //const float FAR = 50.0f;
@@ -39,12 +36,12 @@ float LinearDepth(float depth)
 void LookUpMaterial(float ID, out vec4 MatDiffuse, out vec4 MatSpecular)
 {
 
-	float PZ_MM_Y = 1 / textureSize(MaterialMap, 0).y;
-	float PZ_MM_X = 1 / textureSize(MaterialMap, 0).x;
+	float PZ_MM_Y = 1 / textureSize(baseMaterialMap, 0).y;
+	float PZ_MM_X = 1 / textureSize(baseMaterialMap, 0).x;
 	float fixID = (ID * PZ_MM_Y) * 0.5;
 	//float fixDataSet = (DataSet * PZ_MM_X) * 0.5;
-	MatDiffuse = vec4(texture(MaterialMap, vec2((1 * PZ_MM_X) * 0.5, fixID)).xyz, 1.0);
-	MatSpecular = vec4(texture(MaterialMap, vec2((2 * PZ_MM_X) * 0.5, fixID)).xyz, 1.0);
+	MatDiffuse = vec4(texture(baseMaterialMap, vec2((1 * PZ_MM_X) * 0.5, fixID)).xyz, 1.0);
+	MatSpecular = vec4(texture(baseMaterialMap, vec2((2 * PZ_MM_X) * 0.5, fixID)).xyz, 1.0);
 
 
 }
@@ -52,12 +49,12 @@ void LookUpMaterial(float ID, out vec4 MatDiffuse, out vec4 MatSpecular)
 void LookUpMaterialTexture(float ID,  out vec3 MapInfo)
 {
 
-	//float PZ_MM_Y = 1 / textureSize(MaterialMap, 0).y;
-	//float PZ_MM_X = 1 / textureSize(MaterialMap, 0).x;
+	//float PZ_MM_Y = 1 / textureSize(baseMaterialMap, 0).y;
+	//float PZ_MM_X = 1 / textureSize(baseMaterialMap, 0).x;
 	//float fixID = (ID * PZ_MM_Y) * 0.5;
 	//float fixDataSet = (DataSet * PZ_MM_X) * 0.5;
-	//MapInfo = 1/texture(MaterialMap, vec2((2 * PZ_MM_X) * 0.5, fixID)).xyz;
-	MapInfo = 1 / texture(MaterialMap, ivec2(2, ID)).xyz;
+	//MapInfo = 1/texture(baseMaterialMap, vec2((2 * PZ_MM_X) * 0.5, fixID)).xyz;
+	MapInfo = 1 / texture(baseMaterialMap, ivec2(2, ID)).xyz;
 }
 
 
@@ -84,33 +81,7 @@ void main()
 	LookUpMaterialTexture(ModelData.x,MatTextureInfo);
 
 
-	//if (textureSize(A_DiffuseMap, 0).x > 0)
-	//if (MatTextureInfo.x <= 0)
-	//{	
-	//	DiffuseOut = vec3(TexCoord0, 0);
-	//	DiffuseOut = texture(A_DiffuseMap, TexCoord0).xyz;
-	//}
-	//else if
-	//else
-	//{
-	//	DiffuseOut = MatDiffuseColor.xyz;
-	//}
-
-	//switch(TexCase)
-	//{
-	//case 0: DiffuseOut = texture(A_DiffuseMap, TexCoord0).xyz;
-	//break;
-
-	//default: DiffuseOut = texture(ArrayDiffuseMaps, UVP).xyz;
-	//break;
-
-	//}
-
-
-	//float fixID = (ID * PZ_MM_Y) * 0.5;
-
-
-	DiffuseOut =  texture(ArrayDiffuseMaps, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
+	DiffuseOut =  texture(baseArrayDiffuse0, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
 	//DiffuseOut = MatDiffuseColor.xyz;
 	//DiffuseOut = MatTextureInfo;
 	NormalOut = normalize(Normal0);

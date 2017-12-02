@@ -55,11 +55,14 @@ namespace NS_EFF {
 
 
 
-		void SetMaterialMapUnit(GLenum TextureUnit);
-		//void SetMaterialMapUnit(GLint TextureUnit);
+		void SetbaseMaterialMapUnit(GLenum TextureUnit);
+		//void SetbaseMaterialMapUnit(GLint TextureUnit);
 		void SetMaterialsCount(unsigned int MatCount);
 
 	protected:
+
+
+
 		//Forward loaded textures
 		GLuint m_diffuseTextureUnitLocation;
 		GLuint m_bumpTextureUnitLocation;
@@ -82,7 +85,7 @@ namespace NS_EFF {
 
 
 
-		GLuint m_MaterialMapTextureUnitLocation;
+		GLuint m_baseMaterialMapTextureUnitLocation;
 		GLuint m_MaterialCountUnitLocation;
 		//I need a better way to name my uniforms, why did i put m infront of everything
 

@@ -79,6 +79,9 @@ void main()
         // get sample depth
         float sampleDepth = -texture(gPositionMap, offset.xy).w; // Get depth value of kernel sample
         
+		if(sampleDepth < -67.0f)
+		continue;
+
         // range check & accumulate
         float rangeCheck = smoothstep(0.0, 1.0, radius / abs(origin.z - sampleDepth ));
         

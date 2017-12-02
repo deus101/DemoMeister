@@ -14,11 +14,11 @@ out vec3 Normal0;
 
 
 uniform mat4 gWVP;
-uniform mat4 gView;
-uniform mat4 gWorld;
-uniform mat4 gProjection;
+uniform mat4 commonViewMatrix;
+uniform mat4 commonWorldMatrix;
+uniform mat4 commonProjectionMatrix;
 
-//uniform mat4  gWorld, gWVP;
+//uniform mat4  commonWorldMatrix, gWVP;
 uniform float halfSize;
 
 
@@ -26,12 +26,12 @@ void main()
 {
 
 
-	vec4 viewPos = gView * gWorld * gl_in[0].gl_Position;
+	vec4 viewPos = commonViewMatrix * commonWorldMatrix * gl_in[0].gl_Position;
 	//gl_Position    = gWVP * vec4(Position, 1.0);
-	gl_Position = gProjection * viewPos;
+	gl_Position = commonProjectionMatrix * viewPos;
 	TexCoord0 = TexCoord;
-	Normal0 = (gWorld * vec4(Normal, 0.0)).xyz;
-	//WorldPos0      = (gWorld * vec4(Position, 1.0)).xyz;
+	Normal0 = (commonWorldMatrix * vec4(Normal, 0.0)).xyz;
+	//WorldPos0      = (commonWorldMatrix * vec4(Position, 1.0)).xyz;
 
 	//WorldPos0      = viewPos.xyz;
 
@@ -71,12 +71,12 @@ void main()
 
 
 	//I could easily turn this into vertex normals seeings as we allready have the midpoint
-	vec3 upNormal = (gWorld * (vec4(0.0, 1.0, 0.0, 0.0))).xyz;
+	vec3 upNormal = (commonWorldMatrix * (vec4(0.0, 1.0, 0.0, 0.0))).xyz;
 
 	// Create a cube centered on the given point.
 
 	gl_Position = gWVP * (position + EUS);
-	WorldPos0 = (gWorld * (position + EUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUS)).xyz;
 	viewPos.xyz;
 	//Color = vec3(0.0, 1.0, 0.0);
 	//yes yes, should renamed one of these
@@ -86,14 +86,14 @@ void main()
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EUN);
-	WorldPos0 = (gWorld * (position + EUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUN)).xyz;
 	//Color = vec3(0.0, 1.0, 0.0);
 	Color = color;
 	Normal0 = upNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUN);
-	WorldPos0 = (gWorld * (position + WUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUN)).xyz;
 	//Color = vec3(0.0, 1.0, 0.0);
 	Color = color;
 	Normal0 = upNormal;
@@ -103,21 +103,21 @@ void main()
 	EndPrimitive();
 
 	gl_Position = gWVP * (position + EUS);
-	WorldPos0 = (gWorld * (position + EUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUS)).xyz;
 	//Color = vec3(0.0, 1.0, 0.0);
 	Color = color;
 	Normal0 = upNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUN);
-	WorldPos0 = (gWorld * (position + WUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUN)).xyz;
 	//Color = vec3(0.0, 1.0, 0.0);
 	Color = color;
 	Normal0 = upNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUS);
-	WorldPos0 = (gWorld * (position + WUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUS)).xyz;
 	//Color = vec3(0.0, 1.0, 0.0);
 	Color = color;
 	Normal0 = upNormal;
@@ -130,17 +130,17 @@ void main()
 	EndPrimitive();
 	//end of up face
 
-	vec3 southNormal = (gWorld * (vec4(0.0, 0.0, -1.0, 0.0))).xyz;
+	vec3 southNormal = (commonWorldMatrix * (vec4(0.0, 0.0, -1.0, 0.0))).xyz;
 
 	gl_Position = gWVP * (position + EDS);
-	WorldPos0 = (gWorld * (position + EDS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = southNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EUS);
-	WorldPos0 = (gWorld * (position + EUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = southNormal;
@@ -148,7 +148,7 @@ void main()
 
 
 	gl_Position = gWVP * (position + WUS);
-	WorldPos0 = (gWorld * (position + WUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = southNormal;
@@ -157,21 +157,21 @@ void main()
 	EndPrimitive();
 
 	gl_Position = gWVP * (position + EDS);
-	WorldPos0 = (gWorld * (position + EDS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = southNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUS);
-	WorldPos0 = (gWorld * (position + WUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = southNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WDS);
-	WorldPos0 = (gWorld * (position + WDS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WDS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = southNormal;
@@ -183,11 +183,11 @@ void main()
 	EndPrimitive();
 	//End of south face
 
-	vec3 westNormal = (gWorld * (vec4(-1.0, 0.0, 0.0, 0.0))).xyz;
+	vec3 westNormal = (commonWorldMatrix * (vec4(-1.0, 0.0, 0.0, 0.0))).xyz;
 
 
 	gl_Position = gWVP * (position + WUN);
-	WorldPos0 = (gWorld * (position + WUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = westNormal;
@@ -195,14 +195,14 @@ void main()
 
 
 	gl_Position = gWVP * (position + WDN);
-	WorldPos0 = (gWorld * (position + WDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WDN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = westNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUS);
-	WorldPos0 = (gWorld * (position + WUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUS)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = westNormal;
@@ -214,7 +214,7 @@ void main()
 	//fifth
 
 	gl_Position = gWVP * (position + WDN);
-	WorldPos0 = (gWorld * (position + WDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WDN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = westNormal;
@@ -222,14 +222,14 @@ void main()
 
 
 	gl_Position = gWVP * (position + WDS);
-	WorldPos0 = (gWorld * (position + WDS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WDS)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = westNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUS);
-	WorldPos0 = (gWorld * (position + WUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUS)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = westNormal;
@@ -239,24 +239,24 @@ void main()
 
 	//West Face done
 
-	vec3 eastNormal = (gWorld * (vec4(1.0, 0.0, 0.0, 0.0))).xyz;
+	vec3 eastNormal = (commonWorldMatrix * (vec4(1.0, 0.0, 0.0, 0.0))).xyz;
 
 	gl_Position = gWVP * (position + EUN);
-	WorldPos0 = (gWorld * (position + EUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUN)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = eastNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EUS);
-	WorldPos0 = (gWorld * (position + EUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = eastNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EDN);
-	WorldPos0 = (gWorld * (position + EDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDN)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = eastNormal;
@@ -268,21 +268,21 @@ void main()
 	//seventh
 
 	gl_Position = gWVP * (position + EDN);
-	WorldPos0 = (gWorld * (position + EDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDN)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = eastNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EUS);
-	WorldPos0 = (gWorld * (position + EUS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = eastNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EDS);
-	WorldPos0 = (gWorld * (position + EDS)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDS)).xyz;
 	//Color = vec3(1.0, 0.0, 0.0);
 	Color = color;
 	Normal0 = eastNormal;
@@ -293,24 +293,24 @@ void main()
 	EndPrimitive();
 
 	//East Face done
-	vec3 northNormal = (gWorld * (vec4(0.0, 0.0, 1.0, 0.0))).xyz;
+	vec3 northNormal = (commonWorldMatrix * (vec4(0.0, 0.0, 1.0, 0.0))).xyz;
 
 	gl_Position = gWVP * (position + EDN);
-	WorldPos0 = (gWorld * (position + EDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = northNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUN);
-	WorldPos0 = (gWorld * (position + WUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = northNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + EUN);
-	WorldPos0 = (gWorld * (position + EUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EUN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = northNormal;
@@ -323,21 +323,21 @@ void main()
 
 	//ninth
 	gl_Position = gWVP * (position + EDN);
-	WorldPos0 = (gWorld * (position + EDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + EDN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = northNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WDN);
-	WorldPos0 = (gWorld * (position + WDN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WDN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = northNormal;
 	EmitVertex();
 
 	gl_Position = gWVP * (position + WUN);
-	WorldPos0 = (gWorld * (position + WUN)).xyz;
+	WorldPos0 = (commonWorldMatrix * (position + WUN)).xyz;
 	//Color = vec3(0.0, 0.0, 1.0);
 	Color = color;
 	Normal0 = northNormal;
@@ -352,9 +352,9 @@ void main()
 
 	//TexCoord0      = TexCoord;                  
 
-	//Normal0        = (gWorld * vec4(Normal, 0.0)).xyz;   
+	//Normal0        = (commonWorldMatrix * vec4(Normal, 0.0)).xyz;   
 
-	//WorldPos0      = (gWorld * vec4(Position, 1.0)).xyz;
+	//WorldPos0      = (commonWorldMatrix * vec4(Position, 1.0)).xyz;
 
 
 }

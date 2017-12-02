@@ -28,10 +28,10 @@ bool HeightMapPacket::Init()
 		return false;
 	}
 
-	m_WorldMatrixLocation = GetUniformLocation("gWorld");
+	m_WorldMatrixLocation = GetUniformLocation("commonWorldMatrix");
 	m_WVPLocation = GetUniformLocation("gWVP");
 	f_halfSizLocation = GetUniformLocation("halfSize");
-	//m_colorTextureUnitLocation = GetUniformLocation("gAbedoMap");
+	//m_colorTextureUnitLocation = GetUniformLocation("gbAbedoMap");
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION || 

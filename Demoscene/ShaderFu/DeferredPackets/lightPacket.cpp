@@ -15,18 +15,18 @@ bool lightPacket::Init()
 	//shouldnt i  initialize these with L for light, g for geometry etc?
 	m_WVPLocation = GetUniformLocation("gWVP");
 
-	m_WorldMatrixLocation = GetUniformLocation("gWorld");
-	m_ViewLocation = GetUniformLocation("gView");
-	m_ProjectionLocation = GetUniformLocation("gProjection");
+	m_WorldMatrixLocation = GetUniformLocation("commonWorldMatrix");
+	m_ViewLocation = GetUniformLocation("commonViewMatrix");
+	m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
 
-	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
-	m_AbedoTextureUnitLocation = GetUniformLocation("gAbedoMap");
-	m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
+	m_posTextureUnitLocation = GetUniformLocation("gbPositionMap");
+	m_AbedoTextureUnitLocation = GetUniformLocation("gbAbedoMap");
+	m_normalTextureUnitLocation = GetUniformLocation("gbNormalMap");
 	m_UvTextureUnitLocation = GetUniformLocation("gUvMap");
 	m_AoTextureUnitLocation = GetUniformLocation("gAoPass");
 
-	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
-	m_MaterialCountUnitLocation = GetUniformLocation("MaterialMap");
+	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("baseMaterialMap");
+	m_MaterialCountUnitLocation = GetUniformLocation("baseMaterialMap");
 	m_eyeWorldPosLocation = GetUniformLocation("gEyeWorldPos");
 	//m_matSpecularIntensityLocation = GetUniformLocation("gMatSpecularIntensity");
 	//m_matSpecularPowerLocation = GetUniformLocation("gSpecularPower");
@@ -145,17 +145,17 @@ void lightPacket::SetScreenSize(unsigned int Width, unsigned int Height)
 	glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 }
 
-//void lightPacket::SetMaterialMapUnit(unsigned int TextureUnit)
-void lightPacket::SetMaterialMapUnit(GLenum TextureUnit)
+//void lightPacket::SetbaseMaterialMapUnit(unsigned int TextureUnit)
+void lightPacket::SetbaseMaterialMapUnit(GLenum TextureUnit)
 {
 	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 
-	//Material::GenerateMaterialMap
+	//Material::GeneratebaseMaterialMap
 	int SamplerID = TextureUnit - GL_TEXTURE0;
 
-	glUniform1i(m_MaterialMapTextureUnitLocation, SamplerID);
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
-	std::cout << "Material Map Uniform Location is " << m_MaterialMapTextureUnitLocation <<
+	glUniform1i(m_baseMaterialMapTextureUnitLocation, SamplerID);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::baseMaterialMap_UNIT] = TextureUnit;
+	std::cout << "Material Map Uniform Location is " << m_baseMaterialMapTextureUnitLocation <<
 		" Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
 }
 
@@ -163,7 +163,7 @@ void lightPacket::SetMaterialsCount(GLenum NrMaterials)
 {
 	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 
-	//Material::GenerateMaterialMap
+	//Material::GeneratebaseMaterialMap
 
 
 	glUniform1i(m_MaterialCountUnitLocation, NrMaterials);

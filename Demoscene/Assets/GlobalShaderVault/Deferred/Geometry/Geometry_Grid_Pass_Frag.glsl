@@ -5,7 +5,7 @@
 in vec3 Normal0;                                                                    
 in vec3 WorldPos0;                                                                  
 in vec3 Color;  
-uniform mat4  gWorld, gWVP;
+uniform mat4  commonWorldMatrix, gWVP;
 
 
 
@@ -25,7 +25,7 @@ float LinearDepth(float depth)
     return (2.0 * NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));	
 }
 
-//uniform sampler2D gAbedoMap;                
+//uniform sampler2D gbAbedoMap;                
 
 
 void main()									

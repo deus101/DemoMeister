@@ -22,7 +22,7 @@ using namespace std;
 
 list<boost::shared_ptr< Material  >> NS_ENG::Material::ClassMaterialList;
 
-GLuint Material::MaterialMapTextureUnit = 0;
+GLuint Material::baseMaterialMapTextureUnit = 0;
 
 
 Material::Material() : asset::asset()
@@ -194,11 +194,11 @@ void Material::LoadMats( const char *param)
 
 //OK, for materials This was abandoned but it could still be usefull to have
 std::string Material::Shaderfy() {
-	//forget this for now work ing static int GenerateMaterialMap();
+	//forget this for now work ing static int GeneratebaseMaterialMap();
 	bool first = true;
 	string GlSL = "//retrive materials \n ";
 
-	//actually as I expand the materialMap it would be nice to have procedures drawn up
+	//actually as I expand the baseMaterialMap it would be nice to have procedures drawn up
 	//for GLSL, possibly another lamebrain idea I just got for the ASSET monstrosity
 	//BUT NOT THIS YEAR!
 
@@ -255,7 +255,7 @@ std::string Material::Shaderfy() {
 	return GlSL;
 }
 
-GLuint Material::GenerateMaterialMap() {
+GLuint Material::GeneratebaseMaterialMap() {
 
 
 	
@@ -263,8 +263,8 @@ GLuint Material::GenerateMaterialMap() {
 
 
 
-	if(Material::MaterialMapTextureUnit != 0)
-		return Material::MaterialMapTextureUnit;
+	if(Material::baseMaterialMapTextureUnit != 0)
+		return Material::baseMaterialMapTextureUnit;
 
 	std::vector<NS_VEC::VEC3> rowMaterial;
 
@@ -298,17 +298,25 @@ GLuint Material::GenerateMaterialMap() {
 
 	//this probably can't wait next year, fix the fucking layout to something useable so it can be properly
 	//used
-	glGenTextures(1, &Material::MaterialMapTextureUnit);
-	glBindTexture(GL_TEXTURE_2D, Material::MaterialMapTextureUnit);
+	glGenTextures(1, &Material::baseMaterialMapTextureUnit);
+	glBindTexture(GL_TEXTURE_2D, Material::baseMaterialMapTextureUnit);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 2, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 3, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	return Material::MaterialMapTextureUnit;
+	return Material::baseMaterialMapTextureUnit;
 }
 

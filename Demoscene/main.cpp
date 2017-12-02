@@ -610,17 +610,17 @@ int main(int argc, char** argv)
 
 	//test1->
 	test1->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
-	test1->SetMaterialMapUnit(GL_TEXTURE6);
+	test1->SetbaseMaterialMapUnit(GL_TEXTURE6);
 	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->Enable());
 	//e_geom.Enable();
 	//e_geom.SetDiffuseTextureUnit(TypeOfTexture::DiffuseMap_UNIT);
 	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
 	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->SetDiffuseTextureUnit(GL_TEXTURE1));
 	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE2);
-	//e_geom.SetMaterialMapUnit(GLenum(15));
+	//e_geom.SetbaseMaterialMapUnit(GLenum(15));
 	//e_geom.SetDiffuseTextureUnit(GL_TEXTURE1);
-	//e_geom.SetMaterialMapUnit(GL_TEXTURE6);
-	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->SetMaterialMapUnit(GL_TEXTURE6));
+	//e_geom.SetbaseMaterialMapUnit(GL_TEXTURE6);
+	//(dynamic_cast<NS_EFF::GeomPacket*>(TheDisc->RetriveEffect(GeomTestIdx).get())->SetbaseMaterialMapUnit(GL_TEXTURE6));
 	//e_geom.SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX + 1);
 
 
@@ -636,7 +636,7 @@ int main(int argc, char** argv)
 	test->SetScreenSize(Xres, Yres);
 
 	test->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
-	test->SetMaterialMapUnit(GL_TEXTURE6);
+	test->SetbaseMaterialMapUnit(GL_TEXTURE6);
 
 	//std::cout << "Status of point light effect is: " << e_point->Init() << std::endl << std::endl << std::endl;
 
@@ -655,10 +655,10 @@ int main(int argc, char** argv)
 	//e_point->SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	e_point->SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
-	e_point->SetMaterialMapUnit(GL_TEXTURE6);
+	e_point->SetbaseMaterialMapUnit(GL_TEXTURE6);
 
 	e_point->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
-	//e_dir.SetMaterialMapUnit(15);
+	//e_dir.SetbaseMaterialMapUnit(15);
 	e_point->SetScreenSize(Xres, Yres);
 
 	//e_point.SetScreenSize(1600, 900);
@@ -675,7 +675,7 @@ int main(int argc, char** argv)
 	//e_point.SetAoTextureUnit(AoBuffer::AO_TEXTURE_TYPE_AO_MAP + 5);
 	e_dir->SetAoTextureUnit(GL_TEXTURE5);
 	//TheDisc->BufferContainer[1]->
-	e_dir->SetMaterialMapUnit(GL_TEXTURE6);
+	e_dir->SetbaseMaterialMapUnit(GL_TEXTURE6);
 	e_dir->SetDeferreDiffuseTextureUnit(GL_TEXTURE10);
 	e_dir->SetScreenSize(Xres, Yres);
 

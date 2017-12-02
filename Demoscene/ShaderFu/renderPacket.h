@@ -13,6 +13,8 @@
 namespace NS_EFF{
 
 
+	//typedef std::list<NS_ENG::NS_SHADER::tup_Uniform> UniformList;
+
 
 	class renderPacket
 	{
@@ -86,14 +88,19 @@ namespace NS_EFF{
 		GLuint m_WVPLocation, m_WorldMatrixLocation, m_ViewLocation, m_ProjectionLocation;
 		GLuint m_eyeWorldPosLocation, m_screenSizeLocation, v4_FarNearLocation;
 
+		NS_ENG::NS_SHADER::UniformList m_SamplerUniforms;
+
 
 	private:
 
 		typedef std::list<GLuint> ShaderObjList;
 
+		
+		
+
 
 		ShaderObjList m_shaderObjList;
-
+		
 
 		GLuint world, world_inv, view, view_inv, projection, worldview, worldview_inv, worldviewprojection, matWVP_inv;
 		GLuint viewPos, viewDir;

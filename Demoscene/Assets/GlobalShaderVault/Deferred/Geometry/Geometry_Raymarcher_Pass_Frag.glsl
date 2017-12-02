@@ -10,14 +10,14 @@ layout(location = 1) out vec3 DiffuseOut;
 layout(location = 2) out vec3 NormalOut;
 layout(location = 3) out vec3 UvOut;
 
-uniform sampler2DArray ArrayDiffuseMaps;
-//uniform sampler3D ArrayDiffuseMaps;
+uniform sampler2DArray baseArrayDiffuse0;
 
-uniform sampler2D MaterialMap;
+
+uniform sampler2D baseMaterialMap;
 
 uniform mat4 gWVP;
-uniform mat4 gProjection;
-uniform mat4 gView;
+uniform mat4 commonProjectionMatrix;
+uniform mat4 commonViewMatrix;
 
 
 uniform vec2 gScreenSize;
@@ -35,7 +35,10 @@ const float focalLenght = 1.67f;
 const float NEAR = 0.1f;
 const float FAR = 100.0f;
 
-const int raySteps = 64;
+//const int raySteps = 64;
+//const float rayEpsilon = 0.001f;
+
+const int raySteps = 128;
 const float rayEpsilon = 0.001f;
 
 const float PI = 3.141592653589793238462643383;
@@ -182,22 +185,22 @@ vec4 CalcUV(in vec3 p, in vec3 n, in float k)
 void LookUpDeferredMaterial(float ID, int DataSet, out vec3 Properties)
 {
 
-	float PZ_MM_Y = 1 / textureSize(MaterialMap, 0).y;
-	float PZ_MM_X = 1 / textureSize(MaterialMap, 0).x;
+	float PZ_MM_Y = 1 / textureSize(baseMaterialMap, 0).y;
+	float PZ_MM_X = 1 / textureSize(baseMaterialMap, 0).x;
 	float fixID = (ID * PZ_MM_Y) * 0.5;
 	float fixDataSet = (DataSet * PZ_MM_X) * 0.5;
-	//MatDiffuse = vec4(texture(MaterialMap, vec2(0, fixID)).xyz, 1.0);
-	//MatSpecular = vec4(texture(MaterialMap, vec2(1, fixID)).xyz, 1.0);
-	Properties = texture(MaterialMap, vec2(fixDataSet, fixID)).xyz;
-	//MapInfo = 1 / texture(MaterialMap, ivec2(2, ID)).xyz;
+	//MatDiffuse = vec4(texture(baseMaterialMap, vec2(0, fixID)).xyz, 1.0);
+	//MatSpecular = vec4(texture(baseMaterialMap, vec2(1, fixID)).xyz, 1.0);
+	Properties = texture(baseMaterialMap, vec2(fixDataSet, fixID)).xyz;
+	//MapInfo = 1 / texture(baseMaterialMap, ivec2(2, ID)).xyz;
 
 }
 
 void LookUpTexture( int TextureLayer, vec2 uv, out vec4 Result)
 {
-//texture(ArrayDiffuseMaps, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
-Result =  texture(ArrayDiffuseMaps, vec3(uv,float(TextureLayer)));
- //texture(ArrayDiffuseMaps[0], TexCoord0).xyz;
+//texture(baseArrayDiffuse0, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
+Result =  texture(baseArrayDiffuse0, vec3(uv,float(TextureLayer)));
+
 
 }
 
@@ -211,8 +214,8 @@ void main()
 	vec3 normal = vec3(0.0);
 
 
-	//vec3 viewRight = normalize(vec3(1.0,0.0,0.0)*mat3(gView));
-	//vec3 viewUp = normalize(vec3(0.0,1.0,0.0)*mat3(gView));
+	//vec3 viewRight = normalize(vec3(1.0,0.0,0.0)*mat3(commonViewMatrix));
+	//vec3 viewUp = normalize(vec3(0.0,1.0,0.0)*mat3(commonViewMatrix));
 	//vec3 viewForward = cross( viewUp,viewRight);
 
 
@@ -270,7 +273,7 @@ void main()
 	//focalLenght
 	vec3 rayOrigin = vec3(0.0, 0.0, 0.0);
 
-	mat4 CamToWorld = gWVP * transpose(gView);
+	mat4 CamToWorld = gWVP * transpose(commonViewMatrix);
 
 
 	vec3 rayOriginWorld = (CamToWorld * vec4(rayOrigin, 1)).xyz;
@@ -297,7 +300,7 @@ void main()
 	//vec3 pre_RD = PcameraSpace + right * PixelCamera.x * scale * aspectRatio + up * PixelCamera.y * scale;
 	vec3 pre_RD = PcameraSpace;// + vec3(0, 0, -0.1); 
 
-	//transpose(inverse(mat3(gView)));
+	//transpose(inverse(mat3(commonViewMatrix)));
 
 	//this sorta works dont delete and forget you dumb fucker
 	vec3 rd = normalize((CamToWorld * vec4(pre_RD, 0)).xyz);
@@ -380,11 +383,11 @@ void main()
 		
 		if(3.0f > distance(p,vec3(0.0f, 2.2f, 0.0f)) )
 		{
-		color.xyz = texture(ArrayDiffuseMaps, vec3(puv.xy,float(0) ) ).xyz;
+		color.xyz = texture(baseArrayDiffuse0, vec3(puv.xy,float(0) ) ).xyz;
 		}
 		else
 		{
-		color.xyz = texture(ArrayDiffuseMaps, vec3(puv.xy,float(1) ) ).xyz;
+		color.xyz = texture(baseArrayDiffuse0, vec3(puv.xy,float(1) ) ).xyz;
 		}
 
 		//LookUpDeferredMaterial(matID,2,color.xyz);
@@ -399,21 +402,25 @@ void main()
 		//eyeHitZ = -FAR *dot(worldDir,rd);
 		//eyeHitZ = -FAR *dot(normalize(viewForward),rd);
 
-		//dep = ndcDepth = ((FAR+NEAR) + (2.0*FAR*NEAR)/eyeHitZ)/(FAR-NEAR);
-		//p = ro + (rd * (FAR-1.6));
-		p = ro + (rd * (FAR ));
-		//p = min(ro + (rd * FAR),FAR);
 
-		eyeHitZ = -t *dot(worldDir, rd);
+		p = ro + (rd * (FAR ));
+
+
+
+		eyeHitZ = -FAR *dot(worldDir, rd);
+		
 		ndcDepth = ((FAR + NEAR) + (2.0*FAR*NEAR) / eyeHitZ) / (FAR - NEAR);
+		dep = ((gl_DepthRange.diff * ndcDepth) + gl_DepthRange.near + gl_DepthRange.far) / 2.0;
 		//color = vec4(1 / 255);
 		matID = 4;
 		normal = getNormal(p);
 		puv = CalcUV(p, normal, 32.0).xy;
 
 
-		//gl_FragDepth = 1.0f;
-		//ndcDepth = FAR;
+
+		gl_FragDepth = dep;
+		dep = LinearDepth(dep);
+
 	}
 
 

@@ -324,10 +324,10 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 	boost::filesystem::path fileNameNoSuffix = fileName.replace_extension();
 
 	std::vector<std::string> tokens;
-
-	boost::split(tokens, fileName.string(), boost::is_any_of("_"));
 	
-
+	boost::split(tokens, fileName.string(), std::bind2nd(std::equal_to<char>(), '_'));
+	
+	//boost::split(tokens, fileName.string(), boost::is_any_of("_"));
 	int Nr_Attributes = tokens.size();
 
 

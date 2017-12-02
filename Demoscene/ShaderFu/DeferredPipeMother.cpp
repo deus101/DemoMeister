@@ -165,27 +165,27 @@ void DeferredPipeMother::SetAoTextureUnit(GLenum TextureUnit)
 
 
 //should be inherited shared with both lightpacket and Raymarcher
-void DeferredPipeMother::SetMaterialMapUnit(GLenum TextureUnit)
+void DeferredPipeMother::SetbaseMaterialMapUnit(GLenum TextureUnit)
 {
 
 	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 
-	//Material::GenerateMaterialMap
+	//Material::GeneratebaseMaterialMap
 
 	GLint ShaderProg;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &ShaderProg);
 
 	int SamplerID = TextureUnit - GL_TEXTURE0;
-	glUniform1i(m_MaterialMapTextureUnitLocation, SamplerID);
-	this->m_StageParamPtr->TextureUnits[TypeOfTexture::MaterialMap_UNIT] = TextureUnit;
-	std::cout << "Material Map  Uniform Location: " << m_MaterialMapTextureUnitLocation << " Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
+	glUniform1i(m_baseMaterialMapTextureUnitLocation, SamplerID);
+	this->m_StageParamPtr->TextureUnits[TypeOfTexture::baseMaterialMap_UNIT] = TextureUnit;
+	std::cout << "Material Map  Uniform Location: " << m_baseMaterialMapTextureUnitLocation << " Textureunit: " << TextureUnit << " SamplerID: " << SamplerID << std::endl;
 }
 
 void DeferredPipeMother::SetMaterialsCount(unsigned int MatCount)
 {
 	//glUniform2f(m_screenSizeLocation, (float)Width, (float)Height);
 
-	//Material::GenerateMaterialMap
+	//Material::GeneratebaseMaterialMap
 
 
 	glUniform1i(m_MaterialCountUnitLocation, MatCount);

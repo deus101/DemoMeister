@@ -68,7 +68,7 @@ namespace NS_ENG
 		GLint SamplerID;	//As the Material is fetched in the shader and you get 1 it will mean Diffuse sampler, As with 2, of course then the
 		GLint TextureLayer; //Texture id does not matter, the sampler has allready been loaed with a texture for the deferred rendering.
 		GLenum format;		//but...if TextureLayer is not 0 then we move on to the shadercode that uses the ArrayMap.
-		GLenum type;		//The MaterialMap is cheap to make, though the code in GLSL will be not, Lets stick with diffuse and bump/normal
+		GLenum type;		//The baseMaterialMap is cheap to make, though the code in GLSL will be not, Lets stick with diffuse and bump/normal
 		GLenum internalFormat;//The TextureName will reside elsewhere, this is just a descriptor
 		GLint  wrap;
 		GLint  filter;

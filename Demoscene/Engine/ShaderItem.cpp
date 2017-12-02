@@ -1,5 +1,7 @@
 #include "ShaderItem.h"
 #include <boost/tokenizer.hpp>
+#include <boost\regex.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 //using namespace NS_ENG;
@@ -9,6 +11,7 @@ using namespace NS_ENG::NS_SHADER;
 	//typedef boost::shared_ptr<const  FileTexture> FileTextureConstPtr;
 using namespace std;
 using boost::tuple;
+
 
 typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 	ShaderItem::ShaderItem() : asset()
@@ -218,7 +221,6 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 			CurrentLine++;
 	
 
-
 			if (x.front() == '#')
 			{
 
@@ -311,6 +313,57 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 		this->TotalSize = this->TotalSize + CurrentSize;
 		this->TotalLines = this->TotalLines + CurrentLine;
 		this->IsLoaded = true;
+
+
+	}
+
+	void BaseShaderItem::RetriveUniforms(UniformList * Current) {
+		//std::vector<std::string> 
+		//std::list< std::string >::iterator it = this->ShaderLines.begin();
+
+		/*
+		std::string re1 = "(uniform)";	// Word 1
+		std::string re2 = ".*?";	// Non-greedy match on filler
+		std::string re3 = "(sampler)";	// Word 2
+		std::string re4 = "((?:[a-z][a-z]*[0-9]+[a-z0-9]*))";	// Alphanum 1
+		std::string re5 = ".*?";	// Non-greedy match on filler
+		std::string re6 = "((?:[a-z][a-z]+))";	// Word 3
+		*/
+
+		std::string re1 = "(uniform)";	// Word 1
+		std::string re2 = ".*?";	// Non-greedy match on filler
+		std::string re3 = "((?:[a-z][a-z]+))";	// Word 2
+		std::string re4 = "(\\d+)";	// Integer Number 1
+		std::string re5 = "([a-z])";	// Any Single Word Character (Not Whitespace) 1
+		std::string re6 = ".*?";	// Non-greedy match on filler
+
+		//std::string re1 = "(uniform)";	// Word 1
+		//std::string re2 = ".*?";	// Non-greedy match on filler
+		//std::string re3 = "((?:[a-z][a-z]*[0-9]+[a-z0-9]*))";	// Alphanum 1
+		//std::string re4 = ".*?";	// Non-greedy match on filler
+		//std::string re5 = "((?:[a-z][A-Z]+))";	// Word 2
+		//std::string re5 = "((?:[a-z][a-z]*[0-9]+[a-z0-9]*))";	// Word 2
+		//std::string re6 = "(;)";	// Any Single Character 1
+
+		std::string reSum = re1 + re2 + re3 + re4 + re5 + re6;
+
+		boost::regex expr(re1 + re2 + re3 + re4 + re5 + re6);
+		boost::smatch match;
+
+		for(std::vector<std::string>::iterator it = this->ShaderLines.begin(); it != this->ShaderLines.end(); ++it)
+		{
+			std::string CurrentLine = std::string(it->data());
+			if (boost::regex_search(CurrentLine, match, expr)) {
+
+				std::string test = match[2];
+				std::string test2 = match[3];
+				Current->push_back( tup_Uniform(test, test2));
+
+			}
+		
+
+		}
+
 
 
 	}

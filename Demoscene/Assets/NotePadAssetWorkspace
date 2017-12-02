@@ -1,0 +1,116 @@
+<NotepadPlus>
+    <Project name="Project Name">
+        <Folder name="GlobalMapVault">
+            <Folder name="HeightMap">
+                <File name="GlobalMapVault\HeightMap\test.bmp" />
+                <File name="GlobalMapVault\HeightMap\test.hmp" />
+            </Folder>
+        </Folder>
+        <Folder name="GlobalMaterialVault">
+            <Folder name="Brick">
+                <File name="GlobalMaterialVault\Brick\Brick.mtl" />
+                <File name="GlobalMaterialVault\Brick\Seamless_Bricks_1024x24.jpg" />
+                <File name="GlobalMaterialVault\Brick\Seamless_Stone_1024x24.jpg" />
+            </Folder>
+            <Folder name="Grass">
+                <File name="GlobalMaterialVault\Grass\Grass.mtl" />
+            </Folder>
+            <Folder name="Marble">
+                <File name="GlobalMaterialVault\Marble\Marble.mtl" />
+            </Folder>
+            <Folder name="Stone">
+                <File name="GlobalMaterialVault\Stone\Deferred.xml" />
+                <File name="GlobalMaterialVault\Stone\Deferred_Stone.mtl" />
+                <File name="GlobalMaterialVault\Stone\Seamless.xml" />
+                <File name="GlobalMaterialVault\Stone\Seamless_StoneBlue_1024x24.png" />
+                <File name="GlobalMaterialVault\Stone\Seamless_StoneBump_1024x32.png" />
+                <File name="GlobalMaterialVault\Stone\Seamless_StoneRed_1024x24.png" />
+                <File name="GlobalMaterialVault\Stone\Seamless_Stone_Blue.png" />
+                <File name="GlobalMaterialVault\Stone\Seamless_Stone_Bump.png" />
+                <File name="GlobalMaterialVault\Stone\Seamless_Stone_Red.png" />
+            </Folder>
+        </Folder>
+        <Folder name="GlobalModelVault">
+            <Folder name="Poly">
+                <Folder name="Bench">
+                    <File name="GlobalModelVault\Poly\Bench\bench.mtl" />
+                    <File name="GlobalModelVault\Poly\Bench\bench.obj" />
+                </Folder>
+                <Folder name="Mitsuba">
+                    <File name="GlobalModelVault\Poly\Mitsuba\mitsuba-sphere.obj" />
+                    <File name="GlobalModelVault\Poly\Mitsuba\mitsuba-stone.mtl" />
+                    <File name="GlobalModelVault\Poly\Mitsuba\mitsuba.mtl" />
+                </Folder>
+                <Folder name="P-38">
+                    <File name="GlobalModelVault\Poly\P-38\fixedP38.mtl" />
+                    <File name="GlobalModelVault\Poly\P-38\fixedP38.obj" />
+                    <File name="GlobalModelVault\Poly\P-38\p38_bump.jpg" />
+                    <File name="GlobalModelVault\Poly\P-38\p38_texture.jpg" />
+                    <File name="GlobalModelVault\Poly\P-38\p38_texture_propalpha.jpg" />
+                    <File name="GlobalModelVault\Poly\P-38\p38_texture_propblur.jpg" />
+                </Folder>
+                <Folder name="Suzanne">
+                    <File name="GlobalModelVault\Poly\Suzanne\suzanne.mtl" />
+                    <File name="GlobalModelVault\Poly\Suzanne\suzanne.obj" />
+                </Folder>
+                <Folder name="Teapot">
+                    <File name="GlobalModelVault\Poly\Teapot\teapot.obj" />
+                </Folder>
+                <Folder name="Utility">
+                    <File name="GlobalModelVault\Poly\Utility\sphere.obj" />
+                    <File name="GlobalModelVault\Poly\Utility\UVQuad.obj" />
+                </Folder>
+            </Folder>
+            <Folder name="SDF" />
+        </Folder>
+        <Folder name="GlobalShaderVault">
+            <Folder name="Deferred">
+                <Folder name="Geometry">
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Grid_Pass_Frag.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Grid_Pass_Geom.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Grid_Pass_Vert.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Mesh_Pass_Frag.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Mesh_Pass_Vert.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Raymarcher_Pass_Frag.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Geometry\Geometry_Raymarcher_Pass_Vert.glsl" />
+                </Folder>
+                <Folder name="Light">
+                    <File name="GlobalShaderVault\Deferred\Light\bac.LightPacket_Dir_Frag - Copy.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\IdentityPacket_Frame_Vert.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\IdentityPacket_Geometry_Vert.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\LightPacket_Dir_Frag.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\LightPacket_Point_Frag.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Geometry.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\LightPacket_Utility_Pass_Vertex.glsl" />
+                    <File name="GlobalShaderVault\Deferred\Light\Null_Technique_Pass_fragment.glsl" />
+                </Folder>
+                <Folder name="Misc">
+                    <File name="GlobalShaderVault\Deferred\Misc\ao_Pass_Frag.glsl" />
+                </Folder>
+            </Folder>
+            <Folder name="FrameCasting">
+                <File name="GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
+            </Folder>
+            <Folder name="UberComponents">
+                <File name="GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
+                <File name="GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
+            </Folder>
+        </Folder>
+        <Folder name="PipeLineRepo">
+            <Folder name="CustomAssets" />
+            <Folder name="Deferred">
+                <File name="PipeLineRepo\Deferred\Deferred_AOBUFFER_Blur_AOPass.xml" />
+                <File name="PipeLineRepo\Deferred\Deferred_AOBUFFER_SSAO_AOPass.xml" />
+                <File name="PipeLineRepo\Deferred\Deferred_GBUFFER_Dir_LightPass.xml" />
+                <File name="PipeLineRepo\Deferred\Deferred_GBUFFER_Normal_GeometryPass.xml" />
+                <File name="PipeLineRepo\Deferred\Deferred_GBUFFER_Point_LightPass.xml" />
+                <File name="PipeLineRepo\Deferred\Deferred_GBUFFER_Raymarching_GeometryPass.xml" />
+                <File name="PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
+            </Folder>
+            <Folder name="EngineModifiers" />
+            <Folder name="MaterialEffects" />
+            <Folder name="SceneGraphTemplates" />
+        </Folder>
+        <File name="NotePadAssetWorkspace" />
+    </Project>
+</NotepadPlus>

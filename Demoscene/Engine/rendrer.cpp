@@ -254,9 +254,9 @@ void rendrer::RenderSceneCB()
 	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, base_buffer::DiffArrayMapTexure);
 	//GL_TEXTURE_BINDING_2D_ARRAY
-	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
-	//glActiveTexture(TypeOfTexture::MaterialMap_UNIT);
-	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::baseMaterialMap_UNIT]);
+	//glActiveTexture(TypeOfTexture::baseMaterialMap_UNIT);
+	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GeneratebaseMaterialMap());
 
 	//PointLess Identity Matrix to Geometry_RayMarcher_Vert.glsl
 	GeoRayMarch->SetWVP(ModelView);
@@ -289,8 +289,8 @@ void rendrer::RenderSceneCB()
 			glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT]);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, base_buffer::DiffArrayMapTexure);
 			
-			glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
-			glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
+			glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::baseMaterialMap_UNIT]);
+			glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GeneratebaseMaterialMap());
 
 
 

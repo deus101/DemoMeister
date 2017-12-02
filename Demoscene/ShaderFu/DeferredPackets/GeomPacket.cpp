@@ -41,21 +41,21 @@ bool GeomPacket::Init()
 	}
 
 	m_WVPLocation = GetUniformLocation("gWVP");
-	m_WorldMatrixLocation = GetUniformLocation("gWorld");
-	m_ViewLocation = GetUniformLocation("gView");
-	m_ProjectionLocation = GetUniformLocation("gProjection");
+	m_WorldMatrixLocation = GetUniformLocation("commonWorldMatrix");
+	m_ViewLocation = GetUniformLocation("commonViewMatrix");
+	m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
 
 
-	m_diffuseTextureUnitLocation = GetUniformLocation("A_DiffuseMap");
-	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("ArrayDiffuseMaps");
+	m_diffuseTextureUnitLocation = GetUniformLocation("geomDiffuseSkin0");
+	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("baseArrayDiffuse0");
 
-	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
-	m_MaterialCountUnitLocation = GetUniformLocation("MaterialCount");
+	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("basebaseMaterialMap");
+	m_MaterialCountUnitLocation = GetUniformLocation("baseMaterialCount");
 	//NS_ENG::Material::
 
 	if (m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_WorldMatrixLocation == INVALID_UNIFORM_LOCATION ||
-		m_MaterialMapTextureUnitLocation == INVALID_UNIFORM_LOCATION ||
+		m_baseMaterialMapTextureUnitLocation == INVALID_UNIFORM_LOCATION ||
 		m_diffuseTextureUnitLocation == INVALID_UNIFORM_LOCATION) {
 		return false;
 	}

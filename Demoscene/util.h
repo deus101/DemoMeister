@@ -78,7 +78,7 @@ enum TypeOfTexture
 	BumpMap_UNIT,
 	DiffuseArrayMap_UNIT,
 	BumpArrayMap_UNIT,
-	MaterialMap_UNIT,
+	baseMaterialMap_UNIT,
 	GBuffer_WorldPos_UNIT,
 	GBuffer_Albedo_UNIT,
 	GBuffer_Normal_UNIT,

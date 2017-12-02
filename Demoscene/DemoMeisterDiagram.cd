@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DemoMeister">
-    <Position X="6.75" Y="0.75" Width="3.75" />
+    <Position X="5.5" Y="1" Width="3.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -104,7 +104,7 @@
       <FileName>ShaderFu\DeferredPipeMother.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NS_EFF::renderPacket" Collapsed="true">
+  <Class Name="NS_EFF::renderPacket">
     <Position X="12" Y="3.5" Width="2.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
@@ -134,7 +134,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAIABQAIAAEAEAAAAAAAAEwQCACUAAABAA=</HashCode>
+      <HashCode>AAAAAAAAAIgIABQAIAAEAEAAAAAAAAEwQCACUAAABAA=</HashCode>
       <FileName>Rendrer\base_buffer.h</FileName>
     </TypeIdentifier>
   </Class>

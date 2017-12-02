@@ -147,7 +147,9 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 	{
 		//CurrShader->
 		CurrShader->Load();
-
+		 //m_SamplerUniforms;
+		
+		CurrShader->RetriveUniforms(&this->m_SamplerUniforms);
 		//shaderText = (GLchar *)malloc(CurrShader->GetSize);
 		glslArray = (const GLchar *)CurrShader->GetString()->c_str();
 		glslStringPtr[0] = glslArray;

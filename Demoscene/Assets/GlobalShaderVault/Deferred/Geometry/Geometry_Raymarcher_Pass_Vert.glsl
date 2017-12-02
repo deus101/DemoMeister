@@ -7,9 +7,9 @@ layout(location = 2) in vec3 Normal;
 
 
 uniform mat4 gWVP;
-uniform mat4 gProjection;
-//uniform mat4 gWorld;
-uniform mat4 gView;
+uniform mat4 commonProjectionMatrix;
+//uniform mat4 commonWorldMatrix;
+uniform mat4 commonViewMatrix;
 
 smooth out vec2 uv;
 //smooth out vec3 v;
@@ -19,15 +19,15 @@ smooth out vec2 uv;
 void main()
 {
 	//gl_Position =  Position;
-	//vec4 viewPos = gView * gWorld * vec4(Position, 1.0f);
-	//gl_Position = gProjection * viewPos;
-	//v = vec3( Position* gView);
-	//v = vec3( Position * gView);
-	//EP = vec3( gView*vec4(0,0,-1,1) );
+	//vec4 viewPos = commonViewMatrix * commonWorldMatrix * vec4(Position, 1.0f);
+	//gl_Position = commonProjectionMatrix * viewPos;
+	//v = vec3( Position* commonViewMatrix);
+	//v = vec3( Position * commonViewMatrix);
+	//EP = vec3( commonViewMatrix*vec4(0,0,-1,1) );
 
-	//EP = vec3(0,0,-1) * mat3(gView);
+	//EP = vec3(0,0,-1) * mat3(commonViewMatrix);
 
-	//EP = vec3( vec4(0,0,-1,1)*gView );
+	//EP = vec3( vec4(0,0,-1,1)*commonViewMatrix );
 
 
 	//uv.x = TexCoord.x;

@@ -4,14 +4,14 @@
 layout (location = 0) in vec3 Position;                                             
 
 //uniform mat4 gWVP;
-uniform mat4 gProjection;
-uniform mat4 gWorld;
-uniform mat4 gView;
+uniform mat4 commonProjectionMatrix;
+uniform mat4 commonWorldMatrix;
+uniform mat4 commonViewMatrix;
 
 void main()
 {   
-	//vec4 viewPos = gView * gWorld * Position;
-	vec4 viewPos = gView * gWorld * vec4(Position, 1.0f);
+	//vec4 viewPos = commonViewMatrix * commonWorldMatrix * Position;
+	vec4 viewPos = commonViewMatrix * commonWorldMatrix * vec4(Position, 1.0f);
 
-    gl_Position = gProjection * viewPos;
+    gl_Position = commonProjectionMatrix * viewPos;
 }

@@ -252,9 +252,9 @@ void GBuffer::BindForLightPass()
 	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, DiffArrayMapTexure);
 
-	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::MaterialMap_UNIT]);
-	//glActiveTexture(TypeOfTexture::MaterialMap_UNIT);
-	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GenerateMaterialMap());
+	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::baseMaterialMap_UNIT]);
+	//glActiveTexture(TypeOfTexture::baseMaterialMap_UNIT);
+	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GeneratebaseMaterialMap());
 	//glBindTexture(GL_TEXTURE_2D, m_AoTexture);
 
 }

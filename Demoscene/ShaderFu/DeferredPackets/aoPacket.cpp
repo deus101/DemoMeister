@@ -38,20 +38,20 @@ bool aoPacket::Init() {
 	//Im just using this for ID matrise 
 	m_WVPLocation = GetUniformLocation("gWVP");
 
-	//m_ProjectionLocation = GetUniformLocation("gProjection");
+	//m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
 	
 
-	 m_ProjectionLocation = GetUniformLocation("gProjection");
-	 m_WorldMatrixLocation = GetUniformLocation("gWorld");
-	 m_ViewLocation = GetUniformLocation("gView");
+	 m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
+	 m_WorldMatrixLocation = GetUniformLocation("commonWorldMatrix");
+	 m_ViewLocation = GetUniformLocation("commonViewMatrix");
 	//m_KernelLocation = GetUniformLocation("gKernel[0]");
 	
 	//gTexNoise
 	
 
-	m_posTextureUnitLocation = GetUniformLocation("gPositionMap");
+	m_posTextureUnitLocation = GetUniformLocation("gbPositionMap");
 
-	m_normalTextureUnitLocation = GetUniformLocation("gNormalMap");
+	m_normalTextureUnitLocation = GetUniformLocation("gbNormalMap");
 
 	m_NoiseLocation = GetUniformLocation("gTexNoise");
 

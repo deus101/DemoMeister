@@ -37,23 +37,23 @@ struct SpotLight
 //here I will add glsl code automatically
 
 
-uniform sampler2D MaterialMap;
+uniform sampler2D baseMaterialMap;
 
 //gColorMap should be diffuseMap
 //uniform sampler2D gColorMap;
 
-uniform sampler2D gPositionMap;
-uniform sampler2D gAbedoMap;
-uniform sampler2D gNormalMap;
-uniform sampler2D gUvMap;
-uniform sampler2D gAoPass;
+uniform sampler2D gbPositionMap;
+uniform sampler2D gbAbedoMap;
+uniform sampler2D gbNormalMap;
+uniform sampler2D gbUvMap;
+uniform sampler2D aobAoMap;
 
-//uniform sampler2D MaterialMap;
+//uniform sampler2D baseMaterialMap;
 
 
-uniform mat4 gProjection;
-uniform mat4 gView;	
-uniform mat4 gWorld;
+uniform mat4 commonProjectionMatrix;
+uniform mat4 commonViewMatrix;	
+uniform mat4 commonWorldMatrix;
 
 uniform DirectionalLight gDirectionalLight;
 uniform PointLight gPointLight;
@@ -100,7 +100,7 @@ vec4 CalcLightInternal(BaseLight Light,
 	//Light.AmbientIntensity
 
 	vec2 tc = CalcTexCoord();
-	DiffuseColor.xyz = texture(gAbedoMap, tc).xyz;
+	DiffuseColor.xyz = texture(gbAbedoMap, tc).xyz;
 
 	vec3 AmbientColor = vec3(Light.AmbientIntensity * DiffuseColor.xyz *  AO);
 	//AmbientColor *= OcculsionFactor;
@@ -122,7 +122,7 @@ vec4 CalcLightInternal(BaseLight Light,
 		vec3 halfwayDir = normalize(LightDirection + VertexToEye);
 
 
-		//mat3 viewNormalMat = transpose(mat3(gView));
+		//mat3 viewNormalMat = transpose(mat3(commonViewMatrix));
 		//vec3 ViewNorm = viewNormalMat * Normal;
 		//vec3 LightReflect = normalize(reflect( Normal,LightDirection));
 		//vec3 LightReflect = normalize(reflect(LightDirection, Normal));
@@ -184,17 +184,17 @@ out vec4 FragColor;
 
 void main()
 {
-	//mat3 viewNormal = transpose(inverse(mat3(gView)));
-	//mat3 viewNormal = transpose(mat3(gView));
+	//mat3 viewNormal = transpose(inverse(mat3(commonViewMatrix)));
+	//mat3 viewNormal = transpose(mat3(commonViewMatrix));
 	//int draw_mode = 0;
 	//float debug = 1.0f;
 	//vec4 Debugger = vec4(0, 0, 0, 0);
 
 	vec2 TexCoord = CalcTexCoord();
-	vec3 WorldPos = texture(gPositionMap, TexCoord).xyz;
-	float Depth = texture(gPositionMap, TexCoord).a;
+	vec3 WorldPos = texture(gbPositionMap, TexCoord).xyz;
+	float Depth = texture(gbPositionMap, TexCoord).a;
 	//material id
-	vec3 Color = texture(gAbedoMap, TexCoord).xyz;
+	vec3 Color = texture(gbAbedoMap, TexCoord).xyz;
 
 	//int MatId = int(texture(gUvMap, TexCoord).z);
 	//int MatId = int(texture(gUvMap, TexCoord).z);
@@ -210,7 +210,7 @@ void main()
 	LookUpMaterial(MatId, Diff, Spec);
 
 
-	vec3 Normal = texture(gNormalMap, TexCoord).xyz;
+	vec3 Normal = texture(gbNormalMap, TexCoord).xyz;
 	vec2 Uv = texture(gUvMap, TexCoord).xy;
 	//vec2 texelSize =  vec2(textureSize(gAoPass, 0));
 	float AmbientOcculsion = texture(gAoPass, TexCoord).r;

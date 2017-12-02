@@ -27,8 +27,8 @@ namespace NS_EFF{
 		//void SetDiffuseTextureUnit(GLint TextureUnit);
 		//void SetBumpTextureUnit(unsigned int TextureUnit);
 
-		void SetMaterialMapUnit(GLenum TextureUnit);
-		//void SetMaterialMapUnit(GLint TextureUnit);
+		void SetbaseMaterialMapUnit(GLenum TextureUnit);
+		//void SetbaseMaterialMapUnit(GLint TextureUnit);
 		void SetMaterialsCount(unsigned int MatCount);
 
 		*/
@@ -46,7 +46,7 @@ namespace NS_EFF{
 		GLuint m_bumpTextureUnitLocation;
 
 
-		GLuint m_MaterialMapTextureUnitLocation;
+		GLuint m_baseMaterialMapTextureUnitLocation;
 		GLuint m_MaterialCountUnitLocation;
 		*/
 

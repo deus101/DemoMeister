@@ -476,7 +476,7 @@ void model::Load(string obj, string mtl, bool UV, bool Tangent)
 
 				//if (std::equal(SecondTokens.begin(), SecondTokens.end(), (size_t)2));
 				//if ((SecondTokens.size() == (size_t)2) && std::equal(SecondTokens.begin(), SecondTokens.end(), (size_t)2));
-				if (SecondTokens.size() == (size_t)2);
+				if (SecondTokens.size() == (size_t)2)
 				{
 
 					SetMaterial(MG, SecondTokens.front(), SecondTokens.back());
@@ -727,7 +727,7 @@ void model::Draw()
 	
 
 
-	GLint ShaderProg;
+	
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_BaseTool);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(s_ModelAid) * 2, &ModelAidRoot, GL_DYNAMIC_DRAW);

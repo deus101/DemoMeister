@@ -35,9 +35,9 @@ bool RayMarcher::Init()
 	}
 
 	m_WVPLocation = GetUniformLocation("gWVP");
-	//m_WorldMatrixLocation = GetUniformLocation("gWorld");
-	m_ViewLocation = GetUniformLocation("gView");
-	m_ProjectionLocation = GetUniformLocation("gProjection");
+	//m_WorldMatrixLocation = GetUniformLocation("commonWorldMatrix");
+	m_ViewLocation = GetUniformLocation("commonViewMatrix");
+	m_ProjectionLocation = GetUniformLocation("commonProjectionMatrix");
 	m_screenSizeLocation = GetUniformLocation("gScreenSize");
 	//m_colorTextureUnitLocation = GetUniformLocation("gColorMap");
 
@@ -45,10 +45,10 @@ bool RayMarcher::Init()
 
 
 	
-	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("ArrayDiffuseMaps");
+	m_DeferredDiffuseTextureUnitLocation = GetUniformLocation("baseArrayDiffuse_0");
 
 	
-	m_MaterialMapTextureUnitLocation = GetUniformLocation("MaterialMap");
+	m_baseMaterialMapTextureUnitLocation = GetUniformLocation("baseMaterialMap");
 	m_MaterialCountUnitLocation = GetUniformLocation("MaterialCount");
 	//m_diffuseTextureUnitLocation
 
@@ -59,7 +59,7 @@ bool RayMarcher::Init()
 	if (//m_WVPLocation == INVALID_UNIFORM_LOCATION ||
 		m_ViewLocation == INVALID_UNIFORM_LOCATION ||
 		m_eyeWorldPosLocation == INVALID_UNIFORM_LOCATION ||
-		m_MaterialMapTextureUnitLocation == INVALID_UNIFORM_LOCATION ||
+		m_baseMaterialMapTextureUnitLocation == INVALID_UNIFORM_LOCATION ||
 		m_screenSizeLocation == INVALID_UNIFORM_LOCATION) {
 		return false;
 	}

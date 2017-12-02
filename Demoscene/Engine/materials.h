@@ -69,7 +69,7 @@ public:
 	static std::list <boost::shared_ptr<Material>> ClassMaterialList;
 	//static std::list <s_mat> ClassMaterialList;
 	//
-	static GLuint MaterialMapTextureUnit;
+	static GLuint baseMaterialMapTextureUnit;
 
 
 	std::string Mat_Name;
@@ -90,7 +90,7 @@ public:
 
 	//Zero if one, 
 	GLint Tex_Diffuse_SamplerID;
-	//Zero if one, we know we need to access the Bump/Normal Map sampler because we are activly looking up the range in the MaterialMap
+	//Zero if one, we know we need to access the Bump/Normal Map sampler because we are activly looking up the range in the baseMaterialMap
 	//I imagine if you have 512 sized seamless textures and 1024 sized ones we need to create texture arrays for both
 	//There is a different between bump and normal map remember that
 	GLint Tex_Bump_SamplerID;
@@ -99,7 +99,7 @@ public:
 	GLint Tex_Diffuse_Layer;
 	GLint Tex_Bump_Layer;
 
-	//The model class should not be responsible in loading the ArrayTextures or MaterialMap
+	//The model class should not be responsible in loading the ArrayTextures or baseMaterialMap
 	//Model must only load the forward rendered ones
 	GLint Mat_TUnit;
 	GLint Mat_MatID;
@@ -127,7 +127,7 @@ static void LoadMats(const char *param);
 
 static std::string  Shaderfy();
 
-static GLuint GenerateMaterialMap();
+static GLuint GeneratebaseMaterialMap();
 //hurm sometimes oop makes no sense
 //void Draw();
 //or my fix ideas makes no sense
