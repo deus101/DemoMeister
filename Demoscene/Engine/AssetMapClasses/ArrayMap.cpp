@@ -47,7 +47,7 @@ void ArrayMap::Init()
 	std::cout << "ArrayTexture==========" << std::endl;
 	std::cout << "The " << this->Base_Data.Name << " is initialising." << std::endl;
 
-
+	
 	GLsizei NR_Layers = this->BaseArrayData.SubItemsID.size();
 
 
@@ -78,9 +78,7 @@ void ArrayMap::Init()
 	std::cout << (GLsizei)Height << std::endl;
 	std::cout << Width << std::endl;
 
-	fprintf(stdout, "Version: %s\n", glGetString(GL_VERSION));
 
-	fprintf(stdout, "InternalFormat: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
 
@@ -89,8 +87,6 @@ void ArrayMap::Init()
 
 
 	
-	
-	//
 
 	GLsizei WidthOffset = std::max<GLsizei>((GLsizei)1, ((GLsizei)Width / 4));
 	GLsizei HeightOffset = std::max<GLsizei>((GLsizei)1, ((GLsizei)Height / 4));

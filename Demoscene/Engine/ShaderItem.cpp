@@ -375,7 +375,7 @@ typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 						unifType_s.erase(remove_if(unifType_s.begin(), unifType_s.end(), isspace), unifType_s.end());
 						Current->push_back( tup_Uniform(unifType_s, unifName_s));
 
-						std::fprintf(stdout,"-Retrived %s : %s \n", unifName_s.c_str(), unifType_s.c_str());
+						
 					}
 
 

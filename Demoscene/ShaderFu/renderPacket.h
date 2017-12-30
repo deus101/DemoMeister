@@ -22,6 +22,14 @@ namespace NS_EFF{
 
 	public:
 
+		struct ShaderObj {
+			GLuint ShaderObject;
+			NS_ENG::NS_SHADER::UniformList so_Uniforms;
+			GLenum ShaderType;
+
+		};
+
+
 		renderPacket();
 
 
@@ -61,6 +69,8 @@ namespace NS_EFF{
 
 		GLint GetUniformLocation(const char* pUniformName);
 
+		bool ParseUniformList();
+
 		GLint GetProgramParam(GLint param);
 
 		GLuint m_shaderProg;
@@ -93,7 +103,7 @@ namespace NS_EFF{
 
 	private:
 
-		typedef std::list<GLuint> ShaderObjList;
+		typedef std::list<ShaderObj> ShaderObjList;
 
 		
 		

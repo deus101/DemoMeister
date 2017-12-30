@@ -6,7 +6,8 @@
 
 #include "../util.h"
 #include "../ShaderFu/renderPacket.h"
-
+//#include "boost/tuple/tuple.hpp"
+#include <boost/tuple/tuple.hpp>
 #include <string>
 #include <list>
 
@@ -41,10 +42,29 @@ struct S_LocalBuffer {
 	int PassRangeMin, PassRangeMax;
 };
 
+class localBufferPacket {
+	
+public:
+	localBufferPacket() {/* this->ClientPasses.clear();*/ };
+	~localBufferPacket() {};
+	virtual void Enable() = 0;
+private:
+	LookupList ClientPasses;
+	//private std::list<tup_PassLookup> ClientPasses;
+	GLenum* localDrawBuffers = 0;
+	int localDrawBuffersSize = 0;
+	
+};
+
+
+
 class base_buffer{
+
+	typedef localBufferPacket* ptr_LBP;
 
 public:
 	static GLuint DiffArrayMapTexure;
+	static SamplerList GlobalTextures;
 	virtual ~base_buffer() {};
 
 	virtual base_buffer *clone() const = 0;
@@ -74,8 +94,8 @@ public:
 		PASS_AOBUFFER,
 		PASS_BLURBUFFER
 	};
-	
-	
+	//std::string GLSL_Name, GLenum Type, GLint TextureName, int size, int sortValue, bool ready
+	static void AddGlobalTexture(std::string GLSL_Name, GLenum Type, GLint TextureName, int size,int sortValue,  bool ready);
 
 
 protected:
@@ -83,6 +103,8 @@ protected:
 	std::string BufferType;
 	std::list<S_PassDependencies> RegionalPassList;
 	std::list<S_LocalBuffer> LocalPassProperties;
+	std::list<ptr_LBP> BufferPassProcs;
+	
 	GLuint m_fbo;
 	int Nr_Samples;
 	size_t Nr_LocalPasses;
@@ -93,7 +115,7 @@ protected:
 template <typename ConcreteBuffer>
 class Buffer_CRTP : public base_buffer {
 public:
-	virtual base_buffer *clone()const {
+	virtual base_buffer *clone() const {
 		return  new ConcreteBuffer(static_cast<ConcreteBuffer const&>(*this));
 	}
 };

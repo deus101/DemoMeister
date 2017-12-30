@@ -43,7 +43,7 @@ void main()
 
 
     vec3 normal = texture(gbNormalMap, TexCoords).xyz;
-	//vec3 normal = texture(gTexNoise, TexCoords).rgb;
+
 
 	normal = normalize(normal * 2.0 - 1.0);
 	normal = normalize(viewNormal * normal);
@@ -63,7 +63,7 @@ void main()
     {
         // get sample position
         vec3 sample = TBN * gKernel[i]; // From tangent to view-space
-        //sample = fragPos + sample * radius; 
+
         sample =  sample * radius + origin; 
 
         // project sample position (to sample texture) (to get position on screen/texture)

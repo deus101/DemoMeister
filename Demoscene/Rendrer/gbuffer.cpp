@@ -11,6 +11,18 @@
 #include "../Engine/materials.h"
 #include "aobuffer.h"
 
+
+class  Pass0 : public localBufferPacket {
+	
+	//Pass0();
+	void Enable(){
+
+
+	}
+
+};
+
+
 GBuffer::GBuffer() 
 {
 	

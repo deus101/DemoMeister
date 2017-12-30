@@ -10,6 +10,7 @@ using namespace NS_EFF;
 #include "../Rendrer/context.h"
 
 #include <boost/make_shared.hpp>
+#include <boost/tuple/tuple.hpp>
 //I should go back to using context class/objects
 //renderPacket::renderPacket(const NS_REND::context &aContext)
 renderPacket::renderPacket()
@@ -19,7 +20,7 @@ renderPacket::renderPacket()
 	//typedef boost::shared_ptr<const struct EffectStage> EffectStageConstPtr;
 	EffectType = "";
 	EffectName = "";
-	
+
 	PassName = "";
 	PassIndex = 0;
 	this->PassLinked = false;
@@ -29,7 +30,7 @@ renderPacket::renderPacket()
 	m_shaderProg = 0;
 
 	m_StageParameters.iStageValue = 0;
-	
+
 	m_StageParamPtr = boost::make_shared<EffectStage>(m_StageParameters);
 
 	m_StageParamConstPtr = boost::const_pointer_cast<const  EffectStage>(m_StageParamPtr);
@@ -83,22 +84,25 @@ bool renderPacket::Init()
 
 bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 {
-	
+
 	GLint success;
 	GLint shaderLength = 0;
 	//NS_ENG::NS_SHADER::ShaderItemPtr CurrShader;
 	NS_ENG::NS_SHADER::BaseShaderItemPtr CurrShader;
+	ShaderObj curr;
 
+	curr.ShaderType = ShaderType;
+	m_shaderObjList.push_back(curr);
 
 	const GLchar *glslStringPtr[1];
 	const GLchar *glslArray;
 
 	GLchar *shaderText = NULL;
-	
+
 	FILE *fp;
 
 	bool inMemory = false;
-	
+
 	if (ShaderType == GL_VERTEX_SHADER && this->ParsedVertexCode != NULL)
 	{
 		CurrShader = this->ParsedVertexCode;
@@ -114,33 +118,33 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 		CurrShader = this->ParsedFragmentCode;
 		inMemory = true;
 	}
-	
-		
 
-	if(inMemory == false)
-	{ 
-	fp = fopen(fileName, "r");
-	if (fp != NULL)
+
+
+	if (inMemory == false)
 	{
-		std::cout << "Loading: " << fileName << std::endl;
-		while (fgetc(fp) != EOF)
+		fp = fopen(fileName, "r");
+		if (fp != NULL)
 		{
-			shaderLength++;
+			std::cout << "Loading: " << fileName << std::endl;
+			while (fgetc(fp) != EOF)
+			{
+				shaderLength++;
+			}
+			rewind(fp);
+			shaderText = (GLchar *)malloc(shaderLength + 1);
+			if (shaderText != NULL)
+			{
+				fread(shaderText, 1, shaderLength, fp);
+			}
+			shaderText[shaderLength] = '\0';
+			fclose(fp);
 		}
-		rewind(fp);
-		shaderText = (GLchar *)malloc(shaderLength + 1);
-		if (shaderText != NULL)
-		{
-			fread(shaderText, 1, shaderLength, fp);
-		}
-		shaderText[shaderLength] = '\0';
-		fclose(fp);
-	}
 
-	if (shaderText == NULL)
-		return false;
+		if (shaderText == NULL)
+			return false;
 
-	glslStringPtr[0] = shaderText;
+		glslStringPtr[0] = shaderText;
 
 
 	}
@@ -148,9 +152,11 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 	{
 		//CurrShader->
 		CurrShader->Load();
-		 //m_SamplerUniforms;
-		
-		CurrShader->RetriveUniforms(&this->m_SamplerUniforms);
+		//m_SamplerUniforms;
+
+	   //CurrShader->RetriveUniforms(&this->m_SamplerUniforms);
+		CurrShader->RetriveUniforms(&this->m_shaderObjList.back().so_Uniforms);
+
 		//shaderText = (GLchar *)malloc(CurrShader->GetSize);
 		glslArray = (const GLchar *)CurrShader->GetString()->c_str();
 		glslStringPtr[0] = glslArray;
@@ -158,34 +164,72 @@ bool renderPacket::LoadShader(GLenum ShaderType, const char *fileName)
 		//CurrShader->na
 		std::cout << "Loading: " << CurrShader->path << std::endl;
 	}
+	//tup_Uniform
+	NS_ENG::NS_SHADER::UniformList::iterator itCurrent;
+	NS_ENG::NS_SHADER::UniformList::iterator itAll;
+	//m_shaderObjList.back().so_Uniforms
+	for (
+		itCurrent = m_shaderObjList.back().so_Uniforms.begin();
+		itCurrent != m_shaderObjList.back().so_Uniforms.end();
+		itCurrent++)
+	{
+		std::string curArg1 = boost::tuples::get<0>(*itCurrent);
+		std::string curArg2 = boost::tuples::get<1>(*itCurrent);
+
+		bool isDupe = false;
+
+		for (
+			itAll = this->m_SamplerUniforms.begin();
+			itAll != this->m_SamplerUniforms.end();
+			itAll++)
+		{
+			std::string allArg1 = boost::tuples::get<0>(*itAll);
+			std::string allArg2 = boost::tuples::get<1>(*itAll);
+
+			if (curArg1.compare(allArg1) == 0 && curArg2.compare(allArg2) == 0)
+			{
+				isDupe = true;
+				break;
+			}
 
 
 
 
+		}
 
+		if (isDupe)
+			continue;
 
-	GLuint ShaderObj = glCreateShader(ShaderType);
+		this->m_SamplerUniforms.push_back(*itCurrent);
 
-	m_shaderObjList.push_back(ShaderObj);
+	}
+
+	//CurrShader->RetriveUniforms(&this->m_shaderObjList.back().so_Uniforms
+	//this->m_SamplerUniforms.
+
+	m_shaderObjList.back().ShaderObject = glCreateShader(m_shaderObjList.back().ShaderType);
+	//GLuint ShaderObj = glCreateShader(ShaderType);
+
+	//m_shaderObjList.push_back(ShaderObj);
 
 	//glShaderSource()
-	glShaderSource(ShaderObj, 1, glslStringPtr, NULL);
+	glShaderSource(m_shaderObjList.back().ShaderObject, 1, glslStringPtr, NULL);
 
 
-	glCompileShader(ShaderObj);
+	glCompileShader(m_shaderObjList.back().ShaderObject);
 
-	glGetShaderiv(ShaderObj, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(m_shaderObjList.back().ShaderObject, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
 		GLchar infoLog[2048];
-		glGetShaderInfoLog(ShaderObj, 2048, NULL, infoLog);
-		fprintf(stderr, "epic ffffail in: %s #%d !\n", CurrShader->path.c_str(),ShaderObj);
+		glGetShaderInfoLog(m_shaderObjList.back().ShaderObject, 2048, NULL, infoLog);
+		fprintf(stderr, "epic ffffail in: %s #%d !\n", CurrShader->path.c_str(), m_shaderObjList.back().ShaderObject);
 		fprintf(stderr, "%s\n", infoLog);
 		Sleep(10000);
 		return false;
 	}
 
-	glAttachShader(m_shaderProg, ShaderObj);
+	glAttachShader(m_shaderProg, m_shaderObjList.back().ShaderObject);
 
 	return true;
 }
@@ -221,6 +265,9 @@ bool renderPacket::Finalize()
 	}
 	std::cout << "ShaderObject! : " << m_shaderProg << std::endl;
 	//glUseProgram(m_shaderProg);
+
+	renderPacket::ParseUniformList();
+
 	return true;
 
 }
@@ -272,7 +319,7 @@ void renderPacket::SetPassIndex(std::size_t val)
 
 void renderPacket::SetPassName(std::string arg)
 {
-	
+
 	this->PassName = arg;
 }
 
@@ -303,10 +350,37 @@ GLint renderPacket::GetUniformLocation(const char* pUniformName)
 	GLuint Location = glGetUniformLocation(m_shaderProg, pUniformName);
 
 	if (Location == INVALID_UNIFORM_LOCATION) {
-		fprintf(stderr, "Warning! Unable to get the location of uniform '%s'\n", pUniformName);
+		fprintf(stderr, "\n		|-(Warning! Unable to get the location of uniform '%s' )", pUniformName);
 	}
 
 	return Location;
+}
+
+bool renderPacket::ParseUniformList()
+{
+
+	NS_ENG::NS_SHADER::UniformList::iterator itAll;
+	//m_shaderObjList.back().so_Uniforms
+	std::fprintf(stdout, "The EffectPacket %s For  : the pass %s \n Has these uniforms: \n", this->GetName().c_str(), this->PassName.c_str());
+	bool success = true;
+
+	for (
+		itAll = this->m_SamplerUniforms.begin();
+		itAll != this->m_SamplerUniforms.end();
+		itAll++)
+	{
+		std::string allArg1 = boost::tuples::get<0>(*itAll);
+		std::string allArg2 = boost::tuples::get<1>(*itAll);
+		std::fprintf(stdout, "	%s : %s  Location=",  allArg1.c_str(), allArg2.c_str());
+		int UniLoc = GetUniformLocation(allArg2.c_str());
+
+		boost::tuples::get<4>(*itAll) = UniLoc;
+
+
+		std::fprintf(stdout, "[%i] \n", boost::tuples::get<4>(*itAll));
+	}
+	std::fprintf(stdout, "count: [%i] \n END\n \n", this->m_SamplerUniforms.size());
+	return success;
 }
 
 GLint renderPacket::GetProgramParam(GLint param)

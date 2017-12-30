@@ -22,8 +22,25 @@
 
 #include <vector>
 
+//ikke riktig
+typedef boost::tuple< std::string, std::size_t, bool> tup_PassLookup;
+typedef std::list<tup_PassLookup> LookupList;
+
 
 #include "math/math3d.h"
+
+
+typedef boost::tuple< std::string, GLenum, GLint, int, int, int, bool> tup_Samplers;
+//typedef std::list<tup_Samplers> SamplerList;
+typedef std::vector<tup_Samplers> SamplerList;
+
+/*
+bool samplerComparator(const tup_Samplers &lhs, const tup_Samplers &rhs) {
+	return boost::get<4>(lhs) < boost::get<4>(rhs);
+};
+
+*/
+
 //#include "Rendrer/context.h"
 
 //#include "world.h"
@@ -200,5 +217,5 @@ struct SpotLight : public PointLight
 #define INVALID_UNIFORM_LOCATION 0xffffffff
 #define INVALID_OGL_VALUE 0xffffffff
 
-
 #endif
+

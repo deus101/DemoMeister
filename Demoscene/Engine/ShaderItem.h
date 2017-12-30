@@ -12,7 +12,7 @@ namespace NS_ENG
 	namespace NS_SHADER
 	{
 
-
+		
 		/*
 		enum TypeOfShader
 		{
@@ -41,20 +41,22 @@ namespace NS_ENG
 		*/
 		enum ShaderUtilityType
 		{
-			Base, Include
+			Base, Include,
 
 		};
 	
 		//They are within a name space, still.
 
 		//these should go to their respective classes
+
 		typedef boost::shared_ptr< class ShaderItem > ShaderItemPtr;
+
 		typedef boost::shared_ptr< class BaseShaderItem > BaseShaderItemPtr;
 		typedef boost::shared_ptr< class IncludeComponentItem > IncludeComponentItemPtr;
 
 		
-
-		typedef boost::tuple< std::string, std::string, int, GLint,GLenum> tup_Uniform;
+		typedef boost::tuple< std::string, std::string, int, GLint, GLenum> tup_InnOut;
+		typedef boost::tuple< std::string, std::string, int, GLint, GLenum> tup_Uniform;
 		typedef std::list<NS_ENG::NS_SHADER::tup_Uniform> UniformList;
 		//typedef std::list<NS_ENG::NS_SHADER::tup_Uniform*> UniformList_Ptr;
 
@@ -120,7 +122,8 @@ namespace NS_ENG
 			GLenum ShaderType;
 			ShaderUtilityType UtilityType;
 
-
+			NS_ENG::NS_SHADER::UniformList m_Uniforms;
+			//CurrShader->RetriveUniforms(&this->m_SamplerUniforms);
 
 
 

@@ -218,7 +218,7 @@ void  MapAsset::InitAll()
 	for (auto MapIter : NS_ENG::MapAsset::classMapList)
 	{
 		MapIter->Init();
-	
+		
 	}
 
 

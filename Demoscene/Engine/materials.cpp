@@ -297,7 +297,7 @@ GLuint Material::GeneratebaseMaterialMap() {
 	
 
 	//this probably can't wait next year, fix the fucking layout to something useable so it can be properly
-	//used
+	//UGH! TextureName! not unit!
 	glGenTextures(1, &Material::baseMaterialMapTextureUnit);
 	glBindTexture(GL_TEXTURE_2D, Material::baseMaterialMapTextureUnit);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, 2, nr_mats, 0, GL_RGB, GL_FLOAT, &rowMaterial[0]);
@@ -317,6 +317,8 @@ GLuint Material::GeneratebaseMaterialMap() {
 	
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	base_buffer::AddGlobalTexture("baseMaterialMap", GL_TEXTURE_2D, Material::baseMaterialMapTextureUnit, nr_mats, 0, true);
 	return Material::baseMaterialMapTextureUnit;
 }
 

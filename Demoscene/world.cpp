@@ -301,17 +301,21 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 	int depth;
 
 	std::string StrContent = "";
+	int SortValue = 0;
+
 
 	switch (Initial->MapContent)
 	{
 
 	case  NS_ENG::MAP_CONTENT_TYPE::DIFFUSE:
 	{
+		SortValue = 10;
 		StrContent = "Diffuse";
 		break;
 	}
 	case  NS_ENG::MAP_CONTENT_TYPE::BUMP: 
 	{
+		SortValue = 20;
 		StrContent = "Normal";
 		break;
 	}
@@ -396,11 +400,19 @@ void  DemoMeister::AddTexture(boost::filesystem::path argPath, GLint &MapId, NS_
 	else
 		MapId = NS_ENG::MapAsset::LoadMaps(Initial, NULL);
 
-
+	//if global
 	if (AddToArray == true)
 	{
 		
+		std::string GLSL_Variable = "baseArray" + StrContent + "0";
+
+		base_buffer::AddGlobalTexture(GLSL_Variable, GL_TEXTURE_2D_ARRAY,
+			NS_ENG::MapAsset::RetriveMap(MapId)->Map_TName,
+			NS_ENG::MapAsset::RetriveMap(MapId)->Map_Layer, SortValue, true);
+
+
 		base_buffer::DiffArrayMapTexure = NS_ENG::MapAsset::RetriveMap(MapId)->Map_TName;
+
 	}
 
 

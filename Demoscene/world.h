@@ -141,6 +141,8 @@ struct factory
 		return i->second();
 	}
 };
+
+
 extern factory g_factory;
 //#define REGISTER_CLASS(n) g_factory.register_class<n>(#n)
 
