@@ -4,7 +4,9 @@
 #include "assetNode.h"
 //#include "shaders.h"
 #include "../Engine/model.h"
-#include "../ShaderFu/DeferredPackets/GeomPacket.h"
+
+#include <Rendrer\ShaderFu\DeferredPackets\GeomPacket.h>
+//#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 
 
 namespace NS_SG{

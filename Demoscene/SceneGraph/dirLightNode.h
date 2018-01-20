@@ -1,6 +1,10 @@
 #pragma once
 #include "lightNode.h"
-#include "../ShaderFu/DeferredPackets/DirLightPacket.h"
+
+//maybe use a key to the pass items instead
+#include <Rendrer\ShaderFu\DeferredPackets\DirLightPacket.h>
+//#include "../ShaderFu/DeferredPackets/DirLightPacket.h"
+
 namespace NS_SG
 {
 	class dirLightNode : public lightNode

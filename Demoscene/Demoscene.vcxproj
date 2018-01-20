@@ -78,12 +78,24 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'" Label="PropertySheets" />
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'" Label="PropertySheets" />
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets" />
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'" Label="PropertySheets" />
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'" Label="PropertySheets" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="ProjectStructure.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'" Label="PropertySheets">
+    <Import Project="ProjectStructure.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'" Label="PropertySheets">
+    <Import Project="ProjectStructure.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="ProjectStructure.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'" Label="PropertySheets">
+    <Import Project="ProjectStructure.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'" Label="PropertySheets">
+    <Import Project="ProjectStructure.props" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -302,16 +314,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ShaderFu\DeferredPipeMother.cpp" />
+    <ClCompile Include="Rendrer\rendrer.cpp" />
     <ClCompile Include="Engine\AssetMapClasses\ArrayMap.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\aoPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\ConeLightPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\DirLightPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\lightPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\NullPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\PointLightPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\HeightMapPacket.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\RayMarcher.cpp" />
     <ClCompile Include="Engine\asset.cpp" />
     <ClCompile Include="Engine\AssetMapClasses\FBOTexture.cpp" />
     <ClCompile Include="Engine\Grid.cpp" />
@@ -320,40 +324,23 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClCompile Include="Engine\GridPoints.cpp" />
     <ClCompile Include="Engine\AssetMapClasses\FileTexture.cpp" />
     <ClCompile Include="Engine\ShaderItem.cpp" />
-    <ClCompile Include="Rendrer\aobuffer.cpp" />
-    <ClCompile Include="Rendrer\base_buffer.cpp" />
     <ClCompile Include="SceneGraph\sceneparser.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="SceneGraph\camera.cpp" />
     <ClCompile Include="SceneGraph\composite.cpp" />
     <ClCompile Include="Rendrer\context.cpp" />
-    <ClCompile Include="Rendrer\gbuffer.cpp" />
-    <ClCompile Include="ShaderFu\DeferredPackets\GeomPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\materials.cpp" />
     <ClCompile Include="Math\math3d.cpp" />
     <ClCompile Include="Engine\mesh.cpp" />
     <ClCompile Include="Engine\model.cpp" />
     <ClCompile Include="SceneGraph\node.cpp" />
-    <ClCompile Include="ShaderFu\renderPacket.cpp" />
-    <ClCompile Include="Engine\rendrer.cpp" />
-    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShaderFu\DeferredPipeMother.h" />
+    <ClInclude Include="Rendrer\rendrer.h" />
     <ClInclude Include="Engine\AssetMapClasses\ArrayMap.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\aoPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\ConeLightPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\DirLightPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\aoBlurPass.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\lightPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\NullPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\OceanPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\PointLightPacket.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\RayMarcher.h" />
     <ClInclude Include="Engine\asset.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\HeightMapPacket.h" />
     <ClInclude Include="Engine\AssetMapClasses\FBOTexture.h" />
     <ClInclude Include="Engine\Grid.h" />
     <ClInclude Include="Engine\AssetMapClasses\map.h" />
@@ -364,18 +351,14 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h" />
     <ClCompile Include="Productions\WCD_1_HackSpace\WCD_1.cpp" />
-    <ClInclude Include="Rendrer\aobuffer.h" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
     <ClInclude Include="Rendrer\callbacks.h" />
     <ClInclude Include="SceneGraph\assetNode.h" />
     <ClInclude Include="bass.h" />
-    <ClInclude Include="Rendrer\base_buffer.h" />
     <ClInclude Include="SceneGraph\camera.h" />
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />
-    <ClInclude Include="Rendrer\gbuffer.h" />
-    <ClInclude Include="ShaderFu\DeferredPackets\GeomPacket.h" />
     <ClInclude Include="SceneGraph\dirLightNode.h" />
     <ClInclude Include="SceneGraph\lightNode.h" />
     <ClInclude Include="SceneGraph\oceanNode.h" />
@@ -390,8 +373,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="SceneGraph\modelNode.h" />
     <ClInclude Include="SceneGraph\node.h" />
     <ClInclude Include="SceneGraph\objTransform.h" />
-    <ClInclude Include="ShaderFu\renderPacket.h" />
-    <ClInclude Include="Engine\rendrer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sync.h" />
     <ClInclude Include="SceneGraph\targetNode.h" />
@@ -399,7 +380,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="SceneGraph\transform.h" />
     <ClInclude Include="Math\vec.h" />
     <ClInclude Include="Math\vec_inline.h" />
-    <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="AF.mp3" />
@@ -412,7 +392,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
     <None Include="DemoMeisterDiagram.cd" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
-    <None Include="Scene.rocket" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.obj">
@@ -434,6 +413,9 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_PointStencilCombined_LightPass.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

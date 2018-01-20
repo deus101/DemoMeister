@@ -2,7 +2,9 @@
 //Should I make a "procedural" node?
 #include "assetNode.h"
 #include "../Engine/GridPoints.h"
-#include "../ShaderFu/DeferredPackets/GeomPacket.h"
+
+#include <Rendrer\ShaderFu\DeferredPackets\HeightMapPacket.h>
+//#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 
 namespace NS_SG{
 

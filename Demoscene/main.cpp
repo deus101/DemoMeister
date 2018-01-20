@@ -12,7 +12,7 @@
 #include "Rendrer\context.h"
 
 
-#include "Engine\rendrer.h"
+#include "Rendrer\rendrer.h"
 //#include "Engine\GridPoints.h"
 //#include "SceneGraph\gridNode.h"
 
@@ -29,8 +29,10 @@
 //NS_ENG::rendrer *mRender = NULL;
 
 //eh
-#include "ShaderFu\DeferredPackets\aoPacket.h"
-#include "ShaderFu\DeferredPackets\RayMarcher.h"
+
+
+#include "Rendrer\ShaderFu\DeferredPackets\aoPacket.h"
+#include "Rendrer\ShaderFu\DeferredPackets\RayMarcher.h"
 
 
 

@@ -318,7 +318,7 @@ GLuint Material::GeneratebaseMaterialMap() {
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	base_buffer::AddGlobalTexture("baseMaterialMap", GL_TEXTURE_2D, Material::baseMaterialMapTextureUnit, nr_mats, 0, true);
+	base_buffer::AddGlobalTexture("baseMaterialMap", GL_TEXTURE_2D, Material::baseMaterialMapTextureUnit, nr_mats, 0, true); 
 	return Material::baseMaterialMapTextureUnit;
 }
 

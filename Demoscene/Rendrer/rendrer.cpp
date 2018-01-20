@@ -250,6 +250,11 @@ void rendrer::RenderSceneCB()
 	M3DMatrix44f ModelView, toCam;
 	m3dLoadIdentity44(ModelView);
 
+	//PointLess Identity Matrix to Geometry_RayMarcher_Vert.glsl
+	GeoRayMarch->SetWVP(ModelView);
+	GeoRayMarch->SetEyeWorldPos(EyeWorldPos);
+
+	//this should be renderpacket job
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::DiffuseArrayMap_UNIT]);
 	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, base_buffer::DiffArrayMapTexure);
@@ -258,9 +263,7 @@ void rendrer::RenderSceneCB()
 	//glActiveTexture(TypeOfTexture::baseMaterialMap_UNIT);
 	glBindTexture(GL_TEXTURE_2D, NS_ENG::Material::GeneratebaseMaterialMap());
 
-	//PointLess Identity Matrix to Geometry_RayMarcher_Vert.glsl
-	GeoRayMarch->SetWVP(ModelView);
-	GeoRayMarch->SetEyeWorldPos(EyeWorldPos);
+
 	//GeoRayMarch->
 	//If I want a Raymarcher here should the depth test be disable?
 	glFrontFace(GL_CW);
@@ -361,10 +364,18 @@ void rendrer::RenderSceneCB()
 
 
 	for (vPITc ip = beginVisiblePoint(); ip != endVisiblePoint(); ++ip) {
+		//Null magic and LightMagic needs abstraction and a custom
+		//Passitemnator that uses two RenderPackets and Local Buffer Passes
+
 		ip->sNode->NullMagic->Enable();
 
 		TheDisc->MasterList_Buffers[0]->EnablePass(2);
 
+		ip->sNode->NullMagic->SetWorldMatrix(ip->sW);
+
+
+		ip->sNode->NullMagic->SetProjectionMatrix(projection);
+		ip->sNode->NullMagic->SetViewMatrix(view);
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -392,12 +403,7 @@ void rendrer::RenderSceneCB()
 		glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
 		glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
 
-		ip->sNode->NullMagic->SetWorldMatrix(ip->sW);
 
-
-
-		ip->sNode->NullMagic->SetProjectionMatrix(projection);
-		ip->sNode->NullMagic->SetViewMatrix(view);
 		
 
 		sphere_null->Draw(0);
@@ -413,6 +419,14 @@ void rendrer::RenderSceneCB()
 
 		ip->sNode->LightMagic->SetEyeWorldPos(EyeWorldPos);
 
+		ip->sNode->LightMagic->SetProjectionMatrix(projection);
+		ip->sNode->LightMagic->SetViewMatrix(view);
+
+		ip->sNode->LightMagic->SetWorldMatrix(ip->sW);
+
+
+		ip->sNode->LightMagic->SetPointLight(ip->sPL);
+
 		glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 
 		glDisable(GL_DEPTH_TEST);
@@ -424,13 +438,7 @@ void rendrer::RenderSceneCB()
 		glCullFace(GL_FRONT);
 
 
-		ip->sNode->LightMagic->SetProjectionMatrix(projection);
-		ip->sNode->LightMagic->SetViewMatrix(view);
-		
-		ip->sNode->LightMagic->SetWorldMatrix(ip->sW);
 
-
-		ip->sNode->LightMagic->SetPointLight(ip->sPL);
 		
 		sphere_light->Draw(0);
 		

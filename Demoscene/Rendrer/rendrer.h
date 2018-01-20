@@ -7,27 +7,36 @@
 #include "../Rendrer/context.h"
 #include "../Rendrer/callbacks.h"
 
-#include "../SceneGraph/modelNode.h"
-#include "../SceneGraph/gridNode.h"
-#include "../SceneGraph/pointLightNode.h"
-#include "../SceneGraph/dirLightNode.h"
-#include "model.h"
+#include <SceneGraph/modelNode.h>
+#include <SceneGraph/gridNode.h>
+#include <SceneGraph/pointLightNode.h>
+#include <SceneGraph/dirLightNode.h>
+#include <Engine/model.h>
 #include "../bass.h"
 #include "../Timer.h"
 
 #include "../util.h"
 
+//Im planning to making this a abstract class of the pass items
+
+
+//Should not refer directly to the packets, indirectly through pass system
+#include "ShaderFu/DeferredPackets/aoPacket.h"
+#include "ShaderFu/DeferredPackets/RayMarcher.h"
 
 //yes I know I need a proper system for passes. 
 //2017: its comming but it really shouldnt...fuck engine coding! WHY DIDNT I LISTEN TO THE OTHERS!?
-#include "../ShaderFu/DeferredPackets/aoPacket.h"
-#include "../ShaderFu/DeferredPackets/RayMarcher.h"
+//#include "ShaderFu/DeferredPackets/aoPacket.h"
+//#include "ShaderFu/DeferredPackets/RayMarcher.h"
 
 
 
 
 extern HSTREAM stream;
 
+
+//Shoulld remove this also, visitation and rendrer should be seperate parts
+//Visist would fit in demo meister
 namespace NS_ENG
 { 
 

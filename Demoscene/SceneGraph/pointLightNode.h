@@ -1,7 +1,13 @@
 #pragma once
 #include "lightNode.h"
-#include "../ShaderFu/DeferredPackets/PointLightPacket.h"
-#include "../ShaderFu/DeferredPackets/NullPacket.h"
+
+
+#include <Rendrer\ShaderFu\DeferredPackets\PointLightPacket.h>
+#include <Rendrer\ShaderFu\DeferredPackets\NullPacket.h>
+//Great example for using a pass item reference/key instead
+
+//#include "../ShaderFu/DeferredPackets/PointLightPacket.h"
+//#include "../ShaderFu/DeferredPackets/NullPacket.h"
 //#include "math3d.h"
 namespace NS_SG
 {

@@ -2,10 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\Demoscene",
+    "\\Demoscene\\Engine",
+    "\\Demoscene\\Engine\\AssetMapClasses",
+    "\\Demoscene\\Engine\\MaterialClasses",
     "\\Demoscene\\Productions",
     "\\Demoscene\\Productions\\WCD_1_HackSpace",
     "\\Demoscene\\SceneGraph"
   ],
-  "SelectedNode": "\\Demoscene\\world.h",
+  "SelectedNode": "\\Demoscene\\SceneGraph\\lightNode.h",
   "PreviewInSolutionExplorer": false
 }

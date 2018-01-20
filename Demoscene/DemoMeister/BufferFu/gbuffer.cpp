@@ -232,7 +232,8 @@ void GBuffer::BindForLightPass()
 
 	glDrawBuffer(GL_COLOR_ATTACHMENT6);
 
-
+	//This should be a renderpacket job
+	//or should it...The assembly rendres would probably want a  sampler or two
 	
 	glActiveTexture(NS_ENG::asset::CurrentStage->TextureUnits[TypeOfTexture::GBuffer_WorldPos_UNIT]);
 	//glActiveTexture(TypeOfTexture::GBuffer_WorldPos_UNIT);
@@ -250,8 +251,13 @@ void GBuffer::BindForLightPass()
 	//glActiveTexture(TypeOfTexture::GBuffer_UV_UNIT);
 	glBindTexture(GL_TEXTURE_2D, m_textures[GBUFFER_TEXTURE_TYPE_UV]);
 
+
+	
 	//glActiveTexture(GL_TEXTURE3);
 	//this is stupid, I should store this in the packets
+	//Nicely said past self...there is no reason why the buffer objects should talk to each other!
+	//The render packets should setup these textures and would be easy to make a container list
+	//based on the sampler uniforms
 	AoBuffer *test2 = (AoBuffer*)TheDisc->MasterList_Buffers[1].get();
 	//glActiveTexture(GL_TEXTURE5);
 	
