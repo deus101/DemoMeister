@@ -12,8 +12,10 @@
 #include "materials.h"
 
 //obviusly this wont work if I want to be forward and deferred, but fuck it
-#include <Rendrer/ShaderFu/DeferredPackets/GeomPacket.h>
-#include "../util.h"
+#include <DemoMeister\ShaderFu\DeferredPackets\GeomPacket.h>
+
+//Util needs namespaces
+#include <util.h>
 
 //#include "../Rendrer/context.h"
 

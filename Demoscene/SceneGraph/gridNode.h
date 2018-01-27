@@ -3,7 +3,7 @@
 #include "assetNode.h"
 #include "../Engine/GridPoints.h"
 
-#include <Rendrer\ShaderFu\DeferredPackets\HeightMapPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\HeightMapPacket.h>
 //#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 
 namespace NS_SG{

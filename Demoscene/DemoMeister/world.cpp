@@ -273,11 +273,40 @@ void DemoMeister::AddPass(const std::string &filename)
 	MasterList_Passes.push_back( boost::make_shared<PassItemnator>());
 
 	MasterList_Passes.back()->load(filename);
-
+	/*
 	//MasterList_Passes.back()->
+	boost::filesystem::path file_XML = boost::filesystem::path(filename.c_str());
+
+	file_XML.normalize();
 
 
+	bool test = file_XML.is_complete();
 
+	tinyxml2::XMLDocument xml_Tmp;
+
+	tinyxml2::XMLError Status = xml_Tmp.LoadFile(file_XML.string().c_str());
+
+	tinyxml2::XMLElement *el_PassInfo;
+	if (Status == tinyxml2::XML_SUCCESS)
+	{
+		el_PassInfo = xml_Tmp.FirstChildElement("pass");
+	}
+	else
+	{
+		//return Status;
+		return;
+	}
+
+	//<pass name="Gbuffer_Forward" packet="GeomPacket" PassValue="100" Buffer="GBuffer" BufferLocalPass="1">
+	//One pass should handle multiple packets and the packets should be sorted by sub-groups, categories and intended properties.
+	this->Name = el_PassInfo->Attribute("name");
+	this->PacketType = el_PassInfo->Attribute("packet");
+	this->PacketName = el_PassInfo->Attribute("packetInstance");
+	this->PassValue = el_PassInfo->IntAttribute("PassValue");
+	this->BufferType = el_PassInfo->Attribute("Buffer");
+	this->BufferLocalPassValue = el_PassInfo->IntAttribute("BufferLocalPass");
+
+	*/
 }
 
 void DemoMeister::AddNode()

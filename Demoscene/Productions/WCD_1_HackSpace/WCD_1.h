@@ -5,7 +5,7 @@
 
 
 
-#include  "../../world.h"
+#include  <DemoMeister\world.h>
 
 
 class WCD : public DemoMeister {

@@ -2,8 +2,8 @@
 //#include "map.h"
 //#include "AssetMapClasses\map.h"
 #include "AssetMapClasses\FileTexture.h"
-#include "../world.h"
-//#include "../Libs/FreeImage.h"
+#include <DemoMeister\world.h>
+///#include "../Libs/FreeImage.h"
 
 
 #include <algorithm>

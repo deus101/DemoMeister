@@ -12,11 +12,13 @@
 
 
 
-#include "../math/math3d.h"
+#include <math/math3d.h>
 
 
-#include "../world.h"
+//#include "../world.h"
 
+
+#include <DemoMeister\world.h>
 
 //#include "gbuffer.h"
 #include "callbacks.h"

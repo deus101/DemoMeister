@@ -5,8 +5,8 @@
 #include <deque> 
 #include <string>
 #include <string.h>
-#include "../Math/vec.h"
-#include "../Math/math3d.h"
+#include <Math/vec.h>
+#include <Math/math3d.h>
 //should I consider giving this a static container?
 //NO!
 namespace NS_MESH

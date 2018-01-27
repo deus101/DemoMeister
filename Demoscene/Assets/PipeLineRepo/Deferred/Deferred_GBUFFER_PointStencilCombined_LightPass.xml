@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<stage name="Deferred_PointLight" PassValue="200">
+
+  <pass name="Gbuffer_Stencil" packet="NullPacket" packetInstance="LightPacket_Pointlight_Stencil" LocalPassValue="0" >
+    <packet type="NullPacket" packetInstance="LightPacket_Pointlight_Stencil">
+      <requirements>
+      </requirements>
+      <Shaders>
+          <ShaderItem Path="IdentityPacket_Geometry_Vert.glsl" Target="#ShadObj:1" Marker="#BaseShader" >
+            <Input></Input>
+            <Output></Output>
+          </ShaderItem>
+          <ShaderItem Path="Null_Technique_Pass_fragment.glsl" Target="#FBO" Marker="#BaseShader" >
+            <Input></Input>
+            <Output></Output>
+          </ShaderItem>
+        
+      </Shaders>
+    </packet>
+    <buffer Type="GBuffer" BufferLocalPass="2">
+
+    </buffer>
+  </pass>  
+
+  <pass name="Gbuffer_PointLight" LocalPassValue="25">
+
+    <packet type="PointLightPacket" packetInstance="LightPacket_Pointlight_Default">
+      <requirements>
+        <ShaderItem Name="DeferredMaterialFunction" Path="DeferredMaterialFetch.glsl" Target="#Type:Fragment" Marker="#include MaterialFunction">
+          <Input></Input>
+          <Output></Output>        
+        </ShaderItem>
+      </requirements>
+      <Shaders>
+        <ShaderItem Path="LightPacket_Utility_Pass_Vertex.glsl" Target="#ShadObj:1" Marker="#include MaterialFunction" >
+          <Input></Input>
+          <Output></Output>
+        </ShaderItem>
+        <ShaderItem Path="LightPacket_Point_Frag.glsl" Target="#FBO" Marker="#include MaterialFunction" >
+          <Input></Input>
+          <Output></Output>
+        </ShaderItem>
+      </Shaders>
+    </packet>
+    <buffer  Type="GBuffer" BufferLocalPass="3">
+      
+    </buffer>
+  </pass>
+
+
+</stage>

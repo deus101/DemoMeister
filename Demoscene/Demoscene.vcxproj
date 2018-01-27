@@ -314,6 +314,22 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DemoMeister\BufferFu\aobuffer.cpp" />
+    <ClCompile Include="DemoMeister\BufferFu\base_buffer.cpp" />
+    <ClCompile Include="DemoMeister\BufferFu\gbuffer.cpp" />
+    <ClCompile Include="DemoMeister\PassesFu\BasePass.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\aoPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\ConeLightPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\DirLightPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\GeomPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\HeightMapPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\lightPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\NullPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\PointLightPacket.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\RayMarcher.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPipeMother.cpp" />
+    <ClCompile Include="DemoMeister\ShaderFu\renderPacket.cpp" />
+    <ClCompile Include="DemoMeister\world.cpp" />
     <ClCompile Include="Rendrer\rendrer.cpp" />
     <ClCompile Include="Engine\AssetMapClasses\ArrayMap.cpp" />
     <ClCompile Include="Engine\asset.cpp" />
@@ -338,6 +354,24 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClCompile Include="SceneGraph\node.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DemoMeister\BufferFu\aobuffer.h" />
+    <ClInclude Include="DemoMeister\BufferFu\base_buffer.h" />
+    <ClInclude Include="DemoMeister\BufferFu\gbuffer.h" />
+    <ClInclude Include="DemoMeister\PassesFu\BasePass.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\aoBlurPass.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\aoPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\ConeLightPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\DirLightPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\GeomPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\HeightMapPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\lightPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\NullPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\OceanPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\PointLightPacket.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPipeMother.h" />
+    <ClInclude Include="DemoMeister\ShaderFu\renderPacket.h" />
+    <ClInclude Include="DemoMeister\world.h" />
     <ClInclude Include="Rendrer\rendrer.h" />
     <ClInclude Include="Engine\AssetMapClasses\ArrayMap.h" />
     <ClInclude Include="Engine\asset.h" />
@@ -390,6 +424,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredMaterialFetch.glsl" />
     <None Include="Assets\GlobalShaderVault\UberComponents\DeferredTextureFetch.glsl" />
+    <None Include="DemoMeister.cd" />
     <None Include="DemoMeisterDiagram.cd" />
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
   </ItemGroup>
@@ -415,7 +450,19 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_PointStencilCombined_LightPass.txt" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_PointStencilCombined_LightPass.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="Assets\XMLSchema.xsd">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployDebug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DeployRelease|x64'">true</ExcludedFromBuild>
+    </Xsd>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DemoMeister">
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="DemoMeister::vec_EffectPackets" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DemoMeister\world.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="DemoMeister::vec_BufferContainer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DemoMeister\world.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="DemoMeister::vec_PassDefinitions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DemoMeister\world.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgQAYwAAAAYQgACAAARAABAAAAAgICoUQCAAgJAAg=</HashCode>
+      <FileName>DemoMeister\world.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NS_ENG::rendrer">
+    <Position X="9.25" Y="0.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="NS_ENG::rendrer::vIT" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\rendrer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="NS_ENG::rendrer::vITc" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\rendrer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="NS_ENG::rendrer::vPIT" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\rendrer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="NS_ENG::rendrer::vPITc" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\rendrer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="NS_ENG::rendrer::vDIT" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\rendrer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="NS_ENG::rendrer::vDITc" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Rendrer\rendrer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABIABQAAIEIAAAAMwAAECJAAiIAAAAAICQAABEgAAAI=</HashCode>
+      <FileName>Rendrer\rendrer.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="scene" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NS_SG::composite">
+    <Position X="13.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ggAAFgABAAAAAAAAAAAAAAAQAQFAAAAAAQAAAgAAAAA=</HashCode>
+      <FileName>SceneGraph\composite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PassItemnator">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQaYCgABAIgAEEQBQAgAgAAAAAIDEYQAAAFAE=</HashCode>
+      <FileName>DemoMeister\world.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

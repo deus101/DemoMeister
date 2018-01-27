@@ -2,8 +2,8 @@
 #include "lightNode.h"
 
 
-#include <Rendrer\ShaderFu\DeferredPackets\PointLightPacket.h>
-#include <Rendrer\ShaderFu\DeferredPackets\NullPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\PointLightPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\NullPacket.h>
 //Great example for using a pass item reference/key instead
 
 //#include "../ShaderFu/DeferredPackets/PointLightPacket.h"

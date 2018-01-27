@@ -2,7 +2,7 @@
 #include "lightNode.h"
 
 //maybe use a key to the pass items instead
-#include <Rendrer\ShaderFu\DeferredPackets\DirLightPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\DirLightPacket.h>
 //#include "../ShaderFu/DeferredPackets/DirLightPacket.h"
 
 namespace NS_SG

@@ -89,6 +89,54 @@
     <ClCompile Include="Rendrer\rendrer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DemoMeister\world.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\BufferFu\aobuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\BufferFu\base_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\BufferFu\gbuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\PassesFu\BasePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPipeMother.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\renderPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\aoPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\ConeLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\DirLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\GeomPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\HeightMapPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\lightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\NullPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\PointLightPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\RayMarcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -214,6 +262,60 @@
     <ClInclude Include="Rendrer\rendrer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DemoMeister\world.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\BufferFu\aobuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\BufferFu\base_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\BufferFu\gbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\PassesFu\BasePass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPipeMother.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\renderPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\aoBlurPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\aoPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\ConeLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\DirLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\GeomPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\HeightMapPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\lightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\NullPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\OceanPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\PointLightPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
@@ -224,6 +326,7 @@
     <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
     <None Include="AssetDiagram.cd" />
     <None Include="DemoMeisterDiagram.cd" />
+    <None Include="Assets\PipeLineRepo\Deferred\DemoMeister.cd" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="AF.mp3" />
@@ -238,6 +341,11 @@
     <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_Stencil_LightPass.xml" />
     <Xml Include="Assets\GlobalMaterialVault\Stone\Seamless.xml" />
     <Xml Include="Assets\GlobalMaterialVault\Stone\Deferred.xml" />
-    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_PointStencilCombined_LightPass.txt" />
+    <Xml Include="Assets\PipeLineRepo\Deferred\Deferred_GBUFFER_PointStencilCombined_LightPass.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="Assets\XMLSchema.xsd">
+      <Filter>Header Files</Filter>
+    </Xsd>
   </ItemGroup>
 </Project>

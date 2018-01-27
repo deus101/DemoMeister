@@ -1,28 +1,28 @@
 #ifndef RENDRER_HPP
 #define RENDRER_HPP
 //   model kaller på rendrer eller loop henter shader, matrial og modell indexer
-#include "../SceneGraph/composite.h"
-#include "../SceneGraph/camera.h"
-#include "../Math/math3d.h"
-#include "../Rendrer/context.h"
-#include "../Rendrer/callbacks.h"
+#include <SceneGraph/composite.h>
+#include <SceneGraph/camera.h>
+//#include "../Math/math3d.h"
+#include <Rendrer/context.h>
+#include <Rendrer/callbacks.h>
 
 #include <SceneGraph/modelNode.h>
 #include <SceneGraph/gridNode.h>
 #include <SceneGraph/pointLightNode.h>
 #include <SceneGraph/dirLightNode.h>
 #include <Engine/model.h>
-#include "../bass.h"
-#include "../Timer.h"
+#include <bass.h>
+#include <Timer.h>
 
-#include "../util.h"
+#include <util.h>
 
 //Im planning to making this a abstract class of the pass items
 
 
 //Should not refer directly to the packets, indirectly through pass system
-#include "ShaderFu/DeferredPackets/aoPacket.h"
-#include "ShaderFu/DeferredPackets/RayMarcher.h"
+#include <DemoMeister\ShaderFu\DeferredPackets\aoPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h>
 
 //yes I know I need a proper system for passes. 
 //2017: its comming but it really shouldnt...fuck engine coding! WHY DIDNT I LISTEN TO THE OTHERS!?

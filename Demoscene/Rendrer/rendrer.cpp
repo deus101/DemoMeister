@@ -1,11 +1,11 @@
 #include "rendrer.h"
 
 
-#include "../SceneGraph/node.h"
-#include "../SceneGraph/transform.h"
-#include "../SceneGraph/assetNode.h"
-#include "../SceneGraph/modelNode.h"
-#include "../SceneGraph/gridNode.h"
+#include <SceneGraph/node.h>
+#include <SceneGraph/transform.h>
+#include <SceneGraph/assetNode.h>
+#include <SceneGraph/modelNode.h>
+#include <SceneGraph/gridNode.h>
 
 
 #include <vector>
@@ -370,6 +370,7 @@ void rendrer::RenderSceneCB()
 		ip->sNode->NullMagic->Enable();
 
 		TheDisc->MasterList_Buffers[0]->EnablePass(2);
+
 
 		ip->sNode->NullMagic->SetWorldMatrix(ip->sW);
 

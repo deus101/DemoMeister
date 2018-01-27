@@ -10,7 +10,8 @@
 #include "materials.h"
 //#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 //#include "../ShaderFu/DeferredPackets/HeightMapPacket.h"
-#include "../Rendrer/context.h"
+//Really need to get rid of this shit
+#include <Rendrer/context.h>
 
 
 namespace NS_ENG{

@@ -5,7 +5,7 @@
 //#include "shaders.h"
 #include "../Engine/model.h"
 
-#include <Rendrer\ShaderFu\DeferredPackets\GeomPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\GeomPacket.h>
 //#include "../ShaderFu/DeferredPackets/GeomPacket.h"
 
 

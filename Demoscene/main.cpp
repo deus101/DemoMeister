@@ -31,13 +31,13 @@
 //eh
 
 
-#include "Rendrer\ShaderFu\DeferredPackets\aoPacket.h"
-#include "Rendrer\ShaderFu\DeferredPackets\RayMarcher.h"
+#include <DemoMeister\ShaderFu\DeferredPackets\aoPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h>
 
 
 
 //#include "world.h"
-#include "Productions\WCD_1_HackSpace\WCD_1.h"
+#include <Productions\WCD_1_HackSpace\WCD_1.h>
 
 
 

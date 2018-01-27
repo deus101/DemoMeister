@@ -6,7 +6,7 @@
 #include <string>
 #include <string.h>
 #include "asset.h"
-#include "../Math/vec.h"
+#include <Math\vec.h>
 
 
 //ok so think about changing these parameters per Model Object... or globally  The name itself could do the trick.

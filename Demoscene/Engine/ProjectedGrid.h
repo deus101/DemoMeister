@@ -8,9 +8,9 @@
 
 #include "mesh.h"
 #include "materials.h"
-#include "../ShaderFu/GeomPacket.h"
-#include "../ShaderFu/HeightMapPacket.h"
-#include "../Rendrer/context.h"
+#include <DemoMeister\ShaderFu\DeferredPackets\GeomPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\HeightMapPacket.h>
+#include  <Rendrer/context.h>
 
 
 namespace NS_ENG {

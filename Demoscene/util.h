@@ -27,7 +27,7 @@ typedef boost::tuple< std::string, std::size_t, bool> tup_PassLookup;
 typedef std::list<tup_PassLookup> LookupList;
 
 
-#include "math/math3d.h"
+#include <math/math3d.h>
 
 
 typedef boost::tuple< std::string, GLenum, GLint, int, int, int, bool> tup_Samplers;

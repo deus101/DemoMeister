@@ -12,9 +12,9 @@
 
 #include "util.h"
 #include "Engine\asset.h"
-#include <Rendrer\BufferFu\base_buffer.h>
-#include <Rendrer\BufferFu\gbuffer.h>
-#include <Rendrer\BufferFu\aobuffer.h>
+#include <DemoMeister\BufferFu\base_buffer.h>
+#include <DemoMeister\BufferFu\gbuffer.h>
+#include <DemoMeister\BufferFu\aobuffer.h>
 
 #include "SceneGraph\node.h"
 #include "SceneGraph\objTransform.h"
@@ -30,9 +30,9 @@
 
 
 
-#include <Rendrer\ShaderFu\renderPacket.h>
-#include <Rendrer\ShaderFu\DeferredPackets\aoPacket.h>
-#include <Rendrer\ShaderFu\DeferredPackets\RayMarcher.h>
+#include <DemoMeister\ShaderFu\renderPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\aoPacket.h>
+#include <DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h>
 
 
 #include "Engine\ShaderItem.h"

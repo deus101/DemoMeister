@@ -1,6 +1,6 @@
 #include "model.h"
 //#include "materials.h"
-#include "AssetMapClasses/map.h"
+#include <Engine\AssetMapClasses\ArrayMap.h>
 #include <iostream>
 
 #include <boost\tokenizer.hpp>
