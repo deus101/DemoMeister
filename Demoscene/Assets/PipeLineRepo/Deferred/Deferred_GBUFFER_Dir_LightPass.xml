@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pass name="Gbuffer_DirLights" packet="DirLightPacket" packetInstance="LightPacket_DirLights_Default" PassValue="350" Buffer="GBuffer" BufferLocalPass="3">
+<pass name="Gbuffer_DirLights" packet="NS_EFF::DirLightPacket" packetInstance="LightPacket_DirLights_Default" PassValue="350" Buffer="GBuffer" BufferLocalPass="3">
   <requirements>
-    <packet Name="AoPass" Intimacy="-50">
+    <packet Name="NS_EFF::AoPass" Intimacy="-50">
       Need the AOBufferMap
     </packet>
   </requirements>

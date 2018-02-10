@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pass name="Gbuffer_Stencil" packet="NullPacket" packetInstance="LightPacket_Pointlight_Stencil" PassValue="200" Buffer="GBuffer" BufferLocalPass="2">
+<pass name="Gbuffer_Stencil" packet="NS_EFF::NullPacket" packetInstance="LightPacket_Pointlight_Stencil" PassValue="200" Buffer="GBuffer" BufferLocalPass="2">
   <!---->requirements>
   <!---->/requirements>
   <Base_Shaders vertex="1" geometry="0" fragment="1">

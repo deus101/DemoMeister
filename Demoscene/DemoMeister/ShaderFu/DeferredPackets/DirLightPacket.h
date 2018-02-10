@@ -9,7 +9,7 @@
 //#include "lights_common.h"
 namespace NS_EFF{
 
-	class DirLightPacket : public lightPacket {
+	class DirLightPacket : public lightPacket<DirLightPacket>{
 	public:
 
 		DirLightPacket();

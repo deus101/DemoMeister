@@ -77,7 +77,7 @@ void Material::LoadMats( const char *param)
 			std::cout << "-material name: " << NS_ENG::Material::ClassMaterialList.back()->Mat_Name << endl;
 			NS_ENG::Material::ClassMaterialList.back()->Tex_Has_BumpTexture = FALSE;
 			NS_ENG::Material::ClassMaterialList.back()->Tex_Has_DiffuseTexture = FALSE;
-			NS_ENG::Material::ClassMaterialList.back()->Mat_MatID =  NS_ENG::Material::ClassMaterialList.size();
+			NS_ENG::Material::ClassMaterialList.back()->Mat_MatID = (GLint) NS_ENG::Material::ClassMaterialList.size();
 		}
 		if(strcmp (id, "Kd") == 0)
 		{
@@ -130,7 +130,7 @@ void Material::LoadMats( const char *param)
 				
 			char path[80] = "";
 
-			fscanf_s (mtlFile, "%79s", path, sizeof(path));
+			fscanf_s (mtlFile, "%79s", path, (unsigned int)size(path));
 			
 			string tmp_S_Path(path);
 
@@ -203,7 +203,7 @@ std::string Material::Shaderfy() {
 	//BUT NOT THIS YEAR!
 
 
-	int nr_mats = ClassMaterialList.size();
+	int nr_mats =(int) ClassMaterialList.size();
 
 
 
@@ -259,7 +259,7 @@ GLuint Material::GeneratebaseMaterialMap() {
 
 
 	
-	int nr_mats = NS_ENG::Material::ClassMaterialList.size();
+	int nr_mats = (int)NS_ENG::Material::ClassMaterialList.size();
 
 
 

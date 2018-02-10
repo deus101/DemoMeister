@@ -7,7 +7,7 @@
 namespace NS_EFF{
 
 	//class GeomPacket : public renderPacket {
-	class GeomPacket : public DeferredPipeMother {
+	class GeomPacket : public DeferredPipeMother<GeomPacket> {
 	public:
 
 		GeomPacket();

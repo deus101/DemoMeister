@@ -35,7 +35,7 @@ namespace NS_EFF{
 
 		virtual ~renderPacket();
 
-
+		virtual renderPacket *clone() const = 0;
 
 		virtual bool Init();
 
@@ -119,6 +119,12 @@ namespace NS_EFF{
 
 	};
 
-
+	template <typename ConcretePacket>
+	class Packet_CRTP : public renderPacket {
+	public:
+		virtual renderPacket *clone() const {
+			return  new ConcretePacket(static_cast<ConcretePacket const&>(*this));
+		}
+	};
 }
 #endif

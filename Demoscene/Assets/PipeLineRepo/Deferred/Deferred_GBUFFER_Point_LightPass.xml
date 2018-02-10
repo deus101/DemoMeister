@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pass name="Gbuffer_PointLight" packet="PointLightPacket" packetInstance="LightPacket_Pointlight_Default" PassValue="225" Buffer="GBuffer" BufferLocalPass="3">
+<pass name="Gbuffer_PointLight" packet="NS_EFF::PointLightPacket" packetInstance="LightPacket_Pointlight_Default" PassValue="225" Buffer="GBuffer" BufferLocalPass="3">
   <requirements>
     <packet Name="Gbuffer_Stencil" Intimacy="-1">
       Add to the same RenderQueque Item, use same assembly.

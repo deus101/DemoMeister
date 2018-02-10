@@ -7,7 +7,7 @@
 namespace NS_EFF {
 
 	//class RayMarcher : public renderPacket {
-	class RayMarcher : public DeferredPipeMother {
+	class RayMarcher : public DeferredPipeMother<RayMarcher> {
 	public:
 
 		RayMarcher();

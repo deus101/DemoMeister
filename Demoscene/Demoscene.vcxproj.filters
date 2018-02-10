@@ -137,6 +137,12 @@
     <ClCompile Include="DemoMeister\ShaderFu\DeferredPackets\RayMarcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Properties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\TaskQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h">
@@ -316,6 +322,15 @@
     <ClInclude Include="DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="API\object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Properties.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\TaskQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Productions\WCD_1_HackSpace\ProductionVault\Assets\Stalagmite.mtl" />
@@ -326,7 +341,7 @@
     <None Include="Assets\GlobalShaderVault\FrameCasting\hg_sdf.glsl" />
     <None Include="AssetDiagram.cd" />
     <None Include="DemoMeisterDiagram.cd" />
-    <None Include="Assets\PipeLineRepo\Deferred\DemoMeister.cd" />
+    <None Include="DemoMeister.cd" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="AF.mp3" />

@@ -407,24 +407,24 @@ int main(int argc, char** argv)
 
 	boost::filesystem::path RunLocation(path);
 #define REGISTER_CLASS(n) g_factory.register_class<n>(#n)
-	REGISTER_CLASS(NS_EFF::GeomPacket);
 	REGISTER_CLASS(AoBuffer);
 	REGISTER_CLASS(GBuffer);
-	/*
+
+	
 	//Squiddy.load(RunLocation.remove_filename().std::string());
 	REGISTER_CLASS(NS_EFF::GeomPacket);
 	REGISTER_CLASS(NS_EFF::DeferredPipeMother);
 	REGISTER_CLASS(NS_EFF::RayMarcher);
 	REGISTER_CLASS(NS_EFF::lightPacket);
 
-
+	REGISTER_CLASS(NS_EFF::NullPacket);
 	REGISTER_CLASS(NS_EFF::DirLightPacket);
 	REGISTER_CLASS(NS_EFF::PointLightPacket);
 	REGISTER_CLASS(NS_EFF::aoPacket);
-	REGISTER_CLASS(NS_EFF::renderPacket);
+	
 
 
-
+	/*
 	//REGISTER_CLASS(NS_ENG::Material);
 	//REGISTER_CLASS(base_buffer);
 	REGISTER_CLASS(AoBuffer);

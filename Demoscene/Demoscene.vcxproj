@@ -314,6 +314,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Properties.cpp" />
+    <ClCompile Include="Core\TaskQueue.cpp" />
     <ClCompile Include="DemoMeister\BufferFu\aobuffer.cpp" />
     <ClCompile Include="DemoMeister\BufferFu\base_buffer.cpp" />
     <ClCompile Include="DemoMeister\BufferFu\gbuffer.cpp" />
@@ -354,6 +356,9 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClCompile Include="SceneGraph\node.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="API\object.h" />
+    <ClInclude Include="Core\Properties.h" />
+    <ClInclude Include="Core\TaskQueue.h" />
     <ClInclude Include="DemoMeister\BufferFu\aobuffer.h" />
     <ClInclude Include="DemoMeister\BufferFu\base_buffer.h" />
     <ClInclude Include="DemoMeister\BufferFu\gbuffer.h" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pass name="Gbuffer_Forward" packet="GeomPacket" packetInstance="Geometry_Default" PassValue="100" Buffer="GBuffer" BufferLocalPass="1">
+<pass name="Gbuffer_Forward" packet="NS_EFF::GeomPacket" packetInstance="Geometry_Default" PassValue="100" Buffer="GBuffer" BufferLocalPass="1">
   
   
   <Base_Shaders vertex="1" geometry="0" fragment="1">

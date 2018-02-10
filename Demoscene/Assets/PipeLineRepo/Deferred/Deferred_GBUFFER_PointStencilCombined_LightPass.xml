@@ -3,7 +3,7 @@
 <stage name="Deferred_PointLight" PassValue="200">
 
   <pass name="Gbuffer_Stencil" packet="NullPacket" packetInstance="LightPacket_Pointlight_Stencil" LocalPassValue="0" >
-    <packet type="NullPacket" packetInstance="LightPacket_Pointlight_Stencil">
+    <packet type="NS_EFF::NullPacket" packetInstance="LightPacket_Pointlight_Stencil">
       <requirements>
       </requirements>
       <Shaders>
@@ -25,7 +25,7 @@
 
   <pass name="Gbuffer_PointLight" LocalPassValue="25">
 
-    <packet type="PointLightPacket" packetInstance="LightPacket_Pointlight_Default">
+    <packet type="NS_EFF::PointLightPacket" packetInstance="LightPacket_Pointlight_Default">
       <requirements>
         <ShaderItem Name="DeferredMaterialFunction" Path="DeferredMaterialFetch.glsl" Target="#Type:Fragment" Marker="#include MaterialFunction">
           <Input></Input>
@@ -33,11 +33,11 @@
         </ShaderItem>
       </requirements>
       <Shaders>
-        <ShaderItem Path="LightPacket_Utility_Pass_Vertex.glsl" Target="#ShadObj:1" Marker="#include MaterialFunction" >
+        <ShaderItem Path="LightPacket_Utility_Pass_Vertex.glsl" Target="#ShadObj:1" Marker="#BaseShader" >
           <Input></Input>
           <Output></Output>
         </ShaderItem>
-        <ShaderItem Path="LightPacket_Point_Frag.glsl" Target="#FBO" Marker="#include MaterialFunction" >
+        <ShaderItem Path="LightPacket_Point_Frag.glsl" Target="#FBO" Marker="#BaseShader" >
           <Input></Input>
           <Output></Output>
         </ShaderItem>

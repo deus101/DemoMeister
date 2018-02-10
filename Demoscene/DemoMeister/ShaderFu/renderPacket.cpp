@@ -389,3 +389,4 @@ GLint renderPacket::GetProgramParam(GLint param)
 	glGetProgramiv(m_shaderProg, param, &ret);
 	return ret;
 }
+#define Derive_Packet_CRTP(Type) class Type: public Packet_CRTP<Type>

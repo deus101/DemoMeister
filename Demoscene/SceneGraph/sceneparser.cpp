@@ -176,12 +176,14 @@ public:
 	{
 		std::string fileName = getString(xmlElem, "file");
 		//GBuffer::
+		boost::shared_ptr<NS_SG::modelNode> ret;
+		/*
 		boost::shared_ptr<NS_SG::modelNode> ret(new modelNode(
 			getString(xmlElem, "name"),
 			&NS_ENG::model(basename + fileName + ".obj", basename + fileName + ".mtl"),
 			&NS_EFF::GeomPacket()
 			));
-
+		*/
 		return ret;
 	}
 

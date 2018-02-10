@@ -9,7 +9,9 @@
 
 namespace NS_EFF{
 	//class lightPacket : public renderPacket {
-	class lightPacket : public DeferredPipeMother {
+
+	template <typename T>
+	class lightPacket : public DeferredPipeMother<T> {
 	public:
 
 		lightPacket();

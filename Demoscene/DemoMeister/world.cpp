@@ -457,14 +457,24 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 	//Prototype names, Todo: look in declaration for links for possible solutions now just get on with it.
 	
 	
-	
-	
 	idx = this->RetriveEffectID(TypeName, Name);
 	
 	
+	if (idx == false)
+	{
+
+		NS_EFF::renderPacket* TemplateObject = (NS_EFF::renderPacket*)(g_factory.construct(TypeName));
 
 
-	
+		MasterList_Packets.push_back(sp_RenderPacket((TemplateObject->clone())));
+		//MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::GeomPacket()));
+		MasterList_Packets.back()->SetName(Name);
+		//MasterList_Packets.back()->Init(ResolutionX, ResolutionY);
+		idx = MasterList_Packets.size();
+
+	}
+
+	/*
 	if (idx == false)
 	{
 
@@ -521,7 +531,7 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 
 
 	}
-
+	*/
 	return idx;
 
 }

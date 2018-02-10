@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pass name="Gbuffer_RayMarch" packet="RayMarcher" packetInstance="Geometry_RayMarch_Default" PassValue="200" Buffer="GBuffer" BufferLocalPass="1">
+<pass name="Gbuffer_RayMarch" packet="NS_EFF::RayMarcher" packetInstance="Geometry_RayMarch_Default" PassValue="200" Buffer="GBuffer" BufferLocalPass="1">
 
 
   <Base_Shaders vertex="1" geometry="0" fragment="1">

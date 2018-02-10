@@ -42,23 +42,23 @@
 class PassItemnator
 {
 	std::string RepoName;
-	
+
 	//std::string ProductioFolder;
 public:
-	
+
 	PassItemnator();
 	int load(const std::string &filename);
 	void save();
 	void deploy();
 
 	void SetName(std::string arg) { Name = arg; }
-	
-	
+
+
 	std::string GetName() { return Name; }
-	
+
 	//NS_ENG::NS_SHADER::ShaderItemPtr GetShaderComposition(GLenum Type)
-	NS_ENG::NS_SHADER::BaseShaderItemPtr GetShaderComposition(GLenum Type) { 
-		if(hasVertexShader && Type == GL_VERTEX_SHADER)
+	NS_ENG::NS_SHADER::BaseShaderItemPtr GetShaderComposition(GLenum Type) {
+		if (hasVertexShader && Type == GL_VERTEX_SHADER)
 			return VertexCode;
 		if (hasGeometryShader && Type == GL_GEOMETRY_SHADER)
 			return GeometryCode;
@@ -71,6 +71,8 @@ public:
 private:
 	tinyxml2::XMLDocument xml_PassRepo;
 	//PassItem::ptree  PassData;
+
+	//Ugh, pointless!
 	boost::filesystem::path HumbleXML;
 	boost::filesystem::path AssetGlobalLocation;
 	boost::filesystem::path AssetProduction;
@@ -103,7 +105,7 @@ public:
 
 
 	bool hasVertexShader, hasGeometryShader, hasFragmentShader;
-	
+
 
 
 };
@@ -117,8 +119,12 @@ typedef boost::shared_ptr< NS_EFF::renderPacket >  sp_RenderPacket;
 typedef boost::shared_ptr< base_buffer >  sp_Buffer;
 typedef boost::shared_ptr< PassItemnator >  sp_PassItemnator;
 
-typedef boost::shared_ptr< NS_EFF::RayMarcher >  sp_RaymarchPacket;
-typedef boost::shared_ptr< NS_EFF::GeomPacket >  sp_GeomPacket;
+
+//typedef boost::shared_ptr< NS_EFF::RayMarcher >  sp_RaymarchPacket;
+//typedef boost::shared_ptr< NS_EFF::GeomPacket >  sp_GeomPacket;
+
+
+
 
 
 template <class T> void* constructor() { return (void*)new T(); }
@@ -156,30 +162,30 @@ class DemoMeister //would inheriting from the Composite/Root Node be a good idea
 
 
 
-//public:
+	//public:
 
 
 
-//All Initialisation data, custom or no clutters up the main or where ever.
-//For each prod I'm working on I'll create a template in the Production Folder with a 
-//simple concrete version of this class in a similarly named c++/h.
+	//All Initialisation data, custom or no clutters up the main or where ever.
+	//For each prod I'm working on I'll create a template in the Production Folder with a 
+	//simple concrete version of this class in a similarly named c++/h.
 
 
-//If I want to add custom models, experiment, overload a few classes and generally fuck about then the Base code and Assets don't have
-//to be modified.
-//My idea is to be able to create demos with only two tabs open in the IDE.
+	//If I want to add custom models, experiment, overload a few classes and generally fuck about then the Base code and Assets don't have
+	//to be modified.
+	//My idea is to be able to create demos with only two tabs open in the IDE.
 
-//Further more as this is a singelton its a safe place to add and implement runtime libraries like GUIs, Bass and a place to deal with those damn.
-//sync objects
+	//Further more as this is a singelton its a safe place to add and implement runtime libraries like GUIs, Bass and a place to deal with those damn.
+	//sync objects
 
 
-//There will also be a deploy function for release using data gathered and saved with DeployDebug build.
+	//There will also be a deploy function for release using data gathered and saved with DeployDebug build.
 public:
 
 	//remember destructors, carefull with utilizing the constructor before opengl is initialized,
 	//the way its setup no it wont.
-	
-	
+
+
 	//should be protected or private, but this is only a base class...
 	DemoMeister();
 
@@ -194,9 +200,9 @@ public:
 
 	void AddPass(const std::string &filename);
 
-	
 
-	
+
+
 
 	//returns the index which it was placed, if type is not found, it returns -2, if name is not found returns -1.
 	//If the Name and Type(better just make it Name) allready exsist, its index is returned.
@@ -211,9 +217,9 @@ public:
 	//things are gonna get confusing pretty quick however. Which Is why I plan to use a prototype pattern 
 	//and a quantifiable identifier. 
 	//This is one of the main reasons Im doing this, I want a material system
-	
+
 	void AddNode();
-	
+
 	void AddAsset();
 
 	void AddMaterial();
@@ -225,7 +231,7 @@ public:
 
 
 
-	
+
 
 
 
@@ -263,7 +269,7 @@ public:
 		if (this->MasterList_Packets.size() < idx || idx == 0)
 			return NULL;
 
-	
+
 
 		return &*(boost::static_pointer_cast<T>(this->MasterList_Packets.at(idx - 1)));
 	}
@@ -286,7 +292,7 @@ public:
 	//These really should be templated  
 	size_t RetriveBufferID(const std::string &Type, const std::string &Name);
 
-	
+
 	sp_Buffer RetriveBuffer(size_t idx);
 
 
@@ -296,7 +302,7 @@ public:
 
 
 	//Actually it all should start with the first material.
-	bool InitEffects(const std::string &Type , const std::string &Name, size_t idx);
+	bool InitEffects(const std::string &Type, const std::string &Name, size_t idx);
 
 	void InitBuffers();
 
@@ -328,7 +334,7 @@ public:
 
 
 
-//Should be private, need Getters and prototypes
+	//Should be private, need Getters and prototypes
 public:
 	typedef std::vector< sp_RenderPacket > vec_EffectPackets;
 	typedef std::vector< sp_Buffer > vec_BufferContainer;

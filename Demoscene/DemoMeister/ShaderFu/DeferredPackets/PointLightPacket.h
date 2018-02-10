@@ -5,7 +5,7 @@
 #include "lightPacket.h"
 namespace NS_EFF{
 
-	class PointLightPacket : public lightPacket
+	class PointLightPacket : public lightPacket<PointLightPacket>
 	{
 	public:
 

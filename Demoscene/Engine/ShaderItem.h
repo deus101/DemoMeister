@@ -12,39 +12,14 @@ namespace NS_ENG
 	namespace NS_SHADER
 	{
 
-		
-		/*
-		enum TypeOfShader
-		{
-			BaseVertex, BaseGeometry, BaseFragment,
-			IncludeVertex, IncludeGeometry, IncludeFragment,
-			MaterialFetchVertex, MaterialFetchGeometry, MaterialFetchFragment,
-			TextureFetchVertex, TextureFetchGeometry, TextureFetchFragment
-		};
-		*/
 
 
-		/*
-		enum ShaderUtilityType
-		{
-			BaseVertex, IncludeVertex, MaterialFetchVertex, TextureFetchVertex,
-			BaseGeometry, IncludeGeometry, MaterialFetchGeometry, TextureFetchGeometry,
-			BaseFragment, IncludeFragment, MaterialFetchFragment, TextureFetchFragment,
-		};
-		
-
-		enum ShaderUtilityType
-		{
-			Base, Include, MaterialFetch, TextureFetch,
-
-		};
-		*/
 		enum ShaderUtilityType
 		{
 			Base, Include,
 
 		};
-	
+
 		//They are within a name space, still.
 
 		//these should go to their respective classes
@@ -54,10 +29,11 @@ namespace NS_ENG
 		typedef boost::shared_ptr< class BaseShaderItem > BaseShaderItemPtr;
 		typedef boost::shared_ptr< class IncludeComponentItem > IncludeComponentItemPtr;
 
-		
+
 		typedef boost::tuple< std::string, std::string, int, GLint, GLenum> tup_InnOut;
 		typedef boost::tuple< std::string, std::string, int, GLint, GLenum> tup_Uniform;
 		typedef std::list<NS_ENG::NS_SHADER::tup_Uniform> UniformList;
+		
 		//typedef std::list<NS_ENG::NS_SHADER::tup_Uniform*> UniformList_Ptr;
 
 		//typedef std::list< ShaderItem* > Nodes;
@@ -69,11 +45,11 @@ namespace NS_ENG
 
 		public:
 			ShaderItem();
-			ShaderItem(GLenum _ShaderType ,const std::string &filePath, const std::string &deployPath, ShaderUtilityType type);
-			
+			ShaderItem(GLenum ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType type);
+
 
 			void Load();
-			
+
 			void Init() {};
 			void Save();
 			void Deploy();
@@ -93,14 +69,14 @@ namespace NS_ENG
 
 			void CopyShaderPerLine(std::string*);
 
-			bool StartExpressionList(std::string, std::string,int Start);
+			bool StartExpressionList(std::string, std::string, int Start);
 			bool AddTuple(std::string);
-			bool StopExpressionList(std::string,int Stop);
+			bool StopExpressionList(std::string, int Stop);
 			size_t GetSize() { return TotalSize; };
 			size_t GetLines() { return TotalLines; };
 
 			std::string path;
-		//private:
+			//private:
 		protected:
 			size_t TotalSize;
 			size_t TotalLines;
@@ -108,7 +84,7 @@ namespace NS_ENG
 			bool IsLoaded;
 
 			std::vector<const GLchar*> veccstr;
-		
+
 			std::vector<std::string> ShaderLines;
 
 			std::vector<std::string*> CopyShader;
@@ -128,7 +104,7 @@ namespace NS_ENG
 
 
 		};
-	
+
 		class IncludeComponentItem : public ShaderItem
 		{
 
@@ -137,11 +113,11 @@ namespace NS_ENG
 		public:
 
 			//CompositeShader(const std::string &filePath, const std::string &deployPath, TypeOfShader);
-			IncludeComponentItem( std::string _Marker) : ShaderItem(), Marker(_Marker)
+			IncludeComponentItem(std::string _Marker) : ShaderItem(), Marker(_Marker)
 			{};
 			//IncludeComponentItem(GLenum _ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type, std::string _Marker) : ShaderItem(_ShaderType, filePath, deployPath, Type), Marker(_Marker){};
 			IncludeComponentItem(GLenum _ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type, std::string _Marker);
-			
+
 
 			std::string Load(std::vector<std::string> &ParentShader);
 
@@ -153,24 +129,24 @@ namespace NS_ENG
 		};
 
 
-	
+
 		class CompositeShader : public ShaderItem
 		{
 
-		
+
 
 		public:
 
 			//CompositeShader(const std::string &filePath, const std::string &deployPath, TypeOfShader);
 			CompositeShader();
-			CompositeShader(GLenum _ShaderType , const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type)
+			CompositeShader(GLenum _ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType Type)
 				: ShaderItem(_ShaderType, filePath, deployPath, Type) { };
-			
+
 
 			//void AddShader(const std::string &filePath, const std::string &deployPath, TypeOfShader type);
 			void AddShader(ShaderItemPtr &newItem);
-			
-		//private:
+
+			//private:
 		protected:
 
 			ShaderContainerPtr ShaderSourceComponents;
@@ -185,13 +161,13 @@ namespace NS_ENG
 
 		public:
 
-			
+
 			//std::vector<tup_Uniform> Uniforms;
 
 			BaseShaderItem(void);
-			BaseShaderItem(GLenum _ShaderType ,const std::string &filePath, const std::string &deployPath, ShaderUtilityType type);
+			BaseShaderItem(GLenum _ShaderType, const std::string &filePath, const std::string &deployPath, ShaderUtilityType type);
 			//void AddShader(GLenum _ShaderType, const std::string &filePath, const std::string &Name, ShaderUtilityType type, std::string marker_id);
-			void AddShader(GLenum _ShaderType , std::string filePath,  std::string Name, ShaderUtilityType type,std::string marker_id);
+			void AddShader(GLenum _ShaderType, std::string filePath, std::string Name, ShaderUtilityType type, std::string marker_id);
 
 			void Load();
 			//void RetriveUniforms(UniformList_Ptr);
@@ -201,6 +177,32 @@ namespace NS_ENG
 			//std::vector<std::string> ShaderLines;
 
 		};
-		
+
+		class ShaderProgramFactory : public BaseShaderItem
+		{
+
+
+
+		public:
+
+
+			//std::vector<tup_Uniform> Uniforms;
+			
+			ShaderProgramFactory(void);
+			ShaderProgramFactory(const std::string &deployPath);
+			//void AddShader(GLenum _ShaderType, const std::string &filePath, const std::string &Name, ShaderUtilityType type, std::string marker_id);
+			void AddShader(GLenum _ShaderType, std::string filePath, std::string Name, ShaderUtilityType type, std::string marker_id);
+
+			void Load();
+			//void RetriveUniforms(UniformList_Ptr);
+			void RetriveUniforms(UniformList * Current);
+			private:
+			//Tuple_List Vec_Markers;
+			//std::vector<std::string> ShaderLines;
+
+		};
+
+
 	}
 }
+

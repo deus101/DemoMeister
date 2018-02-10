@@ -26,8 +26,8 @@ uniform vec3 gEyeWorldPos;
 //const bool debug = true; 
 //const bool debug = false; 
 
-const float focalLenght = 1.67f;
-//const float focalLenght = 0.67f; 
+//const float focalLenght = 1.67f;
+const float focalLenght = 0.67f; 
 //const float focalLenght = 1.52; 
 //const float focalLenght = 0.52; 
 
@@ -72,7 +72,7 @@ float sdBox(vec3 p, vec3 size)
 	return min(max(d.x, max(d.y, d.z)), 0.0f) + udBox(p, size);
 }
 
-
+ 
 float archModel(inout vec3 p)
 { 
 	//vec2 translate = vec2(5.0f, 2.0f);
@@ -271,7 +271,8 @@ void main()
 
 
 	//focalLenght
-	vec3 rayOrigin = vec3(0.0, 0.0, 0.0);
+	vec3 rayOrigin = vec3(0.0, 0.0, 1.0f)*focalLenght;
+	//vec3 rayOrigin = vec3(0.0, 0.0, 0.0);
 
 	mat4 CamToWorld = gWVP * transpose(commonViewMatrix);
 
