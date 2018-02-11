@@ -465,8 +465,8 @@ size_t  DemoMeister::AddEffect(const std::string &TypeName,const std::string &Na
 
 		NS_EFF::renderPacket* TemplateObject = (NS_EFF::renderPacket*)(g_factory.construct(TypeName));
 
-
-		MasterList_Packets.push_back(sp_RenderPacket((TemplateObject->clone())));
+		MasterList_Packets.push_back(sp_RenderPacket((TemplateObject)));
+		//MasterList_Packets.push_back(sp_RenderPacket((TemplateObject->clone())));
 		//MasterList_Packets.push_back(sp_RenderPacket(new NS_EFF::GeomPacket()));
 		MasterList_Packets.back()->SetName(Name);
 		//MasterList_Packets.back()->Init(ResolutionX, ResolutionY);

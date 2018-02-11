@@ -39,6 +39,7 @@ void LookUpMaterial(float ID, out vec4 MatDiffuse, out vec4 MatSpecular)
 	float PZ_MM_Y = 1 / textureSize(baseMaterialMap, 0).y;
 	float PZ_MM_X = 1 / textureSize(baseMaterialMap, 0).x;
 	float fixID = (ID * PZ_MM_Y) * 0.5;
+
 	//float fixDataSet = (DataSet * PZ_MM_X) * 0.5;
 	MatDiffuse = vec4(texture(baseMaterialMap, vec2((1 * PZ_MM_X) * 0.5, fixID)).xyz, 1.0);
 	MatSpecular = vec4(texture(baseMaterialMap, vec2((2 * PZ_MM_X) * 0.5, fixID)).xyz, 1.0);
@@ -79,15 +80,20 @@ void main()
 
 
 	LookUpMaterialTexture(ModelData.x,MatTextureInfo);
-
-
-	DiffuseOut =  texture(baseArrayDiffuse0, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
+	//float PZ_MM_Y = 1 / textureSize(baseMaterialMap, 0).y;
+	//float PZ_MM_X = 1 / textureSize(baseMaterialMap, 0).x;
+	//float fixID = (ModelData.x * (PZ_MM_Y*PZ_MM_X)) * 0.5;
+	DiffuseOut = texture(baseArrayDiffuse0, vec3(vec2(TexCoord0), floor(MatTextureInfo.y +0.35))).xyz;
+	//DiffuseOut = texture(baseArrayDiffuse0, vec3(vec2(TexCoord0), floor(float(int(MatTextureInfo.y)) + 0.5))).xyz;
+	//DiffuseOut = texture(baseArrayDiffuse0, vec3(vec2(TexCoord0), floor(MatTextureInfo.y + 0.5))).xyz;
+	//DiffuseOut =  texture(baseArrayDiffuse0, vec3(vec2(TexCoord0),float(int(MatTextureInfo.y)))).xyz;
 	//DiffuseOut = MatDiffuseColor.xyz;
 	//DiffuseOut = MatTextureInfo;
 	NormalOut = normalize(Normal0);
 	//TexCoordOut     = vec3(TexCoord0, 0.0);	
-	//cheap hack	
-	//TexCoordOut     = vec3(TexCoord0,floor(ModelData.x+0.1));
-	TexCoordOut = vec3(TexCoord0, ModelData.x);
+	//cheap hack	MatTextureInfo.y
+	TexCoordOut     = vec3(TexCoord0,floor(ModelData.x+0.5));
+	//TexCoordOut = vec3(TexCoord0, ModelData.x);
+	//TexCoordOut = vec3(TexCoord0, floor(ModelData.x + 0.1));
 	//TexCoordOut     = vec3(TexCoord0,2);	
 }

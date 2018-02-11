@@ -7,9 +7,10 @@
 #include "../DeferredPipeMother.h"
 #include "lightPacket.h"
 //#include "lights_common.h"
-namespace NS_EFF{
+namespace NS_EFF {
 
-	class DirLightPacket : public lightPacket<DirLightPacket>{
+	//class DirLightPacket : public lightPacket<DirLightPacket>{
+	class DirLightPacket : public lightPacket {
 	public:
 
 		DirLightPacket();

@@ -10,10 +10,12 @@
 #include "../util.h"
 
 #include "../Engine/ShaderItem.h"
-namespace NS_EFF{
+namespace NS_EFF {
 
 
 	//typedef std::list<NS_ENG::NS_SHADER::tup_Uniform> UniformList;
+	//class DeferredPipeMother;
+	//class GeomPacket;
 
 
 	class renderPacket
@@ -35,13 +37,13 @@ namespace NS_EFF{
 
 		virtual ~renderPacket();
 
-		virtual renderPacket *clone() const = 0;
+		//virtual renderPacket *clone() const = 0;
 
 		virtual bool Init();
 
 		void Enable();
 
-		
+
 		void SetName(std::string arg);
 		std::string GetName();
 
@@ -83,9 +85,9 @@ namespace NS_EFF{
 		std::string PassName;
 		//int PassIndex;
 		std::size_t PassIndex;
-		
+
 		bool PassLinked;
-		
+
 		bool b_Custom_GLSL_Targets;
 
 
@@ -105,20 +107,21 @@ namespace NS_EFF{
 
 		typedef std::list<ShaderObj> ShaderObjList;
 
-		
-		
+
+
 
 
 		ShaderObjList m_shaderObjList;
-		
+
 
 		GLuint world, world_inv, view, view_inv, projection, worldview, worldview_inv, worldviewprojection, matWVP_inv;
 		GLuint viewPos, viewDir;
 
-		
+
 
 	};
 
+	/*
 	template <typename ConcretePacket>
 	class Packet_CRTP : public renderPacket {
 	public:
@@ -126,5 +129,7 @@ namespace NS_EFF{
 			return  new ConcretePacket(static_cast<ConcretePacket const&>(*this));
 		}
 	};
+
+	*/
 }
 #endif

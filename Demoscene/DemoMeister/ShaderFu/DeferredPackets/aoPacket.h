@@ -9,8 +9,8 @@ namespace NS_EFF {
 
 
 	//class aoPacket : public renderPacket {
-	class aoPacket : public DeferredPipeMother<aoPacket>{
-
+	//class aoPacket : public DeferredPipeMother<aoPacket>{
+	class aoPacket : public DeferredPipeMother {
 	public:
 
 

@@ -4,8 +4,11 @@
 
 #include "../renderPacket.h"
 #include "../DeferredPipeMother.h"
-namespace NS_EFF{
-	class NullPacket : public DeferredPipeMother<NullPacket> {
+namespace NS_EFF {
+	//class NullPacket : public DeferredPipeMother<NullPacket> {
+
+	class NullPacket : public DeferredPipeMother
+	{
 	public:
 
 		NullPacket();

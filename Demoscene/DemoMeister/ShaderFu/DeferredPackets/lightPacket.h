@@ -7,11 +7,14 @@
 #include "../DeferredPipeMother.h"
 #include "../../util.h"
 
-namespace NS_EFF{
-	//class lightPacket : public renderPacket {
+namespace NS_EFF {
 
+	/*
 	template <typename T>
 	class lightPacket : public DeferredPipeMother<T> {
+	*/
+
+	class lightPacket : public DeferredPipeMother {
 	public:
 
 		lightPacket();
@@ -20,13 +23,13 @@ namespace NS_EFF{
 
 		/*
 		void SetWVP(const M3DMatrix44f& WVP);
-		
+
 		void SetWorldMatrix(const M3DMatrix44f& W);
 
 		void SetViewMatrix(const M3DMatrix44f& V);
 
 		void SetProjectionMatrix(const M3DMatrix44f& P);
-		
+
 		void SetPositionTextureUnit(unsigned int TextureUnit);
 		//void SetIdTextureUnit(unsigned int TextureUnit);
 		void SetColorTextureUnit(unsigned int TextureUnit);
@@ -36,8 +39,8 @@ namespace NS_EFF{
 
 		void SetMaterialMapUnit(unsigned int TextureUnit);
 		void SetMaterialsCount(unsigned int MatCount);
-		
-		
+
+
 		void SetPositionTextureUnit(GLenum TextureUnit);
 		//void SetIdTextureUnit(unsigned int TextureUnit);
 		void SetColorTextureUnit(GLenum TextureUnit);
@@ -53,7 +56,7 @@ namespace NS_EFF{
 		//void SetSSAOTextureUnit(unsigned int TextureUnit);
 
 		void SetEyeWorldPos(const NS_VEC::VEC3& EyeWorldPos);
-		
+
 		void SetMatSpecularIntensity(float Intensity);
 		void SetMatSpecularPower(float Power);
 		void SetScreenSize(unsigned int Width, unsigned int Height);

@@ -1,10 +1,5 @@
 #include "util.h"
-//#include <iostream>
-//#include <fstream>
-
-#include <DemoMeister\world.h>
-//#include "Rendrer\context.h"
-
+#include <iostream>
 
 void DeploymentOrganizer::load(const std::string &filename)
 {

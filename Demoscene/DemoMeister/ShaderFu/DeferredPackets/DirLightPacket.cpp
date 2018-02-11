@@ -22,7 +22,7 @@ bool DirLightPacket::Init()
 	if (!LoadShader(GL_VERTEX_SHADER, "shaders/IdentityPacket.vert")) {
 		return false;
 	}
-
+			
 	if (!LoadShader(GL_FRAGMENT_SHADER, "shaders/dir_light_pass.fs")) {
 		return false;
 	}

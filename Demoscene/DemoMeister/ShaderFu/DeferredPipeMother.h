@@ -9,11 +9,12 @@ namespace NS_EFF {
 
 
 	
-	//class DeferredPipeMother : public renderPacket {
-
+	
+	/*
 	template <typename T>
 	class DeferredPipeMother : public Packet_CRTP<T> {
-
+	*/
+	class DeferredPipeMother : public renderPacket {
 
 	public:
 		DeferredPipeMother();

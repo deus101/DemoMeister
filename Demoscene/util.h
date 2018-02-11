@@ -1,19 +1,14 @@
-#ifndef UTIL_HPP
-#define	UTIL_HPP
+#ifndef UTIL_HPP_876BA70D_0A2B_48DE_BA9C_D6BAA8BF7DCE
+#define	UTIL_HPP_876BA70D_0A2B_48DE_BA9C_D6BAA8BF7DCE
 
 
 //#include "Engine\asset.h"
 //#include <stdlib.h>
 //#include <stdio.h>
-//#include <cstdlib>
+
 #include <typeinfo>
 #include <set>
 #include <map>
-//#include <Windows.h>
-//#include <Shlwapi.h>
-
-//#include <boost/shared_ptr.hpp>
-//#include <boost/make_shared.hpp>
 
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ini_parser.hpp>
@@ -34,19 +29,6 @@ typedef boost::tuple< std::string, GLenum, GLint, int, int, int, bool> tup_Sampl
 //typedef std::list<tup_Samplers> SamplerList;
 typedef std::vector<tup_Samplers> SamplerList;
 
-/*
-bool samplerComparator(const tup_Samplers &lhs, const tup_Samplers &rhs) {
-	return boost::get<4>(lhs) < boost::get<4>(rhs);
-};
-
-*/
-
-//#include "Rendrer/context.h"
-
-//#include "world.h"
-//
-//#include "math/vec.h"
-//#include <GLFW/glfw3.h>
 
 class DemoMeister;
 extern DemoMeister * TheDisc;

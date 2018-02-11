@@ -5,14 +5,14 @@
 
 #include <Windows.h>
 
-#include <GL/glew.h>
 
+#include <math/math3d.h>
 
 #include <GLFW/glfw3.h>
 
 
 
-#include <math/math3d.h>
+
 
 
 //#include "../world.h"

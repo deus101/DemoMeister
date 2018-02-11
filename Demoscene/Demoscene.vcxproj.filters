@@ -18,6 +18,9 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{54854334-843d-442b-9405-68eb2009fdfe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SceneGraph">
+      <UniqueIdentifier>{922a40e0-0ced-41f8-bbdc-2809770c24af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -145,12 +148,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sync.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -241,9 +238,6 @@
     <ClInclude Include="Engine\Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FreeImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\ShaderItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -329,6 +323,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\TaskQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MapUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

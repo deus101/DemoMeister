@@ -1,5 +1,8 @@
-#ifndef WORLD_HPP
-#define WORLD_HPP
+#ifndef WORLD_HPP_45BCF931_A6B1_4C12_BD84_855A9C8F3933
+#define WORLD_HPP_45BCF931_A6B1_4C12_BD84_855A9C8F3933
+
+
+
 
 
 //#include "Rendrer\gbuffer.h"
@@ -23,7 +26,7 @@
 #include "SceneGraph\composite.h"
 //#include "SceneGraph\modelNode.h"
 
-/*SG*/
+
 
 
 
@@ -31,8 +34,8 @@
 
 
 #include <DemoMeister\ShaderFu\renderPacket.h>
-#include <DemoMeister\ShaderFu\DeferredPackets\aoPacket.h>
-#include <DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h>
+//#include <DemoMeister\ShaderFu\DeferredPackets\aoPacket.h>
+//#include <DemoMeister\ShaderFu\DeferredPackets\RayMarcher.h>
 
 
 #include "Engine\ShaderItem.h"

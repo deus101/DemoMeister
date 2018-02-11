@@ -286,8 +286,8 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_65_1;E:\3rdPartyTools\glfw-3.2.1.bin.WIN64\include;E:\3rdPartyTools\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WIN32;_DEBUG;GLFW_DLL;_CONSOLE_LIB;BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\3rdPartyTools\boost_1_66_0;E:\3rdPartyTools\glfw-3.2.1.bin.WIN64\include;E:\3rdPartyTools\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <ShowIncludes>false</ShowIncludes>
@@ -302,7 +302,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)Libs\x64;E:\3rdPartyTools\glew-2.1.0\lib\Release\x64;E:\3rdPartyTools\glfw-3.2.1.bin.WIN64\lib-vc2015;E:\3rdPartyTools\boost_1_65_1\stage\VS2017\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Libs\x64;E:\3rdPartyTools\glew-2.1.0\lib\Release\x64;E:\3rdPartyTools\glfw-3.2.1.bin.WIN64\lib-vc2015;E:\3rdPartyTools\boost_1_66_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>legacy_stdio_definitions.lib;Shlwapi.lib;glu32.lib;opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;gdi32.lib;winmm.lib;user32.lib;bass.lib;librocketd.lib;freeimage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <LinkStatus>true</LinkStatus>
@@ -357,6 +357,7 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="API\object.h" />
+    <ClInclude Include="Core\MapUtility.h" />
     <ClInclude Include="Core\Properties.h" />
     <ClInclude Include="Core\TaskQueue.h" />
     <ClInclude Include="DemoMeister\BufferFu\aobuffer.h" />
@@ -387,14 +388,12 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="Engine\GridPoints.h" />
     <ClInclude Include="Engine\AssetMapClasses\FileTexture.h" />
     <ClInclude Include="Engine\ShaderItem.h" />
-    <ClInclude Include="FreeImage.h" />
     <ClInclude Include="Productions\WCD_1_HackSpace\WCD_1.h" />
     <ClCompile Include="Productions\WCD_1_HackSpace\WCD_1.cpp" />
     <ClInclude Include="SceneGraph\gridNode.h" />
     <ClInclude Include="Math\matrix.h" />
     <ClInclude Include="Rendrer\callbacks.h" />
     <ClInclude Include="SceneGraph\assetNode.h" />
-    <ClInclude Include="bass.h" />
     <ClInclude Include="SceneGraph\camera.h" />
     <ClInclude Include="SceneGraph\composite.h" />
     <ClInclude Include="Rendrer\context.h" />
@@ -413,7 +412,6 @@ $(ProjectDir)\BuildDeployIni.bat  "$(TargetDir)" "$(ProjectDir)"</Command>
     <ClInclude Include="SceneGraph\node.h" />
     <ClInclude Include="SceneGraph\objTransform.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="sync.h" />
     <ClInclude Include="SceneGraph\targetNode.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="SceneGraph\transform.h" />
