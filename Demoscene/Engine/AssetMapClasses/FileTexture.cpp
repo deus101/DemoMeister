@@ -102,7 +102,7 @@ int FileTexture::Load(FileTextureDesc* FileTexMeta)
 		this->textura = new GLubyte[3 * w*h];
 		char* pixeles = (char*)FreeImage_GetBits(imagen);
 
-
+		//warning C6386 : Buffer overrun while writing to 'this->textura' : the writable size is '3*w*h*1' bytes, but '4' bytes might be written.
 		for (int j = 0; j < w*h; j++) {
 			this->textura[j * 3 + 0] = pixeles[j * 3 + 2];
 			this->textura[j * 3 + 1] = pixeles[j * 3 + 1];

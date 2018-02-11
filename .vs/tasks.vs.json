@@ -15,6 +15,11 @@
       "taskName": "task-Productions",
       "appliesTo": "Demoscene/Productions/",
       "type": "launch"
+    },
+    {
+      "taskName": "task-DemoEngine",
+      "appliesTo": "/",
+      "type": "launch"
     }
   ]
 }
