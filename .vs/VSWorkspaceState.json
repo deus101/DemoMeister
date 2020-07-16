@@ -1,14 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+    "\\DataMeister\\DemoMeister",
+    "\\DataMeister\\DemoMeister\\Concepts",
+    "\\DataMeister\\DemoMeister\\Concepts\\Map",
+    "\\DataMeister\\DemoMeister\\Concepts\\Map\\Data",
+    "\\DataMeister\\DemoMeister\\Concepts\\Material",
+    "\\DataMeister\\DemoMeister\\Concepts\\Material\\File",
+    "\\DataMeister\\DemoMeister\\Concepts\\Mesh",
+    "\\DataMeister\\DemoMeister\\Concepts\\Models",
     "\\Demoscene",
-    "\\Demoscene\\Engine",
-    "\\Demoscene\\Engine\\AssetMapClasses",
-    "\\Demoscene\\Engine\\MaterialClasses",
-    "\\Demoscene\\Productions",
-    "\\Demoscene\\Productions\\WCD_1_HackSpace",
-    "\\Demoscene\\SceneGraph"
+    "\\Demoscene\\DemoMeister"
   ],
-  "SelectedNode": "\\Demoscene\\SceneGraph\\lightNode.h",
+  "SelectedNode": "\\DataMeister",
   "PreviewInSolutionExplorer": false
 }
